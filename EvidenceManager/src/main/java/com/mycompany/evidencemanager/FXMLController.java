@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class FXMLController implements Initializable {
+    private LoginTest lgt;
     
     private Label label;
     @FXML
@@ -27,6 +28,6 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void handleLoginAction(ActionEvent event) {
-        
+        this.lgt = new LoginTest(this.userNameTF.getText(), this.passwordTF.getText());
     }
 }
