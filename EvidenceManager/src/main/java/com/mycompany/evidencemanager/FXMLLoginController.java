@@ -1,5 +1,7 @@
 package com.mycompany.evidencemanager;
 
+import io.swagger.client.ApiException;
+import io.swagger.client.Client;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -11,6 +13,7 @@ import javafx.scene.control.TextField;
 
 public class FXMLLoginController implements Initializable {
     private LoginTest lgt;
+    private Client client;
     
     private Label label;
     @FXML
@@ -19,16 +22,21 @@ public class FXMLLoginController implements Initializable {
     private TextField passwordTF;
     @FXML
     private Button loginBTN;
+    @FXML
+    private Label loginLabel;
 
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        this.client = new Client();
     }    
     
     @FXML
-    private void handleLoginAction(ActionEvent event) {
-        this.lgt = new LoginTest(this.userNameTF.getText(), this.passwordTF.getText());
-        System.out.println(this.lgt.toString());
+    private void handleLoginAction(ActionEvent event) throws ApiException {
+        if (this.client.doSomeLogin(this.userNameTF.getText(), this.passwordTF.getText())) {
+            this.loginLabel.setText("Godt logget ind!");
+        } else {
+            this.loginLabel.setText("Prøv igen..");
+        }
     }
 }

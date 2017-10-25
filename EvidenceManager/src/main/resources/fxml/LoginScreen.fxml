@@ -15,6 +15,7 @@
                <children>
                   <Label text="Brugernavn" />
                   <TextField fx:id="userNameTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
+                  <Label fx:id="loginLabel" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="8.0">
