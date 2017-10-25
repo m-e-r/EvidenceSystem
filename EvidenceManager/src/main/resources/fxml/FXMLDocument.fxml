@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="617.0" prefWidth="1129.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="gui.example.FXMLDocumentController">
+    <children>
+      <TabPane prefHeight="617.0" prefWidth="1129.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Case information">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField prefHeight="17.0" prefWidth="482.0" text="Search cases" />
+                        <TextField layoutX="14.0" layoutY="72.0" prefHeight="25.0" prefWidth="95.0" text="Case nr." />
+                        <TextArea layoutX="14.0" layoutY="110.0" prefHeight="200.0" prefWidth="200.0" text="Case describtion (includes the following;&#10;location, status, personel responsible&#10;, suspect(s), category)" />
+                        <ListView layoutX="282.0" layoutY="110.0" prefHeight="200.0" prefWidth="200.0" />
+                        <Label layoutX="341.0" layoutY="89.0" text="List of evidence" />
+                        <TextField layoutX="282.0" layoutY="354.0" prefHeight="25.0" prefWidth="88.0" text="Evidence nr." />
+                        <TextArea layoutX="282.0" layoutY="379.0" prefHeight="200.0" prefWidth="200.0" text="Evidence information and &#10;description connected to the case" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Case editor">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView layoutX="23.0" layoutY="31.0" prefHeight="200.0" prefWidth="240.0" />
+                        <Label layoutX="77.0" layoutY="14.0" text="Select a case to edit:" />
+                        <Label layoutX="42.0" layoutY="295.0" text="Information about the case:" />
+                        <TextArea layoutX="15.0" layoutY="312.0" prefHeight="126.0" prefWidth="200.0" text="Description (includes the following;&#10;information about the time and date,&#10;circumstances surrounding the case&#10;and additional iformation)&#10;" />
+                        <RadioButton layoutX="50.0" layoutY="447.0" mnemonicParsing="false" text="Active" />
+                        <RadioButton layoutX="115.0" layoutY="447.0" mnemonicParsing="false" text="Inactive" />
+                        <Label layoutX="82.0" layoutY="437.0" text="Case Status:" />
+                        <ListView layoutX="238.0" layoutY="312.0" prefHeight="200.0" prefWidth="212.0" />
+                        <Label layoutX="245.0" layoutY="295.0" text="List of evidence attached  to the case:" />
+                        <Button layoutX="238.0" layoutY="519.0" mnemonicParsing="false" text="Add evidence" />
+                        <Button layoutX="344.0" layoutY="519.0" mnemonicParsing="false" text="Remove evidence" />
+                        <Label layoutX="469.0" layoutY="311.0" text="If &quot;add evidence&quot; or &quot;edit evidence&quot; is pressed:" />
+                        <TextField layoutX="469.0" layoutY="328.0" prefHeight="25.0" prefWidth="90.0" text="Evidence nr." />
+                        <TextField layoutX="565.0" layoutY="328.0" prefHeight="25.0" prefWidth="81.0" text="Category" />
+                        <TextField layoutX="469.0" layoutY="362.0" prefHeight="25.0" prefWidth="127.0" text="Personel responsible" />
+                        <TextField layoutX="469.0" layoutY="399.0" prefHeight="25.0" prefWidth="183.0" text="Location" />
+                        <RadioButton layoutX="471.0" layoutY="437.0" mnemonicParsing="false" text="Digital" />
+                        <RadioButton layoutX="544.0" layoutY="437.0" mnemonicParsing="false" text="Physical" />
+                        <Button layoutX="23.0" layoutY="231.0" mnemonicParsing="false" text="Edit case" />
+                        <Label layoutX="116.0" layoutY="265.0" text="If &quot;edit case&quot; or &quot;add case&quot; is pressed:" />
+                        <Button layoutX="97.0" layoutY="231.0" mnemonicParsing="false" text="Add case" />
+                        <Button layoutX="172.0" layoutY="231.0" mnemonicParsing="false" text="Remove case" />
+                        <TextField layoutX="6.0" layoutY="471.0" prefHeight="25.0" prefWidth="128.0" text="Personel responsible" />
+                        <TextField layoutX="149.0" layoutY="471.0" prefHeight="25.0" prefWidth="59.0" text="Case nr." />
+                        <TextField layoutX="6.0" layoutY="500.0" prefHeight="25.0" prefWidth="129.0" text="Prime suspect (if any)" />
+                        <TextField layoutX="10.0" layoutY="532.0" prefHeight="25.0" prefWidth="121.0" text="Additional suspects" />
+                        <TextField layoutX="141.0" layoutY="500.0" prefHeight="25.0" prefWidth="79.0" text="Category" />
+                        <Button layoutX="146.0" layoutY="532.0" mnemonicParsing="false" text="Add" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+    </children>
+</AnchorPane>
