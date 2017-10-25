@@ -24,4 +24,9 @@ public class LoginTest {
     public String getPassword() {
         return this.password;
     }
+    
+    @Override
+    public String toString() {
+        return this.userName + "\n" + this.password;
+    }
 }
