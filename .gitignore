@@ -4,3 +4,6 @@
 /EvidenceManager/target/
 /EvidenceManager/jaxrs-server-generated-2/target/
 /EvidenceManager/jaxrs-server-generated/target/
+/EvidenceManager/clientStuff/target/
+/EvidenceManager/EvidenceManagerClient/target/
+/EvidenceManager/EvidenceManagerServer/target/
