@@ -1,7 +1,7 @@
 package com.mycompany.evidencemanager;
 
 import io.swagger.client.ApiException;
-import io.swagger.client.Client;
+import io.swagger.client.ServerConnect;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 
 public class FXMLLoginController implements Initializable {
     private LoginTest lgt;
-    private Client client;
+    private ServerConnect client;
     
     private Label label;
     @FXML
@@ -28,16 +28,18 @@ public class FXMLLoginController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.client = new Client();
+        this.client = new ServerConnect();
     }    
     
     @FXML
     private void handleLoginAction(ActionEvent event) throws ApiException {
         
-        //Do not delete the spaces! Does not work with NULL or String = "";
+        //Format expected by the server when the user leaves the textfields empty;
         String userName = " ";
         String password = " ";
         
+        
+        //Set the strings if textfields are not empty
         if(!this.userNameTF.getText().trim().isEmpty()){
             userName = this.userNameTF.getText();
         }
@@ -46,6 +48,8 @@ public class FXMLLoginController implements Initializable {
             password = this.passwordTF.getText();
         }
         
+        
+        //Send the information the the server
         if (this.client.doSomeLogin(userName, password)) {
             this.loginLabel.setText("Godt logget ind!");
         } else {
