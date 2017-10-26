@@ -33,7 +33,20 @@ public class FXMLLoginController implements Initializable {
     
     @FXML
     private void handleLoginAction(ActionEvent event) throws ApiException {
-        if (this.client.doSomeLogin(this.userNameTF.getText(), this.passwordTF.getText())) {
+        
+        //Do not delete the spaces! Does not work with NULL or String = "";
+        String userName = " ";
+        String password = " ";
+        
+        if(!this.userNameTF.getText().trim().isEmpty()){
+            userName = this.userNameTF.getText();
+        }
+        
+        if (!this.passwordTF.getText().trim().isEmpty()){
+            password = this.passwordTF.getText();
+        }
+        
+        if (this.client.doSomeLogin(userName, password)) {
             this.loginLabel.setText("Godt logget ind!");
         } else {
             this.loginLabel.setText("Prøv igen..");
