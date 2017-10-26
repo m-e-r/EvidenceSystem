@@ -17,7 +17,7 @@ public class Client {
     
     public Client() {
         this.ac = new ApiClient();
-        this.ac.setBasePath("http://10.126.93.21:8080/kasper1/EvidenceManagerAPI/1");
+        this.ac.setBasePath("http://localhost:8080/kasper1/EvidenceManagerAPI/1");
         this.la = new LoginApi(ac);
     }
     
