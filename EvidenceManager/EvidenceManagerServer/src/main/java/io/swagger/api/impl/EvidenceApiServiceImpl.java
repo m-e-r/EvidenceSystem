@@ -1,5 +1,6 @@
 package io.swagger.api.impl;
 
+import dbConnection.sqlStatement;
 import io.swagger.api.*;
 import io.swagger.model.*;
 
@@ -17,9 +18,11 @@ import javax.ws.rs.core.SecurityContext;
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-26T09:35:04.468Z")
 public class EvidenceApiServiceImpl extends EvidenceApiService {
+    
+    IsqlStatement i = new sqlStatement();
+    
     @Override
     public Response findEvidence(String keyWord, SecurityContext securityContext) throws NotFoundException {
-        // do some magic!
-        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
+        return Response.ok().entity(this.i.findEvidence(keyWord)).build();
     }
 }

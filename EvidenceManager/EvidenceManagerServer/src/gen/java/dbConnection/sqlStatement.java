@@ -1,5 +1,6 @@
 package dbConnection;
 
+import io.swagger.api.impl.IsqlStatement;
 import dbConnection.dbConnection;
 import io.swagger.model.CriminalCase;
 import io.swagger.model.Evidence;
@@ -18,7 +19,7 @@ import org.apache.commons.lang3.NotImplementedException;
  *
  * @author Bruger
  */
-public class sqlStatement {
+public class sqlStatement implements IsqlStatement {
 
     private dbConnection db;
 
