@@ -16,7 +16,7 @@ import javax.ws.rs.core.SecurityContext;
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-26T09:35:04.468Z")
 public class CaseApiServiceImpl extends CaseApiService {
     
-    IsqlStatement i = new sqlStatement();
+    private sqlStatement i;
     
     @Override
     public Response addCase(CriminalCase theCase, SecurityContext securityContext) throws NotFoundException {
