@@ -5,26 +5,27 @@
  */
 package io.swagger.client;
 
-import io.swagger.client.api.DefaultApi;
+import io.swagger.client.api.LoginApi;
 
 /**
  *
  * @author Kasper
  */
 public class Client {
-
-    private ApiClient client;
-    private DefaultApi da;
+    private ApiClient ac;
+    LoginApi la;
     
     public Client() {
-        this.client = new ApiClient();    
-        client.setBasePath("http://localhost:8080/kasper1/LoginTester/1");
-        this.da = new DefaultApi(client);
+        this.ac = new ApiClient();
+        this.ac.setBasePath("http://localhost:8080/kasper1/EvidenceManagerAPI/1");
+        this.la = new LoginApi(ac);
     }
+    
     
     public boolean doSomeLogin(String userName, String password) throws ApiException {
-        return this.da.findTheObject(userName, password);
+        
+        boolean ans = this.la.doLogin(userName, password);
+        System.out.println(ans);
+        return ans;
     }
-
-    
 }
