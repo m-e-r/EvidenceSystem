@@ -16,11 +16,22 @@ import javax.ws.rs.core.SecurityContext;
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-26T09:35:04.468Z")
 public class LoginApiServiceImpl extends LoginApiService {
+    private int count;
     @Override
     public Response doLogin(String userName, String password, SecurityContext securityContext) throws NotFoundException {
-    	System.out.println("What");
+    	//First couple of lines just for testing...
+        System.out.println("What " + this.count);
+        this.count++;
+        
+
         boolean ans;
-    	if (userName.equals("Jacob") && password.equals("password")) {
+
+        //Expected input if the user has left the textfields in the client empty
+        if (userName.equals(" ") || password.equals(" ")) {
+            ans = false;
+
+        //Else, check if user has acces    
+    	} else if (userName.equals("Jacob") && password.equals("password")) {
     		ans = true;
     	} else {
     		ans = false;
