@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
  * @author Kasper
  */
 public class FXMLCaseController implements Initializable {
+    private IServerConnect connect;
 
     /**
      * Initializes the controller class.
@@ -22,6 +23,10 @@ public class FXMLCaseController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }   
+    
+    public void initData(IServerConnect connector) {
+        this.connect = connector;
+    }
     
 }
