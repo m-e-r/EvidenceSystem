@@ -26,6 +26,7 @@ import javafx.scene.control.TextField;
  * @author Kasper
  */
 public class FXMLCaseController implements Initializable {
+    private IServerConnect connect;
 
     @FXML
     private TextField caseSearchTF;
@@ -77,7 +78,9 @@ public class FXMLCaseController implements Initializable {
     private Button addSuspectBTN;
     @FXML
     private TextField caseTitleTF;
-     ServerConnect sc = new ServerConnect();
+    @FXML
+    private Button addNewCaseBTN;
+   
     /**
      * Initializes the controller class.
      */
@@ -146,7 +149,12 @@ public class FXMLCaseController implements Initializable {
 
         
         
-        this.sc.addCase(cc);
+        if(this.connect.addCase(cc)){
+            System.out.println("Succesful");
+            
+        } else {
+            System.err.println("You're an idiot, try again");
+        }
      
     }
 
@@ -178,4 +186,8 @@ public class FXMLCaseController implements Initializable {
     private void addSuspect(ActionEvent event) {
     }
     
+   
+    public void initData(IServerConnect isc){
+        this.connect = isc;
+    }
 }
