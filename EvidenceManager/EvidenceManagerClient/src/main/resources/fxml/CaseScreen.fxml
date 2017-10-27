@@ -4,68 +4,77 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" prefHeight="617.0" prefWidth="1129.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="com.mycompany.evidencemanager.FXMLCaseController">
+<AnchorPane id="AnchorPane" prefHeight="395.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.evidencemanager.FXMLCaseController">
     <children>
-      <TabPane prefHeight="617.0" prefWidth="1129.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Case information">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="617.0" prefWidth="1129.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <SplitPane dividerPositions="0.5013309671694764" prefHeight="617.0" prefWidth="1129.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <TextField prefHeight="17.0" prefWidth="482.0" text="Search cases" />
-                        <TextField layoutX="14.0" layoutY="72.0" prefHeight="25.0" prefWidth="95.0" text="Case nr." />
-                        <TextArea layoutX="14.0" layoutY="110.0" prefHeight="200.0" prefWidth="200.0" text="Case describtion (includes the following;&#10;location, status, personel responsible&#10;, suspect(s), category)" />
-                        <ListView layoutX="282.0" layoutY="110.0" prefHeight="200.0" prefWidth="200.0" />
-                        <Label layoutX="341.0" layoutY="89.0" text="List of evidence" />
-                        <TextField layoutX="282.0" layoutY="354.0" prefHeight="25.0" prefWidth="88.0" text="Evidence nr." />
-                        <TextArea layoutX="282.0" layoutY="379.0" prefHeight="200.0" prefWidth="200.0" text="Evidence information and &#10;description connected to the case" />
+                        <RadioButton fx:id="inactiveRBTN" layoutX="419.0" layoutY="255.0" mnemonicParsing="false" onAction="#caseInactive" text="Inactive" />
+                        <Label layoutX="185.0" layoutY="21.0" text="Information about the case:" />
+                        <TextArea fx:id="caseInfoTA" layoutX="43.0" layoutY="38.0" prefHeight="169.0" prefWidth="449.0" text="Description (includes the following;&#10;information about the time and date,&#10;circumstances surrounding the case&#10;and additional iformation)&#10;" />
+                        <RadioButton fx:id="activeRBTN" layoutX="346.0" layoutY="255.0" mnemonicParsing="false" onAction="#caseActive" prefHeight="0.0" prefWidth="54.0" text="Active" />
+                        <Label layoutX="379.0" layoutY="236.0" text="Case Status:" />
+                        <TextField fx:id="additionelSuspectTF" layoutX="42.0" layoutY="295.0" onAction="#addtionalSuspect" prefHeight="25.0" prefWidth="121.0" text="Additional suspects" />
+                        <TextField fx:id="caseCategoryTF" layoutX="114.0" layoutY="207.0" onAction="#caseCategory" prefHeight="25.0" prefWidth="79.0" text="Category" />
+                        <Button fx:id="addSuspectBTN" layoutX="61.0" layoutY="320.0" mnemonicParsing="false" onAction="#addSuspect" text="Add suspect" />
+                        <TextField fx:id="caseNrTF" layoutX="43.0" layoutY="207.0" onAction="#caseNrAdd" prefHeight="25.0" prefWidth="59.0" text="Case nr." />
+                        <TextField fx:id="primeSuspectTF" layoutX="179.0" layoutY="295.0" onAction="#primeSuspect" prefHeight="25.0" prefWidth="129.0" text="Prime suspect (if any)" />
+                        <TextField fx:id="caseLawenforcerTF" layoutX="40.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#lawenforcer" prefHeight="25.0" prefWidth="126.0" text="Assigned personel" />
+                        <Button layoutX="197.0" layoutY="576.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="33.0" prefWidth="121.0" text="Add case" textFill="#13d036" />
+                        <TextField fx:id="caseTitleTF" layoutX="40.0" layoutY="232.0" text="Title" />
+                        <TextField layoutX="179.0" layoutY="263.0" prefHeight="25.0" prefWidth="89.0" text="Rank" />
                      </children>
                   </AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Case editor">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <ListView layoutX="23.0" layoutY="31.0" prefHeight="200.0" prefWidth="240.0" />
-                        <Label layoutX="77.0" layoutY="14.0" text="Select a case to edit:" />
-                        <Label layoutX="42.0" layoutY="295.0" text="Information about the case:" />
-                        <TextArea layoutX="15.0" layoutY="312.0" prefHeight="126.0" prefWidth="200.0" text="Description (includes the following;&#10;information about the time and date,&#10;circumstances surrounding the case&#10;and additional iformation)&#10;" />
-                        <RadioButton layoutX="50.0" layoutY="447.0" mnemonicParsing="false" text="Active" />
-                        <RadioButton layoutX="115.0" layoutY="447.0" mnemonicParsing="false" text="Inactive" />
-                        <Label layoutX="82.0" layoutY="437.0" text="Case Status:" />
-                        <ListView layoutX="238.0" layoutY="312.0" prefHeight="200.0" prefWidth="212.0" />
-                        <Label layoutX="245.0" layoutY="295.0" text="List of evidence attached  to the case:" />
-                        <Button layoutX="238.0" layoutY="519.0" mnemonicParsing="false" text="Add evidence" />
-                        <Button layoutX="344.0" layoutY="519.0" mnemonicParsing="false" text="Remove evidence" />
-                        <Label layoutX="469.0" layoutY="311.0" text="If &quot;add evidence&quot; or &quot;edit evidence&quot; is pressed:" />
-                        <TextField layoutX="469.0" layoutY="328.0" prefHeight="25.0" prefWidth="90.0" text="Evidence nr." />
-                        <TextField layoutX="565.0" layoutY="328.0" prefHeight="25.0" prefWidth="81.0" text="Category" />
-                        <TextField layoutX="469.0" layoutY="362.0" prefHeight="25.0" prefWidth="127.0" text="Personel responsible" />
-                        <TextField layoutX="469.0" layoutY="399.0" prefHeight="25.0" prefWidth="183.0" text="Location" />
-                        <RadioButton layoutX="471.0" layoutY="437.0" mnemonicParsing="false" text="Digital" />
-                        <RadioButton layoutX="544.0" layoutY="437.0" mnemonicParsing="false" text="Physical" />
-                        <Button layoutX="23.0" layoutY="231.0" mnemonicParsing="false" text="Edit case" />
-                        <Label layoutX="116.0" layoutY="265.0" text="If &quot;edit case&quot; or &quot;add case&quot; is pressed:" />
-                        <Button layoutX="97.0" layoutY="231.0" mnemonicParsing="false" text="Add case" />
-                        <Button layoutX="172.0" layoutY="231.0" mnemonicParsing="false" text="Remove case" />
-                        <TextField layoutX="6.0" layoutY="471.0" prefHeight="25.0" prefWidth="128.0" text="Personel responsible" />
-                        <TextField layoutX="149.0" layoutY="471.0" prefHeight="25.0" prefWidth="59.0" text="Case nr." />
-                        <TextField layoutX="6.0" layoutY="500.0" prefHeight="25.0" prefWidth="129.0" text="Prime suspect (if any)" />
-                        <TextField layoutX="10.0" layoutY="532.0" prefHeight="25.0" prefWidth="121.0" text="Additional suspects" />
-                        <TextField layoutX="141.0" layoutY="500.0" prefHeight="25.0" prefWidth="79.0" text="Category" />
-                        <Button layoutX="146.0" layoutY="532.0" mnemonicParsing="false" text="Add" />
+                        <TextField fx:id="evidenceLocationTF" layoutX="14.0" layoutY="183.0" onAction="#evidenceLocation" prefHeight="25.0" prefWidth="183.0" text="Location" />
+                        <TextField fx:id="evidenceCategoryTF" layoutX="31.0" layoutY="138.0" onAction="#evidenceCategory" prefHeight="25.0" prefWidth="81.0" text="Category" />
+                        <Label layoutX="208.0" layoutY="107.0" text="List of evidence attached  to the case:" />
+                        <RadioButton fx:id="digialRBTN" layoutX="127.0" layoutY="38.0" mnemonicParsing="false" onAction="#digitalEvidence" text="Digital" />
+                        <RadioButton fx:id="physicalRBTN" layoutX="280.0" layoutY="55.0" mnemonicParsing="false" onAction="#physicalEvidence" text="Physical" />
+                        <TextField layoutX="106.0" layoutY="95.0" onAction="#evidenceNrAdd" prefHeight="25.0" prefWidth="90.0" text="Evidence nr." />
+                        <ListView fx:id="evidenceListLV" layoutX="183.0" layoutY="226.0" prefHeight="200.0" prefWidth="212.0" />
+                        <TextField fx:id="evidenceLawenforcerTF" layoutX="31.0" layoutY="425.0" onAction="#evidenceLawenforcer" prefHeight="25.0" prefWidth="127.0" text="Personel responsible" />
                      </children>
                   </AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
+              </items>
+            </SplitPane>
+         </children>
+      </AnchorPane>
+      <Pane prefHeight="617.0" prefWidth="1129.0" visible="false" />
+  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" visible="false">
+         <children>
+            <SplitPane dividerPositions="0.8455284552845529" orientation="VERTICAL" prefHeight="617.0" prefWidth="1129.0" AnchorPane.bottomAnchor="-437.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-929.0" AnchorPane.topAnchor="0.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                     <children>
+                        <TextArea fx:id="evidenceInfoTA" layoutX="643.0" layoutY="306.0" prefHeight="200.0" prefWidth="200.0" text="Evidence information and &#10;description connected to the case" />
+                        <ListView fx:id="caseEditLV" layoutX="22.0" layoutY="98.0" prefHeight="415.0" prefWidth="598.0" />
+                        <TextField fx:id="caseSearchTF" layoutX="22.0" layoutY="73.0" onAction="#searchCase" prefHeight="25.0" prefWidth="598.0" text="Search cases" />
+                        <TextArea fx:id="caseDescriptionTA" layoutX="643.0" layoutY="98.0" prefHeight="200.0" prefWidth="200.0" text="Case describtion (includes the following;&#10;location, status, personel responsible&#10;, suspect(s), category)" />
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="105.0" prefWidth="160.0">
+                     <children>
+                        <Button fx:id="editCaseBTN" layoutX="145.0" layoutY="2.0" mnemonicParsing="false" onAction="#editCase" text="Edit case" />
+                        <Button fx:id="addCaseBTN" layoutX="24.0" layoutY="2.0" mnemonicParsing="false" onAction="#addCase" text="Add new case" />
+                        <Button fx:id="removeEvidenceBTN" layoutX="465.0" layoutY="2.0" mnemonicParsing="false" onAction="#removeEvidence" text="Remove evidence" />
+                        <Button fx:id="removeCaseBTN" layoutX="351.0" layoutY="2.0" mnemonicParsing="false" onAction="#removeCase" text="Remove case" />
+                        <Button fx:id="addEvidenceBTN" layoutX="238.0" layoutY="2.0" mnemonicParsing="false" onAction="#addEvidence" text="Add evidence" />
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>
