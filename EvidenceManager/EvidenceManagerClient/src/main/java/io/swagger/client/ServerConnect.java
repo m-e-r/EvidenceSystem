@@ -40,7 +40,7 @@ public class ServerConnect implements IServerConnect{
 
     @Override
     public boolean addCase(CriminalCase theCase) throws ApiException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.cca.addCase(theCase);
     }
 
     @Override

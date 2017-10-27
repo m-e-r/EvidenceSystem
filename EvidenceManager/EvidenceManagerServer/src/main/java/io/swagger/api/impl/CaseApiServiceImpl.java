@@ -1,5 +1,6 @@
 package io.swagger.api.impl;
 
+import dbConnection.sqlStatement;
 import io.swagger.api.*;
 import io.swagger.model.*;
 
@@ -17,11 +18,20 @@ import javax.ws.rs.core.SecurityContext;
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-27T11:21:19.158Z")
 public class CaseApiServiceImpl extends CaseApiService {
-    
     private IsqlStatement i;
+<<<<<<< HEAD
    
+=======
+    
+    
+    public CaseApiServiceImpl() {
+        this.i = new sqlStatement();
+    }
+
+>>>>>>> 3f6a8a21a4445f3ab8c15611a9da70074f78fe4d
     @Override
     public Response addCase(CriminalCase theCase, SecurityContext securityContext) throws NotFoundException {
+        System.err.println("addCase fra caseApiImpl");
         return Response.ok().entity(this.i.addCase(theCase)).build();
     }
     
