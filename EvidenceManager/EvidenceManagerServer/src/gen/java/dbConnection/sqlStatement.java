@@ -22,6 +22,7 @@ import org.apache.commons.lang3.NotImplementedException;
  * @author Bruger
  */
 public class sqlStatement implements IsqlStatement {
+
     private List<Evidence> tempEvidenceList;
 
     private dbConnection db;
@@ -34,42 +35,49 @@ public class sqlStatement implements IsqlStatement {
     public boolean addCase(CriminalCase c) {
 
         String query = "INSERT INTO criminalcase (title, description) VALUES ('" + c.getCaseName() + "','" + c.getCaseDescription() + "');";
-        
+
         //this.tempEvidenceList = c.getEvidence();
         this.tempEvidenceList = new ArrayList(); //replace with line above when method is implemented
         this.tempEvidenceList.add(new Evidence()); //remove this as well..
+
+        this.handleEvidence(tempEvidenceList);
         
-        for (Evidence e : this.tempEvidenceList) {
-            if (e.getEvidenceNumber() == 0) {
-                this.addNewEvidence(e);
-            } else {
-                this.updateEvidence(e);
-            }
-        } 
         return db.updateQuery(query) == 1;
     }
-   
     
+    private void handleEvidence(List<Evidence> evidence){
+        this.tempEvidenceList = evidence;
+        if (!this.tempEvidenceList.isEmpty()) {
+            for (Evidence e : this.tempEvidenceList) {
+                if (e.getEvidenceNumber() == 0) {
+                    this.addNewEvidence(e);
+                } else {
+                    this.updateEvidence(e);
+                }
+            }
+        }
+    }
+
     private void addNewEvidence(Evidence e) {
         //IMPORTANT! REPLACE e.getLocation() with title when available!!!!!!
-        String query = "INSERT INTO evidence (title, description)\n" +
-                        "VALUES ('" + e.getLocation() + "', '" + e.getEvidenceDescription() + ");";       
+        String query = "INSERT INTO evidence (title, description)\n"
+                + "VALUES ('" + e.getLocation() + "', '" + e.getEvidenceDescription() + ");";
         db.updateQuery(query);
+        
     }
-    
+
     private void updateEvidence(Evidence e) {
         //IMPORTANT! REPLACE e.getLocation() with title when available!!!!!!
         String query = String.format("UPDATE evidence SET title = '%s', description = '%s' WHERE _ref = %d;",
-                        e.getLocation(), e.getEvidenceDescription(), e.getEvidenceNumber());
+                e.getLocation(), e.getEvidenceDescription(), e.getEvidenceNumber());
         db.updateQuery(query);
     }
 
-    
-    
     public boolean updateCase(CriminalCase c) {
 
-        String query = "UPDATE criminalcase SET title = '" + c.getCaseName() + "', description = '" + c.getCaseDescription() + "' WHERE _ref =" + c.getId() + ";";
-
+        String query = "UPDATE criminalcase SET title = '" + c.getCaseName() 
+                + "', description = '" + c.getCaseDescription() + "' WHERE _ref =" + c.getId() + ";";
+        
         return db.updateQuery(query) == 1;
     }
 
