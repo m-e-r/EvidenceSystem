@@ -2,18 +2,24 @@ package com.mycompany.evidencemanager;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class FXMLLoginController implements Initializable {
     private LoginTest lgt;
-    private ServerConnect client;
+    private IServerConnect connect;
     
     private Label label;
     @FXML
@@ -28,11 +34,11 @@ public class FXMLLoginController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.client = new ServerConnect();
+        this.connect = new ServerConnect();
     }    
     
     @FXML
-    private void handleLoginAction(ActionEvent event) throws ApiException {
+    private void handleLoginAction(ActionEvent event) throws ApiException, IOException {
         
         //Format expected by the server when the user leaves the textfields empty;
         String userName = " ";
@@ -50,10 +56,25 @@ public class FXMLLoginController implements Initializable {
         
         
         //Send the information the the server
-        if (this.client.doSomeLogin(userName, password)) {
-            this.loginLabel.setText("Godt logget ind!");
+        if (this.connect.doSomeLogin(userName, password)) {
+            this.showCaseStage(this.connect);
         } else {
             this.loginLabel.setText("Prøv igen..");
         }
+        
+
+
+    }
+    private Stage showCaseStage(IServerConnect connector) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CaseScreen.fxml"));
+
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene((Pane) loader.load()));
+
+        FXMLCaseController controller = loader.<FXMLCaseController>getController();
+        controller.initData(connector);
+        
+        stage.show();
+        return stage;
     }
 }
