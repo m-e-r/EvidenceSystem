@@ -35,14 +35,15 @@ public class sqlStatement implements IsqlStatement {
     public boolean addCase(CriminalCase c) {
         System.err.println("Fra addCase i sqlStatement");
 
-        String query = "INSERT INTO criminalcase (title, description) VALUES ('" + c.getCaseName() + "','" + c.getCaseDescription() + "');";
-
+        String query = "INSERT INTO criminalcase (title, description, status) VALUES "
+                + "('" + c.getCaseName() + "','" + c.getCaseDescription() + "','" + c.getStatus().toString() + "');";
         //this.tempEvidenceList = c.getEvidence();
         this.tempEvidenceList = new ArrayList(); //replace with line above when method is implemented
         Evidence ev = new Evidence();
         ev.setEvidenceDescription("Heyyo");
         ev.setEvidenceNumber(400);
         ev.setLocation("Here");
+        
         this.tempEvidenceList.add(ev); //remove this as well..
 
         this.handleEvidence(tempEvidenceList);

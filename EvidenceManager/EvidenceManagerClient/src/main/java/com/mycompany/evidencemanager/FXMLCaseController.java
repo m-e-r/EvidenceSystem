@@ -146,7 +146,7 @@ public class FXMLCaseController implements Initializable {
         cc.setCaseDescription(this.caseInfoTA.getText());
         cc.setCaseName(this.caseTitleTF.getText());
         cc.setId(Integer.parseInt(this.caseNrTF.getText()));
-
+        cc.setStatus(CriminalCase.StatusEnum.OPEN);
         
         
         if(this.connect.addCase(cc)){
