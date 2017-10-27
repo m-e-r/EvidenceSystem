@@ -26,7 +26,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the evidence API")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-26T09:35:04.468Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-27T11:21:19.158Z")
 public class EvidenceApi  {
    private final EvidenceApiService delegate = EvidenceApiServiceFactory.getEvidenceApi();
 
@@ -43,5 +43,16 @@ public class EvidenceApi  {
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.findEvidence(keyWord,securityContext);
+    }
+    @GET
+    
+    
+    
+    @io.swagger.annotations.ApiOperation(value = "Gets a list of evidence", notes = "Returns a list of evidence", response = Evidence.class, responseContainer = "List", tags={ "Evidence", })
+    @io.swagger.annotations.ApiResponses(value = { 
+        @io.swagger.annotations.ApiResponse(code = 200, message = "list of evidence", response = Evidence.class, responseContainer = "List") })
+    public Response getEvidenceList(@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.getEvidenceList(securityContext);
     }
 }

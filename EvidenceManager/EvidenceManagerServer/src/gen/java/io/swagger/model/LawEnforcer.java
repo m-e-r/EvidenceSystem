@@ -30,11 +30,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.model.CriminalCase;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * LawEnforcer
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-26T09:35:04.468Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-27T11:21:19.158Z")
 public class LawEnforcer   {
   @JsonProperty("userName")
   private String userName = null;
@@ -44,6 +47,9 @@ public class LawEnforcer   {
 
   @JsonProperty("employeeId")
   private Integer employeeId = null;
+
+  @JsonProperty("caseList")
+  private List<CriminalCase> caseList = new ArrayList<CriminalCase>();
 
   public LawEnforcer userName(String userName) {
     this.userName = userName;
@@ -99,6 +105,29 @@ public class LawEnforcer   {
     this.employeeId = employeeId;
   }
 
+  public LawEnforcer caseList(List<CriminalCase> caseList) {
+    this.caseList = caseList;
+    return this;
+  }
+
+  public LawEnforcer addCaseListItem(CriminalCase caseListItem) {
+    this.caseList.add(caseListItem);
+    return this;
+  }
+
+   /**
+   * Get caseList
+   * @return caseList
+  **/
+  @ApiModelProperty(value = "")
+  public List<CriminalCase> getCaseList() {
+    return caseList;
+  }
+
+  public void setCaseList(List<CriminalCase> caseList) {
+    this.caseList = caseList;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -111,12 +140,13 @@ public class LawEnforcer   {
     LawEnforcer lawEnforcer = (LawEnforcer) o;
     return Objects.equals(this.userName, lawEnforcer.userName) &&
         Objects.equals(this.password, lawEnforcer.password) &&
-        Objects.equals(this.employeeId, lawEnforcer.employeeId);
+        Objects.equals(this.employeeId, lawEnforcer.employeeId) &&
+        Objects.equals(this.caseList, lawEnforcer.caseList);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(userName, password, employeeId);
+    return Objects.hash(userName, password, employeeId, caseList);
   }
 
 
@@ -128,6 +158,7 @@ public class LawEnforcer   {
     sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    employeeId: ").append(toIndentedString(employeeId)).append("\n");
+    sb.append("    caseList: ").append(toIndentedString(caseList)).append("\n");
     sb.append("}");
     return sb.toString();
   }

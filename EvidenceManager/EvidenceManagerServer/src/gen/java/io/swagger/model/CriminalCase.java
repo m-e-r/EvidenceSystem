@@ -28,13 +28,19 @@ package io.swagger.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.model.Evidence;
+import io.swagger.model.Suspect;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * CriminalCase
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-26T09:35:04.468Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-27T11:21:19.158Z")
 public class CriminalCase   {
   @JsonProperty("caseName")
   private String caseName = null;
@@ -44,6 +50,49 @@ public class CriminalCase   {
 
   @JsonProperty("caseDescription")
   private String caseDescription = null;
+
+  @JsonProperty("date")
+  private Date date = null;
+
+  /**
+   * Gets or Sets status
+   */
+  public enum StatusEnum {
+    OPEN("Open"),
+    
+    CLOSE("Close");
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @Override
+    @JsonValue
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String text) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+  }
+
+  @JsonProperty("status")
+  private StatusEnum status = null;
+
+  @JsonProperty("caseSuspect")
+  private List<Suspect> caseSuspect = new ArrayList<Suspect>();
+
+  @JsonProperty("caseEvidence")
+  private List<Evidence> caseEvidence = new ArrayList<Evidence>();
 
   public CriminalCase caseName(String caseName) {
     this.caseName = caseName;
@@ -99,6 +148,88 @@ public class CriminalCase   {
     this.caseDescription = caseDescription;
   }
 
+  public CriminalCase date(Date date) {
+    this.date = date;
+    return this;
+  }
+
+   /**
+   * Get date
+   * @return date
+  **/
+  @ApiModelProperty(value = "")
+  public Date getDate() {
+    return date;
+  }
+
+  public void setDate(Date date) {
+    this.date = date;
+  }
+
+  public CriminalCase status(StatusEnum status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Get status
+   * @return status
+  **/
+  @ApiModelProperty(value = "")
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+  public void setStatus(StatusEnum status) {
+    this.status = status;
+  }
+
+  public CriminalCase caseSuspect(List<Suspect> caseSuspect) {
+    this.caseSuspect = caseSuspect;
+    return this;
+  }
+
+  public CriminalCase addCaseSuspectItem(Suspect caseSuspectItem) {
+    this.caseSuspect.add(caseSuspectItem);
+    return this;
+  }
+
+   /**
+   * Get caseSuspect
+   * @return caseSuspect
+  **/
+  @ApiModelProperty(value = "")
+  public List<Suspect> getCaseSuspect() {
+    return caseSuspect;
+  }
+
+  public void setCaseSuspect(List<Suspect> caseSuspect) {
+    this.caseSuspect = caseSuspect;
+  }
+
+  public CriminalCase caseEvidence(List<Evidence> caseEvidence) {
+    this.caseEvidence = caseEvidence;
+    return this;
+  }
+
+  public CriminalCase addCaseEvidenceItem(Evidence caseEvidenceItem) {
+    this.caseEvidence.add(caseEvidenceItem);
+    return this;
+  }
+
+   /**
+   * Get caseEvidence
+   * @return caseEvidence
+  **/
+  @ApiModelProperty(value = "")
+  public List<Evidence> getCaseEvidence() {
+    return caseEvidence;
+  }
+
+  public void setCaseEvidence(List<Evidence> caseEvidence) {
+    this.caseEvidence = caseEvidence;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -111,12 +242,16 @@ public class CriminalCase   {
     CriminalCase criminalCase = (CriminalCase) o;
     return Objects.equals(this.caseName, criminalCase.caseName) &&
         Objects.equals(this.id, criminalCase.id) &&
-        Objects.equals(this.caseDescription, criminalCase.caseDescription);
+        Objects.equals(this.caseDescription, criminalCase.caseDescription) &&
+        Objects.equals(this.date, criminalCase.date) &&
+        Objects.equals(this.status, criminalCase.status) &&
+        Objects.equals(this.caseSuspect, criminalCase.caseSuspect) &&
+        Objects.equals(this.caseEvidence, criminalCase.caseEvidence);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(caseName, id, caseDescription);
+    return Objects.hash(caseName, id, caseDescription, date, status, caseSuspect, caseEvidence);
   }
 
 
@@ -128,6 +263,10 @@ public class CriminalCase   {
     sb.append("    caseName: ").append(toIndentedString(caseName)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    caseDescription: ").append(toIndentedString(caseDescription)).append("\n");
+    sb.append("    date: ").append(toIndentedString(date)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    caseSuspect: ").append(toIndentedString(caseSuspect)).append("\n");
+    sb.append("    caseEvidence: ").append(toIndentedString(caseEvidence)).append("\n");
     sb.append("}");
     return sb.toString();
   }

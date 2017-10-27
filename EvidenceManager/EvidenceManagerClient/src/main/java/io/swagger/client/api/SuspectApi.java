@@ -15,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
+import io.swagger.client.model.Suspect;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -22,14 +23,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LoginApi {
+public class SuspectApi {
     private ApiClient apiClient;
 
-    public LoginApi() {
+    public SuspectApi() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public LoginApi(ApiClient apiClient) {
+    public SuspectApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -41,25 +42,13 @@ public class LoginApi {
         this.apiClient = apiClient;
     }
 
-    /* Build call for doLogin */
-    private com.squareup.okhttp.Call doLoginCall(String userName, String password, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    /* Build call for getSuspectList */
+    private com.squareup.okhttp.Call getSuspectListCall(final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
-        
-        // verify the required parameter 'userName' is set
-        if (userName == null) {
-            throw new ApiException("Missing the required parameter 'userName' when calling doLogin(Async)");
-        }
-        
-        // verify the required parameter 'password' is set
-        if (password == null) {
-            throw new ApiException("Missing the required parameter 'password' when calling doLogin(Async)");
-        }
         
 
         // create path and map variables
-        String localVarPath = "/login/{userName}/{password}}".replaceAll("\\{format\\}","json")
-        .replaceAll("\\{" + "userName" + "\\}", apiClient.escapeString(userName.toString()))
-        .replaceAll("\\{" + "password" + "\\}", apiClient.escapeString(password.toString()));
+        String localVarPath = "/suspect".replaceAll("\\{format\\}","json");
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
 
@@ -96,42 +85,36 @@ public class LoginApi {
     }
 
     /**
-     * 
-     * 
-     * @param userName  (required)
-     * @param password  (required)
-     * @return Boolean
+     * Gets a list of suspects
+     * Returns a list of suspects
+     * @return List&lt;Suspect&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Boolean doLogin(String userName, String password) throws ApiException {
-        ApiResponse<Boolean> resp = doLoginWithHttpInfo(userName, password);
+    public List<Suspect> getSuspectList() throws ApiException {
+        ApiResponse<List<Suspect>> resp = getSuspectListWithHttpInfo();
         return resp.getData();
     }
 
     /**
-     * 
-     * 
-     * @param userName  (required)
-     * @param password  (required)
-     * @return ApiResponse&lt;Boolean&gt;
+     * Gets a list of suspects
+     * Returns a list of suspects
+     * @return ApiResponse&lt;List&lt;Suspect&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Boolean> doLoginWithHttpInfo(String userName, String password) throws ApiException {
-        com.squareup.okhttp.Call call = doLoginCall(userName, password, null, null);
-        Type localVarReturnType = new TypeToken<Boolean>(){}.getType();
+    public ApiResponse<List<Suspect>> getSuspectListWithHttpInfo() throws ApiException {
+        com.squareup.okhttp.Call call = getSuspectListCall(null, null);
+        Type localVarReturnType = new TypeToken<List<Suspect>>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     *  (asynchronously)
-     * 
-     * @param userName  (required)
-     * @param password  (required)
+     * Gets a list of suspects (asynchronously)
+     * Returns a list of suspects
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call doLoginAsync(String userName, String password, final ApiCallback<Boolean> callback) throws ApiException {
+    public com.squareup.okhttp.Call getSuspectListAsync(final ApiCallback<List<Suspect>> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -152,8 +135,8 @@ public class LoginApi {
             };
         }
 
-        com.squareup.okhttp.Call call = doLoginCall(userName, password, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<Boolean>(){}.getType();
+        com.squareup.okhttp.Call call = getSuspectListCall(progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<List<Suspect>>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

@@ -33,4 +33,19 @@ public class EvidenceApiTest {
         // TODO: test validations
     }
     
+    /**
+     * Gets a list of evidence
+     *
+     * Returns a list of evidence
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void getEvidenceListTest() throws ApiException {
+        // List<Evidence> response = api.getEvidenceList();
+
+        // TODO: test validations
+    }
+    
 }

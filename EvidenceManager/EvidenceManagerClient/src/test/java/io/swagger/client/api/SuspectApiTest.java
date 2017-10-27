@@ -1,6 +1,7 @@
 package io.swagger.client.api;
 
 import io.swagger.client.ApiException;
+import io.swagger.client.model.Suspect;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -9,26 +10,24 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * API tests for LoginApi
+ * API tests for SuspectApi
  */
-public class LoginApiTest {
+public class SuspectApiTest {
 
-    private final LoginApi api = new LoginApi();
+    private final SuspectApi api = new SuspectApi();
 
     
     /**
-     * 
+     * Gets a list of suspects
      *
-     * 
+     * Returns a list of suspects
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
-    public void doLoginTest() throws ApiException {
-        String userName = null;
-        String password = null;
-        // Boolean response = api.doLogin(userName, password);
+    public void getSuspectListTest() throws ApiException {
+        // List<Suspect> response = api.getSuspectList();
 
         // TODO: test validations
     }
