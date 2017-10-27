@@ -6,6 +6,8 @@ import io.swagger.model.CriminalCase;
 import io.swagger.model.Evidence;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.lang3.NotImplementedException;
@@ -20,6 +22,7 @@ import org.apache.commons.lang3.NotImplementedException;
  * @author Bruger
  */
 public class sqlStatement implements IsqlStatement {
+    private List<Evidence> tempEvidenceList;
 
     private dbConnection db;
 
@@ -31,11 +34,38 @@ public class sqlStatement implements IsqlStatement {
     public boolean addCase(CriminalCase c) {
 
         String query = "INSERT INTO criminalcase (title, description) VALUES ('" + c.getCaseName() + "','" + c.getCaseDescription() + "');";
-
+        
+        //this.tempEvidenceList = c.getEvidence();
+        this.tempEvidenceList = new ArrayList(); //replace with line above when method is implemented
+        this.tempEvidenceList.add(new Evidence()); //remove this as well..
+        
+        for (Evidence e : this.tempEvidenceList) {
+            if (e.getEvidenceNumber() == 0) {
+                this.addNewEvidence(e);
+            } else {
+                this.updateEvidence(e);
+            }
+        } 
         return db.updateQuery(query) == 1;
-
+    }
+   
+    
+    private void addNewEvidence(Evidence e) {
+        //IMPORTANT! REPLACE e.getLocation() with title when available!!!!!!
+        String query = "INSERT INTO evidence (title, description)\n" +
+                        "VALUES ('" + e.getLocation() + "', '" + e.getEvidenceDescription() + ");";       
+        db.updateQuery(query);
+    }
+    
+    private void updateEvidence(Evidence e) {
+        //IMPORTANT! REPLACE e.getLocation() with title when available!!!!!!
+        String query = String.format("UPDATE evidence SET title = '%s', description = '%s' WHERE _ref = %d;",
+                        e.getLocation(), e.getEvidenceDescription(), e.getEvidenceNumber());
+        db.updateQuery(query);
     }
 
+    
+    
     public boolean updateCase(CriminalCase c) {
 
         String query = "UPDATE criminalcase SET title = '" + c.getCaseName() + "', description = '" + c.getCaseDescription() + "' WHERE _ref =" + c.getId() + ";";
