@@ -56,13 +56,13 @@ public class FXMLLoginController implements Initializable {
         
         
         //Send the information the the server
-        if (this.connect.doSomeLogin(userName, password)) {
-            this.showCaseStage(this.connect);
-        } else {
-            this.loginLabel.setText("Prøv igen..");
-        }
+//        if (this.connect.doSomeLogin(userName, password)) {
+//            this.showCaseStage(this.connect);
+//        } else {
+//            this.loginLabel.setText("Prøv igen..");
+//        }
         
-
+        this.showCaseStage(connect);
 
     }
     private Stage showCaseStage(IServerConnect connector) throws IOException {

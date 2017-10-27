@@ -29,7 +29,7 @@
                         <TextField fx:id="caseNrTF" layoutX="43.0" layoutY="207.0" onAction="#caseNrAdd" prefHeight="25.0" prefWidth="59.0" text="Case nr." />
                         <TextField fx:id="primeSuspectTF" layoutX="179.0" layoutY="295.0" onAction="#primeSuspect" prefHeight="25.0" prefWidth="129.0" text="Prime suspect (if any)" />
                         <TextField fx:id="caseLawenforcerTF" layoutX="40.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#lawenforcer" prefHeight="25.0" prefWidth="126.0" text="Assigned personel" />
-                        <Button layoutX="197.0" layoutY="576.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="33.0" prefWidth="121.0" text="Add case" textFill="#13d036" />
+                        <Button fx:id="addNewCaseBTN" layoutX="197.0" layoutY="576.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addCase" prefHeight="33.0" prefWidth="121.0" text="Add case" textFill="#13d036" />
                         <TextField fx:id="caseTitleTF" layoutX="40.0" layoutY="232.0" text="Title" />
                         <TextField layoutX="179.0" layoutY="263.0" prefHeight="25.0" prefWidth="89.0" text="Rank" />
                      </children>
