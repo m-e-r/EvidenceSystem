@@ -62,17 +62,17 @@ public class FXMLLoginController implements Initializable {
 //            this.loginLabel.setText("Prøv igen..");
 //        }
         
-        this.showCaseStage(connect);
+        this.showCaseScreenStage(connect);
 
     }
-    private Stage showCaseStage(IServerConnect connector) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CaseScreen.fxml"));
+    private Stage showCaseScreenStage(IServerConnect connector) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ShowCaseScreen.fxml"));
 
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene((Pane) loader.load()));
 
-        FXMLCaseController controller = loader.<FXMLCaseController>getController();
-        controller.initData(connector);
+        FXMLShowCaseScreenController controller = loader.<FXMLShowCaseScreenController>getController();
+        
         
         stage.show();
         return stage;

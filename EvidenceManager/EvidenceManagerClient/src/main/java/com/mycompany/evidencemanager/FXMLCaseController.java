@@ -29,33 +29,15 @@ public class FXMLCaseController implements Initializable {
     private IServerConnect connect;
 
     @FXML
-    private TextField caseSearchTF;
-    @FXML
     private TextField caseNrTF;
     @FXML
-    private TextArea caseDescriptionTA;
-    @FXML
     private ListView<?> evidenceListLV;
-    @FXML
-    private TextArea evidenceInfoTA;
-    @FXML
-    private ListView<?> caseEditLV;
     @FXML
     private TextArea caseInfoTA;
     @FXML
     private RadioButton activeRBTN;
     @FXML
     private RadioButton inactiveRBTN;
-    @FXML
-    private Button editCaseBTN;
-    @FXML
-    private Button addCaseBTN;
-    @FXML
-    private Button removeCaseBTN;
-    @FXML
-    private Button addEvidenceBTN;
-    @FXML
-    private Button removeEvidenceBTN;
     @FXML
     private TextField evidenceCategoryTF;
     @FXML
@@ -86,14 +68,9 @@ public class FXMLCaseController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-       
         
     }    
 
-    @FXML
-    private void searchCase(ActionEvent event) {
-    }
 
 
     @FXML
@@ -104,13 +81,6 @@ public class FXMLCaseController implements Initializable {
     private void caseInactive(ActionEvent event) {
     }
 
-    @FXML
-    private void addEvidence(ActionEvent event) {
-    }
-
-    @FXML
-    private void removeEvidence(ActionEvent event) {
-    }
 
     @FXML
     private void evidenceNrAdd(ActionEvent event) {
@@ -136,9 +106,6 @@ public class FXMLCaseController implements Initializable {
     private void physicalEvidence(ActionEvent event) {
     }
 
-    @FXML
-    private void editCase(ActionEvent event) {
-    }
 
     @FXML
     private void addCase(ActionEvent event) throws ApiException {
@@ -158,9 +125,6 @@ public class FXMLCaseController implements Initializable {
      
     }
 
-    @FXML
-    private void removeCase(ActionEvent event) {
-    }
 
     @FXML
     private void lawenforcer(ActionEvent event) {
