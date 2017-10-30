@@ -11,7 +11,10 @@ import io.swagger.client.model.CriminalCase;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,7 +36,7 @@ import javafx.stage.StageStyle;
  */
 public class FXMLShowCaseScreenController implements Initializable {
 
-    IServerConnect isc;
+    private IServerConnect connect;
 
     ObservableList<CriminalCase> occ;
 
@@ -64,25 +67,34 @@ public class FXMLShowCaseScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        this.isc = new ServerConnect();
-        this.occ = FXCollections.observableArrayList();
+        this.connect = new ServerConnect();
+
     }
 
     @FXML
     private void searchCase(ActionEvent event) throws ApiException {
-        int caseID = 0;
+        /* int caseID = 1;
         CriminalCase cc;
+        ObservableList<CriminalCase> occ = FXCollections.observableArrayList();
 
-        caseID = Integer.parseInt(caseSearchTF.getText());
-
+        //caseID = Integer.parseInt(caseSearchTF.getText());
+       
         if (event.getSource() == malplacedSearchBTN) {
-            cc = isc.getCase(caseID);
-            occ.add(cc);
-            caseEditLV.setItems(occ);
-            caseEditLV.toString();
-
+            if (isc.getCase(caseID).equals(true)) {
+                cc = isc.getCase(caseID);
+                occ.add(cc);
+                caseEditLV.setItems(occ);
+                caseEditLV.toString();
+            }
         }
+        
+         */
+        System.out.println(connect.getCase(1));
 
+    }
+
+    public void initData(IServerConnect isc) {
+        this.connect = isc;
     }
 
     @FXML
@@ -91,13 +103,14 @@ public class FXMLShowCaseScreenController implements Initializable {
 
     @FXML
     private Stage addCase(ActionEvent event) throws IOException {
+        initData(connect);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CaseScreen.fxml"));
 
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene((Pane) loader.load()));
 
         FXMLCaseController controller = loader.<FXMLCaseController>getController();
-
+        
         stage.show();
         return stage;
 
