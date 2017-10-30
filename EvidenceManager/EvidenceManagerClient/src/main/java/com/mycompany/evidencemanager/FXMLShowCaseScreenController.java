@@ -5,9 +5,14 @@
  */
 package com.mycompany.evidencemanager;
 
+import io.swagger.client.ApiException;
+import io.swagger.client.ServerConnect;
+import io.swagger.client.model.CriminalCase;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,10 +33,14 @@ import javafx.stage.StageStyle;
  */
 public class FXMLShowCaseScreenController implements Initializable {
 
+    IServerConnect isc;
+
+    ObservableList<CriminalCase> occ;
+
     @FXML
     private TextArea evidenceInfoTA;
     @FXML
-    private ListView<?> caseEditLV;
+    private ListView<CriminalCase> caseEditLV;
     @FXML
     private TextField caseSearchTF;
     @FXML
@@ -46,6 +55,8 @@ public class FXMLShowCaseScreenController implements Initializable {
     private Button removeCaseBTN;
     @FXML
     private Button addEvidenceBTN;
+    @FXML
+    private Button malplacedSearchBTN;
 
     /**
      * Initializes the controller class.
@@ -53,10 +64,25 @@ public class FXMLShowCaseScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        this.isc = new ServerConnect();
+        this.occ = FXCollections.observableArrayList();
     }
 
     @FXML
-    private void searchCase(ActionEvent event) {
+    private void searchCase(ActionEvent event) throws ApiException {
+        int caseID = 0;
+        CriminalCase cc;
+
+        caseID = Integer.parseInt(caseSearchTF.getText());
+
+        if (event.getSource() == malplacedSearchBTN) {
+            cc = isc.getCase(caseID);
+            occ.add(cc);
+            caseEditLV.setItems(occ);
+            caseEditLV.toString();
+
+        }
+
     }
 
     @FXML
