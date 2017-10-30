@@ -1,7 +1,0 @@
-/home/jacob/Dropbox/SDU/3. Semester/Semesterprojekt/SemesterProjektE17Server/SemesterProjektE17Server/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
-/home/jacob/Dropbox/SDU/3. Semester/Semesterprojekt/SemesterProjektE17Server/SemesterProjektE17Server/bin/Debug/SemesterProjektE17Server.exe.mdb
-/home/jacob/Dropbox/SDU/3. Semester/Semesterprojekt/SemesterProjektE17Server/SemesterProjektE17Server/bin/Debug/SemesterProjektE17Server.exe
-/home/jacob/Dropbox/SDU/3. Semester/Semesterprojekt/SemesterProjektE17Server/SemesterProjektE17Server/obj/x86/Debug/SemesterProjektE17Server.exe
-/home/jacob/Dropbox/SDU/3. Semester/Semesterprojekt/SemesterProjektE17Server/SemesterProjektE17Server/obj/x86/Debug/SemesterProjektE17Server.exe.mdb
-/home/jacob/Dropbox/SDU/3. Semester/Semesterprojekt/SemesterProjektE17Server/SemesterProjektE17Server/bin/Debug/Npgsql.dll
-/home/jacob/Dropbox/SDU/3. Semester/Semesterprojekt/SemesterProjektE17Server/SemesterProjektE17Server/bin/Debug/Mono.Security.dll

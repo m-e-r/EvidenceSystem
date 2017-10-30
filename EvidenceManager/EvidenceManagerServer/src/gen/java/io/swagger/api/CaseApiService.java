@@ -15,7 +15,7 @@ import java.io.InputStream;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-27T11:21:19.158Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-30T16:59:45.383Z")
 public abstract class CaseApiService {
     public abstract Response addCase(CriminalCase theCase,SecurityContext securityContext) throws NotFoundException;
     public abstract Response getCase(Integer caseId,SecurityContext securityContext) throws NotFoundException;

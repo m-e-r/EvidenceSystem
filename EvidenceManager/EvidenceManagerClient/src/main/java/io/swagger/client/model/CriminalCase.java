@@ -13,7 +13,7 @@ import org.joda.time.LocalDate;
 /**
  * CriminalCase
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-27T11:21:23.075Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-30T16:59:51.265Z")
 public class CriminalCase {
   @SerializedName("caseName")
   private String caseName = null;

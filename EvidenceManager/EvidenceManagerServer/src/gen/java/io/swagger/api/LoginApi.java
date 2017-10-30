@@ -25,19 +25,19 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the login API")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-27T11:21:19.158Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-30T16:59:45.383Z")
 public class LoginApi  {
    private final LoginApiService delegate = LoginApiServiceFactory.getLoginApi();
 
-    @GET
+    @POST
     @Path("/{userName}/{password}}")
     
     
-    @io.swagger.annotations.ApiOperation(value = "", notes = "", response = Boolean.class, tags={ "Login", })
+    @io.swagger.annotations.ApiOperation(value = "", notes = "", response = Integer.class, tags={ "Login", })
     @io.swagger.annotations.ApiResponses(value = { 
-        @io.swagger.annotations.ApiResponse(code = 200, message = "OK", response = Boolean.class),
+        @io.swagger.annotations.ApiResponse(code = 200, message = "OK", response = Integer.class),
         
-        @io.swagger.annotations.ApiResponse(code = 400, message = "failed login", response = Boolean.class) })
+        @io.swagger.annotations.ApiResponse(code = 400, message = "failed login", response = Integer.class) })
     public Response doLogin(@ApiParam(value = "",required=true) @PathParam("userName") String userName
 ,@ApiParam(value = "",required=true) @PathParam("password") String password
 ,@Context SecurityContext securityContext)

@@ -26,7 +26,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the case API")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-27T11:21:19.158Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-30T16:59:45.383Z")
 public class CaseApi  {
    private final CaseApiService delegate = CaseApiServiceFactory.getCaseApi();
 
@@ -50,7 +50,7 @@ public class CaseApi  {
     
     @io.swagger.annotations.ApiOperation(value = "", notes = "Gets a case", response = CriminalCase.class, tags={ "CriminalCase", })
     @io.swagger.annotations.ApiResponses(value = { 
-        @io.swagger.annotations.ApiResponse(code = 200, message = "OK", response = CriminalCase.class),
+        @io.swagger.annotations.ApiResponse(code = 200, message = "Succesfully returned", response = CriminalCase.class),
         
         @io.swagger.annotations.ApiResponse(code = 400, message = "None match", response = CriminalCase.class) })
     public Response getCase(@ApiParam(value = "",required=true) @PathParam("caseId") Integer caseId

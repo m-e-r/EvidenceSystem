@@ -26,37 +26,14 @@
 package io.swagger.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Suspect
+ * EvidenceMap
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-30T16:59:45.383Z")
-public class Suspect   {
-  @JsonProperty("suspectDescription")
-  private String suspectDescription = null;
-
-  public Suspect suspectDescription(String suspectDescription) {
-    this.suspectDescription = suspectDescription;
-    return this;
-  }
-
-   /**
-   * Get suspectDescription
-   * @return suspectDescription
-  **/
-  @ApiModelProperty(value = "")
-  public String getSuspectDescription() {
-    return suspectDescription;
-  }
-
-  public void setSuspectDescription(String suspectDescription) {
-    this.suspectDescription = suspectDescription;
-  }
-
+public class EvidenceMap extends HashMap<String, String>  {
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -66,22 +43,20 @@ public class Suspect   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Suspect suspect = (Suspect) o;
-    return Objects.equals(this.suspectDescription, suspect.suspectDescription);
+    return true;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(suspectDescription);
+    return Objects.hash(super.hashCode());
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Suspect {\n");
-    
-    sb.append("    suspectDescription: ").append(toIndentedString(suspectDescription)).append("\n");
+    sb.append("class EvidenceMap {\n");
+    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("}");
     return sb.toString();
   }

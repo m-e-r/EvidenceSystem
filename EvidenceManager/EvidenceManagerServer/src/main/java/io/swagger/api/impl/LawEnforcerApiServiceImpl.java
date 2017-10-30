@@ -3,7 +3,7 @@ package io.swagger.api.impl;
 import io.swagger.api.*;
 import io.swagger.model.*;
 
-import io.swagger.model.Evidence;
+import io.swagger.model.CriminalCaseMap;
 
 import java.util.List;
 import io.swagger.api.NotFoundException;
@@ -15,13 +15,10 @@ import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-27T11:21:19.158Z")
-public class EvidenceApiServiceImpl extends EvidenceApiService {
-     
-    private IsqlStatement i;
-    
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-30T16:59:45.383Z")
+public class LawEnforcerApiServiceImpl extends LawEnforcerApiService {
     @Override
-    public Response getEvidenceList(String keyword, SecurityContext securityContext) throws NotFoundException {
+    public Response lawEnforcerEmployeeIdGet(Integer employeeId, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }

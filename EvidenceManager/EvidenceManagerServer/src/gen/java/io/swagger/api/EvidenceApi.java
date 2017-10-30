@@ -26,33 +26,20 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the evidence API")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-27T11:21:19.158Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-30T16:59:45.383Z")
 public class EvidenceApi  {
    private final EvidenceApiService delegate = EvidenceApiServiceFactory.getEvidenceApi();
 
     @GET
-    @Path("/{keyWord}")
+    @Path("/{keyword}")
     
     
-    @io.swagger.annotations.ApiOperation(value = "", notes = "Find evidence based on text", response = Evidence.class, tags={ "Evidence", })
+    @io.swagger.annotations.ApiOperation(value = "Gets a list of Evidence", notes = "Returns a list of Evidence", response = Evidence.class, responseContainer = "List", tags={ "Evidence", })
     @io.swagger.annotations.ApiResponses(value = { 
-        @io.swagger.annotations.ApiResponse(code = 200, message = "Nice find", response = Evidence.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 400, message = "None match", response = Evidence.class) })
-    public Response findEvidence(@ApiParam(value = "",required=true) @PathParam("keyWord") String keyWord
+        @io.swagger.annotations.ApiResponse(code = 200, message = "list of Evidence", response = Evidence.class, responseContainer = "List") })
+    public Response getEvidenceList(@ApiParam(value = "",required=true) @PathParam("keyword") String keyword
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
-        return delegate.findEvidence(keyWord,securityContext);
-    }
-    @GET
-    
-    
-    
-    @io.swagger.annotations.ApiOperation(value = "Gets a list of evidence", notes = "Returns a list of evidence", response = Evidence.class, responseContainer = "List", tags={ "Evidence", })
-    @io.swagger.annotations.ApiResponses(value = { 
-        @io.swagger.annotations.ApiResponse(code = 200, message = "list of evidence", response = Evidence.class, responseContainer = "List") })
-    public Response getEvidenceList(@Context SecurityContext securityContext)
-    throws NotFoundException {
-        return delegate.getEvidenceList(securityContext);
+        return delegate.getEvidenceList(keyword,securityContext);
     }
 }
