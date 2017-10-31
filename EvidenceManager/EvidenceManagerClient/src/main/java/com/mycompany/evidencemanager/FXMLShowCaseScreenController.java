@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,7 +39,7 @@ import javafx.stage.StageStyle;
  */
 public class FXMLShowCaseScreenController implements Initializable {
 
-    IServerConnect isc;
+    private IServerConnect connect;
 
     ObservableList<String> occ;
 
@@ -69,7 +70,8 @@ public class FXMLShowCaseScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        this.isc = new ServerConnect();
+
+        this.connect = new ServerConnect();
         this.occ = FXCollections.observableArrayList();
         
         try {
@@ -80,22 +82,23 @@ public class FXMLShowCaseScreenController implements Initializable {
     }
     
     private void showsRelevantCases(int employeeId) throws ApiException {
-        Map<String, String> tempMap = new HashMap();
-        
-        tempMap.put("14323", "Malte is the killer");
-        tempMap.put("432454", "Malte is the real killer");
-        tempMap.put("343242", "Malte did it");
+        Map<String, String>tempMap = this.connect.getCases(employeeId);
+//        Map<String, String> tempMap = new HashMap();
+//        
+//        tempMap.put("14323", "Malte is the killer");
+//        tempMap.put("432454", "Malte is the real killer");
+//        tempMap.put("343242", "Malte did it");
         for (String s : tempMap.keySet()) {
             String adder = s + "\n" + tempMap.get(s);
             this.occ.add(adder);
         }
-        //this.occ.addAll(this.isc.getCases(employeeId).values());
+
         this.caseEditLV.setItems(this.occ);
-        
     }
 
     @FXML
     private void searchCase(ActionEvent event) throws ApiException {
+
 //        int caseID = 0;
 //        CriminalCase cc;
 //
@@ -109,6 +112,32 @@ public class FXMLShowCaseScreenController implements Initializable {
 //
 //        }
 //
+
+         int caseID = 1;
+        CriminalCase cc;
+        ObservableList<CriminalCase> occ = FXCollections.observableArrayList();
+
+        //caseID = Integer.parseInt(caseSearchTF.getText());
+       
+       
+      
+                System.err.println("Hello");
+                cc = connect.getCase(caseID);
+                occ.add(cc);
+                System.out.println(occ.toString());
+                caseEditLV.setItems(this.occ);
+                caseEditLV.toString();
+            
+        
+        
+         
+        
+
+    }
+
+    public void initData(IServerConnect isc) {
+        this.connect = isc;
+
     }
 
     @FXML
@@ -117,13 +146,14 @@ public class FXMLShowCaseScreenController implements Initializable {
 
     @FXML
     private Stage addCase(ActionEvent event) throws IOException {
+        initData(connect);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CaseScreen.fxml"));
 
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene((Pane) loader.load()));
 
         FXMLCaseController controller = loader.<FXMLCaseController>getController();
-
+        
         stage.show();
         return stage;
 
