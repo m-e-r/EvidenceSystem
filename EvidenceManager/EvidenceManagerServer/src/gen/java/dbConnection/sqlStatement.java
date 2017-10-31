@@ -3,6 +3,7 @@ package dbConnection;
 import io.swagger.api.impl.IsqlStatement;
 import dbConnection.dbConnection;
 import io.swagger.model.CriminalCase;
+import io.swagger.model.CriminalCaseMap;
 import io.swagger.model.Evidence;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,26 +38,19 @@ public class sqlStatement implements IsqlStatement {
 
         String query = "INSERT INTO criminalcase (title, description, status) VALUES "
                 + "('" + c.getCaseName() + "','" + c.getCaseDescription() + "','" + c.getStatus().toString() + "');";
-        //this.tempEvidenceList = c.getEvidence();
-        this.tempEvidenceList = new ArrayList(); //replace with line above when method is implemented
-        Evidence ev = new Evidence();
-        ev.setEvidenceDescription("Heyyo");
-        ev.setEvidenceNumber(400);
-        ev.setLocation("Here");
-        
-        this.tempEvidenceList.add(ev); //remove this as well..
 
-        this.handleEvidence(tempEvidenceList);
-        
+        this.tempEvidenceList = c.getCaseEvidence();
+
+        this.handleEvidence(tempEvidenceList, c.getId());
+
         return db.updateQuery(query) == 1;
     }
-    
-    private void handleEvidence(List<Evidence> evidence){
-        this.tempEvidenceList = evidence;
-        if (!this.tempEvidenceList.isEmpty()) {
-            for (Evidence e : this.tempEvidenceList) {
+
+    private void handleEvidence(List<Evidence> evidence, int caseRef) {
+        if (!evidence.isEmpty()) {
+            for (Evidence e : evidence) {
                 if (e.getEvidenceNumber() == 0) {
-                    this.addNewEvidence(e);
+                    this.addNewEvidence(e, caseRef);
                 } else {
                     this.updateEvidence(e);
                 }
@@ -64,12 +58,26 @@ public class sqlStatement implements IsqlStatement {
         }
     }
 
-    private void addNewEvidence(Evidence e) {
+    private void addNewEvidence(Evidence e, int caseRef) {
         //IMPORTANT! REPLACE e.getLocation() with title when available!!!!!!
-        String query = "INSERT INTO evidence (title, description)\n"
-                + "VALUES ('" + e.getLocation() + "', '" + e.getEvidenceDescription() + ");";
-        db.updateQuery(query);
-        
+        int evidenceId;
+        try {
+            String query = "INSERT INTO evidence (title, description)\n"
+                    + "VALUES ('" + e.getLocation() + "', '" + e.getEvidenceDescription() + ") RETURNING _ref;";
+
+            ResultSet select = db.executeQuery(query);
+            while (select.next()) {
+                evidenceId = select.getInt("_ref");
+                String refQuery = String.format("INSERT INTO caseevidenceref (caseref, evidenceref) "
+                        + "VALUES (%d, %d);", caseRef, evidenceId);
+                db.executeQuery(refQuery);
+            }
+
+            //String query = "INSERT INTO ";
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+
     }
 
     private void updateEvidence(Evidence e) {
@@ -81,9 +89,11 @@ public class sqlStatement implements IsqlStatement {
 
     public boolean updateCase(CriminalCase c) {
 
-        String query = "UPDATE criminalcase SET title = '" + c.getCaseName() 
+        String query = "UPDATE criminalcase SET title = '" + c.getCaseName()
                 + "', description = '" + c.getCaseDescription() + "' WHERE _ref =" + c.getId() + ";";
-        
+
+        db.updateQuery(query);
+
         return db.updateQuery(query) == 1;
     }
 
@@ -110,14 +120,24 @@ public class sqlStatement implements IsqlStatement {
         return ccase;
     }
 
-    public Evidence findEvidence(String keyWord) {
-
-        throw new NotImplementedException("noob");
-    }
-
-    public boolean addEvidence(Evidence e) {
-
-        throw new NotImplementedException("noob");
+    @Override
+    public CriminalCaseMap getCases(int employeeId) {
+        CriminalCaseMap caseMap = new CriminalCaseMap();
+        
+        String query = String.format("SELECT (_ref, title) FROM criminalcase\n"
+                + "WHERE _ref = (SELECT _ref FROM lawenforcercaseref WHERE _ref = %d)", employeeId);
+        
+        ResultSet select = db.executeQuery(query);
+        try {
+            while (select.next()){
+                caseMap.put(select.getString("_ref"), select.getString("title"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return caseMap;
+        
     }
 
 }
