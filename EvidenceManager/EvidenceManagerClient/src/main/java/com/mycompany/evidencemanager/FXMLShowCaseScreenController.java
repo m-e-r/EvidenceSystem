@@ -94,7 +94,13 @@ public class FXMLShowCaseScreenController implements Initializable {
         }
 
         this.caseEditLV.setItems(this.occ);
+        
+       
+        
     }
+    
+    
+    
 
     @FXML
     private void searchCase(ActionEvent event) throws ApiException {
@@ -141,8 +147,26 @@ public class FXMLShowCaseScreenController implements Initializable {
     }
 
     @FXML
-    private void editCase(ActionEvent event) {
-    }
+    private Stage editCase(ActionEvent event) throws IOException, ApiException {
+        String id;
+        String [] ids = caseEditLV.getSelectionModel().getSelectedItem().split("\n");
+        id = ids[0];
+        CriminalCase cc = new CriminalCase();
+        
+        cc = this.connect.getCase(Integer.parseInt(id));
+        System.err.println(cc.toString());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CaseScreen.fxml"));
+
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene((Pane) loader.load()));
+
+        FXMLCaseController controller = loader.<FXMLCaseController>getController();
+        controller.initData(cc);
+        
+        stage.show();
+        return stage;
+   
+}
 
     @FXML
     private Stage addCase(ActionEvent event) throws IOException {

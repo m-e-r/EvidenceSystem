@@ -88,7 +88,7 @@ public class sqlStatement implements IsqlStatement {
     }
 
     public boolean updateCase(CriminalCase c) {
-
+        System.err.println(c.getCaseDescription() + c.getCaseName() + c.getId()+ "<------LOOOOOOOOOK HERE");
         String query = "UPDATE criminalcase SET title = '" + c.getCaseName()
                 + "', description = '" + c.getCaseDescription() + "' WHERE _ref =" + c.getId() + ";";
 

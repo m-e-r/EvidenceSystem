@@ -19,6 +19,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 
 /**
  * FXML Controller class
@@ -27,17 +28,15 @@ import javafx.scene.control.TextField;
  */
 public class FXMLCaseController implements Initializable {
     private IServerConnect connect;
-
+    private CriminalCase cc;
+    
+    
     @FXML
     private TextField caseNrTF;
     @FXML
     private ListView<?> evidenceListLV;
     @FXML
     private TextArea caseInfoTA;
-    @FXML
-    private RadioButton activeRBTN;
-    @FXML
-    private RadioButton inactiveRBTN;
     @FXML
     private TextField evidenceCategoryTF;
     @FXML
@@ -62,6 +61,12 @@ public class FXMLCaseController implements Initializable {
     private TextField caseTitleTF;
     @FXML
     private Button addNewCaseBTN;
+    @FXML
+    private RadioButton statusRBTN;
+    @FXML
+    private ToggleGroup toggler;
+    @FXML
+    private Button saveChangesBTN;
    
     /**
      * Initializes the controller class.
@@ -154,6 +159,42 @@ public class FXMLCaseController implements Initializable {
     }
     
    
-    public void initData(IServerConnect isc){
+    public void initData(CriminalCase cc){
+        this.cc = cc;
+        this.fillCase(cc);
+        
     }
+    
+     @FXML
+    private void saveChangesToCase(ActionEvent event) throws ApiException {
+        CriminalCase changedCriminalCase = new CriminalCase();
+        changedCriminalCase.setCaseDescription(this.caseInfoTA.getText());
+ 
+        changedCriminalCase.setCaseName(this.caseTitleTF.getText());
+        changedCriminalCase.setId(Integer.parseInt(this.caseNrTF.getText()));
+        
+        this.connect.updateCase(changedCriminalCase);
+        
+         if(this.connect.updateCase(changedCriminalCase)){
+            System.out.println("Succesful");
+        } else {
+            System.err.println("You're an idiot, try again");
+        }
+    
+    }
+    
+    private void fillCase(CriminalCase cc){
+       caseInfoTA.setText(this.cc.getCaseDescription());
+       caseTitleTF.setText(this.cc.getCaseName());
+       
+//       if(this.cc.getStatus().equals(this.cc.getStatus().OPEN)){
+//          statusRBTN.setSelected(true);
+//       } else {
+//           statusRBTN.setSelected(false);
+//       }
+        caseNrTF.setText(String.valueOf(this.cc.getId()));
+        
+    }
+
+   
 }

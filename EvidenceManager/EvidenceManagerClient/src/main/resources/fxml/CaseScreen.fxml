@@ -7,10 +7,11 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" prefHeight="395.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.evidencemanager.FXMLCaseController">
+<AnchorPane id="AnchorPane" prefHeight="395.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.evidencemanager.FXMLCaseController">
     <children>
   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="617.0" prefWidth="1129.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -18,10 +19,13 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <RadioButton fx:id="inactiveRBTN" layoutX="419.0" layoutY="255.0" mnemonicParsing="false" onAction="#caseInactive" text="Inactive" />
+                        <RadioButton fx:id="statusRBTN" layoutX="419.0" layoutY="255.0" mnemonicParsing="false" onAction="#caseInactive" text="Inactive">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="toggler" />
+                           </toggleGroup></RadioButton>
                         <Label layoutX="185.0" layoutY="21.0" text="Information about the case:" />
                         <TextArea fx:id="caseInfoTA" layoutX="43.0" layoutY="38.0" prefHeight="169.0" prefWidth="449.0" text="Description (includes the following;&#10;information about the time and date,&#10;circumstances surrounding the case&#10;and additional iformation)&#10;" />
-                        <RadioButton fx:id="activeRBTN" layoutX="346.0" layoutY="255.0" mnemonicParsing="false" onAction="#caseActive" prefHeight="0.0" prefWidth="54.0" text="Active" />
+                        <RadioButton fx:id="statusRBTN" layoutX="346.0" layoutY="255.0" mnemonicParsing="false" onAction="#caseActive" prefHeight="0.0" prefWidth="54.0" selected="true" text="Active" toggleGroup="$toggler" />
                         <Label layoutX="379.0" layoutY="236.0" text="Case Status:" />
                         <TextField fx:id="additionelSuspectTF" layoutX="42.0" layoutY="295.0" onAction="#addtionalSuspect" prefHeight="25.0" prefWidth="121.0" text="Additional suspects" />
                         <TextField fx:id="caseCategoryTF" layoutX="114.0" layoutY="207.0" onAction="#caseCategory" prefHeight="25.0" prefWidth="79.0" text="Open" />
@@ -29,9 +33,10 @@
                         <TextField fx:id="caseNrTF" layoutX="43.0" layoutY="207.0" onAction="#caseNrAdd" prefHeight="25.0" prefWidth="59.0" promptText="case nr." />
                         <TextField fx:id="primeSuspectTF" layoutX="179.0" layoutY="295.0" onAction="#primeSuspect" prefHeight="25.0" prefWidth="129.0" text="Prime suspect (if any)" />
                         <TextField fx:id="caseLawenforcerTF" layoutX="40.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#lawenforcer" prefHeight="25.0" prefWidth="126.0" text="Assigned personel" />
-                        <Button fx:id="addNewCaseBTN" layoutX="197.0" layoutY="576.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addCase" prefHeight="33.0" prefWidth="121.0" text="Add case" textFill="#13d036" />
+                        <Button fx:id="addNewCaseBTN" layoutX="163.0" layoutY="576.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addCase" prefHeight="33.0" prefWidth="121.0" text="Add new case" textFill="#13d036" />
                         <TextField fx:id="caseTitleTF" layoutX="40.0" layoutY="232.0" text="Title" />
                         <TextField layoutX="179.0" layoutY="263.0" prefHeight="25.0" prefWidth="89.0" text="Rank" />
+                        <Button fx:id="saveChangesBTN" layoutX="308.0" layoutY="576.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveChangesToCase" prefHeight="33.0" prefWidth="121.0" text="Save changes" textFill="#13d036" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
