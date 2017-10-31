@@ -10,7 +10,12 @@ import io.swagger.client.ServerConnect;
 import io.swagger.client.model.CriminalCase;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,12 +40,12 @@ public class FXMLShowCaseScreenController implements Initializable {
 
     IServerConnect isc;
 
-    ObservableList<CriminalCase> occ;
+    ObservableList<String> occ;
 
     @FXML
     private TextArea evidenceInfoTA;
     @FXML
-    private ListView<CriminalCase> caseEditLV;
+    private ListView<String> caseEditLV;
     @FXML
     private TextField caseSearchTF;
     @FXML
@@ -66,23 +71,44 @@ public class FXMLShowCaseScreenController implements Initializable {
         // TODO
         this.isc = new ServerConnect();
         this.occ = FXCollections.observableArrayList();
+        
+        try {
+            this.showsRelevantCases(2);
+        } catch (ApiException ex) {
+            System.out.println("Load fejl ...");
+        }
+    }
+    
+    private void showsRelevantCases(int employeeId) throws ApiException {
+        Map<String, String> tempMap = new HashMap();
+        
+        tempMap.put("14323", "Malte is the killer");
+        tempMap.put("432454", "Malte is the real killer");
+        tempMap.put("343242", "Malte did it");
+        for (String s : tempMap.keySet()) {
+            String adder = s + "\n" + tempMap.get(s);
+            this.occ.add(adder);
+        }
+        //this.occ.addAll(this.isc.getCases(employeeId).values());
+        this.caseEditLV.setItems(this.occ);
+        
     }
 
     @FXML
     private void searchCase(ActionEvent event) throws ApiException {
-        int caseID = 0;
-        CriminalCase cc;
-
-        caseID = Integer.parseInt(caseSearchTF.getText());
-
-        if (event.getSource() == malplacedSearchBTN) {
-            cc = isc.getCase(caseID);
-            occ.add(cc);
-            caseEditLV.setItems(occ);
-            caseEditLV.toString();
-
-        }
-
+//        int caseID = 0;
+//        CriminalCase cc;
+//
+//        caseID = Integer.parseInt(caseSearchTF.getText());
+//
+//        if (event.getSource() == malplacedSearchBTN) {
+//            cc = isc.getCase(caseID);
+//            occ.add(cc);
+//            caseEditLV.setItems(occ);
+//            caseEditLV.toString();
+//
+//        }
+//
     }
 
     @FXML

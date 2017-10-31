@@ -92,7 +92,7 @@ public class LoginApi {
         }
 
         String[] localVarAuthNames = new String[] {  };
-        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
     /**
@@ -100,11 +100,11 @@ public class LoginApi {
      * 
      * @param userName  (required)
      * @param password  (required)
-     * @return Boolean
+     * @return Integer
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Boolean doLogin(String userName, String password) throws ApiException {
-        ApiResponse<Boolean> resp = doLoginWithHttpInfo(userName, password);
+    public Integer doLogin(String userName, String password) throws ApiException {
+        ApiResponse<Integer> resp = doLoginWithHttpInfo(userName, password);
         return resp.getData();
     }
 
@@ -113,12 +113,12 @@ public class LoginApi {
      * 
      * @param userName  (required)
      * @param password  (required)
-     * @return ApiResponse&lt;Boolean&gt;
+     * @return ApiResponse&lt;Integer&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Boolean> doLoginWithHttpInfo(String userName, String password) throws ApiException {
+    public ApiResponse<Integer> doLoginWithHttpInfo(String userName, String password) throws ApiException {
         com.squareup.okhttp.Call call = doLoginCall(userName, password, null, null);
-        Type localVarReturnType = new TypeToken<Boolean>(){}.getType();
+        Type localVarReturnType = new TypeToken<Integer>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -131,7 +131,7 @@ public class LoginApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call doLoginAsync(String userName, String password, final ApiCallback<Boolean> callback) throws ApiException {
+    public com.squareup.okhttp.Call doLoginAsync(String userName, String password, final ApiCallback<Integer> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -153,7 +153,7 @@ public class LoginApi {
         }
 
         com.squareup.okhttp.Call call = doLoginCall(userName, password, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<Boolean>(){}.getType();
+        Type localVarReturnType = new TypeToken<Integer>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

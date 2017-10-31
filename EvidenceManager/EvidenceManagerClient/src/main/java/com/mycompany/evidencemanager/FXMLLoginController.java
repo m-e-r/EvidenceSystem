@@ -56,8 +56,8 @@ public class FXMLLoginController implements Initializable {
         
         
         //Send the information the the server
-//        if (this.connect.doSomeLogin(userName, password)) {
-//            this.showCaseStage(this.connect);
+//        if (this.connect.doSomeLogin(userName, password) == 0) {
+//            this.showCaseScreenStage(this.connect);
 //        } else {
 //            this.loginLabel.setText("Prøv igen..");
 //        }

@@ -8,9 +8,12 @@ package io.swagger.client;
 import com.mycompany.evidencemanager.IServerConnect;
 import io.swagger.client.api.CriminalCaseApi;
 import io.swagger.client.api.EvidenceApi;
+import io.swagger.client.api.LawEnForcerApi;
 import io.swagger.client.api.LoginApi;
 import io.swagger.client.model.CriminalCase;
+import io.swagger.client.model.CriminalCaseMap;
 import io.swagger.client.model.Evidence;
+import java.util.List;
 
 /**
  *
@@ -21,6 +24,7 @@ public class ServerConnect implements IServerConnect{
     private CriminalCaseApi cca;
     private EvidenceApi ea;
     private LoginApi la;
+    private LawEnForcerApi lea;
     
     public ServerConnect() {
         this.ac = new ApiClient();
@@ -29,12 +33,13 @@ public class ServerConnect implements IServerConnect{
         this.cca = new CriminalCaseApi(this.ac);
         this.ea = new EvidenceApi(this.ac);
         this.la = new LoginApi(this.ac);
+        this.lea = new LawEnForcerApi(this.ac);
     }
     
     
     @Override
-    public boolean doSomeLogin(String userName, String password) throws ApiException {
-        boolean ans = this.la.doLogin(userName, password);
+    public int doSomeLogin(String userName, String password) throws ApiException {
+        int ans = this.la.doLogin(userName, password);
         return ans;
     }
 
@@ -54,7 +59,12 @@ public class ServerConnect implements IServerConnect{
     }
 
     @Override
-    public Evidence findEvidence(String keyword) throws ApiException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public CriminalCaseMap getCases(Integer employeeId) throws ApiException {
+        return this.lea.lawEnforcerEmployeeIdGet(employeeId);
+    }
+
+    @Override
+    public List<Evidence> findEvidence(String keyword) throws ApiException {
+        return this.ea.getEvidenceList(keyword);
     }
 }
