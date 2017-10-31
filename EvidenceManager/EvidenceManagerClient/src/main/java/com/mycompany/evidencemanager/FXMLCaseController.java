@@ -68,7 +68,7 @@ public class FXMLCaseController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        this.connect = new ServerConnect();
     }    
 
 
@@ -152,6 +152,5 @@ public class FXMLCaseController implements Initializable {
     
    
     public void initData(IServerConnect isc){
-        this.connect = isc;
     }
 }

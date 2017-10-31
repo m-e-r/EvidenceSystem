@@ -7,7 +7,9 @@ package com.mycompany.evidencemanager;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.model.CriminalCase;
+import io.swagger.client.model.CriminalCaseMap;
 import io.swagger.client.model.Evidence;
+import java.util.List;
 
 /**
  * Interface to be used by the FXMLDocument controllers for calling methods
@@ -16,15 +18,16 @@ import io.swagger.client.model.Evidence;
  */
 public interface IServerConnect {
     //For Login
-    public boolean doSomeLogin(String userName, String password) throws ApiException;
+    public int doSomeLogin(String userName, String password) throws ApiException;
     
     
     //For Case
     public boolean addCase(CriminalCase theCase) throws ApiException;
     public boolean updateCase(CriminalCase theCase) throws ApiException;
     public CriminalCase getCase(Integer caseId) throws ApiException;
+    public CriminalCaseMap getCases(Integer employeeId) throws ApiException;
     
     
     //For Evidence
-    public Evidence findEvidence(String keyword) throws ApiException;
+    public List<Evidence> findEvidence(String keyword) throws ApiException;
 }
