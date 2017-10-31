@@ -1,5 +1,6 @@
 package io.swagger.api.impl;
 
+import dbConnection.sqlStatement;
 import io.swagger.api.*;
 import io.swagger.model.*;
 
@@ -19,6 +20,10 @@ import javax.ws.rs.core.SecurityContext;
 public class EvidenceApiServiceImpl extends EvidenceApiService {
      
     private IsqlStatement i;
+    
+    public EvidenceApiServiceImpl(){
+        this.i = new sqlStatement();
+    }
     
     @Override
     public Response getEvidenceList(String keyword, SecurityContext securityContext) throws NotFoundException {

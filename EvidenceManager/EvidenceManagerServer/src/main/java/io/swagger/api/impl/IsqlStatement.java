@@ -7,6 +7,8 @@ package io.swagger.api.impl;
 
 import io.swagger.model.CriminalCase;
 import io.swagger.model.Evidence;
+import java.util.List;
+import io.swagger.model.CriminalCaseMap;
 
 /**
  *
@@ -20,8 +22,10 @@ public interface IsqlStatement {
     
     public CriminalCase getCase(int Id);
     
-    public Evidence findEvidence(String keyWord);
+    //public boolean addEvidence(Evidence e);
     
-    public boolean addEvidence(Evidence e);
+    public CriminalCaseMap getCases(int employeeId);
+
+    //public EvidenceMap getEvidenceList(CriminalCase c);
     
 }
