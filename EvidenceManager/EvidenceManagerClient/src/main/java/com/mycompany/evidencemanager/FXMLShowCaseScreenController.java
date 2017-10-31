@@ -73,23 +73,25 @@ public class FXMLShowCaseScreenController implements Initializable {
 
     @FXML
     private void searchCase(ActionEvent event) throws ApiException {
-        /* int caseID = 1;
+         int caseID = 1;
         CriminalCase cc;
         ObservableList<CriminalCase> occ = FXCollections.observableArrayList();
 
         //caseID = Integer.parseInt(caseSearchTF.getText());
        
-        if (event.getSource() == malplacedSearchBTN) {
-            if (isc.getCase(caseID).equals(true)) {
-                cc = isc.getCase(caseID);
+       
+      
+                System.err.println("Hello");
+                cc = connect.getCase(caseID);
                 occ.add(cc);
+                System.out.println(occ.toString());
                 caseEditLV.setItems(occ);
                 caseEditLV.toString();
-            }
-        }
+            
         
-         */
-        System.out.println(connect.getCase(1));
+        
+         
+        
 
     }
 
