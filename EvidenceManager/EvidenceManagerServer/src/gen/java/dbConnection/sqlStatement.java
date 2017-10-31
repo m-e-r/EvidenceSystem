@@ -123,21 +123,22 @@ public class sqlStatement implements IsqlStatement {
     @Override
     public CriminalCaseMap getCases(int employeeId) {
         CriminalCaseMap caseMap = new CriminalCaseMap();
-        
-        String query = String.format("SELECT (_ref, title) FROM criminalcase\n"
-                + "WHERE _ref = (SELECT _ref FROM lawenforcercaseref WHERE _ref = %d)", employeeId);
-        
+
+        String query = String.format("SELECT criminalcase._ref, criminalcase.title FROM criminalcase\n"
+                + "JOIN lawenforcercaseref ON (criminalcase._ref = lawenforcercaseref.caseref) \n"
+                + "WHERE lawenforcercaseref.lawenforcerref = %d", employeeId);
+
         ResultSet select = db.executeQuery(query);
         try {
-            while (select.next()){
+            while (select.next()) {
                 caseMap.put(select.getString("_ref"), select.getString("title"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return caseMap;
-        
+
     }
 
 }
