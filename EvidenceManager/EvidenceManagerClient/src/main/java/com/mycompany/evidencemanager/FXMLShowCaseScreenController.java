@@ -38,10 +38,9 @@ import javafx.stage.StageStyle;
  * @author march
  */
 public class FXMLShowCaseScreenController implements Initializable {
-
-    private IServerConnect connect;
-
-    ObservableList<String> occ;
+    //Attributes
+    private IServerConnect connect; //Used for calling methods on the server
+    private ObservableList<String> occ; //Used for holding case name and id for displaying in the ListView
 
     @FXML
     private TextArea evidenceInfoTA;
@@ -77,6 +76,12 @@ public class FXMLShowCaseScreenController implements Initializable {
         }
     }
     
+    /**
+     * Loads into the ListView all the case names/ids relevant to the logged in user.
+     * Should be called from the initData method, NOT initialize.
+     * @param employeeId the user who logs in
+     * @throws ApiException 
+     */
     private void showsRelevantCases(int employeeId) throws ApiException {
         Map<String, String>tempMap = this.connect.getCases(employeeId);
 //        Map<String, String> tempMap = new HashMap();
@@ -90,58 +95,24 @@ public class FXMLShowCaseScreenController implements Initializable {
         }
 
         this.caseEditLV.setItems(this.occ);
-        
-       
-        
     }
     
-    
-    
-
-    @FXML
-    private void searchCase(ActionEvent event) throws ApiException {
-
-//        int caseID = 0;
-//        CriminalCase cc;
-//
-//        caseID = Integer.parseInt(caseSearchTF.getText());
-//
-//        if (event.getSource() == malplacedSearchBTN) {
-//            cc = isc.getCase(caseID);
-//            occ.add(cc);
-//            caseEditLV.setItems(occ);
-//            caseEditLV.toString();
-//
-//        }
-//
-
-         int caseID = 1;
-        CriminalCase cc;
-        ObservableList<CriminalCase> occ = FXCollections.observableArrayList();
-
-        //caseID = Integer.parseInt(caseSearchTF.getText());
-       
-       
-      
-                System.err.println("Hello");
-                cc = connect.getCase(caseID);
-                occ.add(cc);
-                System.out.println(occ.toString());
-                caseEditLV.setItems(this.occ);
-                caseEditLV.toString();
-            
-        
-        
-         
-        
-
-    }
-
+    /**
+     * Method to be called when this stage is loaded.
+     * @param isc not relevant
+     */
     public void initData(IServerConnect isc) {
         this.connect = isc;
 
     }
-
+    
+    /**
+     * Displays the selected CriminalCase from the ListView.
+     * @param event the editCase button.
+     * @return Shows the new Stage
+     * @throws IOException
+     * @throws ApiException 
+     */
     @FXML
     private Stage editCase(ActionEvent event) throws IOException, ApiException {
         String id;
@@ -160,10 +131,15 @@ public class FXMLShowCaseScreenController implements Initializable {
         controller.initData(cc);
         
         stage.show();
-        return stage;
-   
+        return stage;  
 }
-
+    
+    /**
+     * Displays the screen where a user can add a new CriminalCase.
+     * @param event the addCase button
+     * @return Shows the new Stage
+     * @throws IOException 
+     */
     @FXML
     private Stage addCase(ActionEvent event) throws IOException {
         initData(connect);
