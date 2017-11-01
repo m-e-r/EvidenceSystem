@@ -3,11 +3,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
@@ -19,20 +17,14 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <RadioButton fx:id="statusRBTN" layoutX="419.0" layoutY="255.0" mnemonicParsing="false" onAction="#caseInactive" text="Inactive">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="toggler" />
-                           </toggleGroup></RadioButton>
                         <Label layoutX="185.0" layoutY="21.0" text="Information about the case:" />
                         <TextArea fx:id="caseInfoTA" layoutX="43.0" layoutY="38.0" prefHeight="169.0" prefWidth="449.0" text="Description (includes the following;&#10;information about the time and date,&#10;circumstances surrounding the case&#10;and additional iformation)&#10;" />
-                        <RadioButton fx:id="statusRBTN" layoutX="346.0" layoutY="255.0" mnemonicParsing="false" onAction="#caseActive" prefHeight="0.0" prefWidth="54.0" selected="true" text="Active" toggleGroup="$toggler" />
-                        <Label layoutX="379.0" layoutY="236.0" text="Case Status:" />
-                        <TextField fx:id="additionelSuspectTF" layoutX="42.0" layoutY="295.0" onAction="#addtionalSuspect" prefHeight="25.0" prefWidth="121.0" text="Additional suspects" />
-                        <TextField fx:id="caseCategoryTF" layoutX="114.0" layoutY="207.0" onAction="#caseCategory" prefHeight="25.0" prefWidth="79.0" text="Open" />
-                        <Button fx:id="addSuspectBTN" layoutX="61.0" layoutY="320.0" mnemonicParsing="false" onAction="#addSuspect" text="Add suspect" />
-                        <TextField fx:id="caseNrTF" layoutX="43.0" layoutY="207.0" onAction="#caseNrAdd" prefHeight="25.0" prefWidth="59.0" promptText="case nr." />
-                        <TextField fx:id="primeSuspectTF" layoutX="179.0" layoutY="295.0" onAction="#primeSuspect" prefHeight="25.0" prefWidth="129.0" text="Prime suspect (if any)" />
-                        <TextField fx:id="caseLawenforcerTF" layoutX="40.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#lawenforcer" prefHeight="25.0" prefWidth="126.0" text="Assigned personel" />
+                        <TextField fx:id="additionelSuspectTF" layoutX="42.0" layoutY="295.0" prefHeight="25.0" prefWidth="121.0" text="Additional suspects" />
+                        <TextField fx:id="caseCategoryTF" layoutX="114.0" layoutY="207.0" prefHeight="25.0" prefWidth="79.0" text="Open" />
+                        <Button fx:id="addSuspectBTN" layoutX="61.0" layoutY="320.0" mnemonicParsing="false" text="Add suspect" />
+                        <TextField fx:id="caseNrTF" layoutX="43.0" layoutY="207.0" prefHeight="25.0" prefWidth="59.0" promptText="case nr." />
+                        <TextField fx:id="primeSuspectTF" layoutX="179.0" layoutY="295.0" prefHeight="25.0" prefWidth="129.0" text="Prime suspect (if any)" />
+                        <TextField fx:id="caseLawenforcerTF" layoutX="40.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="126.0" text="Assigned personel" />
                         <Button fx:id="addNewCaseBTN" layoutX="163.0" layoutY="576.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addCase" prefHeight="33.0" prefWidth="121.0" text="Add new case" textFill="#13d036" />
                         <TextField fx:id="caseTitleTF" layoutX="40.0" layoutY="232.0" text="Title" />
                         <TextField layoutX="179.0" layoutY="263.0" prefHeight="25.0" prefWidth="89.0" text="Rank" />
@@ -41,16 +33,16 @@
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <TextField fx:id="evidenceLocationTF" layoutX="29.0" layoutY="371.0" onAction="#evidenceLocation" prefHeight="25.0" prefWidth="183.0" text="Location" />
-                        <TextField fx:id="evidenceCategoryTF" layoutX="30.0" layoutY="308.0" onAction="#evidenceCategory" prefHeight="25.0" prefWidth="81.0" text="Category" />
+                        <TextField fx:id="evidenceLocationTF" layoutX="29.0" layoutY="371.0" prefHeight="25.0" prefWidth="183.0" text="Location" />
+                        <TextField fx:id="evidenceCategoryTF" layoutX="30.0" layoutY="308.0" prefHeight="25.0" prefWidth="81.0" text="Category" />
                         <Label layoutX="36.0" layoutY="23.0" text="List of evidence attached  to the case:" />
-                        <TextField layoutX="30.0" layoutY="281.0" onAction="#evidenceNrAdd" prefHeight="25.0" prefWidth="90.0" text="Evidence nr." />
+                        <TextField layoutX="30.0" layoutY="281.0" prefHeight="25.0" prefWidth="90.0" text="Evidence nr." />
                         <ListView fx:id="evidenceListLV" layoutX="30.0" layoutY="40.0" prefHeight="200.0" prefWidth="212.0" />
-                        <TextField fx:id="evidenceLawenforcerTF" layoutX="30.0" layoutY="338.0" onAction="#evidenceLawenforcer" prefHeight="25.0" prefWidth="127.0" text="Personel responsible" />
+                        <TextField fx:id="evidenceLawenforcerTF" layoutX="30.0" layoutY="338.0" prefHeight="25.0" prefWidth="127.0" text="Personel responsible" />
                         <TextArea fx:id="evidenceDescriptionTA" layoutX="293.0" layoutY="40.0" prefHeight="200.0" prefWidth="225.0" text="Description (includes, time and date,&#10;amount, details about the evidence)" />
                         <TextField fx:id="evidenceTitleTF" layoutX="29.0" layoutY="252.0" text="Title" />
-                        <Button fx:id="removeEvidenceBTN" layoutX="124.0" layoutY="569.0" mnemonicParsing="false" onAction="#removeEvidence" text="Remove evidence" />
-                        <Button fx:id="addEvidenceBTN" layoutX="26.0" layoutY="569.0" mnemonicParsing="false" onAction="#addEvidence" text="Add evidence" />
+                        <Button fx:id="removeEvidenceBTN" layoutX="124.0" layoutY="569.0" mnemonicParsing="false" text="Remove evidence" />
+                        <Button fx:id="addEvidenceBTN" layoutX="26.0" layoutY="569.0" mnemonicParsing="false" text="Add evidence" />
                      </children>
                   </AnchorPane>
               </items>

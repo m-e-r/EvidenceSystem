@@ -27,8 +27,9 @@ import javafx.scene.control.ToggleGroup;
  * @author Kasper
  */
 public class FXMLCaseController implements Initializable {
-    private IServerConnect connect;
-    private CriminalCase cc;
+    //Attributes
+    private IServerConnect connect; //For calling webservice methods in the ServerConnect implementation. 
+    private CriminalCase cc; //Gets parsed from FXMLShowCaseScreenController. 
     
     
     @FXML
@@ -77,41 +78,16 @@ public class FXMLCaseController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         this.connect = new ServerConnect();
-
-
     }    
 
-
-
-    @FXML
-    private void caseActive(ActionEvent event) {
-    }
-
-    @FXML
-    private void caseInactive(ActionEvent event) {
-    }
-
-
-    @FXML
-    private void evidenceNrAdd(ActionEvent event) {
-    }
-
-    @FXML
-    private void evidenceCategory(ActionEvent event) {
-    }
-
-    @FXML
-    private void evidenceLawenforcer(ActionEvent event) {
-    }
-
-    @FXML
-    private void evidenceLocation(ActionEvent event) {
-    }
-
-
-
+    
+    /**
+     * Instantiates a new CriminalCase object, whose attributes are set to be the attributes which the user wishes. 
+     * The case is then added in the database using the addCase method on the ServerConnect object.
+     * @param event - button that is pressed when a case is added.
+     * @throws ApiException 
+     */
     @FXML
     private void addCase(ActionEvent event) throws ApiException {
         CriminalCase cc = new CriminalCase();
@@ -131,38 +107,23 @@ public class FXMLCaseController implements Initializable {
     }
 
 
-    @FXML
-    private void lawenforcer(ActionEvent event) {
-    }
-
-    @FXML
-    private void caseNrAdd(ActionEvent event) {
-    }
-
-    @FXML
-    private void primeSuspect(ActionEvent event) {
-    }
-
-    @FXML
-    private void addtionalSuspect(ActionEvent event) {
-    }
-
-    @FXML
-    private void caseCategory(ActionEvent event) {
-    }
-
-    @FXML
-    private void addSuspect(ActionEvent event) {
-    }
     
-   
+    /**
+     * Method that is called when loading this stage.
+     * @param cc - CriminalCase object that is parsed across FXMLControllers. 
+     */
     public void initData(CriminalCase cc){
         this.cc = cc;
         this.fillCase(cc);
         
     }
     
-     @FXML
+    /**
+     * Instantiates a new CriminalCase object, whose attributes are set to be the attributes which the user wishes. 
+     * @param event - Button that is pressed when the changes to a case is saved.
+     * @throws ApiException 
+     */
+    @FXML
     private void saveChangesToCase(ActionEvent event) throws ApiException {
         CriminalCase changedCriminalCase = new CriminalCase();
         changedCriminalCase.setCaseDescription(this.caseInfoTA.getText());
@@ -180,6 +141,11 @@ public class FXMLCaseController implements Initializable {
     
     }
     
+    /**
+     * Called from initData, when editCase is pressed. 
+     * Updates all textfields and textareas with the information pertaining to the case that is to be edited.
+     * @param cc 
+     */
     private void fillCase(CriminalCase cc){
        caseInfoTA.setText(this.cc.getCaseDescription());
        caseTitleTF.setText(this.cc.getCaseName());
