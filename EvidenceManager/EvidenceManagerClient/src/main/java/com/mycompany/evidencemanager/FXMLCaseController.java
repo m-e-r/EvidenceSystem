@@ -44,10 +44,6 @@ public class FXMLCaseController implements Initializable {
     @FXML
     private TextField evidenceLocationTF;
     @FXML
-    private RadioButton digialRBTN;
-    @FXML
-    private RadioButton physicalRBTN;
-    @FXML
     private TextField caseLawenforcerTF;
     @FXML
     private TextField primeSuspectTF;
@@ -67,6 +63,14 @@ public class FXMLCaseController implements Initializable {
     private ToggleGroup toggler;
     @FXML
     private Button saveChangesBTN;
+    @FXML
+    private Button removeEvidenceBTN;
+    @FXML
+    private Button addEvidenceBTN;
+    @FXML
+    private TextArea evidenceDescriptionTA;
+    @FXML
+    private TextField evidenceTitleTF;
    
     /**
      * Initializes the controller class.
@@ -106,13 +110,6 @@ public class FXMLCaseController implements Initializable {
     private void evidenceLocation(ActionEvent event) {
     }
 
-    @FXML
-    private void digitalEvidence(ActionEvent event) {
-    }
-
-    @FXML
-    private void physicalEvidence(ActionEvent event) {
-    }
 
 
     @FXML
@@ -194,6 +191,14 @@ public class FXMLCaseController implements Initializable {
 //       }
         caseNrTF.setText(String.valueOf(this.cc.getId()));
         
+    }
+
+    @FXML
+    private void removeEvidence(ActionEvent event) {
+    }
+
+    @FXML
+    private void addEvidence(ActionEvent event) {
     }
 
    
