@@ -56,11 +56,7 @@ public class FXMLShowCaseScreenController implements Initializable {
     @FXML
     private Button addCaseBTN;
     @FXML
-    private Button removeEvidenceBTN;
-    @FXML
     private Button removeCaseBTN;
-    @FXML
-    private Button addEvidenceBTN;
     @FXML
     private Button malplacedSearchBTN;
 
@@ -183,16 +179,10 @@ public class FXMLShowCaseScreenController implements Initializable {
 
     }
 
-    @FXML
-    private void removeEvidence(ActionEvent event) {
-    }
 
     @FXML
     private void removeCase(ActionEvent event) {
     }
 
-    @FXML
-    private void addEvidence(ActionEvent event) {
-    }
 
 }
