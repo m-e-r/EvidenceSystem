@@ -32,7 +32,12 @@ public class sqlStatement implements IsqlStatement {
 
         db = new dbConnection();
     }
-
+    
+    /**
+     * Method for adding a case in database.
+     * @param c
+     * @return 1
+     */
     public boolean addCase(CriminalCase c) {
         System.err.println("Fra addCase i sqlStatement");
 
@@ -45,7 +50,12 @@ public class sqlStatement implements IsqlStatement {
 
         return db.updateQuery(query) == 1;
     }
-
+    
+    /**
+     * Method for updating Evidence in database from a list.
+     * @param evidence
+     * @param caseRef 
+     */
     private void handleEvidence(List<Evidence> evidence, int caseRef) {
         if (!evidence.isEmpty()) {
             for (Evidence e : evidence) {
@@ -57,7 +67,12 @@ public class sqlStatement implements IsqlStatement {
             }
         }
     }
-
+    
+    /**
+     * Method with SQL for adding new Evidence to Database. 
+     * @param e
+     * @param caseRef 
+     */
     private void addNewEvidence(Evidence e, int caseRef) {
         //IMPORTANT! REPLACE e.getLocation() with title when available!!!!!!
         int evidenceId;
@@ -79,14 +94,23 @@ public class sqlStatement implements IsqlStatement {
         }
 
     }
-
+    
+    /**
+     * Method for updating Evidence in database.
+     * @param e 
+     */
     private void updateEvidence(Evidence e) {
         //IMPORTANT! REPLACE e.getLocation() with title when available!!!!!!
         String query = String.format("UPDATE evidence SET title = '%s', description = '%s' WHERE _ref = %d;",
                 e.getLocation(), e.getEvidenceDescription(), e.getEvidenceNumber());
         db.updateQuery(query);
     }
-
+    
+    /**
+     * Method for updating case in database.
+     * @param c
+     * @return 
+     */
     public boolean updateCase(CriminalCase c) {
         System.err.println(c.getCaseDescription() + c.getCaseName() + c.getId()+ "<------LOOOOOOOOOK HERE");
         String query = "UPDATE criminalcase SET title = '" + c.getCaseName()
@@ -96,7 +120,12 @@ public class sqlStatement implements IsqlStatement {
 
         return db.updateQuery(query) == 1;
     }
-
+    
+    /**
+     * Mehtod for getting a case from database.
+     * @param Id
+     * @return CriminalCase
+     */
     public CriminalCase getCase(int Id) {
 
         CriminalCase ccase = new CriminalCase();
@@ -111,15 +140,20 @@ public class sqlStatement implements IsqlStatement {
                 ccase.setId(set.getInt("_ref"));
                 ccase.setCaseName(set.getString("title"));
                 ccase.setCaseDescription(set.getString("description"));
-
             }
+            
         } catch (SQLException ex) {
             Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return ccase;
     }
-
+    
+    /**
+     * Method for getting map with cases from database.
+     * @param employeeId
+     * @return CriminalCaseMap
+     */
     @Override
     public CriminalCaseMap getCases(int employeeId) {
         CriminalCaseMap caseMap = new CriminalCaseMap();

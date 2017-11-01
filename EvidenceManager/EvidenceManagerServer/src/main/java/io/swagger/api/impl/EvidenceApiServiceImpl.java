@@ -21,10 +21,20 @@ public class EvidenceApiServiceImpl extends EvidenceApiService {
      
     private IsqlStatement i;
     
+    /*
+    Instantiate sqlStatement interface
+    */
     public EvidenceApiServiceImpl(){
         this.i = new sqlStatement();
     }
     
+    /**
+     * Gets a keyword from client, and returns a list of Evidence.
+     * @param keyword
+     * @param securityContext
+     * @return List<Evidence>
+     * @throws NotFoundException 
+     */
     @Override
     public Response getEvidenceList(String keyword, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
