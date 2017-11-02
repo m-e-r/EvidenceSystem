@@ -16,18 +16,16 @@
                <children>
                   <TextArea fx:id="evidenceInfoTA" layoutX="643.0" layoutY="306.0" prefHeight="200.0" prefWidth="200.0" text="Evidence information and &#10;description connected to the case" />
                   <ListView fx:id="caseEditLV" layoutX="22.0" layoutY="98.0" prefHeight="415.0" prefWidth="598.0" />
-                  <TextField fx:id="caseSearchTF" layoutX="22.0" layoutY="73.0" onAction="#searchCase" prefHeight="25.0" prefWidth="598.0" text="Search cases" />
+                  <TextField fx:id="caseSearchTF" layoutX="22.0" layoutY="73.0" prefHeight="25.0" prefWidth="598.0" text="Search cases" />
                   <TextArea fx:id="caseDescriptionTA" layoutX="643.0" layoutY="98.0" prefHeight="200.0" prefWidth="200.0" text="Case describtion (includes the following;&#10;location, status, personel responsible&#10;, suspect(s), category)" />
-                  <Button fx:id="malplacedSearchBTN" layoutX="227.0" layoutY="39.0" mnemonicParsing="false" onAction="#searchCase" text="Search" />
+                  <Button fx:id="malplacedSearchBTN" layoutX="295.0" layoutY="38.0" mnemonicParsing="false" text="Search" />
                </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="105.0" prefWidth="160.0">
                <children>
-                  <Button fx:id="editCaseBTN" layoutX="145.0" layoutY="2.0" mnemonicParsing="false" onAction="#editCase" text="Edit case" />
+                  <Button fx:id="editCaseBTN" layoutX="139.0" layoutY="2.0" mnemonicParsing="false" onAction="#editCase" text="Edit case" />
                   <Button fx:id="addCaseBTN" layoutX="24.0" layoutY="2.0" mnemonicParsing="false" onAction="#addCase" text="Add new case" />
-                  <Button fx:id="removeEvidenceBTN" layoutX="465.0" layoutY="2.0" mnemonicParsing="false" onAction="#removeEvidence" text="Remove evidence" />
-                  <Button fx:id="removeCaseBTN" layoutX="351.0" layoutY="2.0" mnemonicParsing="false" onAction="#removeCase" text="Remove case" />
-                  <Button fx:id="addEvidenceBTN" layoutX="238.0" layoutY="2.0" mnemonicParsing="false" onAction="#addEvidence" text="Add evidence" />
+                  <Button fx:id="removeCaseBTN" layoutX="230.0" layoutY="2.0" mnemonicParsing="false" onAction="#removeCase" text="Remove case" />
                </children>
             </AnchorPane>
          </items>

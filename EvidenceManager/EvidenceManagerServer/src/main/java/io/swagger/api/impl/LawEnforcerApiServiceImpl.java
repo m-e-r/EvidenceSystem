@@ -23,6 +23,14 @@ public class LawEnforcerApiServiceImpl extends LawEnforcerApiService {
     public LawEnforcerApiServiceImpl(){
         this.i = new sqlStatement();
     }
+    
+    /**
+     * Method for getting cases based on an employeeId. Returns HashMap, with caseId and caseName.
+     * @param employeeId
+     * @param securityContext
+     * @return HashMap<String, String>
+     * @throws NotFoundException 
+     */
     @Override
     public Response lawEnforcerEmployeeIdGet(Integer employeeId, SecurityContext securityContext) throws NotFoundException {
         // do some magic!

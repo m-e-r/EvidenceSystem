@@ -18,8 +18,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class FXMLLoginController implements Initializable {
-    private LoginTest lgt;
-    private IServerConnect connect;
+    //Attributes
+    private IServerConnect connect; //For calling methods on the server
     
     private Label label;
     @FXML
@@ -37,6 +37,13 @@ public class FXMLLoginController implements Initializable {
         this.connect = new ServerConnect();
     }    
     
+    /**
+     * Logs a user in based on username/password combination.
+     * Displays the next screen based on the login credentials (returned from server).
+     * @param event the login button
+     * @throws ApiException
+     * @throws IOException 
+     */
     @FXML
     private void handleLoginAction(ActionEvent event) throws ApiException, IOException {
         
@@ -65,6 +72,14 @@ public class FXMLLoginController implements Initializable {
         this.showCaseScreenStage(connect);
 
     }
+    
+    
+    /**
+     * Displays the relevant screen to the user.
+     * @param connector not relevant
+     * @return
+     * @throws IOException 
+     */
     private Stage showCaseScreenStage(IServerConnect connector) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ShowCaseScreen.fxml"));
 

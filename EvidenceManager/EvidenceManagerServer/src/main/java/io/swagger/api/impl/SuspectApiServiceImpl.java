@@ -17,6 +17,13 @@ import javax.ws.rs.core.SecurityContext;
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-27T11:21:19.158Z")
 public class SuspectApiServiceImpl extends SuspectApiService {
+    
+    /**
+     * Method for getting a list of suspects.
+     * @param securityContext
+     * @return List<Suspect>
+     * @throws NotFoundException 
+     */
     @Override
     public Response getSuspectList(SecurityContext securityContext) throws NotFoundException {
         // do some magic!

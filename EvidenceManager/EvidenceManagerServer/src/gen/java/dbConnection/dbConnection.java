@@ -20,9 +20,13 @@ import java.util.logging.Logger;
 public class dbConnection {
 
     private static Connection con = null;
-
+    
+    /**
+     * Method for connecting to database.
+     */
     public dbConnection() {
-
+        
+        //Used to connect to database.
         String url = "jdbc:postgresql://tek-mmmi-db0a.tek.c.sdu.dk:5432/si3_2017_group_13_db";
         String username = "si3_2017_group_13";
         String password = "grim26:bijou";
@@ -39,7 +43,12 @@ public class dbConnection {
         }
 
     }
-
+    
+    /**
+     * Method for executing sql statements written in strings.
+     * @param query
+     * @return 
+     */
     public ResultSet executeQuery(String query) {
 
         try {
@@ -52,7 +61,12 @@ public class dbConnection {
 
         return null;
     }
-
+    
+    /**
+     * Method for updating data in database. 
+     * @param query
+     * @return 
+     */
     public int updateQuery(String query) {
 
         try {
