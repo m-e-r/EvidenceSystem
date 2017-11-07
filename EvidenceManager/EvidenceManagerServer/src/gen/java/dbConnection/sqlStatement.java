@@ -149,6 +149,11 @@ public class sqlStatement implements IsqlStatement {
         return ccase;
     }
     
+    /**
+     * Method for getting a evidence list from database.
+     * @param CriminalCase
+     * @return Evidence
+     */
     public Evidence getEvidence(CriminalCase c){
         
         Evidence evi = new Evidence();
