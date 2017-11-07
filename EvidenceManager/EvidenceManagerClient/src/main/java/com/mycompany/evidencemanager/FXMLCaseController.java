@@ -180,14 +180,15 @@ public class FXMLCaseController implements Initializable {
        ObservableList<String> occS = FXCollections.observableArrayList();
  
        
-       Evidence e1 = new Evidence();
+       /*Evidence e1 = new Evidence();
        e1.setEvidenceDescription("Herro m8");
        e1.setEvidenceNumber(1);
        e1.setLocation("Somewhere");
+       */
        
-       eList.add(e1);
        for(Evidence e : eList){
            String adder = e.toString();
+           System.err.println(adder);
            occS.add(adder);
        }
         
