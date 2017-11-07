@@ -149,6 +149,26 @@ public class sqlStatement implements IsqlStatement {
         return ccase;
     }
     
+    public Evidence getEvidence(CriminalCase c){
+        
+        Evidence evi = new Evidence();
+        
+        try {
+            String query = "SELECT evidence.title, evidence.description FROM evidence JOIN caseevidenceref ON (evidence._ref = caseevidenceref.evidenceref) WHERE caseevidenceref.caseref = "+ c.getId()+";";
+            
+           ResultSet set = db.executeQuery(query);
+           while (set.next()){              
+               evi.setLocation(set.getString("title"));
+               evi.setEvidenceDescription(set.getString("description"));
+           }
+        } catch (SQLException ex) {
+            Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return evi;
+    }
+    
     /**
      * Method for getting map with cases from database.
      * @param employeeId
@@ -175,4 +195,12 @@ public class sqlStatement implements IsqlStatement {
 
     }
 
+    @Override
+    public Evidence getEvidenceList(String keyword) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+    
+    
 }
