@@ -26,6 +26,6 @@ public interface IsqlStatement {
     
     public CriminalCaseMap getCases(int employeeId);
 
-    public Evidence getEvidenceList(String keyword);
+    public List<Evidence> getEvidenceList(String keyword);
     
 }

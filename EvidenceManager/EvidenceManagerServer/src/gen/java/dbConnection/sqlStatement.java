@@ -126,12 +126,12 @@ public class sqlStatement implements IsqlStatement {
      * @param Id
      * @return CriminalCase
      */
-    public CriminalCase getCase(int Id) {
+    public CriminalCase getCase(int id) {
 
         CriminalCase ccase = new CriminalCase();
 
         try {
-            String query = "SELECT _ref, title, description FROM criminalcase WHERE _ref =" + Id + ";";
+            String query = "SELECT _ref, title, description FROM criminalcase WHERE _ref =" + id + ";";
 
             ResultSet set = db.executeQuery(query);
 
@@ -140,12 +140,14 @@ public class sqlStatement implements IsqlStatement {
                 ccase.setId(set.getInt("_ref"));
                 ccase.setCaseName(set.getString("title"));
                 ccase.setCaseDescription(set.getString("description"));
+                
             }
+            
             
         } catch (SQLException ex) {
             Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        ccase.setCaseEvidence(this.getEvidence(id));
         return ccase;
     }
     
@@ -154,24 +156,26 @@ public class sqlStatement implements IsqlStatement {
      * @param CriminalCase
      * @return Evidence
      */
-    public Evidence getEvidence(CriminalCase c){
+    private List<Evidence> getEvidence(int id){
         
-        Evidence evi = new Evidence();
-        
+        List<Evidence> eviList = new ArrayList();
+        Evidence evi;
         try {
-            String query = "SELECT evidence.title, evidence.description FROM evidence JOIN caseevidenceref ON (evidence._ref = caseevidenceref.evidenceref) WHERE caseevidenceref.caseref = "+ c.getId()+";";
+            String query = "SELECT evidence.title, evidence.description FROM evidence JOIN caseevidenceref ON (evidence._ref = caseevidenceref.evidenceref) WHERE caseevidenceref.caseref = "+ id+";";
             
            ResultSet set = db.executeQuery(query);
-           while (set.next()){              
+           while (set.next()){      
+               evi = new Evidence();
                evi.setLocation(set.getString("title"));
                evi.setEvidenceDescription(set.getString("description"));
+               eviList.add(evi);
            }
         } catch (SQLException ex) {
             Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
-        return evi;
+        return eviList;
     }
     
     /**
@@ -201,7 +205,7 @@ public class sqlStatement implements IsqlStatement {
     }
 
     @Override
-    public Evidence getEvidenceList(String keyword) {
+    public List<Evidence> getEvidenceList(String keyword) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
