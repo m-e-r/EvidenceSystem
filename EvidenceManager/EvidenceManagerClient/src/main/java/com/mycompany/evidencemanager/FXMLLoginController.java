@@ -18,9 +18,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class FXMLLoginController implements Initializable {
+
     //Attributes
     private IServerConnect connect; //For calling methods on the server
-    
+
     private Label label;
     @FXML
     private TextField userNameTF;
@@ -31,54 +32,54 @@ public class FXMLLoginController implements Initializable {
     @FXML
     private Label loginLabel;
 
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.connect = new ServerConnect();
-    }    
-    
+    }
+
     /**
-     * Logs a user in based on username/password combination.
-     * Displays the next screen based on the login credentials (returned from server).
+     * Logs a user in based on username/password combination. Displays the next
+     * screen based on the login credentials (returned from server).
+     *
      * @param event the login button
      * @throws ApiException
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
     private void handleLoginAction(ActionEvent event) throws ApiException, IOException {
-        
+
         //Format expected by the server when the user leaves the textfields empty;
         String userName = " ";
         String password = " ";
-        
-        
+
         //Set the strings if textfields are not empty
-        if(!this.userNameTF.getText().trim().isEmpty()){
+        if (!this.userNameTF.getText().trim().isEmpty()) {
             userName = this.userNameTF.getText();
         }
-        
-        if (!this.passwordTF.getText().trim().isEmpty()){
+
+        if (!this.passwordTF.getText().trim().isEmpty()) {
             password = this.passwordTF.getText();
         }
-        
-        
+
         //Send the information the the server
 //        if (this.connect.doSomeLogin(userName, password) == 0) {
 //            this.showCaseScreenStage(this.connect);
 //        } else {
 //            this.loginLabel.setText("Prøv igen..");
 //        }
-        
-        this.showCaseScreenStage(connect);
-
+        if (userName.equals("1")) {
+            this.showCaseScreenStage(connect);
+        } else if(userName.equals("2")){
+            this.showForensicEvidenceStage(connect);
+        }
     }
-    
-    
+
     /**
      * Displays the relevant screen to the user.
+     *
      * @param connector not relevant
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
     private Stage showCaseScreenStage(IServerConnect connector) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ShowCaseScreen.fxml"));
@@ -87,8 +88,19 @@ public class FXMLLoginController implements Initializable {
         stage.setScene(new Scene((Pane) loader.load()));
 
         FXMLShowCaseScreenController controller = loader.<FXMLShowCaseScreenController>getController();
-        
-        
+
+        stage.show();
+        return stage;
+    }
+
+    private Stage showForensicEvidenceStage(IServerConnect connector) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ForensicEvidence.fxml"));
+
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene((Pane) loader.load()));
+
+        FXMLForensicEvidenceController controller = loader.<FXMLForensicEvidenceController>getController();
+
         stage.show();
         return stage;
     }

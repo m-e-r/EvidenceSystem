@@ -9,8 +9,13 @@ package com.mycompany.evidencemanager;
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
 import io.swagger.client.model.CriminalCase;
+import io.swagger.client.model.Evidence;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -37,7 +42,7 @@ public class FXMLCaseController implements Initializable {
     @FXML
     private TextField caseNrTF;
     @FXML
-    private ListView<?> evidenceListLV;
+    private ListView<String> evidenceListLV;
     @FXML
     private TextArea caseInfoTA;
     @FXML
@@ -113,7 +118,7 @@ public class FXMLCaseController implements Initializable {
     public void initData(CriminalCase cc){
         this.cc = cc;
         this.fillCase(cc);
-        
+        this.fillEvidence(cc.getCaseEvidence());
     }
     
     /**
@@ -155,7 +160,40 @@ public class FXMLCaseController implements Initializable {
 //       }
         caseNrTF.setText(String.valueOf(this.cc.getId()));
         
+      
+        
     }
 
+    public void editEvidence(){
+        String id;
+        String [] ids = evidenceListLV.getSelectionModel().getSelectedItem().split("\n");
+        
+        id = ids[0];
+        Evidence e = new Evidence();
+        
+        System.out.println(ids.toString());
+        
+    }
+    
+    
+    private void fillEvidence (List<Evidence> eList){
+       ObservableList<String> occS = FXCollections.observableArrayList();
+ 
+       
+       Evidence e1 = new Evidence();
+       e1.setEvidenceDescription("Herro m8");
+       e1.setEvidenceNumber(1);
+       e1.setLocation("Somewhere");
+       
+       eList.add(e1);
+       for(Evidence e : eList){
+           String adder = e.toString();
+           occS.add(adder);
+       }
+        
+       evidenceListLV.setItems(occS);
+       
+    
+    }
    
 }

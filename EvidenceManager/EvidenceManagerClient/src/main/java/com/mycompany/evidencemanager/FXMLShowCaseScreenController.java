@@ -117,6 +117,7 @@ public class FXMLShowCaseScreenController implements Initializable {
     private Stage editCase(ActionEvent event) throws IOException, ApiException {
         String id;
         String [] ids = caseEditLV.getSelectionModel().getSelectedItem().split("\n");
+        
         id = ids[0];
         CriminalCase cc = new CriminalCase();
         
