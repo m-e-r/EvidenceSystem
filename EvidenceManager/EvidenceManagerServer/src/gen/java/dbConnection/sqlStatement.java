@@ -61,6 +61,7 @@ public class sqlStatement implements IsqlStatement {
     private void handleEvidence(List<Evidence> evidence, int caseRef) {
         if (!evidence.isEmpty()) {
             for (Evidence e : evidence) {
+                System.out.println("forloop");
                 if (e.getEvidenceNumber() == 0) {
                     this.addNewEvidence(e, caseRef);
                 } else {
@@ -83,12 +84,12 @@ public class sqlStatement implements IsqlStatement {
                     + "VALUES ('" + e.getLocation() + "', '" + e.getEvidenceDescription() + ") RETURNING _ref;";
 
             ResultSet select = db.executeQuery(query);
-            while (select.next()) {
+            
                 evidenceId = select.getInt("_ref");
                 String refQuery = String.format("INSERT INTO caseevidenceref (caseref, evidenceref) "
                         + "VALUES (%d, %d);", caseRef, evidenceId);
                 db.executeQuery(refQuery);
-            }
+            
 
             //String query = "INSERT INTO ";
         } catch (SQLException ex) {
@@ -104,6 +105,7 @@ public class sqlStatement implements IsqlStatement {
      * @param e 
      */
     private void updateEvidence(Evidence e) {
+        System.out.println("Fra updateEvidence");
         //IMPORTANT! REPLACE e.getLocation() with title when available!!!!!!
         String query = String.format("UPDATE evidence SET title = '%s', description = '%s' WHERE _ref = %d;",
                 e.getLocation(), e.getEvidenceDescription(), e.getEvidenceNumber());

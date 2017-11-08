@@ -115,7 +115,6 @@ public class FXMLCaseController implements Initializable {
      */
     @FXML
     private void addCase(ActionEvent event) throws ApiException {
-        CriminalCase cc = new CriminalCase();
         cc.setCaseDescription(this.caseInfoTA.getText());
         cc.setCaseName(this.caseTitleTF.getText());
         cc.setId(Integer.parseInt(this.caseNrTF.getText()));
@@ -151,6 +150,7 @@ public class FXMLCaseController implements Initializable {
     
     public void addNewEvidence(Evidence evi) {
         if (evi != null) {
+            System.out.println("Tilføjet!");
             this.cc.addCaseEvidenceItem(evi);
             this.evidenceListLV.getItems().add(evi);
         }

@@ -79,7 +79,7 @@ public class FXMLNewEvidenceController implements Initializable {
         }
         
         this.evidence.setEvidenceDescription(description);
-        this.evidence.setEvidenceNumber(new Random().nextInt(300));
+        this.evidence.setEvidenceNumber(0);
         this.evidence.setLocation(location);
         this.goBack();
         Stage stage = (Stage) this.saveBTN.getScene().getWindow();
