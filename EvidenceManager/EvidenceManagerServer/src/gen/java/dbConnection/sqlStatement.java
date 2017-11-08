@@ -5,6 +5,7 @@ import dbConnection.dbConnection;
 import io.swagger.model.CriminalCase;
 import io.swagger.model.CriminalCaseMap;
 import io.swagger.model.Evidence;
+import io.swagger.model.LawEnforcer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class sqlStatement implements IsqlStatement {
      * @param c
      * @return 1
      */
+    @Override
     public boolean addCase(CriminalCase c) {
         System.err.println("Fra addCase i sqlStatement");
 
@@ -95,6 +97,8 @@ public class sqlStatement implements IsqlStatement {
 
     }
     
+    
+    
     /**
      * Method for updating Evidence in database.
      * @param e 
@@ -107,10 +111,20 @@ public class sqlStatement implements IsqlStatement {
     }
     
     /**
+     * Method to edit a piece of evidence. Updates a piece of evidence using an evidence object.
+     * @param e The evidence with updated variables.
+     */
+    @Override
+    public void editEvidence(Evidence e){
+        updateEvidence(e);
+    }
+    
+    /**
      * Method for updating case in database.
      * @param c
      * @return 
      */
+    @Override
     public boolean updateCase(CriminalCase c) {
         System.err.println(c.getCaseDescription() + c.getCaseName() + c.getId()+ "<------LOOOOOOOOOK HERE");
         String query = "UPDATE criminalcase SET title = '" + c.getCaseName()
@@ -126,6 +140,7 @@ public class sqlStatement implements IsqlStatement {
      * @param Id
      * @return CriminalCase
      */
+    @Override
     public CriminalCase getCase(int id) {
 
         CriminalCase ccase = new CriminalCase();
@@ -147,7 +162,7 @@ public class sqlStatement implements IsqlStatement {
         } catch (SQLException ex) {
             Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ccase.setCaseEvidence(this.getEvidence(id));
+        ccase.setCaseEvidence(this.getEvidenceList(id));
         return ccase;
     }
     
@@ -156,12 +171,14 @@ public class sqlStatement implements IsqlStatement {
      * @param CriminalCase
      * @return Evidence
      */
-    private List<Evidence> getEvidence(int id){
+    private List<Evidence> getEvidenceList(int caseId){
         
         List<Evidence> eviList = new ArrayList();
         Evidence evi;
         try {
-            String query = "SELECT evidence.title, evidence.description FROM evidence JOIN caseevidenceref ON (evidence._ref = caseevidenceref.evidenceref) WHERE caseevidenceref.caseref = "+ id+";";
+            String query = "SELECT evidence.title, evidence.description FROM evidence "
+                    + "JOIN caseevidenceref ON (evidence._ref = caseevidenceref.evidenceref) "
+                    + "WHERE caseevidenceref.caseref = "+ caseId +";";
             
            ResultSet set = db.executeQuery(query);
            while (set.next()){      
@@ -176,6 +193,28 @@ public class sqlStatement implements IsqlStatement {
         
         
         return eviList;
+    }
+    
+    
+    /**
+     * Method to get a single evidence using evidence id
+     * @param id id of the wanted evidence as an int
+     * @return  Return the found evidence as an evidence object.
+     */
+    @Override
+    public Evidence getEvidence(int id){
+        Evidence evidence = new Evidence();
+        String query = String.format("SELECT * FROM evidence WHERE _ref = %d", id);
+        ResultSet select = db.executeQuery(query);
+        try {
+            evidence.setEvidenceNumber(select.getInt("_ref"));
+            evidence.setEvidenceDescription(select.getString("description"));
+        } catch (SQLException ex) {
+            Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return evidence;
+        
     }
     
     /**
@@ -203,10 +242,54 @@ public class sqlStatement implements IsqlStatement {
         return caseMap;
 
     }
+    
+    
 
     @Override
     public List<Evidence> getEvidenceList(String keyword) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Evidence pickupEvidence(Evidence evidence, LawEnforcer lawEnforcer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setUserPassword(LawEnforcer lawEnforcer, String newPassword) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * Method to find all evidence connected to a forensic. This method doesn't
+     * use a criminalcase to find evidence, but find them directly, using the 
+     * lawenforcer evidence reference. 
+     * @param forensic The Lawenforcer object that should be connected to all 
+     * the evidence searched for
+     * @return Returns a list of the found pieces of evidence. 
+     */
+    @Override
+    public List<Evidence> getAllEvidence(LawEnforcer forensic) {
+        List<Evidence> evidenceList = new ArrayList<>();
+        
+        String query = String.format("SELECT evidence._ref, evidence.title FROM evidence\n"
+                + "JOIN lawenforcerevidenceref ON (evidence._ref = lawenforcerevidenceref.evidenceref) \n"
+                + "WHERE lawenforcerevidenceref.lawenforcerref = %d", forensic.getEmployeeId());
+        
+        ResultSet select = db.executeQuery(query);
+        
+        try {
+            while (select.next()){
+                Evidence nextEvidence = new Evidence();
+                nextEvidence.setEvidenceNumber(select.getInt("_ref"));
+                nextEvidence.setEvidenceDescription(select.getString("title"));
+                evidenceList.add(nextEvidence);
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+        
+        return evidenceList;
     }
 
 
