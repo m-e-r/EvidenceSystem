@@ -9,9 +9,11 @@ import io.swagger.model.CriminalCase;
 import io.swagger.model.Evidence;
 import java.util.List;
 import io.swagger.model.CriminalCaseMap;
+import io.swagger.model.LawEnforcer;
 
 /**
- *
+ * Interface used for all the SQL statement methods. All functions that need to
+ * call the database, should be present here.
  * @author MER
  */
 public interface IsqlStatement {
@@ -27,5 +29,18 @@ public interface IsqlStatement {
     public CriminalCaseMap getCases(int employeeId);
 
     public List<Evidence> getEvidenceList(String keyword);
+    
+    public Evidence pickupEvidence(Evidence evidence, LawEnforcer lawEnforcer);
+    
+    public void setUserPassword(LawEnforcer lawEnforcer, String newPassword);
+    
+    public Evidence getEvidence(int id);
+    
+    public void editEvidence(Evidence evidence);
+    
+    public List<Evidence> getAllEvidence(LawEnforcer forensic);
+    
+    
+    
     
 }
