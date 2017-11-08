@@ -10,6 +10,7 @@ import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
 import io.swagger.client.model.CriminalCase;
 import io.swagger.client.model.Evidence;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +19,24 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.SplitPane;
 
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -42,7 +52,7 @@ public class FXMLCaseController implements Initializable {
     @FXML
     private TextField caseNrTF;
     @FXML
-    private ListView<String> evidenceListLV;
+    private ListView<Evidence> evidenceListLV;
     @FXML
     private TextArea caseInfoTA;
     @FXML
@@ -51,10 +61,6 @@ public class FXMLCaseController implements Initializable {
     private TextField evidenceLawenforcerTF;
     @FXML
     private TextField evidenceLocationTF;
-    @FXML
-    private RadioButton digialRBTN;
-    @FXML
-    private RadioButton physicalRBTN;
     @FXML
     private TextField caseLawenforcerTF;
     @FXML
@@ -70,11 +76,27 @@ public class FXMLCaseController implements Initializable {
     @FXML
     private Button addNewCaseBTN;
     @FXML
-    private RadioButton statusRBTN;
-    @FXML
-    private ToggleGroup toggler;
-    @FXML
     private Button saveChangesBTN;
+    @FXML
+    private AnchorPane backPane;
+    @FXML
+    private SplitPane splitPane;
+    @FXML
+    private AnchorPane leftSplitPane;
+    @FXML
+    private HBox buttonsToRemoveHB;
+    @FXML
+    private TextField evidenceTitleTF;
+    @FXML
+    private TextField evidenceNrTF;
+    @FXML
+    private TextArea evidenceDescriptionTA;
+    @FXML
+    private Button editEvidenceBTN;
+    @FXML
+    private Button updateEvidenceBTN;
+    @FXML
+    private Button addNewEvidenceBTN;
    
     /**
      * Initializes the controller class.
@@ -116,9 +138,22 @@ public class FXMLCaseController implements Initializable {
      * @param cc - CriminalCase object that is parsed across FXMLControllers. 
      */
     public void initData(CriminalCase cc){
-        this.cc = cc;
-        this.fillCase(cc);
-        this.fillEvidence(cc.getCaseEvidence());
+       if (cc != null) {
+           this.buttonsToRemoveHB.getChildren().remove(this.addNewCaseBTN);
+           this.cc = cc;
+           this.fillCase(cc);
+           this.fillEvidence(cc.getCaseEvidence());
+       } else {
+           this.cc = new CriminalCase();
+           this.buttonsToRemoveHB.getChildren().remove(this.saveChangesBTN);
+       }
+    }
+    
+    public void addNewEvidence(Evidence evi) {
+        if (evi != null) {
+            this.cc.addCaseEvidenceItem(evi);
+            this.evidenceListLV.getItems().add(evi);
+        }
     }
     
     /**
@@ -128,15 +163,12 @@ public class FXMLCaseController implements Initializable {
      */
     @FXML
     private void saveChangesToCase(ActionEvent event) throws ApiException {
-        CriminalCase changedCriminalCase = new CriminalCase();
-        changedCriminalCase.setCaseDescription(this.caseInfoTA.getText());
- 
-        changedCriminalCase.setCaseName(this.caseTitleTF.getText());
-        changedCriminalCase.setId(Integer.parseInt(this.caseNrTF.getText()));
+        this.cc.setCaseDescription(this.caseInfoTA.getText());
+        this.cc.setCaseName(this.caseTitleTF.getText());
         
-        this.connect.updateCase(changedCriminalCase);
+        this.connect.updateCase(this.cc);
         
-         if(this.connect.updateCase(changedCriminalCase)){
+         if(this.connect.updateCase(this.cc)){
             System.out.println("Succesful");
         } else {
             System.err.println("You're an idiot, try again");
@@ -163,21 +195,21 @@ public class FXMLCaseController implements Initializable {
       
         
     }
-
-    public void editEvidence(){
-        String id;
-        String [] ids = evidenceListLV.getSelectionModel().getSelectedItem().split("\n");
-        
-        id = ids[0];
-        Evidence e = new Evidence();
-        
-        System.out.println(ids.toString());
-        
-    }
+//
+//    public void editEvidence(){
+//        String id;
+//        String [] ids = evidenceListLV.getSelectionModel().getSelectedItem().split("\n");
+//        
+//        id = ids[0];
+//        Evidence e = new Evidence();
+//        
+//        System.out.println(ids.toString());
+//        
+//    }
     
     
     private void fillEvidence (List<Evidence> eList){
-       ObservableList<String> occS = FXCollections.observableArrayList();
+       ObservableList<Evidence> occS = FXCollections.observableArrayList();
  
        
        /*Evidence e1 = new Evidence();
@@ -187,14 +219,76 @@ public class FXMLCaseController implements Initializable {
        */
        
        for(Evidence e : eList){
-           String adder = e.toString();
-           System.err.println(adder);
-           occS.add(adder);
+//           String adder = e.toString();
+//           System.err.println(adder);
+           occS.add(e);
        }
         
        evidenceListLV.setItems(occS);
-       
-    
+ 
+    }
+
+    @FXML
+    private void handleEditEvidenceAction(ActionEvent event) {
+        if (this.evidenceListLV.getSelectionModel().getSelectedItem() != null) {
+            this.evidenceCategoryTF.setEditable(true);
+            this.evidenceDescriptionTA.setEditable(true);
+            this.evidenceLocationTF.setEditable(true);
+            this.evidenceLawenforcerTF.setEditable(true);
+            this.updateEvidenceBTN.setDisable(false);
+            this.editEvidenceBTN.setDisable(true);
+        }
+    }
+
+    @FXML
+    private void handleSaveChangesAction(ActionEvent event) {
+        if (this.evidenceListLV.getSelectionModel().getSelectedItem() != null) {
+            //Disable and able fields and buttons
+            this.evidenceCategoryTF.setEditable(false);
+            this.evidenceDescriptionTA.setEditable(false);
+            this.evidenceLocationTF.setEditable(false);
+            this.evidenceLawenforcerTF.setEditable(false);
+            this.editEvidenceBTN.setDisable(false);
+            this.updateEvidenceBTN.setDisable(true);
+            
+            
+            //Check for empty fields
+            String description;
+            String location;
+            if (this.evidenceDescriptionTA.getText().trim().isEmpty()) {
+                description = "Default description";
+            } else {
+                description = this.evidenceDescriptionTA.getText();
+            }
+            if (this.evidenceLocationTF.getText().trim().isEmpty()) {
+                location = "Deafult location";
+            } else {
+                location = this.evidenceLocationTF.getText();
+            }
+            
+            //Replace the existing Evidence on the case with the new modifed one
+            int id = this.evidenceListLV.getSelectionModel().getSelectedItem().getEvidenceNumber();
+            
+            for (int i = 0; i < this.cc.getCaseEvidence().size(); i++) {
+                if (this.cc.getCaseEvidence().get(i).getEvidenceNumber() == id) {
+                    this.cc.getCaseEvidence().get(i).setEvidenceDescription(description);
+                    this.cc.getCaseEvidence().get(i).setLocation(location);
+                }
+            }
+        }
+    }
+
+    @FXML
+    private void handleAddNewEvidenceAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NewEvidence.fxml"));
+
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene((Pane) loader.load()));
+
+        FXMLNewEvidenceController controller = loader.<FXMLNewEvidenceController>getController();
+        controller.initData(this);
+        
+        stage.show();
     }
    
 }

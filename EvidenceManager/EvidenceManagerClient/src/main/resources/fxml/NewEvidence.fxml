@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="460.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.evidencemanager.FXMLNewEvidenceController">
+   <children>
+      <VBox alignment="BOTTOM_CENTER" prefHeight="640.0" prefWidth="500.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="Add new evidence to the case">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <GridPane hgap="6.0" vgap="8.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextField fx:id="evidenceNumTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" promptText="ab-cdefg-h" />
+                  <TextField fx:id="evidenceCatTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="120.0" promptText="Category" GridPane.rowIndex="1" />
+                  <TextField fx:id="evidenceLocTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="120.0" promptText="Location" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="evidenceRespTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Personel Responsible" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="evidenceTitleTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Title" GridPane.rowIndex="2" />
+               </children>
+               <VBox.margin>
+                  <Insets left="8.0" right="8.0" />
+               </VBox.margin>
+            </GridPane>
+            <TextArea fx:id="evidenceDescTA" prefHeight="200.0" prefWidth="200.0" promptText="Descirbe the evidence" wrapText="true">
+               <VBox.margin>
+                  <Insets left="8.0" right="8.0" />
+               </VBox.margin>
+            </TextArea>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="80.0">
+               <children>
+                  <Button fx:id="saveBTN" mnemonicParsing="false" onAction="#handleSaveAction" text="Save" />
+                  <Button fx:id="discardBTN" mnemonicParsing="false" onAction="#handleDiscardAction" text="Discard" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

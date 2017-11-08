@@ -96,14 +96,7 @@ public class Evidence {
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Evidence {\n");
-    
-    sb.append("    evidenceNumber: ").append(toIndentedString(evidenceNumber)).append("\n");
-    sb.append("    evidenceDescription: ").append(toIndentedString(evidenceDescription)).append("\n");
-    sb.append("    location: ").append(toIndentedString(location)).append("\n");
-    sb.append("}");
-    return sb.toString();
+      return String.valueOf(this.evidenceNumber);
   }
 
   /**

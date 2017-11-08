@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -7,42 +8,80 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="395.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.evidencemanager.FXMLCaseController">
+<AnchorPane id="AnchorPane" prefHeight="395.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.evidencemanager.FXMLCaseController">
     <children>
-  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="617.0" prefWidth="1129.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+  <AnchorPane fx:id="backPane" minHeight="0.0" minWidth="0.0" prefHeight="617.0" prefWidth="1129.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <SplitPane dividerPositions="0.5013309671694764" prefHeight="617.0" prefWidth="1129.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <SplitPane fx:id="splitPane" dividerPositions="0.5013309671694764" prefHeight="617.0" prefWidth="1129.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane fx:id="leftSplitPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
                         <Label layoutX="185.0" layoutY="21.0" text="Information about the case:" />
-                        <TextArea fx:id="caseInfoTA" layoutX="43.0" layoutY="38.0" prefHeight="169.0" prefWidth="449.0" text="Description (includes the following;&#10;information about the time and date,&#10;circumstances surrounding the case&#10;and additional iformation)&#10;" />
-                        <TextField fx:id="additionelSuspectTF" layoutX="42.0" layoutY="295.0" prefHeight="25.0" prefWidth="121.0" text="Additional suspects" />
-                        <TextField fx:id="caseCategoryTF" layoutX="114.0" layoutY="207.0" prefHeight="25.0" prefWidth="79.0" text="Open" />
-                        <Button fx:id="addSuspectBTN" layoutX="61.0" layoutY="320.0" mnemonicParsing="false" text="Add suspect" />
+                        <TextArea fx:id="caseInfoTA" layoutX="43.0" layoutY="38.0" prefHeight="169.0" prefWidth="449.0" promptText="Description (includes the following;information about the time and date,circumstances surrounding the caseand additional iformation)" />
+                        <TextField fx:id="additionelSuspectTF" layoutX="42.0" layoutY="295.0" prefHeight="25.0" prefWidth="121.0" promptText="Additional suspects" />
+                        <TextField fx:id="caseCategoryTF" layoutX="114.0" layoutY="207.0" prefHeight="25.0" prefWidth="79.0" promptText="Open" />
+                        <Button fx:id="addSuspectBTN" layoutX="56.0" layoutY="335.0" mnemonicParsing="false" text="Add suspect" />
                         <TextField fx:id="caseNrTF" layoutX="43.0" layoutY="207.0" prefHeight="25.0" prefWidth="59.0" promptText="case nr." />
-                        <TextField fx:id="primeSuspectTF" layoutX="179.0" layoutY="295.0" prefHeight="25.0" prefWidth="129.0" text="Prime suspect (if any)" />
-                        <TextField fx:id="caseLawenforcerTF" layoutX="40.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="126.0" text="Assigned personel" />
-                        <Button fx:id="addNewCaseBTN" layoutX="163.0" layoutY="576.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addCase" prefHeight="33.0" prefWidth="121.0" text="Add new case" textFill="#13d036" />
-                        <TextField fx:id="caseTitleTF" layoutX="40.0" layoutY="232.0" text="Title" />
-                        <TextField layoutX="179.0" layoutY="263.0" prefHeight="25.0" prefWidth="89.0" text="Rank" />
-                        <Button fx:id="saveChangesBTN" layoutX="308.0" layoutY="576.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveChangesToCase" prefHeight="33.0" prefWidth="121.0" text="Save changes" textFill="#13d036" />
+                        <TextField fx:id="primeSuspectTF" layoutX="179.0" layoutY="295.0" prefHeight="25.0" prefWidth="129.0" promptText="Prime suspect (if any)" />
+                        <TextField fx:id="caseLawenforcerTF" layoutX="40.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="126.0" promptText="Assigned personel" />
+                        <TextField fx:id="caseTitleTF" layoutX="40.0" layoutY="234.0" promptText="Title" />
+                        <TextField layoutX="179.0" layoutY="263.0" prefHeight="25.0" prefWidth="89.0" promptText="Rank" />
+                        <HBox fx:id="buttonsToRemoveHB" alignment="CENTER" layoutX="166.0" layoutY="507.0" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="addNewCaseBTN" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addCase" prefHeight="33.0" prefWidth="121.0" text="Add new case" textFill="#13d036" />
+                              <Button fx:id="saveChangesBTN" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveChangesToCase" prefHeight="33.0" prefWidth="121.0" text="Save changes" textFill="#13d036" />
+                           </children>
+                        </HBox>
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <TextField fx:id="evidenceLocationTF" layoutX="29.0" layoutY="371.0" prefHeight="25.0" prefWidth="183.0" text="Location" />
-                        <TextField fx:id="evidenceCategoryTF" layoutX="30.0" layoutY="308.0" prefHeight="25.0" prefWidth="81.0" text="Category" />
-                        <Label layoutX="36.0" layoutY="23.0" text="List of evidence attached  to the case:" />
-                        <TextField fx:id="evidenceNrTF" layoutX="30.0" layoutY="281.0" prefHeight="25.0" prefWidth="90.0" text="Evidence nr." />
-                        <ListView fx:id="evidenceListLV" layoutX="30.0" layoutY="40.0" prefHeight="200.0" prefWidth="212.0" />
-                        <TextField fx:id="evidenceLawenforcerTF" layoutX="30.0" layoutY="338.0" prefHeight="25.0" prefWidth="127.0" text="Personel responsible" />
-                        <TextArea fx:id="evidenceDescriptionTA" layoutX="293.0" layoutY="40.0" prefHeight="200.0" prefWidth="225.0" text="Description (includes, time and date,&#10;amount, details about the evidence)" />
-                        <TextField fx:id="evidenceTitleTF" layoutX="29.0" layoutY="252.0" text="Title" />
-                        <Button fx:id="updateEvidenceBTN" layoutX="235.0" layoutY="569.0" mnemonicParsing="false" text="Save changes" />
-                        <Button fx:id="addEvidenceBTN" layoutX="26.0" layoutY="569.0" mnemonicParsing="false" text="Add evidence" />
+                        <VBox alignment="CENTER" prefHeight="615.0" prefWidth="558.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="260.0" prefWidth="200.0" spacing="25.0">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="260.0" spacing="10.0">
+                                       <children>
+                                          <Label text="List of evidence attached  to the case:" />
+                                          <ListView fx:id="evidenceListLV" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="250.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="16.0">
+                                       <children>
+                                          <TextField fx:id="evidenceTitleTF" editable="false" promptText="Title" />
+                                          <TextField fx:id="evidenceNrTF" editable="false" prefHeight="25.0" prefWidth="90.0" promptText="Evidence nr." />
+                                          <TextField fx:id="evidenceCategoryTF" editable="false" prefHeight="27.0" prefWidth="89.0" promptText="Category" />
+                                          <TextField fx:id="evidenceLawenforcerTF" editable="false" prefHeight="25.0" prefWidth="127.0" promptText="Personel responsible" />
+                                          <TextField fx:id="evidenceLocationTF" editable="false" prefHeight="27.0" prefWidth="130.0" promptText="Location" />
+                                       </children>
+                                       <padding>
+                                          <Insets top="25.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <TextArea fx:id="evidenceDescriptionTA" editable="false" prefHeight="239.0" prefWidth="459.0" promptText="Description (includes, time and date,amount, details about the evidence)" wrapText="true">
+                                 <padding>
+                                    <Insets left="8.0" right="8.0" />
+                                 </padding>
+                              </TextArea>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="120.0" spacing="10.0">
+                                       <children>
+                                          <Button fx:id="editEvidenceBTN" mnemonicParsing="false" onAction="#handleEditEvidenceAction" text="Edit" />
+                                          <Button fx:id="updateEvidenceBTN" disable="true" mnemonicParsing="false" onAction="#handleSaveChangesAction" text="Save changes" />
+                                       </children>
+                                    </VBox>
+                                    <Button fx:id="addNewEvidenceBTN" mnemonicParsing="false" onAction="#handleAddNewEvidenceAction" text="Add new evidence" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
                      </children>
                   </AnchorPane>
               </items>

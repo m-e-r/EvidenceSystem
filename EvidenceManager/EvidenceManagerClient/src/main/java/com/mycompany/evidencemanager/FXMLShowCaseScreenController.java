@@ -150,6 +150,7 @@ public class FXMLShowCaseScreenController implements Initializable {
         stage.setScene(new Scene((Pane) loader.load()));
 
         FXMLCaseController controller = loader.<FXMLCaseController>getController();
+        controller.initData(null);
         
         stage.show();
         return stage;
