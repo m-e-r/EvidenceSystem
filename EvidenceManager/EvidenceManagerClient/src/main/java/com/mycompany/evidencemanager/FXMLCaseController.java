@@ -183,8 +183,10 @@ public class FXMLCaseController implements Initializable {
      * @param cc 
      */
     private void fillCase(CriminalCase cc){
+       this.caseNrTF.setDisable(true);
        caseInfoTA.setText(this.cc.getCaseDescription());
        caseTitleTF.setText(this.cc.getCaseName());
+       this.caseNrTF.setText(this.cc.getId());
        
 //       if(this.cc.getStatus().equals(this.cc.getStatus().OPEN)){
 //          statusRBTN.setSelected(true);
@@ -299,6 +301,9 @@ public class FXMLCaseController implements Initializable {
             this.evidenceNrTF.setText(chosenEvidence.getId());
             this.evidenceDescriptionTA.setText(chosenEvidence.getDescription());
             this.evidenceLocationTF.setText(chosenEvidence.getLocation());
+            this.evidenceCategoryTF.setText(chosenEvidence.getCategory());
+            this.evidenceTitleTF.setText(chosenEvidence.getTitle());
+            this.evidenceLawenforcerTF.setText(chosenEvidence.getPersonResponsible());
         }
     }
     

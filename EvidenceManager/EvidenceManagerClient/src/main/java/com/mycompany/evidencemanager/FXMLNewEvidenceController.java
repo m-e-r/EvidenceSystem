@@ -76,7 +76,7 @@ public class FXMLNewEvidenceController implements Initializable {
     @FXML
     private void handleSaveAction(ActionEvent event) throws IOException {
         this.evidence = new Evidence();
-        String description, location;
+        String description, location, title, resp;
         
         if (this.evidenceDescTA.getText().trim().isEmpty()) {
             description = "Default Description";
@@ -90,9 +90,23 @@ public class FXMLNewEvidenceController implements Initializable {
             location = this.evidenceLocTF.getText();
         }
         
+        if (this.evidenceTitleTF.getText().trim().isEmpty()) {
+            title = "Default Title";
+        } else {
+            title = this.evidenceTitleTF.getText();
+        }
+        
+        if (this.evidenceRespTF.getText().trim().isEmpty()) {
+            resp = "Default Personel Responsible";
+        } else {
+            resp = this.evidenceRespTF.getText();
+        }
+        
         this.evidence.setDescription(description);
         this.evidence.setId(this.evidenceNumTF.getText());
         this.evidence.setLocation(location);
+        this.evidence.setTitle(title);
+        this.evidence.setPersonResponsible(resp);
         this.evidence.setCategory(this.evidenceCategoryCB.getValue());
         this.goBack();
         Stage stage = (Stage) this.saveBTN.getScene().getWindow();
