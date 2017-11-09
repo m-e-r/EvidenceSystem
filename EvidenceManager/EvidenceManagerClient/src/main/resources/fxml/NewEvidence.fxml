@@ -37,7 +37,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="evidenceNumTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" promptText="ab-cdefg-h" />
+                  <TextField fx:id="evidenceNumTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="120.0" promptText="ab-cdefg-h" />
                   <TextField fx:id="evidenceLocTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="120.0" promptText="Location" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="evidenceRespTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Personel Responsible" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="evidenceTitleTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Title" GridPane.rowIndex="2" />
