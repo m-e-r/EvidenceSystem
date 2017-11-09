@@ -236,7 +236,7 @@ public class sqlStatement implements IsqlStatement {
         CriminalCaseMap caseMap = new CriminalCaseMap();
 
         String query = String.format("SELECT criminalcase.id, criminalcase.title FROM criminalcase\n"
-                + "JOIN lawenforcercaseref ON (criminalcase.id = lawenforcercaseref.id) \n"
+                + "JOIN lawenforcercaseref ON (criminalcase.id = lawenforcercaseref.caseId) \n"
                 + "WHERE lawenforcercaseref.lawenforcerref = %d", employeeId);
 
         ResultSet select = db.executeQuery(query);
