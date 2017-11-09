@@ -33,9 +33,10 @@ public class sqlStatement implements IsqlStatement {
 
         db = new dbConnection();
     }
-    
+
     /**
      * Method for adding a case in database.
+     *
      * @param c
      * @return 1
      */
@@ -43,8 +44,8 @@ public class sqlStatement implements IsqlStatement {
     public boolean addCase(CriminalCase c) {
         System.err.println("Fra addCase i sqlStatement");
 
-        String query = "INSERT INTO criminalcase (title, description, status) VALUES "
-                + "('" + c.getCaseName() + "','" + c.getCaseDescription() + "','" + c.getStatus().toString() + "');";
+        String query = String.format("INSERT INTO criminalcase (title, description, status, id) VALUES "
+                + "('%s', '%s', '%s', '%s');", c.getCaseName(), c.getCaseDescription(), c.getStatus().toString(), c.getId());
 
         this.tempEvidenceList = c.getCaseEvidence();
 
@@ -52,93 +53,97 @@ public class sqlStatement implements IsqlStatement {
 
         return db.updateQuery(query) == 1;
     }
-    
+
     /**
      * Method for updating Evidence in database from a list.
+     *
      * @param evidence
-     * @param caseRef 
+     * @param caseRef
      */
-    private void handleEvidence(List<Evidence> evidence, int caseRef) {
+    private void handleEvidence(List<Evidence> evidence, String caseRef) {
+
         if (!evidence.isEmpty()) {
             for (Evidence e : evidence) {
-                System.out.println("forloop");
-                if (e.getEvidenceNumber() == 0) {
-                    this.addNewEvidence(e, caseRef);
-                } else {
-                    this.updateEvidence(e);
+                String query = String.format("SELECT * FROM evidence WHERE id = %s", e.getId());
+                ResultSet select = db.executeQuery(query);
+                try {
+                    if (!select.next()) {
+                        this.addNewEvidence(e, caseRef);
+                    } else {
+                        this.updateEvidence(e);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
     }
-    
+
     /**
-     * Method with SQL for adding new Evidence to Database. 
+     * Method with SQL for adding new Evidence to Database.
+     *
      * @param e
-     * @param caseRef 
+     * @param caseRef
      */
-    private void addNewEvidence(Evidence e, int caseRef) {
+    private void addNewEvidence(Evidence e, String caseRef) {
         //IMPORTANT! REPLACE e.getLocation() with title when available!!!!!!
-        int evidenceId;
-        try {
-            String query = "INSERT INTO evidence (title, description)\n"
-                    + "VALUES ('" + e.getLocation() + "', '" + e.getEvidenceDescription() + ") RETURNING _ref;";
+        String evidenceId = e.getId();
 
-            ResultSet select = db.executeQuery(query);
-            
-                evidenceId = select.getInt("_ref");
-                String refQuery = String.format("INSERT INTO caseevidenceref (caseref, evidenceref) "
-                        + "VALUES (%d, %d);", caseRef, evidenceId);
-                db.executeQuery(refQuery);
-            
+        String query = String.format("INSERT INTO evidence (title, description, id)\n"
+                + "VALUES ('%s', '%s', '%s');", e.getTitle(), e.getDescription(), evidenceId);
 
-            //String query = "INSERT INTO ";
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
+        String refQuery = String.format("INSERT INTO caseevidenceref (caseref, evidenceref) "
+                + "VALUES (%d, %d);", caseRef, evidenceId);
+
+        db.updateQuery(query);
+        db.updateQuery(refQuery);
 
     }
-    
-    
-    
+
     /**
      * Method for updating Evidence in database.
-     * @param e 
+     *
+     * @param e
      */
     private void updateEvidence(Evidence e) {
         System.out.println("Fra updateEvidence");
         //IMPORTANT! REPLACE e.getLocation() with title when available!!!!!!
-        String query = String.format("UPDATE evidence SET title = '%s', description = '%s' WHERE _ref = %d;",
-                e.getLocation(), e.getEvidenceDescription(), e.getEvidenceNumber());
+        String query = String.format("UPDATE evidence SET title = '%s', description = '%s' WHERE id = %s;",
+                e.getTitle(), e.getDescription(), e.getId());
         db.updateQuery(query);
     }
-    
+
     /**
-     * Method to edit a piece of evidence. Updates a piece of evidence using an evidence object.
+     * Method to edit a piece of evidence. Updates a piece of evidence using an
+     * evidence object.
+     *
      * @param e The evidence with updated variables.
      */
     @Override
-    public void editEvidence(Evidence e){
+    public void editEvidence(Evidence e) {
         updateEvidence(e);
     }
-    
+
     /**
      * Method for updating case in database.
+     *
      * @param c
-     * @return 
+     * @return
      */
     @Override
     public boolean updateCase(CriminalCase c) {
-        System.err.println(c.getCaseDescription() + c.getCaseName() + c.getId()+ "<------LOOOOOOOOOK HERE");
+        System.err.println(c.getCaseDescription() + c.getCaseName() + c.getId() + "<------LOOOOOOOOOK HERE");
         String query = "UPDATE criminalcase SET title = '" + c.getCaseName()
-                + "', description = '" + c.getCaseDescription() + "' WHERE _ref =" + c.getId() + ";";
+                + "', description = '" + c.getCaseDescription() + "' WHERE id =" + c.getId() + ";";
 
         db.updateQuery(query);
 
         return db.updateQuery(query) == 1;
     }
-    
+
     /**
      * Mehtod for getting a case from database.
+     *
      * @param Id
      * @return CriminalCase
      */
@@ -148,79 +153,81 @@ public class sqlStatement implements IsqlStatement {
         CriminalCase ccase = new CriminalCase();
 
         try {
-            String query = "SELECT _ref, title, description FROM criminalcase WHERE _ref =" + id + ";";
+            String query = "SELECT id, title, description FROM criminalcase WHERE id =" + id + ";";
 
             ResultSet set = db.executeQuery(query);
 
             while (set.next()) {
 
-                ccase.setId(set.getInt("_ref"));
+                ccase.setId(set.getString("id"));
                 ccase.setCaseName(set.getString("title"));
                 ccase.setCaseDescription(set.getString("description"));
-                
+
             }
-            
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
         }
         ccase.setCaseEvidence(this.getEvidenceList(id));
         return ccase;
     }
-    
+
     /**
      * Method for getting a evidence list from database.
+     *
      * @param CriminalCase
      * @return Evidence
      */
-    private List<Evidence> getEvidenceList(int caseId){
-        
+    private List<Evidence> getEvidenceList(int caseId) {
+
         List<Evidence> eviList = new ArrayList();
         Evidence evi;
         try {
-            String query = "SELECT evidence.title, evidence.description FROM evidence "
-                    + "JOIN caseevidenceref ON (evidence._ref = caseevidenceref.evidenceref) "
-                    + "WHERE caseevidenceref.caseref = "+ caseId +";";
-            
-           ResultSet set = db.executeQuery(query);
-           while (set.next()){      
-               evi = new Evidence();
-               evi.setLocation(set.getString("title"));
-               evi.setEvidenceDescription(set.getString("description"));
-               eviList.add(evi);
-           }
+            String query = "SELECT evidence.title, evidence.description, evidence.id FROM evidence "
+                    + "JOIN caseevidenceref ON (evidence.id = caseevidenceref.evidenceId) "
+                    + "WHERE caseevidenceref.caseId = " + caseId + ";";
+
+            ResultSet set = db.executeQuery(query);
+            while (set.next()) {
+                evi = new Evidence();
+                evi.setTitle(set.getString("title"));
+                evi.setDescription(set.getString("description"));
+                evi.setId(set.getString("id"));
+                eviList.add(evi);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
         return eviList;
     }
-    
-    
+
     /**
      * Method to get a single evidence using evidence id
+     *
      * @param id id of the wanted evidence as an int
-     * @return  Return the found evidence as an evidence object.
+     * @return Return the found evidence as an evidence object.
      */
     @Override
-    public Evidence getEvidence(int id){
+    public Evidence getEvidence(int id) {
         Evidence evidence = new Evidence();
-        String query = String.format("SELECT * FROM evidence WHERE _ref = %d", id);
+        String query = String.format("SELECT * FROM evidence WHERE id = %s", id);
         ResultSet select = db.executeQuery(query);
         try {
-            evidence.setEvidenceNumber(select.getInt("_ref"));
-            evidence.setEvidenceDescription(select.getString("description"));
+            evidence.setId(select.getString("id"));
+            evidence.setDescription(select.getString("description"));
+            evidence.setTitle(select.getString("title"));
         } catch (SQLException ex) {
             Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return evidence;
-        
+
     }
-    
+
     /**
      * Method for getting map with cases from database.
+     *
      * @param employeeId
      * @return CriminalCaseMap
      */
@@ -228,14 +235,14 @@ public class sqlStatement implements IsqlStatement {
     public CriminalCaseMap getCases(int employeeId) {
         CriminalCaseMap caseMap = new CriminalCaseMap();
 
-        String query = String.format("SELECT criminalcase._ref, criminalcase.title FROM criminalcase\n"
-                + "JOIN lawenforcercaseref ON (criminalcase._ref = lawenforcercaseref.caseref) \n"
+        String query = String.format("SELECT criminalcase.id, criminalcase.title FROM criminalcase\n"
+                + "JOIN lawenforcercaseref ON (criminalcase.id = lawenforcercaseref.id) \n"
                 + "WHERE lawenforcercaseref.lawenforcerref = %d", employeeId);
 
         ResultSet select = db.executeQuery(query);
         try {
             while (select.next()) {
-                caseMap.put(select.getString("_ref"), select.getString("title"));
+                caseMap.put(select.getString("id"), select.getString("title"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
@@ -244,8 +251,6 @@ public class sqlStatement implements IsqlStatement {
         return caseMap;
 
     }
-    
-    
 
     @Override
     public List<Evidence> getEvidenceList(String keyword) {
@@ -264,37 +269,36 @@ public class sqlStatement implements IsqlStatement {
 
     /**
      * Method to find all evidence connected to a forensic. This method doesn't
-     * use a criminalcase to find evidence, but find them directly, using the 
-     * lawenforcer evidence reference. 
-     * @param forensic The Lawenforcer object that should be connected to all 
+     * use a criminalcase to find evidence, but find them directly, using the
+     * lawenforcer evidence reference.
+     *
+     * @param forensic The Lawenforcer object that should be connected to all
      * the evidence searched for
-     * @return Returns a list of the found pieces of evidence. 
+     * @return Returns a list of the found pieces of evidence.
      */
     @Override
     public List<Evidence> getAllEvidence(LawEnforcer forensic) {
         List<Evidence> evidenceList = new ArrayList<>();
-        
-        String query = String.format("SELECT evidence._ref, evidence.title FROM evidence\n"
-                + "JOIN lawenforcerevidenceref ON (evidence._ref = lawenforcerevidenceref.evidenceref) \n"
+
+        String query = String.format("SELECT evidence.id, evidence.title FROM evidence\n"
+                + "JOIN lawenforcerevidenceref ON (evidence.id = lawenforcerevidenceref.evidenceId) \n"
                 + "WHERE lawenforcerevidenceref.lawenforcerref = %d", forensic.getEmployeeId());
-        
+
         ResultSet select = db.executeQuery(query);
-        
+
         try {
-            while (select.next()){
+            while (select.next()) {
                 Evidence nextEvidence = new Evidence();
-                nextEvidence.setEvidenceNumber(select.getInt("_ref"));
-                nextEvidence.setEvidenceDescription(select.getString("title"));
+                nextEvidence.setId(select.getString("id"));
+                nextEvidence.setDescription(select.getString("description"));
+                nextEvidence.setTitle(select.getString("title"));
                 evidenceList.add(nextEvidence);
             }
         } catch (SQLException ex) {
             System.err.println(ex);
         }
-        
+
         return evidenceList;
     }
 
-
-    
-    
 }
