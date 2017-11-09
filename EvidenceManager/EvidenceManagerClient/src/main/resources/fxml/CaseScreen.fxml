@@ -23,9 +23,9 @@
                         <Label layoutX="185.0" layoutY="21.0" text="Information about the case:" />
                         <TextArea fx:id="caseInfoTA" layoutX="43.0" layoutY="38.0" prefHeight="169.0" prefWidth="449.0" promptText="Description (includes the following;information about the time and date,circumstances surrounding the caseand additional iformation)" />
                         <TextField fx:id="additionelSuspectTF" layoutX="42.0" layoutY="295.0" prefHeight="25.0" prefWidth="121.0" promptText="Additional suspects" />
-                        <TextField fx:id="caseCategoryTF" layoutX="114.0" layoutY="207.0" prefHeight="25.0" prefWidth="79.0" promptText="Open" />
+                        <TextField fx:id="caseCategoryTF" layoutX="315.0" layoutY="207.0" prefHeight="25.0" prefWidth="79.0" promptText="Open" />
                         <Button fx:id="addSuspectBTN" layoutX="56.0" layoutY="335.0" mnemonicParsing="false" text="Add suspect" />
-                        <TextField fx:id="caseNrTF" layoutX="43.0" layoutY="207.0" prefHeight="25.0" prefWidth="59.0" promptText="case nr." />
+                        <TextField fx:id="caseNrTF" disable="true" layoutX="43.0" layoutY="207.0" prefHeight="27.0" prefWidth="120.0" promptText="case nr." />
                         <TextField fx:id="primeSuspectTF" layoutX="179.0" layoutY="295.0" prefHeight="25.0" prefWidth="129.0" promptText="Prime suspect (if any)" />
                         <TextField fx:id="caseLawenforcerTF" layoutX="40.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="126.0" promptText="Assigned personel" />
                         <TextField fx:id="caseTitleTF" layoutX="40.0" layoutY="234.0" promptText="Title" />
