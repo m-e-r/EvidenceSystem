@@ -42,16 +42,20 @@ public class sqlStatement implements IsqlStatement {
      */
     @Override
     public boolean addCase(CriminalCase c) {
-        System.err.println("Fra addCase i sqlStatement");
+        
 
         String query = String.format("INSERT INTO criminalcase (title, description, status, id) VALUES "
                 + "('%s', '%s', '%s', '%s');", c.getCaseName(), c.getCaseDescription(), c.getStatus().toString(), c.getId());
 
         db.updateQuery(query);
         
+        System.out.println(String.format("Case %s added!", c.getId()));
+        
         this.tempEvidenceList = c.getCaseEvidence();
 
         this.handleEvidence(tempEvidenceList, c.getId());
+        
+        
 
         return true;
     }
@@ -78,6 +82,8 @@ public class sqlStatement implements IsqlStatement {
                     Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            
+            
         }
     }
 
@@ -99,6 +105,8 @@ public class sqlStatement implements IsqlStatement {
 
         db.updateQuery(query);
         db.updateQuery(refQuery);
+        
+        System.out.println(String.format("Evidence %s added!", e.getId()));
 
     }
 
@@ -113,6 +121,8 @@ public class sqlStatement implements IsqlStatement {
         String query = String.format("UPDATE evidence SET title = '%s', description = '%s' WHERE id = '%s';",
                 e.getTitle(), e.getDescription(), e.getId());
         db.updateQuery(query);
+        
+        System.out.println(String.format("Evidence %s updated!", e.getId()));
     }
 
     /**
