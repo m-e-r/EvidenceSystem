@@ -13,13 +13,13 @@ import org.joda.time.LocalDate;
 /**
  * CriminalCase
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-30T16:59:51.265Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-09T12:37:08.563Z")
 public class CriminalCase {
   @SerializedName("caseName")
   private String caseName = null;
 
   @SerializedName("id")
-  private Integer id = null;
+  private String id = null;
 
   @SerializedName("caseDescription")
   private String caseDescription = null;
@@ -34,8 +34,8 @@ public class CriminalCase {
     @SerializedName("Open")
     OPEN("Open"),
     
-    @SerializedName("Close")
-    CLOSE("Close");
+    @SerializedName("Closed")
+    CLOSED("Closed");
 
     private String value;
 
@@ -76,7 +76,7 @@ public class CriminalCase {
     this.caseName = caseName;
   }
 
-  public CriminalCase id(Integer id) {
+  public CriminalCase id(String id) {
     this.id = id;
     return this;
   }
@@ -86,11 +86,11 @@ public class CriminalCase {
    * @return id
   **/
   @ApiModelProperty(value = "")
-  public Integer getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
   }
 

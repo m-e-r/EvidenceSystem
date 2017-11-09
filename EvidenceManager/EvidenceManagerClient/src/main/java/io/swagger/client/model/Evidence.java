@@ -8,51 +8,78 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * Evidence
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-30T16:59:51.265Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-09T12:37:08.563Z")
 public class Evidence {
-  @SerializedName("evidenceNumber")
-  private Integer evidenceNumber = null;
+  @SerializedName("title")
+  private String title = null;
 
-  @SerializedName("evidenceDescription")
-  private String evidenceDescription = null;
+  @SerializedName("id")
+  private String id = null;
+
+  @SerializedName("description")
+  private String description = null;
 
   @SerializedName("location")
   private String location = null;
 
-  public Evidence evidenceNumber(Integer evidenceNumber) {
-    this.evidenceNumber = evidenceNumber;
+  @SerializedName("personResponsible")
+  private String personResponsible = null;
+
+  @SerializedName("category")
+  private String category = null;
+
+  public Evidence title(String title) {
+    this.title = title;
     return this;
   }
 
    /**
-   * Get evidenceNumber
-   * @return evidenceNumber
+   * Get title
+   * @return title
   **/
   @ApiModelProperty(value = "")
-  public Integer getEvidenceNumber() {
-    return evidenceNumber;
+  public String getTitle() {
+    return title;
   }
 
-  public void setEvidenceNumber(Integer evidenceNumber) {
-    this.evidenceNumber = evidenceNumber;
+  public void setTitle(String title) {
+    this.title = title;
   }
 
-  public Evidence evidenceDescription(String evidenceDescription) {
-    this.evidenceDescription = evidenceDescription;
+  public Evidence id(String id) {
+    this.id = id;
     return this;
   }
 
    /**
-   * Get evidenceDescription
-   * @return evidenceDescription
+   * Get id
+   * @return id
   **/
   @ApiModelProperty(value = "")
-  public String getEvidenceDescription() {
-    return evidenceDescription;
+  public String getId() {
+    return id;
   }
 
-  public void setEvidenceDescription(String evidenceDescription) {
-    this.evidenceDescription = evidenceDescription;
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public Evidence description(String description) {
+    this.description = description;
+    return this;
+  }
+
+   /**
+   * Get description
+   * @return description
+  **/
+  @ApiModelProperty(value = "")
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public Evidence location(String location) {
@@ -73,6 +100,42 @@ public class Evidence {
     this.location = location;
   }
 
+  public Evidence personResponsible(String personResponsible) {
+    this.personResponsible = personResponsible;
+    return this;
+  }
+
+   /**
+   * Get personResponsible
+   * @return personResponsible
+  **/
+  @ApiModelProperty(value = "")
+  public String getPersonResponsible() {
+    return personResponsible;
+  }
+
+  public void setPersonResponsible(String personResponsible) {
+    this.personResponsible = personResponsible;
+  }
+
+  public Evidence category(String category) {
+    this.category = category;
+    return this;
+  }
+
+   /**
+   * Get category
+   * @return category
+  **/
+  @ApiModelProperty(value = "")
+  public String getCategory() {
+    return category;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -83,20 +146,33 @@ public class Evidence {
       return false;
     }
     Evidence evidence = (Evidence) o;
-    return Objects.equals(this.evidenceNumber, evidence.evidenceNumber) &&
-        Objects.equals(this.evidenceDescription, evidence.evidenceDescription) &&
-        Objects.equals(this.location, evidence.location);
+    return Objects.equals(this.title, evidence.title) &&
+        Objects.equals(this.id, evidence.id) &&
+        Objects.equals(this.description, evidence.description) &&
+        Objects.equals(this.location, evidence.location) &&
+        Objects.equals(this.personResponsible, evidence.personResponsible) &&
+        Objects.equals(this.category, evidence.category);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(evidenceNumber, evidenceDescription, location);
+    return Objects.hash(title, id, description, location, personResponsible, category);
   }
 
 
   @Override
   public String toString() {
-      return String.valueOf(this.evidenceNumber);
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Evidence {\n");
+    
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    location: ").append(toIndentedString(location)).append("\n");
+    sb.append("    personResponsible: ").append(toIndentedString(personResponsible)).append("\n");
+    sb.append("    category: ").append(toIndentedString(category)).append("\n");
+    sb.append("}");
+    return sb.toString();
   }
 
   /**
