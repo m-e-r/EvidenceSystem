@@ -118,7 +118,7 @@ public class FXMLCaseController implements Initializable {
     private void addCase(ActionEvent event) throws ApiException {
         cc.setCaseDescription(this.caseInfoTA.getText());
         cc.setCaseName(this.caseTitleTF.getText());
-        cc.setId(this.generateId());
+        cc.setId(this.caseNrTF.getText());
         cc.setStatus(CriminalCase.StatusEnum.OPEN);
         
         
@@ -146,6 +146,7 @@ public class FXMLCaseController implements Initializable {
        } else {
            this.cc = new CriminalCase();
            this.buttonsToRemoveHB.getChildren().remove(this.saveChangesBTN);
+           this.caseNrTF.setText(this.generateId());
        }
     }
     
@@ -166,6 +167,7 @@ public class FXMLCaseController implements Initializable {
     private void saveChangesToCase(ActionEvent event) throws ApiException {
         this.cc.setCaseDescription(this.caseInfoTA.getText());
         this.cc.setCaseName(this.caseTitleTF.getText());
+        this.cc.setStatus(CriminalCase.StatusEnum.OPEN);
         
         this.connect.updateCase(this.cc);
         
