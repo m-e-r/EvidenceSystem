@@ -32,6 +32,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -289,6 +290,16 @@ public class FXMLCaseController implements Initializable {
         controller.initData(this);
         
         stage.show();
+    }
+
+    @FXML
+    private void handleChooseEvidenceAction(MouseEvent event) {
+        if (this.evidenceListLV.getSelectionModel().getSelectedItem() != null) {
+            Evidence chosenEvidence = this.evidenceListLV.getSelectionModel().getSelectedItem();
+            this.evidenceNrTF.setText(String.valueOf(chosenEvidence.getEvidenceNumber()));
+            this.evidenceDescriptionTA.setText(chosenEvidence.getEvidenceDescription());
+            this.evidenceLocationTF.setText(chosenEvidence.getLocation());
+        }
     }
    
 }

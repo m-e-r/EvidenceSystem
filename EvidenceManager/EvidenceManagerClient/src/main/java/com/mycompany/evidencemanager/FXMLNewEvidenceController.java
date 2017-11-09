@@ -11,12 +11,15 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -31,6 +34,7 @@ import javafx.stage.StageStyle;
 public class FXMLNewEvidenceController implements Initializable {
     private Evidence evidence;
     private FXMLCaseController controller;
+    private ObservableList<String> categories;
 
     @FXML
     private TextField evidenceNumTF;
@@ -48,13 +52,21 @@ public class FXMLNewEvidenceController implements Initializable {
     private Button saveBTN;
     @FXML
     private Button discardBTN;
+    @FXML
+    private ChoiceBox<String> evidenceCategoryCB;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        this.evidenceNumTF.setText(String.valueOf(new Random().nextInt(300)));
+        this.evidenceNumTF.setDisable(true);
+        this.evidenceTitleTF.requestFocus();
+        
+        this.categories = FXCollections.observableArrayList("Drugs", "Not Drugs");
+        this.evidenceCategoryCB.setItems(this.categories);
+        this.evidenceCategoryCB.setValue("Drugs");
     }    
     
     public void initData(FXMLCaseController controller) {
@@ -79,8 +91,9 @@ public class FXMLNewEvidenceController implements Initializable {
         }
         
         this.evidence.setEvidenceDescription(description);
-        this.evidence.setEvidenceNumber(0);
+        this.evidence.setEvidenceNumber(Integer.parseInt(this.evidenceNumTF.getText()));
         this.evidence.setLocation(location);
+        //this.evidence.setCategory(this.evidenceCategoryCB.getValue());
         this.goBack();
         Stage stage = (Stage) this.saveBTN.getScene().getWindow();
         stage.close();

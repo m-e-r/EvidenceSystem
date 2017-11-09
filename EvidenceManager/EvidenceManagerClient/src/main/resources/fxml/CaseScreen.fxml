@@ -47,7 +47,7 @@
                                     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="260.0" spacing="10.0">
                                        <children>
                                           <Label text="List of evidence attached  to the case:" />
-                                          <ListView fx:id="evidenceListLV" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="250.0" />
+                                          <ListView fx:id="evidenceListLV" maxWidth="-Infinity" minWidth="-Infinity" onMouseClicked="#handleChooseEvidenceAction" prefHeight="200.0" prefWidth="250.0" />
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="16.0">
