@@ -119,9 +119,9 @@ public class FXMLShowCaseScreenController implements Initializable {
         String [] ids = caseEditLV.getSelectionModel().getSelectedItem().split("\n");
         
         id = ids[0];
-        CriminalCase cc = new CriminalCase();
+        CriminalCase cc;
         
-        cc = this.connect.getCase(Integer.parseInt(id));
+        cc = this.connect.getCase(2);
         System.err.println(cc.toString());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CaseScreen.fxml"));
 

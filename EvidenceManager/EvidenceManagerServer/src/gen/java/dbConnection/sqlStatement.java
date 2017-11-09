@@ -47,11 +47,13 @@ public class sqlStatement implements IsqlStatement {
         String query = String.format("INSERT INTO criminalcase (title, description, status, id) VALUES "
                 + "('%s', '%s', '%s', '%s');", c.getCaseName(), c.getCaseDescription(), c.getStatus().toString(), c.getId());
 
+        db.updateQuery(query);
+        
         this.tempEvidenceList = c.getCaseEvidence();
 
         this.handleEvidence(tempEvidenceList, c.getId());
 
-        return db.updateQuery(query) == 1;
+        return true;
     }
 
     /**
@@ -64,7 +66,7 @@ public class sqlStatement implements IsqlStatement {
 
         if (!evidence.isEmpty()) {
             for (Evidence e : evidence) {
-                String query = String.format("SELECT * FROM evidence WHERE id = %s", e.getId());
+                String query = String.format("SELECT * FROM evidence WHERE id = '%s'", e.getId());
                 ResultSet select = db.executeQuery(query);
                 try {
                     if (!select.next()) {
@@ -92,8 +94,8 @@ public class sqlStatement implements IsqlStatement {
         String query = String.format("INSERT INTO evidence (title, description, id)\n"
                 + "VALUES ('%s', '%s', '%s');", e.getTitle(), e.getDescription(), evidenceId);
 
-        String refQuery = String.format("INSERT INTO caseevidenceref (caseref, evidenceref) "
-                + "VALUES (%d, %d);", caseRef, evidenceId);
+        String refQuery = String.format("INSERT INTO caseevidenceref (caseid, evidenceid) "
+                + "VALUES ('%s', '%s');", caseRef, evidenceId);
 
         db.updateQuery(query);
         db.updateQuery(refQuery);
@@ -108,7 +110,7 @@ public class sqlStatement implements IsqlStatement {
     private void updateEvidence(Evidence e) {
         System.out.println("Fra updateEvidence");
         //IMPORTANT! REPLACE e.getLocation() with title when available!!!!!!
-        String query = String.format("UPDATE evidence SET title = '%s', description = '%s' WHERE id = %s;",
+        String query = String.format("UPDATE evidence SET title = '%s', description = '%s' WHERE id = '%s';",
                 e.getTitle(), e.getDescription(), e.getId());
         db.updateQuery(query);
     }
@@ -152,8 +154,8 @@ public class sqlStatement implements IsqlStatement {
 
         CriminalCase ccase = new CriminalCase();
 
-        try {
-            String query = "SELECT id, title, description FROM criminalcase WHERE id =" + id + ";";
+        try {                                                                       //HARDCODED ID CHANGE THIS
+            String query = "SELECT id, title, description FROM criminalcase WHERE id = " + "'17-11-53943-0'" + ";";
 
             ResultSet set = db.executeQuery(query);
 
@@ -185,7 +187,7 @@ public class sqlStatement implements IsqlStatement {
         try {
             String query = "SELECT evidence.title, evidence.description, evidence.id FROM evidence "
                     + "JOIN caseevidenceref ON (evidence.id = caseevidenceref.evidenceId) "
-                    + "WHERE caseevidenceref.caseId = " + caseId + ";";
+                    + "WHERE caseevidenceref.caseId = " + "'17-11-40435-7'" + ";"; //HARDCODED ID UPDATE THIS!!!!
 
             ResultSet set = db.executeQuery(query);
             while (set.next()) {
