@@ -37,7 +37,6 @@ public class CaseApiServiceImpl extends CaseApiService {
      */
     @Override
     public Response addCase(CriminalCase theCase, SecurityContext securityContext) throws NotFoundException {
-        System.err.println("addCase fra caseApiImpl");
         this.i.addCase(theCase);
         return Response.ok().entity(true).build();
     }
