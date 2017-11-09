@@ -118,7 +118,7 @@ public class FXMLCaseController implements Initializable {
     private void addCase(ActionEvent event) throws ApiException {
         cc.setCaseDescription(this.caseInfoTA.getText());
         cc.setCaseName(this.caseTitleTF.getText());
-        cc.setId(Integer.parseInt(this.caseNrTF.getText()));
+        cc.setId(this.generateId());
         cc.setStatus(CriminalCase.StatusEnum.OPEN);
         
         
@@ -268,11 +268,11 @@ public class FXMLCaseController implements Initializable {
             }
             
             //Replace the existing Evidence on the case with the new modifed one
-            int id = this.evidenceListLV.getSelectionModel().getSelectedItem().getEvidenceNumber();
+            String id = this.evidenceListLV.getSelectionModel().getSelectedItem().getId();
             
             for (int i = 0; i < this.cc.getCaseEvidence().size(); i++) {
-                if (this.cc.getCaseEvidence().get(i).getEvidenceNumber() == id) {
-                    this.cc.getCaseEvidence().get(i).setEvidenceDescription(description);
+                if (this.cc.getCaseEvidence().get(i).getId() == id) {
+                    this.cc.getCaseEvidence().get(i).setDescription(description);
                     this.cc.getCaseEvidence().get(i).setLocation(location);
                 }
             }
@@ -296,8 +296,8 @@ public class FXMLCaseController implements Initializable {
     private void handleChooseEvidenceAction(MouseEvent event) {
         if (this.evidenceListLV.getSelectionModel().getSelectedItem() != null) {
             Evidence chosenEvidence = this.evidenceListLV.getSelectionModel().getSelectedItem();
-            this.evidenceNrTF.setText(String.valueOf(chosenEvidence.getEvidenceNumber()));
-            this.evidenceDescriptionTA.setText(chosenEvidence.getEvidenceDescription());
+            this.evidenceNrTF.setText(chosenEvidence.getId());
+            this.evidenceDescriptionTA.setText(chosenEvidence.getDescription());
             this.evidenceLocationTF.setText(chosenEvidence.getLocation());
         }
     }

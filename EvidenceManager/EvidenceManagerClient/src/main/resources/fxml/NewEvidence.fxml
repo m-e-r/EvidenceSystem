@@ -47,7 +47,7 @@
                   <Insets left="8.0" right="8.0" />
                </VBox.margin>
             </GridPane>
-            <TextArea fx:id="evidenceDescTA" prefHeight="200.0" prefWidth="200.0" promptText="Descirbe the evidence" wrapText="true">
+            <TextArea fx:id="evidenceDescTA" prefHeight="200.0" prefWidth="200.0" promptText="Describe the evidence" wrapText="true">
                <VBox.margin>
                   <Insets left="8.0" right="8.0" />
                </VBox.margin>

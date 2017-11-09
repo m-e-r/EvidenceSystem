@@ -90,10 +90,10 @@ public class FXMLNewEvidenceController implements Initializable {
             location = this.evidenceLocTF.getText();
         }
         
-        this.evidence.setEvidenceDescription(description);
-        this.evidence.setEvidenceNumber(Integer.parseInt(this.evidenceNumTF.getText()));
+        this.evidence.setDescription(description);
+        this.evidence.setId(this.evidenceNumTF.getText());
         this.evidence.setLocation(location);
-        //this.evidence.setCategory(this.evidenceCategoryCB.getValue());
+        this.evidence.setCategory(this.evidenceCategoryCB.getValue());
         this.goBack();
         Stage stage = (Stage) this.saveBTN.getScene().getWindow();
         stage.close();

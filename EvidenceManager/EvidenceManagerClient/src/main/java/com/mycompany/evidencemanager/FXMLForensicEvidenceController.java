@@ -33,34 +33,34 @@ public class FXMLForensicEvidenceController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.eol = FXCollections.observableArrayList();
-        showEvidenceAlone();
+        //showEvidenceAlone();
     }
 
-    public void showEvidenceAlone() {
-        List<Evidence> eList = new ArrayList<>();
-        Evidence e1 = new Evidence();
-        e1.setEvidenceDescription("Herro m8");
-        e1.setEvidenceNumber(1);
-        e1.setLocation("Somewhere");
-       
-        
-        Evidence e2 = new Evidence();
-        e1.setEvidenceDescription("Herro m9");
-        e1.setEvidenceNumber(2);
-        e1.setLocation("Somewhere else");
-       
-        eList.add(e1);
-        eList.add(e2);
-        
-        
-        for (Evidence e : eList) {
-            String adder;
-            adder = e.toString();
-            this.eol.add(adder);
-        }
-        
-        
-        this.evidenceLV.setItems(eol);
-    }
+//    public void showEvidenceAlone() {
+//        List<Evidence> eList = new ArrayList<>();
+//        Evidence e1 = new Evidence();
+//        e1.setEvidenceDescription("Herro m8");
+//        e1.setEvidenceNumber(1);
+//        e1.setLocation("Somewhere");
+//       
+//        
+//        Evidence e2 = new Evidence();
+//        e1.setEvidenceDescription("Herro m9");
+//        e1.setEvidenceNumber(2);
+//        e1.setLocation("Somewhere else");
+//       
+//        eList.add(e1);
+//        eList.add(e2);
+//        
+//        
+//        for (Evidence e : eList) {
+//            String adder;
+//            adder = e.toString();
+//            this.eol.add(adder);
+//        }
+//        
+//        
+//        this.evidenceLV.setItems(eol);
+//    }
 
 }
