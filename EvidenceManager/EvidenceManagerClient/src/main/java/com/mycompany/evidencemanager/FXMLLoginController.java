@@ -47,7 +47,7 @@ public class FXMLLoginController implements Initializable {
      */
     @FXML
     private void handleLoginAction(ActionEvent event) throws ApiException, IOException {
-
+        LoginTestClass lgc = new LoginTestClass();
         //Format expected by the server when the user leaves the textfields empty;
         String userName = " ";
         String password = " ";
@@ -67,10 +67,16 @@ public class FXMLLoginController implements Initializable {
 //        } else {
 //            this.loginLabel.setText("Prøv igen..");
 //        }
-        if (userName.equals("1")) {
+    
+
+        if (lgc.doLoginUserType(userName, password)==(LoginTestClass.UserType.COMISSIONER)) {
             this.showCaseScreenStage(connect);
-        } else if(userName.equals("2")){
+        } else if(lgc.doLoginUserType(userName, password)==(LoginTestClass.UserType.FORENSIC_SCIENTIST)){
             this.showForensicEvidenceStage(connect);
+        } else if(lgc.doLoginUserType(userName, password)==(LoginTestClass.UserType.POLICE_OFFICER)){
+            this.showCaseScreenStage(connect);
+        } else if(lgc.doLoginUserType(userName, password)==(LoginTestClass.UserType.SYSTEM_ADMIN)){
+            this.showCaseScreenStage(connect);
         }
     }
 
