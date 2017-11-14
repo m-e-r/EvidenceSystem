@@ -6,29 +6,29 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Suspect
+ * Token
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-14T14:01:16.285Z")
-public class Suspect {
-  @SerializedName("description")
-  private String description = null;
+public class Token {
+  @SerializedName("Id")
+  private String id = null;
 
-  public Suspect description(String description) {
-    this.description = description;
+  public Token id(String id) {
+    this.id = id;
     return this;
   }
 
    /**
-   * Get description
-   * @return description
+   * Get id
+   * @return id
   **/
   @ApiModelProperty(value = "")
-  public String getDescription() {
-    return description;
+  public String getId() {
+    return id;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setId(String id) {
+    this.id = id;
   }
 
 
@@ -40,22 +40,22 @@ public class Suspect {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Suspect suspect = (Suspect) o;
-    return Objects.equals(this.description, suspect.description);
+    Token token = (Token) o;
+    return Objects.equals(this.id, token.id);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(description);
+    return Objects.hash(id);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Suspect {\n");
+    sb.append("class Token {\n");
     
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("}");
     return sb.toString();
   }

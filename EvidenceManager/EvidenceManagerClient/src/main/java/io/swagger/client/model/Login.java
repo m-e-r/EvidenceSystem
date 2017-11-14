@@ -8,31 +8,13 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * Login
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-09T12:37:08.563Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-14T14:01:16.285Z")
 public class Login {
-  @SerializedName("userName")
-  private String userName = null;
-
   @SerializedName("password")
   private String password = null;
 
-  public Login userName(String userName) {
-    this.userName = userName;
-    return this;
-  }
-
-   /**
-   * Get userName
-   * @return userName
-  **/
-  @ApiModelProperty(value = "")
-  public String getUserName() {
-    return userName;
-  }
-
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
+  @SerializedName("userName")
+  private String userName = null;
 
   public Login password(String password) {
     this.password = password;
@@ -52,6 +34,24 @@ public class Login {
     this.password = password;
   }
 
+  public Login userName(String userName) {
+    this.userName = userName;
+    return this;
+  }
+
+   /**
+   * Get userName
+   * @return userName
+  **/
+  @ApiModelProperty(value = "")
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -62,13 +62,13 @@ public class Login {
       return false;
     }
     Login login = (Login) o;
-    return Objects.equals(this.userName, login.userName) &&
-        Objects.equals(this.password, login.password);
+    return Objects.equals(this.password, login.password) &&
+        Objects.equals(this.userName, login.userName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(userName, password);
+    return Objects.hash(password, userName);
   }
 
 
@@ -77,8 +77,8 @@ public class Login {
     StringBuilder sb = new StringBuilder();
     sb.append("class Login {\n");
     
-    sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
+    sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
     sb.append("}");
     return sb.toString();
   }

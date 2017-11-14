@@ -3,6 +3,7 @@ package io.swagger.api.impl;
 import io.swagger.api.*;
 import io.swagger.model.*;
 
+import io.swagger.model.Token;
 
 import java.util.List;
 import io.swagger.api.NotFoundException;
@@ -14,37 +15,11 @@ import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-10-27T11:21:19.158Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-14T14:01:20.310Z")
 public class LoginApiServiceImpl extends LoginApiService {
-    private int count;
-    
-    /**
-     * Method for logging in.
-     * @param userName
-     * @param password
-     * @param securityContext
-     * @return 
-     * @throws NotFoundException 
-     */
     @Override
     public Response doLogin(String userName, String password, SecurityContext securityContext) throws NotFoundException {
-    	//First couple of lines just for testing...
-        System.out.println("What " + this.count);
-        this.count++;
-        
-        boolean ans;
-
-        //Expected input if the user has left the textfields in the client empty
-        if (userName.equals(" ") || password.equals(" ")) {
-            ans = false;
-
-        //Else, check if user has acces    
-    	} else if (userName.equals("Jacob") && password.equals("password")) {
-    		ans = true;
-    	} else {
-    		ans = false;
-    	}
         // do some magic!
-        return Response.ok().entity(ans).build();
+        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
 }

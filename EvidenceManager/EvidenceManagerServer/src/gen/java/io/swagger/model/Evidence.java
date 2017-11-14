@@ -34,16 +34,16 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * Evidence
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-09T12:37:12.952Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-14T14:01:20.310Z")
 public class Evidence   {
-  @JsonProperty("title")
-  private String title = null;
-
-  @JsonProperty("id")
-  private String id = null;
+  @JsonProperty("category")
+  private String category = null;
 
   @JsonProperty("description")
   private String description = null;
+
+  @JsonProperty("id")
+  private String id = null;
 
   @JsonProperty("location")
   private String location = null;
@@ -51,43 +51,25 @@ public class Evidence   {
   @JsonProperty("personResponsible")
   private String personResponsible = null;
 
-  @JsonProperty("category")
-  private String category = null;
+  @JsonProperty("title")
+  private String title = null;
 
-  public Evidence title(String title) {
-    this.title = title;
+  public Evidence category(String category) {
+    this.category = category;
     return this;
   }
 
    /**
-   * Get title
-   * @return title
+   * Get category
+   * @return category
   **/
   @ApiModelProperty(value = "")
-  public String getTitle() {
-    return title;
+  public String getCategory() {
+    return category;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  public Evidence id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(value = "")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
+  public void setCategory(String category) {
+    this.category = category;
   }
 
   public Evidence description(String description) {
@@ -106,6 +88,24 @@ public class Evidence   {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public Evidence id(String id) {
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * Get id
+   * @return id
+  **/
+  @ApiModelProperty(value = "")
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
   }
 
   public Evidence location(String location) {
@@ -144,22 +144,22 @@ public class Evidence   {
     this.personResponsible = personResponsible;
   }
 
-  public Evidence category(String category) {
-    this.category = category;
+  public Evidence title(String title) {
+    this.title = title;
     return this;
   }
 
    /**
-   * Get category
-   * @return category
+   * Get title
+   * @return title
   **/
   @ApiModelProperty(value = "")
-  public String getCategory() {
-    return category;
+  public String getTitle() {
+    return title;
   }
 
-  public void setCategory(String category) {
-    this.category = category;
+  public void setTitle(String title) {
+    this.title = title;
   }
 
 
@@ -172,17 +172,17 @@ public class Evidence   {
       return false;
     }
     Evidence evidence = (Evidence) o;
-    return Objects.equals(this.title, evidence.title) &&
-        Objects.equals(this.id, evidence.id) &&
+    return Objects.equals(this.category, evidence.category) &&
         Objects.equals(this.description, evidence.description) &&
+        Objects.equals(this.id, evidence.id) &&
         Objects.equals(this.location, evidence.location) &&
         Objects.equals(this.personResponsible, evidence.personResponsible) &&
-        Objects.equals(this.category, evidence.category);
+        Objects.equals(this.title, evidence.title);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(title, id, description, location, personResponsible, category);
+    return Objects.hash(category, description, id, location, personResponsible, title);
   }
 
 
@@ -191,12 +191,12 @@ public class Evidence   {
     StringBuilder sb = new StringBuilder();
     sb.append("class Evidence {\n");
     
-    sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    category: ").append(toIndentedString(category)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    location: ").append(toIndentedString(location)).append("\n");
     sb.append("    personResponsible: ").append(toIndentedString(personResponsible)).append("\n");
-    sb.append("    category: ").append(toIndentedString(category)).append("\n");
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("}");
     return sb.toString();
   }

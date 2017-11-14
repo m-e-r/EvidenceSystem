@@ -32,7 +32,7 @@ import java.util.Map;
 /**
  * CriminalCaseMap
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-09T12:37:12.952Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-14T14:01:20.310Z")
 public class CriminalCaseMap extends HashMap<String, String>  {
 
   @Override
