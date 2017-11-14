@@ -18,12 +18,11 @@ public class UserIdGenerator {
         
         public UserIdGenerator() {
             this.a = 3;
-            this.x = 5;
             this. m = 570926;
             this.count = 0;
         }
         
-        public int generateBody() {
+        public int generateBody(int x) {
                 x = Math.abs((a * x) % m);
                 while (x < 100000) {
                     x = Math.abs((a * x) % m);
