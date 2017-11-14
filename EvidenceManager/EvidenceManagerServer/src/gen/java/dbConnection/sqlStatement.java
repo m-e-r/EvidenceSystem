@@ -6,6 +6,8 @@ import io.swagger.model.CriminalCase;
 import io.swagger.model.CriminalCaseMap;
 import io.swagger.model.Evidence;
 import io.swagger.model.LawEnforcer;
+import io.swagger.model.TestUserData;
+import io.swagger.model.TestUserData.TestUserDataEnum;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -316,22 +318,85 @@ public class sqlStatement implements IsqlStatement, SecureSql {
 
     @Override
     public String getPrevCaseId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "SELECT caseid FROM latestid;";
+
+        ResultSet select = db.executeQuery(query);
+        String prevCaseiD = null;
+        
+        try {
+            while (select.next()) {
+               prevCaseiD =  select.getString("caseid");
+                
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+        
+        return prevCaseiD;
     }
 
     @Override
     public String getPrevEvidenceId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "SELECT evidenceid FROM latestid;";
+
+        ResultSet select = db.executeQuery(query);
+        String prevCaseiD = null;
+        
+        try {
+            while (select.next()) {
+               prevCaseiD =  select.getString("evidenceid");
+                
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+        
+        return prevCaseiD;
     }
 
     @Override
     public void updateCaseId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     String query = "UPDATE latestid\n" +
+"   SET caseid=" + "'" + String.valueOf(id) + "'";  
+
+       db.updateQuery(query);
+        
+        
+       
+        
+      
     }
 
     @Override
     public void updateEvidenceId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "UPDATE latestid\n" +
+"   SET evidenceid=" + "'" + String.valueOf(id) + "'";  
+
+       db.updateQuery(query);
+    }
+
+    @Override
+    public TestUserDataEnum getRank(String userName) {
+        TestUserData tud = new TestUserData();
+        
+        String query = String.format("select title from lawenforcerposition where _ref = (SELECT positionref from lawenforcer where name = %s)", userName);
+         
+        ResultSet select = db.executeQuery(query);
+        String position = null;
+        try {
+            while (select.next()) {
+                position = select.getString("positionref");
+             
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+        TestUserDataEnum tude = tud.selectEnum(position);
+        
+        System.err.println(tude);
+        
+        return tude;
+        
     }
 
 }
