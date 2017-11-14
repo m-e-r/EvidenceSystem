@@ -5,6 +5,7 @@
  */
 package security;
 
+import dbConnection.sqlStatement;
 import java.util.ArrayList;
 
 /**
@@ -15,12 +16,20 @@ public class UserIdGenerator {
         
     private static int a, m;
     private int x, count;
-        
+    private SecureSql sql;
+    
         public UserIdGenerator() {
+            this.sql = new sqlStatement();
             this.a = 3;
             this. m = 570926;
             this.count = 0;
         }
+        
+        public String generateUserId(String enumValue) {
+            this.x = this.sql.getPrevUserId(enumValue);
+            
+        }
+        
         
         public int generateBody(int x) {
                 x = Math.abs((a * x) % m);
