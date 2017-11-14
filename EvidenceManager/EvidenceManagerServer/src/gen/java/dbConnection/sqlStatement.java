@@ -314,4 +314,14 @@ public class sqlStatement implements IsqlStatement, SecureSql {
         return evidenceList;
     }
 
+    @Override
+    public String getPrevCaseId() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getPrevEvidenceId() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

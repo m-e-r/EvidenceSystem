@@ -10,5 +10,6 @@ package security;
  * @author Kasper
  */
 public interface SecureSql {
-    
+    public String getPrevCaseId();
+    public String getPrevEvidenceId();
 }
