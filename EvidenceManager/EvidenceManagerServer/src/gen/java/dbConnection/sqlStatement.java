@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.lang3.NotImplementedException;
+import security.SecureSql;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,7 +24,7 @@ import org.apache.commons.lang3.NotImplementedException;
  *
  * @author Bruger
  */
-public class sqlStatement implements IsqlStatement {
+public class sqlStatement implements IsqlStatement, SecureSql {
 
     private List<Evidence> tempEvidenceList;
 
