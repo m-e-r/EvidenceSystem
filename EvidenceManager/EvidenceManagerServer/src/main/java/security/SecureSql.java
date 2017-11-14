@@ -12,4 +12,7 @@ package security;
 public interface SecureSql {
     public String getPrevCaseId();
     public String getPrevEvidenceId();
+    
+    public void updateCaseId(int id);
+    public void updateEvidenceId(int id);
 }

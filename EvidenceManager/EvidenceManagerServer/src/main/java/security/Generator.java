@@ -22,7 +22,7 @@ public class Generator {
         this.sec = new sqlStatement();        
     }
     
-    public void generateCaseId() {
+    public String generateCaseId() {
         this.x = this.prevCaseId();
         this.a =3;
         this.m = 729511;
@@ -35,7 +35,8 @@ public class Generator {
         checkDigit = this.generateCheckDigit(toCheckOn);
         
         fullId = prefix + "-" + body + "-" + checkDigit;
-        System.out.println(fullId);
+        this.sec.updateCaseId(this.x);
+        return fullId;
     }    
     private int prevCaseId() {
         String[] prevCase = this.sec.getPrevCaseId().split("-");
@@ -44,7 +45,7 @@ public class Generator {
     }
     
     
-    public void generateEvidenceId() {
+    public String generateEvidenceId() {
         this.x = this.prevEvidenceId();
         this.a =3;
         this.m = 7810294;
@@ -58,7 +59,8 @@ public class Generator {
         checkDigit = this.generateCheckDigit(toCheckOn);
         
         fullId = prefix + "-" + body + "-" + checkDigit;
-        System.out.println(fullId);
+        this.sec.updateEvidenceId(this.x);
+        return fullId;
     } 
     private int prevEvidenceId() {
         String[] prevEvidence = this.sec.getPrevEvidenceId().split("-");
