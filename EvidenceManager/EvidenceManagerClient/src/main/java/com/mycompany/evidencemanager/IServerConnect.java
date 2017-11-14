@@ -9,6 +9,7 @@ import io.swagger.client.ApiException;
 import io.swagger.client.model.CriminalCase;
 import io.swagger.client.model.CriminalCaseMap;
 import io.swagger.client.model.Evidence;
+import io.swagger.client.model.Token;
 import java.util.List;
 
 /**
@@ -18,16 +19,18 @@ import java.util.List;
  */
 public interface IServerConnect {
     //For Login
-    public int doSomeLogin(String userName, String password) throws ApiException;
+    public Token doSomeLogin(String userName, String password) throws ApiException;
     
     
     //For Case
     public boolean addCase(CriminalCase theCase) throws ApiException;
     public boolean updateCase(CriminalCase theCase) throws ApiException;
-    public CriminalCase getCase(Integer caseId) throws ApiException;
-    public CriminalCaseMap getCases(Integer employeeId) throws ApiException;
+    public CriminalCase getCase(String caseId) throws ApiException;
+    public CriminalCaseMap getCases(String employeeId) throws ApiException;
+    public String generateCaseId() throws ApiException;
     
     
     //For Evidence
     public List<Evidence> findEvidence(String keyword) throws ApiException;
+    public String generateEvidenceId() throws ApiException;
 }

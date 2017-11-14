@@ -26,7 +26,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the lawEnforcer API")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-14T14:01:20.310Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-14T14:42:45.231Z")
 public class LawEnforcerApi  {
    private final LawEnforcerApiService delegate = LawEnforcerApiServiceFactory.getLawEnforcerApi();
 
@@ -39,7 +39,7 @@ public class LawEnforcerApi  {
         @io.swagger.annotations.ApiResponse(code = 200, message = "succesfully returned", response = CriminalCaseMap.class),
         
         @io.swagger.annotations.ApiResponse(code = 400, message = "noting found", response = CriminalCaseMap.class) })
-    public Response getCasesFromId(@ApiParam(value = "",required=true) @PathParam("employeeId") Integer employeeId
+    public Response getCasesFromId(@ApiParam(value = "",required=true) @PathParam("employeeId") String employeeId
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.getCasesFromId(employeeId,securityContext);

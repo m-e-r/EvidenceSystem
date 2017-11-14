@@ -70,7 +70,7 @@ public class FXMLShowCaseScreenController implements Initializable {
         this.occ = FXCollections.observableArrayList();
         
         try {
-            this.showsRelevantCases(2);
+            this.showsRelevantCases("Default employee");
         } catch (ApiException ex) {
             System.out.println("Load fejl ...");
         }
@@ -82,7 +82,7 @@ public class FXMLShowCaseScreenController implements Initializable {
      * @param employeeId the user who logs in
      * @throws ApiException 
      */
-    private void showsRelevantCases(int employeeId) throws ApiException {
+    private void showsRelevantCases(String employeeId) throws ApiException {
         Map<String, String>tempMap = this.connect.getCases(employeeId);
 //        Map<String, String> tempMap = new HashMap();
 //        
@@ -121,7 +121,7 @@ public class FXMLShowCaseScreenController implements Initializable {
         id = ids[0];
         CriminalCase cc;
         
-        cc = this.connect.getCase(2);
+        cc = this.connect.getCase("Default user");
         System.err.println(cc.toString());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CaseScreen.fxml"));
 

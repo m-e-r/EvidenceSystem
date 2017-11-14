@@ -356,15 +356,8 @@ public class sqlStatement implements IsqlStatement, SecureSql {
 
     @Override
     public void updateCaseId(int id) {
-     String query = "UPDATE latestid\n" +
-"   SET caseid=" + "'" + String.valueOf(id) + "'";  
-
-       db.updateQuery(query);
-        
-        
-       
-        
-      
+        String query = "UPDATE latestid\n SET caseid= " + "'" + String.valueOf(id) + "'";  
+        db.updateQuery(query); 
     }
 
     @Override

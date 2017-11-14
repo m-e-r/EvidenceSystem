@@ -43,7 +43,7 @@ public class LawEnForcerApi {
     }
 
     /* Build call for getCasesFromId */
-    private com.squareup.okhttp.Call getCasesFromIdCall(Integer employeeId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getCasesFromIdCall(String employeeId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
         
         // verify the required parameter 'employeeId' is set
@@ -97,7 +97,7 @@ public class LawEnForcerApi {
      * @return CriminalCaseMap
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public CriminalCaseMap getCasesFromId(Integer employeeId) throws ApiException {
+    public CriminalCaseMap getCasesFromId(String employeeId) throws ApiException {
         ApiResponse<CriminalCaseMap> resp = getCasesFromIdWithHttpInfo(employeeId);
         return resp.getData();
     }
@@ -109,7 +109,7 @@ public class LawEnForcerApi {
      * @return ApiResponse&lt;CriminalCaseMap&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CriminalCaseMap> getCasesFromIdWithHttpInfo(Integer employeeId) throws ApiException {
+    public ApiResponse<CriminalCaseMap> getCasesFromIdWithHttpInfo(String employeeId) throws ApiException {
         com.squareup.okhttp.Call call = getCasesFromIdCall(employeeId, null, null);
         Type localVarReturnType = new TypeToken<CriminalCaseMap>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -123,7 +123,7 @@ public class LawEnForcerApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getCasesFromIdAsync(Integer employeeId, final ApiCallback<CriminalCaseMap> callback) throws ApiException {
+    public com.squareup.okhttp.Call getCasesFromIdAsync(String employeeId, final ApiCallback<CriminalCaseMap> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;

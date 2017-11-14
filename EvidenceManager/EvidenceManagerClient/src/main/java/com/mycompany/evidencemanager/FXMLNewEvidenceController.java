@@ -6,11 +6,15 @@ package com.mycompany.evidencemanager;
  * and open the template in the editor.
  */
 
+import io.swagger.client.ApiException;
+import io.swagger.client.ServerConnect;
 import io.swagger.client.model.Evidence;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,6 +36,7 @@ import javafx.stage.StageStyle;
  * @author Kasper
  */
 public class FXMLNewEvidenceController implements Initializable {
+    private IServerConnect connect;
     private Evidence evidence;
     private FXMLCaseController controller;
     private ObservableList<String> categories;
@@ -60,7 +65,12 @@ public class FXMLNewEvidenceController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.evidenceNumTF.setText(this.generateId());
+        this.connect = new ServerConnect();
+        try {
+            this.evidenceNumTF.setText(this.generateId());
+        } catch (ApiException ex) {
+            Logger.getLogger(FXMLNewEvidenceController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.evidenceNumTF.setDisable(true);
         this.evidenceTitleTF.requestFocus();
         
@@ -124,40 +134,46 @@ public class FXMLNewEvidenceController implements Initializable {
         this.controller.addNewEvidence(this.evidence);
     }
     
-    private String generateId() {
-        StringBuilder str = new StringBuilder();
-        int year = 17, month = 11, mod = 4096*16, body, check, adder = 0;
-        long gen = System.currentTimeMillis(); //Replace with that linear congruate thing to run on the server with a long
-                                              //enough cycle, that the same number will not be generated twice in a day.
-                                             //(Since the date will be different, the number can be the same for different days).
-        StringBuilder fullBody = new StringBuilder();
-        
-        //Generate the body part
-        body = Math.abs((int) gen % mod);
-        String stringBody = String.valueOf(body);
-        while (stringBody.length() < 5) {
-            stringBody += "0";
-        }
-        
-        String stringFull = "" + year + month + stringBody;
-        
-        
-        //Use full body to generate check value
-        for (int i = 0; i < stringFull.length(); i++) {
-            adder += (i+1)*Integer.parseInt(String.valueOf(stringFull.charAt(i)));
-        }
-        check = adder % 11;
-        
-        //Get ready for printing and then print
-        fullBody.append(year)
-            .append("-")
-            .append(month)
-            .append("-")
-            .append(stringBody)
-            .append("-")
-            .append(check);
-        
-        return new String(fullBody);
+    private String generateId() throws ApiException {
+        return this.connect.generateEvidenceId();
     }
+    
+//    private String generateId() {
+//        StringBuilder str = new StringBuilder();
+//        int year = 17, month = 11, mod = 4096*16, body, check, adder = 0;
+//        long gen = System.currentTimeMillis(); //Replace with that linear congruate thing to run on the server with a long
+//                                              //enough cycle, that the same number will not be generated twice in a day.
+//                                             //(Since the date will be different, the number can be the same for different days).
+//        StringBuilder fullBody = new StringBuilder();
+//        
+//        //Generate the body part
+//        body = Math.abs((int) gen % mod);
+//        String stringBody = String.valueOf(body);
+//        while (stringBody.length() < 5) {
+//            stringBody += "0";
+//        }
+//        
+//        String stringFull = "" + year + month + stringBody;
+//        
+//        
+//        //Use full body to generate check value
+//        for (int i = 0; i < stringFull.length(); i++) {
+//            adder += (i+1)*Integer.parseInt(String.valueOf(stringFull.charAt(i)));
+//        }
+//        check = adder % 11;
+//        
+//        //Get ready for printing and then print
+//        fullBody.append(year)
+//            .append("-")
+//            .append(month)
+//            .append("-")
+//            .append(stringBody)
+//            .append("-")
+//            .append(check);
+//        
+//        return new String(fullBody);
+//    }
+//    
+    
 
 }

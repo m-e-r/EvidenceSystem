@@ -15,6 +15,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -310,39 +312,12 @@ public class FXMLCaseController implements Initializable {
     }
     
     private String generateId() {
-        StringBuilder str = new StringBuilder();
-        int year = 17, month = 11, mod = 4096*16, body, check, adder = 0;
-        long gen = System.currentTimeMillis(); //Replace with that linear congruate thing to run on the server with a long
-                                              //enough cycle, that the same number will not be generated twice in a day.
-                                             //(Since the date will be different, the number can be the same for different days).
-        StringBuilder fullBody = new StringBuilder();
-        
-        //Generate the body part
-        body = Math.abs((int) gen % mod);
-        String stringBody = String.valueOf(body);
-        while (stringBody.length() < 5) {
-            stringBody += "0";
+        try {
+            return this.connect.generateCaseId();
+        } catch (ApiException ex) {
+            Logger.getLogger(FXMLCaseController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        String stringFull = "" + year + month + stringBody;
-        
-        
-        //Use full body to generate check value
-        for (int i = 0; i < stringFull.length(); i++) {
-            adder += (i+1)*Integer.parseInt(String.valueOf(stringFull.charAt(i)));
-        }
-        check = adder % 11;
-        
-        //Get ready for printing and then print
-        fullBody.append(year)
-            .append("-")
-            .append(month)
-            .append("-")
-            .append(stringBody)
-            .append("-")
-            .append(check);
-        
-        return new String(fullBody);
+        return "";
     }
    
 }

@@ -4,14 +4,18 @@ import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.client.model.UserType;
 
 /**
  * Token
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-14T14:01:16.285Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-14T14:42:40.941Z")
 public class Token {
   @SerializedName("Id")
   private String id = null;
+
+  @SerializedName("usertype")
+  private UserType usertype = null;
 
   public Token id(String id) {
     this.id = id;
@@ -31,6 +35,24 @@ public class Token {
     this.id = id;
   }
 
+  public Token usertype(UserType usertype) {
+    this.usertype = usertype;
+    return this;
+  }
+
+   /**
+   * Get usertype
+   * @return usertype
+  **/
+  @ApiModelProperty(value = "")
+  public UserType getUsertype() {
+    return usertype;
+  }
+
+  public void setUsertype(UserType usertype) {
+    this.usertype = usertype;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -41,12 +63,13 @@ public class Token {
       return false;
     }
     Token token = (Token) o;
-    return Objects.equals(this.id, token.id);
+    return Objects.equals(this.id, token.id) &&
+        Objects.equals(this.usertype, token.usertype);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id);
+    return Objects.hash(id, usertype);
   }
 
 
@@ -56,6 +79,7 @@ public class Token {
     sb.append("class Token {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    usertype: ").append(toIndentedString(usertype)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -24,17 +24,19 @@ public class Generator {
     
     public String generateCaseId() {
         this.x = Integer.parseInt(this.sec.getPrevCaseId());
+        System.out.println("x: " + this.x);
         this.a =3;
         this.m = 729511;
         
         String prefix, body, toCheckOn, checkDigit, fullId;
         
         prefix = this.generatePrefix();
-        body = this.generateBody();
+        body = this.generateBody(10000);
         toCheckOn = prefix + body;
         checkDigit = this.generateCheckDigit(toCheckOn);
         
         fullId = prefix + "-" + body + "-" + checkDigit;
+        System.out.println(fullId);
         this.sec.updateCaseId(this.x);
         return fullId;
     }    
@@ -49,7 +51,7 @@ public class Generator {
         String prefix, body, toCheckOn, checkDigit, fullId;
         
         prefix = this.generatePrefix();
-        body = this.generateBody();
+        body = this.generateBody(1000000);
         toCheckOn = prefix + body;
         checkDigit = this.generateCheckDigit(toCheckOn);
         
@@ -66,8 +68,8 @@ public class Generator {
     }
      
   
-    private String generateBody() {
-        while (Math.abs((a * x) % m) < 1000000) {
+    private String generateBody(int size) {
+        while (Math.abs((a * x) % m) < size) {
             x = Math.abs((a * x) % m);
         }
         x = Math.abs((a * x) % m);

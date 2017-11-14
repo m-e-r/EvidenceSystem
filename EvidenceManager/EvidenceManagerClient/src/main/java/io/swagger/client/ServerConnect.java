@@ -9,10 +9,11 @@ import com.mycompany.evidencemanager.IServerConnect;
 import io.swagger.client.api.CriminalCaseApi;
 import io.swagger.client.api.EvidenceApi;
 import io.swagger.client.api.LawEnForcerApi;
-import io.swagger.client.api.LoginApi;
+import io.swagger.client.api.SecurityApi;
 import io.swagger.client.model.CriminalCase;
 import io.swagger.client.model.CriminalCaseMap;
 import io.swagger.client.model.Evidence;
+import io.swagger.client.model.Token;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ public class ServerConnect implements IServerConnect{
     private ApiClient ac;
     private CriminalCaseApi cca;
     private EvidenceApi ea;
-    private LoginApi la;
+    private SecurityApi sa;
     private LawEnForcerApi lea;
     
     /**
@@ -37,7 +38,7 @@ public class ServerConnect implements IServerConnect{
         //this.ac.setBasePath("http://10.126.118.185:8080/m-e-r/Evidence/5");
         this.cca = new CriminalCaseApi(this.ac);
         this.ea = new EvidenceApi(this.ac);
-        this.la = new LoginApi(this.ac);
+        this.sa = new SecurityApi(this.ac);
         this.lea = new LawEnForcerApi(this.ac);
     }
     
@@ -50,9 +51,9 @@ public class ServerConnect implements IServerConnect{
      * @throws ApiException 
      */
     @Override
-    public int doSomeLogin(String userName, String password) throws ApiException {
-        int ans = this.la.doLogin(userName, password);
-        return ans;
+    public Token doSomeLogin(String userName, String password) throws ApiException {
+        Token ans = this.sa.doLogin(userName, password);
+        return ans; //Change this to token stuff
     }
 
     /**
@@ -83,7 +84,7 @@ public class ServerConnect implements IServerConnect{
      * @throws ApiException 
      */
     @Override
-    public CriminalCase getCase(Integer caseId) throws ApiException {
+    public CriminalCase getCase(String caseId) throws ApiException {
         return cca.getCase(caseId);
     }
 
@@ -94,8 +95,8 @@ public class ServerConnect implements IServerConnect{
      * @throws ApiException 
      */
     @Override
-    public CriminalCaseMap getCases(Integer employeeId) throws ApiException {
-        return this.lea.lawEnforcerEmployeeIdGet(employeeId);
+    public CriminalCaseMap getCases(String employeeId) throws ApiException {
+        return this.lea.getCasesFromId(employeeId);
     }
 
     /**
@@ -108,5 +109,15 @@ public class ServerConnect implements IServerConnect{
     @Override
     public List<Evidence> findEvidence(String keyword) throws ApiException {
         return this.ea.getEvidenceList(keyword);
+    }
+
+    @Override
+    public String generateEvidenceId() throws ApiException {
+        return this.sa.genEvidenceId();
+    }
+
+    @Override
+    public String generateCaseId() throws ApiException {
+        return this.sa.genCaseId();
     }
 }
