@@ -6,7 +6,10 @@
 package security;
 
 import dbConnection.sqlStatement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -14,30 +17,33 @@ import java.util.ArrayList;
  */
 public class UserIdGenerator {
         
-    private static int a, m;
-    private int x, count;
+    private static final int A = 3, M = 570926;
+    private int x;
     private SecureSql sql;
-    
-        public UserIdGenerator() {
-            this.sql = new sqlStatement();
-            this.a = 3;
-            this. m = 570926;
-            this.count = 0;
-        }
         
-        public String generateUserId(String enumValue) {
-            this.x = this.sql.getPrevUserId(enumValue);
-            return "";
+    public UserIdGenerator() {
+        this.sql = new sqlStatement();
+    }
+
+    public String generateUserId(String enumValue) {
+        this.x = this.sql.getPrevUserId(enumValue);
+        String s = enumValue + "-" + this.generatePrefix() + "-"  + this.generateBody(x);
+        return s;
+    }
+
+    public String generatePrefix() {
+        Date d = new Date();
+        DateFormat df = new SimpleDateFormat("yy");
+        return df.format(d);
+    }
+
+    public int generateBody(int x) {
+        x = Math.abs((A * x) % M);
+        while (x < 100000) {
+            x = Math.abs((A * x) % M);
         }
-        
-        
-        public int generateBody(int x) {
-                x = Math.abs((a * x) % m);
-                while (x < 100000) {
-                    x = Math.abs((a * x) % m);
-                }
-                System.out.println(x);
-                return x;
-        }
+        System.out.println(x);
+        return x;
+    }
         
 }
