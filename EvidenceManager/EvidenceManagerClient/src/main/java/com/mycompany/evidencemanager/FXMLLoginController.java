@@ -77,6 +77,8 @@ public class FXMLLoginController implements Initializable {
             this.showCaseScreenStage(connect);
         } else if(lgc.doLoginUserType(userName, password)==(LoginTestClass.UserType.SYSTEM_ADMIN)){
             this.showCaseScreenStage(connect);
+        } else {
+            this.loginLabel.setText("Invalid login");
         }
     }
 
