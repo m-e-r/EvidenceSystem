@@ -23,7 +23,7 @@ public class Generator {
     }
     
     public String generateCaseId() {
-        this.x = this.prevCaseId();
+        this.x = Integer.parseInt(this.sec.getPrevCaseId());
         this.a =3;
         this.m = 729511;
         
@@ -38,15 +38,10 @@ public class Generator {
         this.sec.updateCaseId(this.x);
         return fullId;
     }    
-    private int prevCaseId() {
-        String[] prevCase = this.sec.getPrevCaseId().split("-");
-        int prevId = Integer.parseInt(prevCase[2]);
-        return prevId;
-    }
     
     
     public String generateEvidenceId() {
-        this.x = this.prevEvidenceId();
+        this.x = Integer.parseInt(this.sec.getPrevEvidenceId());
         this.a =3;
         this.m = 7810294;
         
@@ -62,11 +57,6 @@ public class Generator {
         this.sec.updateEvidenceId(this.x);
         return fullId;
     } 
-    private int prevEvidenceId() {
-        String[] prevEvidence = this.sec.getPrevEvidenceId().split("-");
-        int prevId = Integer.parseInt(prevEvidence[2]);
-        return prevId;
-    }
     
     
     private String generatePrefix() {
