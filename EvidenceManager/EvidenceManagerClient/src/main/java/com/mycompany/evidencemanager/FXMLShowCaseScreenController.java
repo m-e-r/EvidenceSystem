@@ -8,6 +8,8 @@ package com.mycompany.evidencemanager;
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
 import io.swagger.client.model.CriminalCase;
+import io.swagger.client.model.Token;
+import io.swagger.client.model.UserType;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -28,6 +31,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -41,23 +45,21 @@ public class FXMLShowCaseScreenController implements Initializable {
     //Attributes
     private IServerConnect connect; //Used for calling methods on the server
     private ObservableList<String> occ; //Used for holding case name and id for displaying in the ListView
-
-    @FXML
-    private TextArea evidenceInfoTA;
+    private Button valiBTN;
+    private Token token;
+    
     @FXML
     private ListView<String> caseEditLV;
     @FXML
     private TextField caseSearchTF;
     @FXML
-    private TextArea caseDescriptionTA;
-    @FXML
     private Button editCaseBTN;
     @FXML
     private Button addCaseBTN;
     @FXML
-    private Button removeCaseBTN;
-    @FXML
     private Button malplacedSearchBTN;
+    @FXML
+    private HBox buttonsHB;
 
     /**
      * Initializes the controller class.
@@ -68,12 +70,6 @@ public class FXMLShowCaseScreenController implements Initializable {
 
         this.connect = new ServerConnect();
         this.occ = FXCollections.observableArrayList();
-        
-        try {
-            this.showsRelevantCases("Default employee");
-        } catch (ApiException ex) {
-            System.out.println("Load fejl ...");
-        }
     }
     
     /**
@@ -82,8 +78,8 @@ public class FXMLShowCaseScreenController implements Initializable {
      * @param employeeId the user who logs in
      * @throws ApiException 
      */
-    private void showsRelevantCases(String employeeId) throws ApiException {
-        Map<String, String>tempMap = this.connect.getCases(employeeId);
+    private void showsRelevantCases() throws ApiException {
+        Map<String, String>tempMap = this.connect.getCases(this.token.getId());
 //        Map<String, String> tempMap = new HashMap();
 //        
 //        tempMap.put("14323", "Malte is the killer");
@@ -93,17 +89,36 @@ public class FXMLShowCaseScreenController implements Initializable {
             String adder = s + "\n" + tempMap.get(s);
             this.occ.add(adder);
         }
+        
+        //Create validate user button if correct rank
+        if (this.token.getUsertype().equals(UserType.COMISSIONER)) {
+            this.valiBTN = new Button();
+            this.valiBTN.setText("Validate\nNew Users");
+            //Remember to do check if new users need validation when available in the API
+            
+            this.buttonsHB.getChildren().add(valiBTN);
+            this.setValidateAction();
+        }
 
         this.caseEditLV.setItems(this.occ);
     }
     
+    private void setValidateAction() {
+        this.valiBTN.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("heyyo");
+            }
+        });
+    }
+    
     /**
      * Method to be called when this stage is loaded.
-     * @param isc not relevant
+     * @param employee
      */
-    public void initData(IServerConnect isc) {
-        this.connect = isc;
-
+    public void initData(Token employee) throws ApiException {
+        this.token = employee;
+        this.showsRelevantCases();
     }
     
     /**
@@ -121,7 +136,7 @@ public class FXMLShowCaseScreenController implements Initializable {
         id = ids[0];
         CriminalCase cc;
         
-        cc = this.connect.getCase("Default user");
+        cc = this.connect.getCase(id);
         System.err.println(cc.toString());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CaseScreen.fxml"));
 
@@ -129,7 +144,7 @@ public class FXMLShowCaseScreenController implements Initializable {
         stage.setScene(new Scene((Pane) loader.load()));
 
         FXMLCaseController controller = loader.<FXMLCaseController>getController();
-        controller.initData(cc);
+        controller.initData(cc, this.token);
         
         stage.show();
         return stage;  
@@ -143,14 +158,13 @@ public class FXMLShowCaseScreenController implements Initializable {
      */
     @FXML
     private Stage addCase(ActionEvent event) throws IOException {
-        initData(connect);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CaseScreen.fxml"));
 
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene((Pane) loader.load()));
 
         FXMLCaseController controller = loader.<FXMLCaseController>getController();
-        controller.initData(null);
+        controller.initData(null, this.token);
         
         stage.show();
         return stage;
@@ -158,9 +172,6 @@ public class FXMLShowCaseScreenController implements Initializable {
     }
 
 
-    @FXML
-    private void removeCase(ActionEvent event) {
-    }
 
 
 }

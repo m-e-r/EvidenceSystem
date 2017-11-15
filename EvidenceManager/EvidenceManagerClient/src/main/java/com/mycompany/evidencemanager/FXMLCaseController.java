@@ -10,6 +10,8 @@ import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
 import io.swagger.client.model.CriminalCase;
 import io.swagger.client.model.Evidence;
+import io.swagger.client.model.Suspect;
+import io.swagger.client.model.Token;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.SelectionMode;
@@ -49,7 +52,8 @@ import javafx.stage.StageStyle;
 public class FXMLCaseController implements Initializable {
     //Attributes
     private IServerConnect connect; //For calling webservice methods in the ServerConnect implementation. 
-    private CriminalCase cc; //Gets parsed from FXMLShowCaseScreenController. 
+    private CriminalCase cc; //Gets parsed from FXMLShowCaseScreenController.
+    private Token token;
     
     
     @FXML
@@ -70,8 +74,6 @@ public class FXMLCaseController implements Initializable {
     private TextField primeSuspectTF;
     @FXML
     private TextField additionelSuspectTF;
-    @FXML
-    private TextField caseCategoryTF;
     @FXML
     private Button addSuspectBTN;
     @FXML
@@ -100,6 +102,8 @@ public class FXMLCaseController implements Initializable {
     private Button updateEvidenceBTN;
     @FXML
     private Button addNewEvidenceBTN;
+    @FXML
+    private ChoiceBox<?> caseStatusCB;
    
     /**
      * Initializes the controller class.
@@ -123,6 +127,13 @@ public class FXMLCaseController implements Initializable {
         cc.setId(this.caseNrTF.getText());
         cc.setStatus(CriminalCase.StatusEnum.OPEN);
         
+        //Change all this when YAML is updated so CriminalCase holds a responsible id
+        ArrayList<Suspect> temp = new ArrayList();
+        Suspect temps = new Suspect();
+        temps.setDescription(this.token.getId());
+        temp.add(temps);
+        cc.setCaseSuspect(temp);
+        
         
         if(this.connect.addCase(cc)){
             System.out.println("Succesful");
@@ -139,10 +150,10 @@ public class FXMLCaseController implements Initializable {
      * Method that is called when loading this stage.
      * @param cc - CriminalCase object that is parsed across FXMLControllers. 
      */
-    public void initData(CriminalCase cc){
+    public void initData(CriminalCase cc, Token token){
        if (cc != null) {
            this.buttonsToRemoveHB.getChildren().remove(this.addNewCaseBTN);
-           this.cc = cc;
+           this.cc = cc; //testcooment
            this.fillCase(cc);
            this.fillEvidence(cc.getCaseEvidence());
        } else {
@@ -150,6 +161,7 @@ public class FXMLCaseController implements Initializable {
            this.buttonsToRemoveHB.getChildren().remove(this.saveChangesBTN);
            this.caseNrTF.setText(this.generateId());
        }
+       this.token = token;
     }
     
     public void addNewEvidence(Evidence evi) {
@@ -188,9 +200,11 @@ public class FXMLCaseController implements Initializable {
      */
     private void fillCase(CriminalCase cc){
        this.caseNrTF.setDisable(true);
+       this.caseLawenforcerTF.setDisable(true);
        caseInfoTA.setText(this.cc.getCaseDescription());
        caseTitleTF.setText(this.cc.getCaseName());
        this.caseNrTF.setText(this.cc.getId());
+       this.caseLawenforcerTF.setText(this.cc.getCaseSuspect().get(0).getDescription());
        
 //       if(this.cc.getStatus().equals(this.cc.getStatus().OPEN)){
 //          statusRBTN.setSelected(true);
