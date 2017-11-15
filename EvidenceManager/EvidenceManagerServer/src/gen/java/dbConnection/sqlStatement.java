@@ -1,11 +1,11 @@
 package dbConnection;
 
 import io.swagger.api.impl.IsqlStatement;
-import dbConnection.dbConnection;
 import io.swagger.model.CriminalCase;
 import io.swagger.model.CriminalCaseMap;
 import io.swagger.model.Evidence;
 import io.swagger.model.LawEnforcer;
+import io.swagger.model.Suspect;
 import io.swagger.model.TestUserData;
 import io.swagger.model.TestUserData.TestUserDataEnum;
 import io.swagger.model.UserType;
@@ -47,8 +47,9 @@ public class sqlStatement implements IsqlStatement, SecureSql {
     @Override
     public boolean addCase(CriminalCase c) {
 
-        String query = String.format("INSERT INTO criminalcase (title, description, status, id) VALUES "
-                + "('%s', '%s', '%s', '%s');", c.getCaseName(), c.getCaseDescription(), c.getStatus().toString(), c.getId());
+        String query = String.format("INSERT INTO criminalcase (title, description, status, id, responsible) VALUES "
+                + "('%s', '%s', '%s', '%s', '%s');", c.getCaseName(), c.getCaseDescription(), 
+                c.getStatus().toString(), c.getId(), c.getCaseSuspect().get(0).getDescription());
 
         db.updateQuery(query);
 
@@ -165,15 +166,20 @@ public class sqlStatement implements IsqlStatement, SecureSql {
         CriminalCase ccase = new CriminalCase();
 
         try {                                                                       //HARDCODED ID CHANGE THIS
-            String query = "SELECT id, title, description FROM criminalcase WHERE id = " + "'17-11-53943-0'" + ";";
+            String query = "SELECT id, title, description FROM criminalcase WHERE id =' " + id + "'";
 
             ResultSet set = db.executeQuery(query);
+            List<Suspect> sal = new ArrayList<>();
+            Suspect s = new Suspect();
+            s.setDescription("Kasper");
+            sal.add(s);
 
             while (set.next()) {
 
                 ccase.setId(set.getString("id"));
                 ccase.setCaseName(set.getString("title"));
                 ccase.setCaseDescription(set.getString("description"));
+                ccase.setCaseSuspect(sal);
 
             }
 
@@ -244,7 +250,7 @@ public class sqlStatement implements IsqlStatement, SecureSql {
      * @return CriminalCaseMap
      */
     @Override
-    public CriminalCaseMap getCases(int employeeId) {
+    public CriminalCaseMap getCases(String employeeId) {
         CriminalCaseMap caseMap = new CriminalCaseMap();
 
         String query = String.format("SELECT criminalcase.id, criminalcase.title FROM criminalcase\n"
