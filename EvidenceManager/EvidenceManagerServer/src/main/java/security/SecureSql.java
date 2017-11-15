@@ -5,6 +5,8 @@
  */
 package security;
 
+import io.swagger.model.UserType;
+
 /**
  *
  * @author Kasper
@@ -18,4 +20,10 @@ public interface SecureSql {
     
     public void updateUserId(int id);
     public int getPrevUserId(String valueFromEnum);
+    
+    public boolean getPassAndName(String username, String password);
+    
+    public String getLawEnforcerId(String username, String password);
+    
+    public UserType getRank(String userName);
 }
