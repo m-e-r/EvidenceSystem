@@ -45,20 +45,17 @@ public class sqlStatement implements IsqlStatement, SecureSql {
      */
     @Override
     public boolean addCase(CriminalCase c) {
-        
 
         String query = String.format("INSERT INTO criminalcase (title, description, status, id) VALUES "
                 + "('%s', '%s', '%s', '%s');", c.getCaseName(), c.getCaseDescription(), c.getStatus().toString(), c.getId());
 
         db.updateQuery(query);
-        
+
         System.out.println(String.format("Case %s added!", c.getId()));
-        
+
         this.tempEvidenceList = c.getCaseEvidence();
 
         this.handleEvidence(tempEvidenceList, c.getId());
-        
-        
 
         return true;
     }
@@ -85,8 +82,7 @@ public class sqlStatement implements IsqlStatement, SecureSql {
                     Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
-            
+
         }
     }
 
@@ -108,7 +104,7 @@ public class sqlStatement implements IsqlStatement, SecureSql {
 
         db.updateQuery(query);
         db.updateQuery(refQuery);
-        
+
         System.out.println(String.format("Evidence %s added!", e.getId()));
 
     }
@@ -124,7 +120,7 @@ public class sqlStatement implements IsqlStatement, SecureSql {
         String query = String.format("UPDATE evidence SET title = '%s', description = '%s' WHERE id = '%s';",
                 e.getTitle(), e.getDescription(), e.getId());
         db.updateQuery(query);
-        
+
         System.out.println(String.format("Evidence %s updated!", e.getId()));
     }
 
@@ -322,16 +318,16 @@ public class sqlStatement implements IsqlStatement, SecureSql {
 
         ResultSet select = db.executeQuery(query);
         String prevCaseiD = null;
-        
+
         try {
             while (select.next()) {
-               prevCaseiD =  select.getString("caseid");
-                
+                prevCaseiD = select.getString("caseid");
+
             }
         } catch (SQLException ex) {
             System.err.println(ex);
         }
-        
+
         return prevCaseiD;
     }
 
@@ -341,65 +337,77 @@ public class sqlStatement implements IsqlStatement, SecureSql {
 
         ResultSet select = db.executeQuery(query);
         String prevCaseiD = null;
-        
+
         try {
             while (select.next()) {
-               prevCaseiD =  select.getString("evidenceid");
-                
+                prevCaseiD = select.getString("evidenceid");
+
             }
         } catch (SQLException ex) {
             System.err.println(ex);
         }
-        
+
         return prevCaseiD;
     }
 
     @Override
     public void updateCaseId(int id) {
-        String query = "UPDATE latestid\n SET caseid= " + "'" + String.valueOf(id) + "'";  
-        db.updateQuery(query); 
+        String query = "UPDATE latestid\n SET caseid= " + "'" + String.valueOf(id) + "'";
+        db.updateQuery(query);
     }
 
     @Override
     public void updateEvidenceId(int id) {
-        String query = "UPDATE latestid\n" +
-"   SET evidenceid=" + "'" + String.valueOf(id) + "'";  
+        String query = "UPDATE latestid\n"
+                + "   SET evidenceid=" + "'" + String.valueOf(id) + "'";
 
-       db.updateQuery(query);
+        db.updateQuery(query);
     }
 
     @Override
     public TestUserDataEnum getRank(String userName) {
         TestUserData tud = new TestUserData();
-        
+
         String query = String.format("select title from lawenforcerposition where _ref = (SELECT positionref from lawenforcer where name = %s)", userName);
-         
+
         ResultSet select = db.executeQuery(query);
         String position = null;
         try {
             while (select.next()) {
                 position = select.getString("positionref");
-             
+
             }
         } catch (SQLException ex) {
             System.err.println(ex);
         }
         TestUserDataEnum tude = tud.selectEnum(position);
-        
+
         System.err.println(tude);
-        
+
         return tude;
-        
+
     }
 
     @Override
     public void updateUserId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = String.format("UPDATE latestid set lawenforcerId = '%s';", id);
+        db.updateQuery(query);
     }
 
     @Override
     public int getPrevUserId(String valueFromEnum) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int latestId = 0;
+        String query = String.format("SELECT %s FROM latestId", valueFromEnum.toLowerCase());
+        ResultSet select = db.executeQuery(query);
+        try {
+            while (select.next()) {
+                latestId = select.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return latestId;
     }
 
 }
