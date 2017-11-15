@@ -247,12 +247,12 @@ public class sqlStatement implements IsqlStatement, SecureSql {
      * @return CriminalCaseMap
      */
     @Override
-    public CriminalCaseMap getCases(int employeeId) {
+    public CriminalCaseMap getCases(String employeeId) {
         CriminalCaseMap caseMap = new CriminalCaseMap();
 
         String query = String.format("SELECT criminalcase.id, criminalcase.title FROM criminalcase\n"
                 + "JOIN lawenforcercaseref ON (criminalcase.id = lawenforcercaseref.caseId) \n"
-                + "WHERE lawenforcercaseref.lawenforcerref = %d", employeeId);
+                + "WHERE lawenforcercaseref.lawenforcerref = %s", employeeId);
 
         ResultSet select = db.executeQuery(query);
         try {

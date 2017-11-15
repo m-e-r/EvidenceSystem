@@ -28,7 +28,7 @@ public interface IsqlStatement {
     
     //public boolean addEvidence(Evidence e);
     
-    public CriminalCaseMap getCases(int employeeId);
+    public CriminalCaseMap getCases(String employeeId);
 
     public List<Evidence> getEvidenceList(String keyword);
     
