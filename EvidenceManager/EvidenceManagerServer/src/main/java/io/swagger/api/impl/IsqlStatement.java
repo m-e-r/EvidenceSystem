@@ -12,6 +12,7 @@ import io.swagger.model.CriminalCaseMap;
 import io.swagger.model.LawEnforcer;
 import io.swagger.model.TestUserData;
 import io.swagger.model.TestUserData.TestUserDataEnum;
+import io.swagger.model.UserType;
 
 /**
  * Interface used for all the SQL statement methods. All functions that need to
@@ -42,7 +43,6 @@ public interface IsqlStatement {
     
     public List<Evidence> getAllEvidence(LawEnforcer forensic);
     
-    public TestUserDataEnum getRank(String userName);
             
     
     
