@@ -2,14 +2,18 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane id="AnchorPane" prefHeight="395.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.evidencemanager.FXMLCaseController">
@@ -20,22 +24,89 @@
               <items>
                 <AnchorPane fx:id="leftSplitPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <Label layoutX="185.0" layoutY="21.0" text="Information about the case:" />
-                        <TextArea fx:id="caseInfoTA" layoutX="43.0" layoutY="38.0" prefHeight="169.0" prefWidth="449.0" promptText="Description (includes the following;information about the time and date,circumstances surrounding the caseand additional iformation)" />
-                        <TextField fx:id="additionelSuspectTF" layoutX="42.0" layoutY="295.0" prefHeight="25.0" prefWidth="121.0" promptText="Additional suspects" />
-                        <TextField fx:id="caseCategoryTF" layoutX="315.0" layoutY="207.0" prefHeight="25.0" prefWidth="79.0" promptText="Open" />
-                        <Button fx:id="addSuspectBTN" layoutX="56.0" layoutY="335.0" mnemonicParsing="false" text="Add suspect" />
-                        <TextField fx:id="caseNrTF" disable="true" layoutX="43.0" layoutY="207.0" prefHeight="27.0" prefWidth="120.0" promptText="case nr." />
-                        <TextField fx:id="primeSuspectTF" layoutX="179.0" layoutY="295.0" prefHeight="25.0" prefWidth="129.0" promptText="Prime suspect (if any)" />
-                        <TextField fx:id="caseLawenforcerTF" layoutX="40.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="126.0" promptText="Assigned personel" />
-                        <TextField fx:id="caseTitleTF" layoutX="40.0" layoutY="234.0" promptText="Title" />
-                        <TextField layoutX="179.0" layoutY="263.0" prefHeight="25.0" prefWidth="89.0" promptText="Rank" />
-                        <HBox fx:id="buttonsToRemoveHB" alignment="CENTER" layoutX="166.0" layoutY="507.0" prefHeight="100.0" prefWidth="200.0">
+                        <VBox alignment="CENTER" layoutX="-14.0" layoutY="-14.0" prefHeight="615.0" prefWidth="561.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Button fx:id="addNewCaseBTN" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addCase" prefHeight="33.0" prefWidth="121.0" text="Add new case" textFill="#13d036" />
-                              <Button fx:id="saveChangesBTN" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveChangesToCase" prefHeight="33.0" prefWidth="121.0" text="Save changes" textFill="#13d036" />
+                              <Label text="Information about the case:">
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" top="12.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <GridPane hgap="8.0" vgap="40.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Button fx:id="addSuspectBTN" mnemonicParsing="false" text="Add suspect" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0">
+                                       <children>
+                                          <Label text="Case number" />
+                                          <TextField fx:id="caseNrTF" disable="true" prefHeight="27.0" prefWidth="120.0" promptText="case nr." />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0" GridPane.rowIndex="1">
+                                       <children>
+                                          <Label text="Title" />
+                                          <TextField fx:id="caseTitleTF" promptText="Title" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0" GridPane.rowIndex="2">
+                                       <children>
+                                          <Label text="Additional Suspects" />
+                                          <TextField fx:id="additionelSuspectTF" prefHeight="25.0" prefWidth="121.0" promptText="Additional suspects" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0" GridPane.columnIndex="1">
+                                       <children>
+                                          <Label text="Primary Suspect" />
+                                          <TextField fx:id="primeSuspectTF" prefHeight="27.0" prefWidth="219.0" promptText="Prime suspect (if any)" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <children>
+                                          <Label text="Assignel Personel" />
+                                          <TextField fx:id="caseLawenforcerTF" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="271.0" promptText="Assigned personel" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <children>
+                                          <Label text="Rank" />
+                                          <TextField prefHeight="25.0" prefWidth="89.0" promptText="Rank" />
+                                       </children>
+                                    </VBox>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="4.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                       <children>
+                                          <Label text="Status: " />
+                                          <ChoiceBox fx:id="caseStatusCB" prefWidth="150.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="6.0" right="6.0" />
+                                 </VBox.margin>
+                              </GridPane>
+                              <TextArea fx:id="caseInfoTA" prefHeight="280.0" prefWidth="549.0" promptText="Description">
+                                 <VBox.margin>
+                                    <Insets left="6.0" right="6.0" />
+                                 </VBox.margin>
+                              </TextArea>
+                              <HBox fx:id="buttonsToRemoveHB" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="addNewCaseBTN" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addCase" prefHeight="33.0" prefWidth="121.0" text="Add new case" textFill="#13d036" />
+                                    <Button fx:id="saveChangesBTN" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveChangesToCase" prefHeight="33.0" prefWidth="121.0" text="Save changes" textFill="#13d036" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="30.0" />
+                                 </VBox.margin>
+                              </HBox>
                            </children>
-                        </HBox>
+                        </VBox>
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -52,8 +123,8 @@
                                     </VBox>
                                     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="16.0">
                                        <children>
+                                          <TextField fx:id="evidenceNrTF" disable="true" editable="false" prefHeight="25.0" prefWidth="90.0" promptText="Evidence nr." />
                                           <TextField fx:id="evidenceTitleTF" editable="false" promptText="Title" />
-                                          <TextField fx:id="evidenceNrTF" editable="false" prefHeight="25.0" prefWidth="90.0" promptText="Evidence nr." />
                                           <TextField fx:id="evidenceCategoryTF" editable="false" prefHeight="27.0" prefWidth="89.0" promptText="Category" />
                                           <TextField fx:id="evidenceLawenforcerTF" editable="false" prefHeight="25.0" prefWidth="127.0" promptText="Personel responsible" />
                                           <TextField fx:id="evidenceLocationTF" editable="false" prefHeight="27.0" prefWidth="130.0" promptText="Location" />
@@ -64,7 +135,7 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <TextArea fx:id="evidenceDescriptionTA" editable="false" prefHeight="239.0" prefWidth="459.0" promptText="Description (includes, time and date,amount, details about the evidence)" wrapText="true">
+                              <TextArea fx:id="evidenceDescriptionTA" editable="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="239.0" prefWidth="459.0" promptText="Description" wrapText="true">
                                  <padding>
                                     <Insets left="8.0" right="8.0" />
                                  </padding>

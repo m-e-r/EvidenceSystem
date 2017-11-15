@@ -2,6 +2,8 @@ package com.mycompany.evidencemanager;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
+import io.swagger.client.model.Token;
+import io.swagger.client.model.UserType;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -70,13 +72,13 @@ public class FXMLLoginController implements Initializable {
     
 
         if (lgc.doLoginUserType(userName, password)==(LoginTestClass.UserType.COMISSIONER)) {
-            this.showCaseScreenStage(connect);
+            this.showCaseScreenStage();
         } else if(lgc.doLoginUserType(userName, password)==(LoginTestClass.UserType.FORENSIC_SCIENTIST)){
-            this.showForensicEvidenceStage(connect);
+            this.showForensicEvidenceStage();
         } else if(lgc.doLoginUserType(userName, password)==(LoginTestClass.UserType.POLICE_OFFICER)){
-            this.showCaseScreenStage(connect);
+            this.showCaseScreenStage();
         } else if(lgc.doLoginUserType(userName, password)==(LoginTestClass.UserType.SYSTEM_ADMIN)){
-            this.showCaseScreenStage(connect);
+            this.showCaseScreenStage();
         } else {
             this.loginLabel.setText("Invalid login");
         }
@@ -89,19 +91,22 @@ public class FXMLLoginController implements Initializable {
      * @return
      * @throws IOException
      */
-    private Stage showCaseScreenStage(IServerConnect connector) throws IOException {
+    private Stage showCaseScreenStage() throws IOException, ApiException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ShowCaseScreen.fxml"));
 
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene((Pane) loader.load()));
 
         FXMLShowCaseScreenController controller = loader.<FXMLShowCaseScreenController>getController();
-
+        Token token = new Token();
+        token.setId("fewfwe");
+        token.setUsertype(UserType.COMISSIONER);
+        controller.initData(token);
         stage.show();
         return stage;
     }
 
-    private Stage showForensicEvidenceStage(IServerConnect connector) throws IOException {
+    private Stage showForensicEvidenceStage() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ForensicEvidence.fxml"));
 
         Stage stage = new Stage(StageStyle.DECORATED);
