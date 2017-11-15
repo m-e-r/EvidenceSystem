@@ -9,17 +9,17 @@ import com.google.gson.annotations.SerializedName;
  */
 public enum UserType {
   
-  @SerializedName("Comissioner")
-  COMISSIONER("Comissioner"),
+  @SerializedName("CO")
+  COMISSIONER("CO"),
   
-  @SerializedName("System admin")
-  SYSTEM_ADMIN("System admin"),
+  @SerializedName("SA")
+  SYSTEM_ADMIN("SA"),
   
-  @SerializedName("Forensic Scientist")
-  FORENSIC_SCIENTIST("Forensic Scientist"),
+  @SerializedName("FS")
+  FORENSIC_SCIENTIST("FS"),
   
-  @SerializedName("Police officer")
-  POLICE_OFFICER("Police officer");
+  @SerializedName("PO")
+  POLICE_OFFICER("PO");
 
   private String value;
 

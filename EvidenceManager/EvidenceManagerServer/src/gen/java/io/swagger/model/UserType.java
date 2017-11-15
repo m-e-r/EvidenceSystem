@@ -35,13 +35,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
  */
 public enum UserType {
   
-  COMISSIONER("Comissioner"),
+  COMISSIONER("CO"),
   
-  SYSTEM_ADMIN("System admin"),
+  SYSTEM_ADMIN("SA"),
   
-  FORENSIC_SCIENTIST("Forensic Scientist"),
+  FORENSIC_SCIENTIST("FS"),
   
-  POLICE_OFFICER("Police officer");
+  POLICE_OFFICER("PO");
 
   private String value;
 
