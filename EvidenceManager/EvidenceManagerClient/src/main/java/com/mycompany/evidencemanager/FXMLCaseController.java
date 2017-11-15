@@ -153,7 +153,7 @@ public class FXMLCaseController implements Initializable {
     public void initData(CriminalCase cc, Token token){
        if (cc != null) {
            this.buttonsToRemoveHB.getChildren().remove(this.addNewCaseBTN);
-           this.cc = cc;
+           this.cc = cc; //testcooment
            this.fillCase(cc);
            this.fillEvidence(cc.getCaseEvidence());
        } else {
