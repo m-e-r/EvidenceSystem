@@ -25,5 +25,5 @@ public interface SecureSql {
     
     public String getLawEnforcerId(String username, String password);
     
-    public UserType getRank(String userName);
+    public UserType getRank(String id);
 }

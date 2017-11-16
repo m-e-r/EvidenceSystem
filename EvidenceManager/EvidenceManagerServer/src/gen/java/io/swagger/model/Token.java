@@ -76,7 +76,9 @@ public class Token   {
   }
 
   public void setUsertype(UserType usertype) {
+      System.out.println("4");
     this.usertype = usertype;
+      System.out.println("5");
   }
 
 

@@ -27,7 +27,7 @@ public class LoginApiServiceImpl extends LoginApiService {
     
     @Override
     public Response doLogin(String userName, String password, SecurityContext securityContext) throws NotFoundException {
-        // do some magic!
-        return Response.ok().entity(this.i.doLogin(userName)).build();
+        String s = userName + ";" +password;
+        return Response.ok().entity(this.i.doLogin(s)).build();
     }
 }

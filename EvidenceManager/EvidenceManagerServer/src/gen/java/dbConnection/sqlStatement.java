@@ -253,9 +253,7 @@ public class sqlStatement implements IsqlStatement, SecureSql {
     public CriminalCaseMap getCases(String employeeId) {
         CriminalCaseMap caseMap = new CriminalCaseMap();
 
-        String query = String.format("SELECT criminalcase.id, criminalcase.title FROM criminalcase\n"
-                + "JOIN lawenforcercaseref ON (criminalcase.id = lawenforcercaseref.caseId) \n"
-                + "WHERE lawenforcercaseref.lawenforcerref = %s", employeeId);
+        String query = String.format("SELECT id, title FROM criminalcase where responsible = '%s'", employeeId);
 
         ResultSet select = db.executeQuery(query);
         try {
@@ -372,21 +370,21 @@ public class sqlStatement implements IsqlStatement, SecureSql {
     }
 
     @Override
-    public UserType getRank(String userName) {
+    public UserType getRank(String id) {
 
-        String query = String.format("select title from lawenforcerposition where _ref = (SELECT positionref from lawenforcer where username = %s)", userName);
+        String query = String.format("select title from lawenforcerposition where _ref = (SELECT positionref from lawenforcer where username = '%s')", id);
 
         ResultSet select = db.executeQuery(query);
+        
         String position = null;
         try {
-            while (select.next()) {
-                position = select.getString("positionref");
-
+            while(select.next()) {
+                position = select.getString("title");
             }
         } catch (SQLException ex) {
             System.err.println(ex);
         }
-
+        
         return UserType.valueOf(position);
 
     }

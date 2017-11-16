@@ -34,17 +34,18 @@ public class Login implements ILogin {
         s = text.split(";");
 
         if (sql.getPassAndName(s[0], s[1])) {
-
+            System.out.println("1");
             t.setId(sql.getLawEnforcerId(s[0], s[1]));
-            t.setUsertype(sql.getRank(s[0]));
+            System.out.println("2");
+            //t.setUsertype(sql.getRank(s[0]));
+            t.setUsertype(UserType.COMISSIONER);
+            System.out.println("3");
         }
-
+        
         return t;
-
     }
 
     public String hash(String text) {
-
         return text;
     }
 
