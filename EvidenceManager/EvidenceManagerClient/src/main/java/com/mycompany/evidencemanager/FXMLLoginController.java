@@ -65,6 +65,7 @@ public class FXMLLoginController implements Initializable {
 
         //Send the information the the server
         Token token = this.connect.doSomeLogin(userName, password);
+        System.out.println(token);
         String hey = "";
         if (token != null) {
             UserType rank = UserType.valueOf(token.getUsertype());
@@ -83,8 +84,6 @@ public class FXMLLoginController implements Initializable {
                 
                 default: this.loginLabel.setText("Somthing wrong");
             }
-            
-            this.showCaseScreenStage(token); //Remember to check for rank and stuff
         } else {
             this.loginLabel.setText("Invalid login");
         }

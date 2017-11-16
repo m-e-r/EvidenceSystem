@@ -34,11 +34,10 @@ public class Login implements ILogin {
         s = text.split(";");
 
         if (sql.getPassAndName(s[0], s[1])) {
-            System.out.println("1");
             t.setId(sql.getLawEnforcerId(s[0], s[1]));
             t.setUsertype(sql.getRank(this.sql.getLawEnforcerId(s[0], s[1])));
         }
-        
+        System.out.println(UserType.valueOf(t.getUsertype()) + " -- " + UserType.valueOf(t.getUsertype()).equals(UserType.COMISSIONER));
         return t;
     }
 

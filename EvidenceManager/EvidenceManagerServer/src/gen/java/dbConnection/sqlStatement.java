@@ -368,15 +368,19 @@ public class sqlStatement implements IsqlStatement, SecureSql {
 
     @Override
     public String getRank(String id) {
+        System.out.println(id);
 
-        String query = String.format("select title from lawenforcerposition where _ref = (SELECT positionref from lawenforcer where username = '%s')", id);
+        String query = String.format("select title from lawenforcerposition where _ref = (SELECT positionref from lawenforcer where id = '%s')", id);
 
         ResultSet select = db.executeQuery(query);
         
         String position = null;
+        int i = 1;
         try {
-            while(select.next()) {
+            while(select.next() | i ==1) {
                 position = select.getString("title");
+                System.out.println(position);
+                i++;
             }
         } catch (SQLException ex) {
             System.err.println(ex);
