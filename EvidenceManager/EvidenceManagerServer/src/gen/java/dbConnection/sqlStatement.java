@@ -6,8 +6,6 @@ import io.swagger.model.CriminalCaseMap;
 import io.swagger.model.Evidence;
 import io.swagger.model.LawEnforcer;
 import io.swagger.model.Suspect;
-import io.swagger.model.TestUserData;
-import io.swagger.model.TestUserData.TestUserDataEnum;
 import io.swagger.model.UserType;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.lang3.NotImplementedException;
 import security.SecureSql;
 
 /*
@@ -370,7 +367,7 @@ public class sqlStatement implements IsqlStatement, SecureSql {
     }
 
     @Override
-    public UserType getRank(String id) {
+    public String getRank(String id) {
 
         String query = String.format("select title from lawenforcerposition where _ref = (SELECT positionref from lawenforcer where username = '%s')", id);
 
@@ -385,7 +382,7 @@ public class sqlStatement implements IsqlStatement, SecureSql {
             System.err.println(ex);
         }
         
-        return UserType.valueOf(position);
+        return position;
 
     }
 

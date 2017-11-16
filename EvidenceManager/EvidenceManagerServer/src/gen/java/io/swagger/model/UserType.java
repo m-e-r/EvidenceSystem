@@ -34,14 +34,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
  * Gets or Sets UserType
  */
 public enum UserType {
-  POLICE_OFFICER("PO"),
   
-  FORENSIC_SCIENTIST("FS"),
+  COMISSIONER("Comissioner"),
   
-  COMISSIONER("CO"),
+  SYSTEM_ADMIN("System admin"),
   
-  SYSTEM_ADMIN("SA");
+  FORENSIC_SCIENTIST("Forensic Scientist"),
   
+  POLICE_OFFICER("Police officer");
+
   private String value;
 
   UserType(String value) {
