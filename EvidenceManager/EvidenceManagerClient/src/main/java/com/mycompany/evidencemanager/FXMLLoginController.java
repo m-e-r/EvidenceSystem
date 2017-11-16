@@ -64,24 +64,25 @@ public class FXMLLoginController implements Initializable {
         }
 
         //Send the information the the server
-//        if (this.connect.doSomeLogin(userName, password) == 0) {
-//            this.showCaseScreenStage(this.connect);
+        System.out.println(this.connect.doSomeLogin(userName, password));
+//        if (token != null) {
+//            this.showCaseScreenStage(token); //Remember to check for rank and stuff
 //        } else {
-//            this.loginLabel.setText("Prøv igen..");
+//            this.loginLabel.setText("Invalid login");
 //        }
     
 
-        if (lgc.doLoginUserType(userName, password)==(LoginTestClass.UserType.COMISSIONER)) {
-            this.showCaseScreenStage();
-        } else if(lgc.doLoginUserType(userName, password)==(LoginTestClass.UserType.FORENSIC_SCIENTIST)){
-            this.showForensicEvidenceStage();
-        } else if(lgc.doLoginUserType(userName, password)==(LoginTestClass.UserType.POLICE_OFFICER)){
-            this.showCaseScreenStage();
-        } else if(lgc.doLoginUserType(userName, password)==(LoginTestClass.UserType.SYSTEM_ADMIN)){
-            this.showCaseScreenStage();
-        } else {
-            this.loginLabel.setText("Invalid login");
-        }
+//        if (lgc.doLoginUserType(userName, password)==(LoginTestClass.UserType.COMISSIONER)) {
+//            this.showCaseScreenStage();
+//        } else if(lgc.doLoginUserType(userName, password)==(LoginTestClass.UserType.FORENSIC_SCIENTIST)){
+//            this.showForensicEvidenceStage();
+//        } else if(lgc.doLoginUserType(userName, password)==(LoginTestClass.UserType.POLICE_OFFICER)){
+//            this.showCaseScreenStage();
+//        } else if(lgc.doLoginUserType(userName, password)==(LoginTestClass.UserType.SYSTEM_ADMIN)){
+//            this.showCaseScreenStage();
+//        } else {
+//            this.loginLabel.setText("Invalid login");
+//        }
     }
 
     /**
@@ -91,22 +92,19 @@ public class FXMLLoginController implements Initializable {
      * @return
      * @throws IOException
      */
-    private Stage showCaseScreenStage() throws IOException, ApiException {
+    private Stage showCaseScreenStage(Token token) throws IOException, ApiException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ShowCaseScreen.fxml"));
 
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene((Pane) loader.load()));
 
         FXMLShowCaseScreenController controller = loader.<FXMLShowCaseScreenController>getController();
-        Token token = new Token();
-        token.setId("fewfwe");
-        token.setUsertype(UserType.COMISSIONER);
         controller.initData(token);
         stage.show();
         return stage;
     }
 
-    private Stage showForensicEvidenceStage() throws IOException {
+    private Stage showForensicEvidenceStage(Token token) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ForensicEvidence.fxml"));
 
         Stage stage = new Stage(StageStyle.DECORATED);
