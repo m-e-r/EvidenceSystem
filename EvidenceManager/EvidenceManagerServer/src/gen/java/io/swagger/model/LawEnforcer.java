@@ -37,7 +37,7 @@ import java.util.List;
 /**
  * LawEnforcer
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-14T14:01:20.310Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-16T11:40:25.777Z")
 public class LawEnforcer   {
   @JsonProperty("caseList")
   private List<CriminalCase> caseList = new ArrayList<CriminalCase>();

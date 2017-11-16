@@ -35,13 +35,13 @@ import io.swagger.model.UserType;
 /**
  * Token
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-14T14:42:45.231Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-16T11:40:25.777Z")
 public class Token   {
   @JsonProperty("Id")
   private String id = null;
 
   @JsonProperty("usertype")
-  private UserType usertype = null;
+  private String usertype = null;
 
   public Token id(String id) {
     this.id = id;
@@ -61,7 +61,7 @@ public class Token   {
     this.id = id;
   }
 
-  public Token usertype(UserType usertype) {
+  public Token usertype(String usertype) {
     this.usertype = usertype;
     return this;
   }
@@ -71,14 +71,12 @@ public class Token   {
    * @return usertype
   **/
   @ApiModelProperty(value = "")
-  public UserType getUsertype() {
+  public String getUsertype() {
     return usertype;
   }
 
-  public void setUsertype(UserType usertype) {
-      System.out.println("4");
+  public void setUsertype(String usertype) {
     this.usertype = usertype;
-      System.out.println("5");
   }
 
 

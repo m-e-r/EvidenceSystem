@@ -1,8 +1,8 @@
 package io.swagger.api;
 
 import io.swagger.model.*;
-import io.swagger.api.LoginApiService;
-import io.swagger.api.factories.LoginApiServiceFactory;
+import io.swagger.api.SecurityApiService;
+import io.swagger.api.factories.SecurityApiServiceFactory;
 
 import io.swagger.annotations.ApiParam;
 import io.swagger.jaxrs.*;
@@ -22,13 +22,13 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.*;
 
-@Path("/login")
+@Path("/security")
 
 
-@io.swagger.annotations.Api(description = "the login API")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-14T14:01:20.310Z")
-public class LoginApi  {
-   private final LoginApiService delegate = LoginApiServiceFactory.getLoginApi();
+@io.swagger.annotations.Api(description = "the security API")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-16T11:40:25.777Z")
+public class SecurityApi  {
+   private final SecurityApiService delegate = SecurityApiServiceFactory.getSecurityApi();
 
     @POST
     @Path("/{userName}/{password}")

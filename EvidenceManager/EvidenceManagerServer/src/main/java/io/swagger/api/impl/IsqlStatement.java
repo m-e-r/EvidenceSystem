@@ -10,8 +10,6 @@ import io.swagger.model.Evidence;
 import java.util.List;
 import io.swagger.model.CriminalCaseMap;
 import io.swagger.model.LawEnforcer;
-import io.swagger.model.TestUserData;
-import io.swagger.model.TestUserData.TestUserDataEnum;
 import io.swagger.model.UserType;
 
 /**
