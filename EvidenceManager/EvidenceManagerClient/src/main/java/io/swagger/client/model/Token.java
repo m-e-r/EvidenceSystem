@@ -9,13 +9,13 @@ import io.swagger.client.model.UserType;
 /**
  * Token
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-14T14:42:40.941Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-16T11:58:05.955Z")
 public class Token {
   @SerializedName("Id")
   private String id = null;
 
   @SerializedName("usertype")
-  private UserType usertype = null;
+  private String usertype = null;
 
   public Token id(String id) {
     this.id = id;
@@ -35,7 +35,7 @@ public class Token {
     this.id = id;
   }
 
-  public Token usertype(UserType usertype) {
+  public Token usertype(String usertype) {
     this.usertype = usertype;
     return this;
   }
@@ -45,11 +45,11 @@ public class Token {
    * @return usertype
   **/
   @ApiModelProperty(value = "")
-  public UserType getUsertype() {
+  public String getUsertype() {
     return usertype;
   }
 
-  public void setUsertype(UserType usertype) {
+  public void setUsertype(String usertype) {
     this.usertype = usertype;
   }
 

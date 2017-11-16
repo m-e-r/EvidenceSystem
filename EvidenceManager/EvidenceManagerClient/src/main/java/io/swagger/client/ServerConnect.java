@@ -34,8 +34,8 @@ public class ServerConnect implements IServerConnect{
      */
     public ServerConnect() {
         this.ac = new ApiClient();
-        this.ac.setBasePath("http://localhost:8080/m-e-r/Evidence/5");
-        //this.ac.setBasePath("http://10.126.118.185:8080/m-e-r/Evidence/5");
+        //this.ac.setBasePath("http://localhost:8080/m-e-r/Evidence/5");
+        this.ac.setBasePath("http://10.126.118.185:8080/m-e-r/Evidence/5");
         this.cca = new CriminalCaseApi(this.ac);
         this.ea = new EvidenceApi(this.ac);
         this.sa = new SecurityApi(this.ac);

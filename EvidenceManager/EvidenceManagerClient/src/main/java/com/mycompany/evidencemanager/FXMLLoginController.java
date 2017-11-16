@@ -64,12 +64,30 @@ public class FXMLLoginController implements Initializable {
         }
 
         //Send the information the the server
-        System.out.println(this.connect.doSomeLogin(userName, password));
-//        if (token != null) {
-//            this.showCaseScreenStage(token); //Remember to check for rank and stuff
-//        } else {
-//            this.loginLabel.setText("Invalid login");
-//        }
+        Token token = this.connect.doSomeLogin(userName, password);
+        String hey = "";
+        if (token != null) {
+            UserType rank = UserType.valueOf(token.getUsertype());
+            switch (rank) {
+                case COMISSIONER: this.showCaseScreenStage(token);
+                break;
+                
+                case POLICE_OFFICER: this.showCaseScreenStage(token);
+                break;
+                
+                case FORENSIC_SCIENTIST: this.showForensicEvidenceStage(token);
+                break;
+                
+                case SYSTEM_ADMIN: this.loginLabel.setText("Hey Admin");
+                break;
+                
+                default: this.loginLabel.setText("Somthing wrong");
+            }
+            
+            this.showCaseScreenStage(token); //Remember to check for rank and stuff
+        } else {
+            this.loginLabel.setText("Invalid login");
+        }
     
 
 //        if (lgc.doLoginUserType(userName, password)==(LoginTestClass.UserType.COMISSIONER)) {

@@ -59,7 +59,7 @@ public class SecurityApi {
         
 
         // create path and map variables
-        String localVarPath = "/login/{userName}/{password}".replaceAll("\\{format\\}","json")
+        String localVarPath = "/security/{userName}/{password}".replaceAll("\\{format\\}","json")
         .replaceAll("\\{" + "userName" + "\\}", apiClient.escapeString(userName.toString()))
         .replaceAll("\\{" + "password" + "\\}", apiClient.escapeString(password.toString()));
 
@@ -107,6 +107,7 @@ public class SecurityApi {
      */
     public Token doLogin(String userName, String password) throws ApiException {
         ApiResponse<Token> resp = doLoginWithHttpInfo(userName, password);
+        System.out.println(resp.getData().getUsertype());
         return resp.getData();
     }
 
