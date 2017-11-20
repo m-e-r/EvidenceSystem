@@ -11,17 +11,24 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- *
+ * Class used to generate pseudorandom id's for users, evidence and cases. 
  * @author Kasper
  */
 public class Generator {
-    private int a, x, m;
-    private SecureSql sec;
+    private int a, x, m; //Integers used is the math used to generate ids
+    private SecureSql sec; //SecureSql interfaces. Is implemented i the SQLstatement class
     
+    /**
+     * Class constructor. Instantiates SQLStatement (sec)
+     */
     public Generator() {
         this.sec = new SQLStatement();        
     }
     
+    /**
+     * 
+     * @return 
+     */
     public String generateCaseId() {
         this.x = Integer.parseInt(this.sec.getPrevCaseId());
         System.out.println("x: " + this.x);
