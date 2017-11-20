@@ -228,7 +228,10 @@ public class FXMLCaseController implements Initializable {
 //        
 //    }
     
-    
+    /**
+     * Fills the evidence listview with evidence from a list of evidence.
+     * @param eList 
+     */
     private void fillEvidence (List<Evidence> eList){
        ObservableList<Evidence> occS = FXCollections.observableArrayList();
  
@@ -248,7 +251,10 @@ public class FXMLCaseController implements Initializable {
        evidenceListLV.setItems(occS);
  
     }
-
+    /**
+     * Whe then 'edit evidence' button is pushed all textfields are set to editable.  
+     * @param event 
+     */
     @FXML
     private void handleEditEvidenceAction(ActionEvent event) {
         if (this.evidenceListLV.getSelectionModel().getSelectedItem() != null) {
@@ -260,7 +266,11 @@ public class FXMLCaseController implements Initializable {
             this.editEvidenceBTN.setDisable(true);
         }
     }
-
+/**
+ * When 'save changes' is pressed, the information found the evidence textfields are added to the evidence in the database.
+ * @param event 
+ */
+    
     @FXML
     private void handleSaveChangesAction(ActionEvent event) {
         if (this.evidenceListLV.getSelectionModel().getSelectedItem() != null) {
@@ -298,7 +308,11 @@ public class FXMLCaseController implements Initializable {
             }
         }
     }
-
+    /**
+     * Opens a separate window, where a new piece of evidence can be added.
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void handleAddNewEvidenceAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NewEvidence.fxml"));
@@ -311,6 +325,11 @@ public class FXMLCaseController implements Initializable {
         
         stage.show();
     }
+    
+    /**
+     * If a piece of evidence is chosen from the evidence listview, the information is then stored in the respective textfields. 
+     * @param event 
+     */
 
     @FXML
     private void handleChooseEvidenceAction(MouseEvent event) {
@@ -324,6 +343,10 @@ public class FXMLCaseController implements Initializable {
             this.evidenceLawenforcerTF.setText(chosenEvidence.getPersonResponsible());
         }
     }
+    /**
+     * Calls the generateCaseId from the server.
+     * @return the ID that has been generated. 
+     */
     
     private String generateId() {
         try {

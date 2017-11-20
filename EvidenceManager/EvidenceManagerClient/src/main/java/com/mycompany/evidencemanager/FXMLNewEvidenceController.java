@@ -78,11 +78,18 @@ public class FXMLNewEvidenceController implements Initializable {
         this.evidenceCategoryCB.setItems(this.categories);
         this.evidenceCategoryCB.setValue("Drugs");
     }    
-    
+    /**
+     * Parses a FXMLCaseController
+     * @param controller 
+     */
     public void initData(FXMLCaseController controller) {
         this.controller = controller;
     } 
-
+    /**
+     * Saves the information about the new piece of evidence in a new evidence object.
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void handleSaveAction(ActionEvent event) throws IOException {
         this.evidence = new Evidence();
@@ -123,7 +130,10 @@ public class FXMLNewEvidenceController implements Initializable {
         stage.close();
     }
 
-    
+    /**
+     * Adds the piece of evidence from the handleSaveAction method using the addnewEvidence method on another controller.
+     * @param event 
+     */
     @FXML
     private void handleDiscardAction(ActionEvent event) {
         this.controller.addNewEvidence(this.evidence);
@@ -134,6 +144,11 @@ public class FXMLNewEvidenceController implements Initializable {
         this.controller.addNewEvidence(this.evidence);
     }
     
+    /**
+     * Returns a string ID from the generateEvidenceId method on the ServerConnect object. 
+     * @return ID generated using the generateEvidenceId method.
+     * @throws ApiException 
+     */
     private String generateId() throws ApiException {
         return this.connect.generateEvidenceId();
     }
