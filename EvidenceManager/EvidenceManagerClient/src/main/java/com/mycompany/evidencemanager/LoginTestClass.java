@@ -13,10 +13,20 @@ import com.mycompany.evidencemanager.LoginTestClass.UserType;
  */
 public class LoginTestClass {
 
+    /**
+     * Enum for UserTypes.
+     */
     public enum UserType {
         COMISSIONER, FORENSIC_SCIENTIST, POLICE_OFFICER, SYSTEM_ADMIN
     }
 
+    
+     /**
+     *  Login method for users
+     * @param username
+     * @param password
+     * @return UserType
+     */
     public UserType doLoginUserType(String username, String password) {
         UserType ut = null;
         System.err.println(password);

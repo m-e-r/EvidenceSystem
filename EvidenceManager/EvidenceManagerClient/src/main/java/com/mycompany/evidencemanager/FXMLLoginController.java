@@ -106,7 +106,7 @@ public class FXMLLoginController implements Initializable {
      * Displays the relevant screen to the user.
      *
      * @param connector not relevant
-     * @return
+     * @return stage.
      * @throws IOException
      */
     private Stage showCaseScreenStage(Token token) throws IOException, ApiException {
@@ -121,6 +121,13 @@ public class FXMLLoginController implements Initializable {
         return stage;
     }
 
+    
+    /** 
+     *  Displays the relevant screen to the user(ForensicEvidence)
+     * @param token
+     * @return stage.
+     * @throws IOException 
+     */
     private Stage showForensicEvidenceStage(Token token) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ForensicEvidence.fxml"));
 
