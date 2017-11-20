@@ -17,14 +17,14 @@ import java.util.logging.Logger;
  *
  * @author Bruger
  */
-public class dbConnection {
+public class DBConnection {
 
     private static Connection con = null;
     
     /**
      * Method for connecting to database.
      */
-    public dbConnection() {
+    public DBConnection() {
         
         //Used to connect to database.
         String url = "jdbc:postgresql://tek-mmmi-db0a.tek.c.sdu.dk:5432/si3_2017_group_13_db";
@@ -37,7 +37,7 @@ public class dbConnection {
 
         } catch (SQLException ex) {
 
-            Logger lgr = Logger.getLogger(dbConnection.class.getName());
+            Logger lgr = Logger.getLogger(DBConnection.class.getName());
             lgr.log(Level.WARNING, ex.getMessage(), ex);
 
         }

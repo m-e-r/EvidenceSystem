@@ -1,6 +1,6 @@
 package io.swagger.api.impl;
 
-import dbConnection.sqlStatement;
+import dbConnection.SQLStatement;
 import io.swagger.api.*;
 import io.swagger.model.*;
 
@@ -21,7 +21,7 @@ public class LawEnforcerApiServiceImpl extends LawEnforcerApiService {
     private IsqlStatement isql;
     
     public LawEnforcerApiServiceImpl() {
-        this.isql = new sqlStatement();
+        this.isql = new SQLStatement();
     }
     
     @Override

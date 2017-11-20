@@ -5,7 +5,7 @@
  */
 package security;
 
-import dbConnection.sqlStatement;
+import dbConnection.SQLStatement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class UserIdGenerator {
     private SecureSql sql;
         
     public UserIdGenerator() {
-        this.sql = new sqlStatement();
+        this.sql = new SQLStatement();
     }
 
     public String generateUserId(String enumValue) {

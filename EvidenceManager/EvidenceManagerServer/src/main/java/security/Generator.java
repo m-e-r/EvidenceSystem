@@ -5,7 +5,7 @@
  */
 package security;
 
-import dbConnection.sqlStatement;
+import dbConnection.SQLStatement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,7 +19,7 @@ public class Generator {
     private SecureSql sec;
     
     public Generator() {
-        this.sec = new sqlStatement();        
+        this.sec = new SQLStatement();        
     }
     
     public String generateCaseId() {

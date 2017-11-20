@@ -24,15 +24,15 @@ import security.SecureSql;
  *
  * @author Bruger
  */
-public class sqlStatement implements IsqlStatement, SecureSql {
+public class SQLStatement implements IsqlStatement, SecureSql {
 
     private List<Evidence> tempEvidenceList;
 
-    private dbConnection db;
+    private DBConnection db;
 
-    public sqlStatement() {
+    public SQLStatement() {
 
-        db = new dbConnection();
+        db = new DBConnection();
     }
 
     /**
@@ -78,7 +78,7 @@ public class sqlStatement implements IsqlStatement, SecureSql {
                         this.updateEvidence(e);
                     }
                 } catch (SQLException ex) {
-                    Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(SQLStatement.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -181,7 +181,7 @@ public class sqlStatement implements IsqlStatement, SecureSql {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SQLStatement.class.getName()).log(Level.SEVERE, null, ex);
         }
         ccase.setCaseEvidence(this.getEvidenceList(id));
         return ccase;
@@ -211,7 +211,7 @@ public class sqlStatement implements IsqlStatement, SecureSql {
                 eviList.add(evi);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SQLStatement.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return eviList;
@@ -233,7 +233,7 @@ public class sqlStatement implements IsqlStatement, SecureSql {
             evidence.setDescription(select.getString("description"));
             evidence.setTitle(select.getString("title"));
         } catch (SQLException ex) {
-            Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SQLStatement.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return evidence;
@@ -258,7 +258,7 @@ public class sqlStatement implements IsqlStatement, SecureSql {
                 caseMap.put(select.getString("id"), select.getString("title"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SQLStatement.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return caseMap;
@@ -407,7 +407,7 @@ public class sqlStatement implements IsqlStatement, SecureSql {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SQLStatement.class.getName()).log(Level.SEVERE, null, ex);
         }
         return latestId;
     }
@@ -429,7 +429,7 @@ public class sqlStatement implements IsqlStatement, SecureSql {
                 passw = select.getString("passw");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SQLStatement.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (username.equals(name) && password.equals(passw)) {
@@ -454,7 +454,7 @@ public class sqlStatement implements IsqlStatement, SecureSql {
                 id = select.getString("id");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(sqlStatement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SQLStatement.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return id;

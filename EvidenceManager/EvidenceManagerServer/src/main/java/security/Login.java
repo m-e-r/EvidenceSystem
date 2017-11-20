@@ -5,7 +5,7 @@
  */
 package security;
 
-import dbConnection.sqlStatement;
+import dbConnection.SQLStatement;
 import io.swagger.api.impl.ILogin;
 import io.swagger.model.Token;
 import io.swagger.model.UserType;
@@ -19,7 +19,7 @@ public class Login implements ILogin {
     SecureSql sql;
 
     public Login() {
-        sql = new sqlStatement();
+        sql = new SQLStatement();
     }
 
     @Override
