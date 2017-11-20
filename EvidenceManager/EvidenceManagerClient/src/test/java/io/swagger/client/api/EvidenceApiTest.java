@@ -18,32 +18,17 @@ public class EvidenceApiTest {
 
     
     /**
-     * 
+     * Gets a list of Evidence
      *
-     * Find evidence based on text
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void findEvidenceTest() throws ApiException {
-        String keyWord = null;
-        // Evidence response = api.findEvidence(keyWord);
-
-        // TODO: test validations
-    }
-    
-    /**
-     * Gets a list of evidence
-     *
-     * Returns a list of evidence
+     * Returns a list of Evidence
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void getEvidenceListTest() throws ApiException {
-        // List<Evidence> response = api.getEvidenceList();
+        String keyword = null;
+        // List<Evidence> response = api.getEvidenceList(keyword);
 
         // TODO: test validations
     }

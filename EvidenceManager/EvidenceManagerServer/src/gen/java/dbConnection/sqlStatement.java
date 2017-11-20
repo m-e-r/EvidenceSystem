@@ -353,15 +353,15 @@ public class sqlStatement implements IsqlStatement, SecureSql {
     }
 
     @Override
-    public void updateCaseId(int id) {
-        String query = "UPDATE latestid\n SET caseid= " + "'" + String.valueOf(id) + "'";
+    public void updateCaseId(String id) {
+        String query = "UPDATE latestid\n SET caseid= " + "'" + id + "'";
         db.updateQuery(query);
     }
 
     @Override
-    public void updateEvidenceId(int id) {
+    public void updateEvidenceId(String id) {
         String query = "UPDATE latestid\n"
-                + "   SET evidenceid=" + "'" + String.valueOf(id) + "'";
+                + "   SET evidenceid=" + "'" + id + "'";
 
         db.updateQuery(query);
     }
@@ -391,7 +391,7 @@ public class sqlStatement implements IsqlStatement, SecureSql {
     }
 
     @Override
-    public void updateUserId(int id) {
+    public void updateUserId(String id) {
         String query = String.format("UPDATE latestid set lawenforcerId = '%s';", id);
         db.updateQuery(query);
     }

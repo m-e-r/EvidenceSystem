@@ -7,6 +7,7 @@ import io.swagger.api.factories.UserApiServiceFactory;
 import io.swagger.annotations.ApiParam;
 import io.swagger.jaxrs.*;
 
+import io.swagger.model.User;
 import io.swagger.model.UserType;
 
 import java.util.List;
@@ -26,11 +27,23 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the user API")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-16T11:40:25.777Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-20T09:27:35.152Z")
 public class UserApi  {
    private final UserApiService delegate = UserApiServiceFactory.getUserApi();
 
     @POST
+    
+    
+    
+    @io.swagger.annotations.ApiOperation(value = "Adds a user", notes = "adds a user", response = Boolean.class, tags={ "Security", })
+    @io.swagger.annotations.ApiResponses(value = { 
+        @io.swagger.annotations.ApiResponse(code = 200, message = "succesfully added", response = Boolean.class) })
+    public Response addUser(@ApiParam(value = "" ,required=true) User user
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.addUser(user,securityContext);
+    }
+    @GET
     
     
     

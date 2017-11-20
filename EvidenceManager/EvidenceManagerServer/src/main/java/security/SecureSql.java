@@ -15,10 +15,10 @@ public interface SecureSql {
     public String getPrevCaseId();
     public String getPrevEvidenceId();
     
-    public void updateCaseId(int id);
-    public void updateEvidenceId(int id);
+    public void updateCaseId(String id);
+    public void updateEvidenceId(String id);
     
-    public void updateUserId(int id);
+    public void updateUserId(String id);
     public int getPrevUserId(String valueFromEnum);
     
     public boolean getPassAndName(String username, String password);

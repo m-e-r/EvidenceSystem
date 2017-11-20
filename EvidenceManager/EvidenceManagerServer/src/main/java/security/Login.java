@@ -35,9 +35,9 @@ public class Login implements ILogin {
 
         if (sql.getPassAndName(s[0], s[1])) {
             t.setId(sql.getLawEnforcerId(s[0], s[1]));
-            t.setUsertype(sql.getRank(this.sql.getLawEnforcerId(s[0], s[1])));
+            t.setUser(sql.getRank(this.sql.getLawEnforcerId(s[0], s[1])));
         }
-        System.out.println(UserType.valueOf(t.getUsertype()) + " -- " + UserType.valueOf(t.getUsertype()).equals(UserType.COMISSIONER));
+        System.out.println(UserType.valueOf(t.getUser()) + " -- " + UserType.valueOf(t.getUser()).equals(UserType.COMISSIONER));
         return t;
     }
 

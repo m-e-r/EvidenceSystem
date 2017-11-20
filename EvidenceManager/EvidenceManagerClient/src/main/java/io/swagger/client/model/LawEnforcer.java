@@ -11,10 +11,13 @@ import java.util.List;
 /**
  * LawEnforcer
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-16T11:58:05.955Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-20T09:27:31.815Z")
 public class LawEnforcer {
   @SerializedName("caseList")
   private List<CriminalCase> caseList = new ArrayList<CriminalCase>();
+
+  @SerializedName("name")
+  private String name = null;
 
   @SerializedName("employeeId")
   private String employeeId = null;
@@ -46,6 +49,24 @@ public class LawEnforcer {
 
   public void setCaseList(List<CriminalCase> caseList) {
     this.caseList = caseList;
+  }
+
+  public LawEnforcer name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * Get name
+   * @return name
+  **/
+  @ApiModelProperty(value = "")
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public LawEnforcer employeeId(String employeeId) {
@@ -113,6 +134,7 @@ public class LawEnforcer {
     }
     LawEnforcer lawEnforcer = (LawEnforcer) o;
     return Objects.equals(this.caseList, lawEnforcer.caseList) &&
+        Objects.equals(this.name, lawEnforcer.name) &&
         Objects.equals(this.employeeId, lawEnforcer.employeeId) &&
         Objects.equals(this.password, lawEnforcer.password) &&
         Objects.equals(this.userName, lawEnforcer.userName);
@@ -120,7 +142,7 @@ public class LawEnforcer {
 
   @Override
   public int hashCode() {
-    return Objects.hash(caseList, employeeId, password, userName);
+    return Objects.hash(caseList, name, employeeId, password, userName);
   }
 
 
@@ -130,6 +152,7 @@ public class LawEnforcer {
     sb.append("class LawEnforcer {\n");
     
     sb.append("    caseList: ").append(toIndentedString(caseList)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    employeeId: ").append(toIndentedString(employeeId)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    userName: ").append(toIndentedString(userName)).append("\n");

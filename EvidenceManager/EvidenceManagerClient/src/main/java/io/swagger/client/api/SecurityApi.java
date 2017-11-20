@@ -16,6 +16,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 import io.swagger.client.model.Token;
+import io.swagger.client.model.User;
 import io.swagger.client.model.UserType;
 
 import java.lang.reflect.Type;
@@ -43,6 +44,112 @@ public class SecurityApi {
         this.apiClient = apiClient;
     }
 
+    /* Build call for addUser */
+    private com.squareup.okhttp.Call addUserCall(User user, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = user;
+        
+        // verify the required parameter 'user' is set
+        if (user == null) {
+            throw new ApiException("Missing the required parameter 'user' when calling addUser(Async)");
+        }
+        
+
+        // create path and map variables
+        String localVarPath = "/user".replaceAll("\\{format\\}","json");
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    /**
+     * Adds a user
+     * adds a user
+     * @param user  (required)
+     * @return Boolean
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public Boolean addUser(User user) throws ApiException {
+        ApiResponse<Boolean> resp = addUserWithHttpInfo(user);
+        return resp.getData();
+    }
+
+    /**
+     * Adds a user
+     * adds a user
+     * @param user  (required)
+     * @return ApiResponse&lt;Boolean&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<Boolean> addUserWithHttpInfo(User user) throws ApiException {
+        com.squareup.okhttp.Call call = addUserCall(user, null, null);
+        Type localVarReturnType = new TypeToken<Boolean>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Adds a user (asynchronously)
+     * adds a user
+     * @param user  (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call addUserAsync(User user, final ApiCallback<Boolean> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = addUserCall(user, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<Boolean>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
     /* Build call for doLogin */
     private com.squareup.okhttp.Call doLoginCall(String userName, String password, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
@@ -107,7 +214,6 @@ public class SecurityApi {
      */
     public Token doLogin(String userName, String password) throws ApiException {
         ApiResponse<Token> resp = doLoginWithHttpInfo(userName, password);
-        System.out.println(resp.getData().getUsertype());
         return resp.getData();
     }
 
@@ -400,7 +506,7 @@ public class SecurityApi {
         }
 
         String[] localVarAuthNames = new String[] {  };
-        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
     /**

@@ -30,90 +30,49 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.model.CriminalCase;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * LawEnforcer
+ * User
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-20T09:27:35.152Z")
-public class LawEnforcer   {
-  @JsonProperty("caseList")
-  private List<CriminalCase> caseList = new ArrayList<CriminalCase>();
-
-  @JsonProperty("name")
-  private String name = null;
-
-  @JsonProperty("employeeId")
-  private String employeeId = null;
+public class User   {
+  @JsonProperty("username")
+  private String username = null;
 
   @JsonProperty("password")
   private String password = null;
 
-  @JsonProperty("userName")
-  private String userName = null;
+  @JsonProperty("employeeId")
+  private String employeeId = null;
 
-  public LawEnforcer caseList(List<CriminalCase> caseList) {
-    this.caseList = caseList;
-    return this;
-  }
+  @JsonProperty("address")
+  private String address = null;
 
-  public LawEnforcer addCaseListItem(CriminalCase caseListItem) {
-    this.caseList.add(caseListItem);
-    return this;
-  }
+  @JsonProperty("birthday")
+  private String birthday = null;
 
-   /**
-   * Get caseList
-   * @return caseList
-  **/
-  @ApiModelProperty(value = "")
-  public List<CriminalCase> getCaseList() {
-    return caseList;
-  }
+  @JsonProperty("phoneNumber")
+  private String phoneNumber = null;
 
-  public void setCaseList(List<CriminalCase> caseList) {
-    this.caseList = caseList;
-  }
-
-  public LawEnforcer name(String name) {
-    this.name = name;
+  public User username(String username) {
+    this.username = username;
     return this;
   }
 
    /**
-   * Get name
-   * @return name
+   * Get username
+   * @return username
   **/
   @ApiModelProperty(value = "")
-  public String getName() {
-    return name;
+  public String getUsername() {
+    return username;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
-  public LawEnforcer employeeId(String employeeId) {
-    this.employeeId = employeeId;
-    return this;
-  }
-
-   /**
-   * Get employeeId
-   * @return employeeId
-  **/
-  @ApiModelProperty(value = "")
-  public String getEmployeeId() {
-    return employeeId;
-  }
-
-  public void setEmployeeId(String employeeId) {
-    this.employeeId = employeeId;
-  }
-
-  public LawEnforcer password(String password) {
+  public User password(String password) {
     this.password = password;
     return this;
   }
@@ -131,22 +90,76 @@ public class LawEnforcer   {
     this.password = password;
   }
 
-  public LawEnforcer userName(String userName) {
-    this.userName = userName;
+  public User employeeId(String employeeId) {
+    this.employeeId = employeeId;
     return this;
   }
 
    /**
-   * Get userName
-   * @return userName
+   * Get employeeId
+   * @return employeeId
   **/
   @ApiModelProperty(value = "")
-  public String getUserName() {
-    return userName;
+  public String getEmployeeId() {
+    return employeeId;
   }
 
-  public void setUserName(String userName) {
-    this.userName = userName;
+  public void setEmployeeId(String employeeId) {
+    this.employeeId = employeeId;
+  }
+
+  public User address(String address) {
+    this.address = address;
+    return this;
+  }
+
+   /**
+   * Get address
+   * @return address
+  **/
+  @ApiModelProperty(value = "")
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public User birthday(String birthday) {
+    this.birthday = birthday;
+    return this;
+  }
+
+   /**
+   * Get birthday
+   * @return birthday
+  **/
+  @ApiModelProperty(value = "")
+  public String getBirthday() {
+    return birthday;
+  }
+
+  public void setBirthday(String birthday) {
+    this.birthday = birthday;
+  }
+
+  public User phoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+    return this;
+  }
+
+   /**
+   * Get phoneNumber
+   * @return phoneNumber
+  **/
+  @ApiModelProperty(value = "")
+  public String getPhoneNumber() {
+    return phoneNumber;
+  }
+
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
   }
 
 
@@ -158,30 +171,32 @@ public class LawEnforcer   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    LawEnforcer lawEnforcer = (LawEnforcer) o;
-    return Objects.equals(this.caseList, lawEnforcer.caseList) &&
-        Objects.equals(this.name, lawEnforcer.name) &&
-        Objects.equals(this.employeeId, lawEnforcer.employeeId) &&
-        Objects.equals(this.password, lawEnforcer.password) &&
-        Objects.equals(this.userName, lawEnforcer.userName);
+    User user = (User) o;
+    return Objects.equals(this.username, user.username) &&
+        Objects.equals(this.password, user.password) &&
+        Objects.equals(this.employeeId, user.employeeId) &&
+        Objects.equals(this.address, user.address) &&
+        Objects.equals(this.birthday, user.birthday) &&
+        Objects.equals(this.phoneNumber, user.phoneNumber);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(caseList, name, employeeId, password, userName);
+    return Objects.hash(username, password, employeeId, address, birthday, phoneNumber);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class LawEnforcer {\n");
+    sb.append("class User {\n");
     
-    sb.append("    caseList: ").append(toIndentedString(caseList)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    employeeId: ").append(toIndentedString(employeeId)).append("\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
-    sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
+    sb.append("    employeeId: ").append(toIndentedString(employeeId)).append("\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    birthday: ").append(toIndentedString(birthday)).append("\n");
+    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -43,7 +43,7 @@ public class CriminalCaseApiTest {
      */
     @Test
     public void getCaseTest() throws ApiException {
-        Integer caseId = null;
+        String caseId = null;
         // CriminalCase response = api.getCase(caseId);
 
         // TODO: test validations

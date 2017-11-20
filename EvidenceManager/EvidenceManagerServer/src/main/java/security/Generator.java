@@ -37,7 +37,7 @@ public class Generator {
         
         fullId = prefix + "-" + body + "-" + checkDigit;
         System.out.println(fullId);
-        this.sec.updateCaseId(this.x);
+        this.sec.updateCaseId(this.x+"");
         return fullId;
     }    
     
@@ -56,7 +56,7 @@ public class Generator {
         checkDigit = this.generateCheckDigit(toCheckOn);
         
         fullId = prefix + "-" + body + "-" + checkDigit;
-        this.sec.updateEvidenceId(this.x);
+        this.sec.updateEvidenceId(this.x+"");
         return fullId;
     } 
     
