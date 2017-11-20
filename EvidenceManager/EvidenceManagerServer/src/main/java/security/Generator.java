@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Class used to generate pseudorandom id's for users, evidence and cases. 
+ * Class used to generate pseudorandom id's for evidence and cases. 
  * @author Kasper
  */
 public class Generator {
@@ -26,18 +26,18 @@ public class Generator {
     }
     
     /**
-     * 
-     * @return 
+     * Method used to generate a new case id.
+     * @return  Returns the new case id as a string
      */
     public String generateCaseId() {
         this.x = Integer.parseInt(this.sec.getPrevCaseId());
         System.out.println("x: " + this.x);
-        this.a =3;
+        this.a = 3;
         this.m = 729511;
         
         String prefix, body, toCheckOn, checkDigit, fullId;
         
-        prefix = this.generatePrefix();
+        prefix = this.generatePrefix("yyMM");
         body = this.generateBody(10000);
         toCheckOn = prefix + body;
         checkDigit = this.generateCheckDigit(toCheckOn);
@@ -48,7 +48,24 @@ public class Generator {
         return fullId;
     }    
     
+    /**
+     * Method used to generate a user id.
+     * @param enumValue string value from the user type enum class
+     * @return Returns a string containing the generated userid
+     */
+    public String generateUserId(String enumValue) {
+        this.x = this.sec.getPrevUserId(enumValue);
+        this.a =3;
+        this.m = 570926;
+        String s = enumValue + "-" + this.generatePrefix("yy") + "-"  + this.generateBody(100000);
+        return s;
+    }
     
+    
+    /**
+     * Method used to generate a new evidence id.
+     * @return Returns the new evidence id as a string
+     */
     public String generateEvidenceId() {
         this.x = Integer.parseInt(this.sec.getPrevEvidenceId());
         this.a =3;
@@ -57,7 +74,7 @@ public class Generator {
         
         String prefix, body, toCheckOn, checkDigit, fullId;
         
-        prefix = this.generatePrefix();
+        prefix = this.generatePrefix("yyMM");
         body = this.generateBody(1000000);
         toCheckOn = prefix + body;
         checkDigit = this.generateCheckDigit(toCheckOn);
@@ -68,8 +85,8 @@ public class Generator {
     } 
     
     
-    private String generatePrefix() {
-        DateFormat df = new SimpleDateFormat("yyMM");
+    private String generatePrefix(String format) {
+        DateFormat df = new SimpleDateFormat(format);
         Date date = new Date();
         return df.format(date);
     }

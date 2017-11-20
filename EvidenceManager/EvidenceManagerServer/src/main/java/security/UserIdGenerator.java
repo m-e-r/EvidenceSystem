@@ -25,6 +25,7 @@ public class UserIdGenerator {
         this.sql = new SQLStatement();
     }
 
+    
     public String generateUserId(String enumValue) {
         this.x = this.sql.getPrevUserId(enumValue);
         String s = enumValue + "-" + this.generatePrefix() + "-"  + this.generateBody(x);
