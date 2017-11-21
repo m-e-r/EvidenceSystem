@@ -499,5 +499,31 @@ public class SQLStatement implements IsqlStatement, SecureSql {
 
     }
 
+    @Override
+    public List<LawEnforcer> getAllUsers(LawEnforcer admin) {
+        List<LawEnforcer> allUsers = new ArrayList<>();
+        LawEnforcer nextUser;
+        String query = String.format("select * from lawenforcer where locationref "
+                + "= (select locationref from locations where adress = '');", admin.getName());
+        
+        ResultSet select = db.executeQuery(query);
+        
+        try {
+            while (select.next()) {
+                String name = select.getString("name");
+                String id = select.getString("id");
+                nextUser = new LawEnforcer();
+                nextUser.setName(name);
+                nextUser.setEmployeeId(id);
+                allUsers.add(nextUser);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SQLStatement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return allUsers;
+        
+    }
+
 
 }
