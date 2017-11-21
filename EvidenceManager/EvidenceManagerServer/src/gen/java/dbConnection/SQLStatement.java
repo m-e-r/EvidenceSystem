@@ -1,11 +1,13 @@
 package dbConnection;
 
+import io.swagger.api.impl.IUserSql;
 import io.swagger.api.impl.IsqlStatement;
 import io.swagger.model.CriminalCase;
 import io.swagger.model.CriminalCaseMap;
 import io.swagger.model.Evidence;
 import io.swagger.model.LawEnforcer;
 import io.swagger.model.Suspect;
+import io.swagger.model.User;
 import io.swagger.model.UserType;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +26,7 @@ import security.SecureSql;
  *
  * @author Bruger
  */
-public class SQLStatement implements IsqlStatement, SecureSql {
+public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
 
     private List<Evidence> tempEvidenceList;
 
@@ -497,6 +499,18 @@ public class SQLStatement implements IsqlStatement, SecureSql {
         
         return id;
 
+    }
+
+    @Override
+    public boolean addUser(User user) {
+        //int positionRef = user.getRole().ordinal();
+        
+        String query = 
+        String.format("INSERT INTO lawenforcer(name, id, positionref, username, passw, validated, address, birthday)\n" +
+        "VALUES ('%s', 'TempId2', %d, '%s', '%s', FALSE, '%s', '%s')", 
+        user.getName(), 2, user.getUsername(), user.getPassword(), user.getAddress(), user.getBirthday());
+        
+        return this.db.updateQuery(query) == 1;
     }
 
 
