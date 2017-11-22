@@ -5,9 +5,19 @@
  */
 package com.mycompany.evidencemanager;
 
+import io.swagger.client.ApiException;
+import io.swagger.client.api.SecurityApi;
 import io.swagger.client.model.LawEnforcer;
+import io.swagger.client.model.User;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * FXML Controller class
@@ -26,24 +37,30 @@ public class FXMLFindUserController implements Initializable {
     @FXML
     private TextField searchTF;
     @FXML
-    private TableView<LawEnforcer> usersTV;
+    private TableView<User> usersTV;
     @FXML
     private Button searchBTN;
     @FXML
     private Button updateBTN;
     @FXML
-    private TableColumn<LawEnforcer, String> TVidCol;
+    private TableColumn<User, String> TVidCol;
     @FXML
-    private TableColumn<LawEnforcer, String> TVNameCol;
+    private TableColumn<User, String> TVNameCol;
     @FXML
-    private TableColumn<LawEnforcer, String> TVRankCol;
+    private TableColumn<User, String> TVRankCol;
 
+    private SecurityApi sa = new SecurityApi();
+    private List<User> userList;
+    private User admin;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+       admin = new User();
+       admin.setAddress("Campusvej 55"); 
+       setUserList();
     }    
 
     @FXML
@@ -52,6 +69,26 @@ public class FXMLFindUserController implements Initializable {
 
     @FXML
     private void update(ActionEvent event) {
+        setUserList();
+    }
+    
+    private void setUserList(){
+        try {
+            String l = admin.getAddress();
+            userList = sa.getListOfUsers(l);
+            ObservableList<User> usersObservableList = FXCollections.observableList(userList);
+            
+            TVidCol.setCellValueFactory(new PropertyValueFactory<User, String>("employeeId"));
+            TVNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
+            TVRankCol.setCellValueFactory(new PropertyValueFactory<User, String>("role"));
+            
+            usersTV.setItems(usersObservableList);
+            
+            
+        } catch (ApiException ex) {
+            Logger.getLogger(FXMLFindUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
 }

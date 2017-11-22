@@ -531,11 +531,12 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
      * @return Returns a list of lawenforcers at same location as admin
      */
     @Override
-    public List<LawEnforcer> getAllUsers(LawEnforcer admin) {
+    public List<LawEnforcer> getAllUsers(String admin) {
+        System.out.println("TERMINAL TEST!!!");
         List<LawEnforcer> allUsers = new ArrayList<>();
         LawEnforcer nextUser;
         String query = String.format("select * from lawenforcer where locationref "
-                + "= (select locationref from locations where adress = '');", admin.getName());
+                + "= (select locationref from locations where adress = '%s');", admin);
         
         ResultSet select = db.executeQuery(query);
         
