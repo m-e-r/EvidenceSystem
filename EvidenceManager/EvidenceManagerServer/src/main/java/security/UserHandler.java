@@ -6,7 +6,9 @@
 package security;
 
 import dbConnection.SQLStatement;
+import io.swagger.api.impl.IsqlStatement;
 import io.swagger.model.User;
+import java.util.List;
 
 /**
  *
@@ -14,11 +16,13 @@ import io.swagger.model.User;
  */
 public class UserHandler {
     private IUserSql sql;
+    private IsqlStatement sql2; //Noget rod. Få det ændret når vi merger!!
     private User user;
     private Generator gen;
     
     public UserHandler() {
         this.sql = new SQLStatement();
+        this.sql2 = new SQLStatement();
         this.gen = new Generator();
     }
     
@@ -26,5 +30,11 @@ public class UserHandler {
         this.user = user;
         this.user.setEmployeeId(this.gen.generateTempUserId());
         return this.sql.addUser(this.user);
+    }
+    
+    public List<User> getUsers(String location) {
+        List<User> temp =this.sql2.getAllUsers(location);
+        System.out.println(temp.size());
+        return temp;
     }
 }

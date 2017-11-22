@@ -10,6 +10,7 @@ import io.swagger.model.Evidence;
 import java.util.List;
 import io.swagger.model.CriminalCaseMap;
 import io.swagger.model.LawEnforcer;
+import io.swagger.model.User;
 import io.swagger.model.UserType;
 
 /**
@@ -41,7 +42,7 @@ public interface IsqlStatement {
     
     public List<Evidence> getAllEvidence(LawEnforcer forensic);
     
-    public List<LawEnforcer> getAllUsers(LawEnforcer admin);
+    public List<User> getAllUsers(String location);
     
             
     
