@@ -4,21 +4,18 @@ import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.client.model.UserType;
 
 /**
  * Token
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-20T09:27:31.815Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-22T09:36:03.129Z")
 public class Token {
   @SerializedName("Id")
   private String id = null;
 
   @SerializedName("usertype")
-  private UserType usertype = null;
+  private String usertype = null;
 
-  private String user;
-  
   public Token id(String id) {
     this.id = id;
     return this;
@@ -37,7 +34,7 @@ public class Token {
     this.id = id;
   }
 
-  public Token usertype(UserType usertype) {
+  public Token usertype(String usertype) {
     this.usertype = usertype;
     return this;
   }
@@ -47,20 +44,12 @@ public class Token {
    * @return usertype
   **/
   @ApiModelProperty(value = "")
-  public UserType getUsertype() {
+  public String getUsertype() {
     return usertype;
   }
 
-  public void setUsertype(UserType usertype) {
+  public void setUsertype(String usertype) {
     this.usertype = usertype;
-  }
-  
-  public String getUser() {
-      return user;
-  }
-  
-  public void setUser(String user) {
-      this.user = user;
   }
 
 

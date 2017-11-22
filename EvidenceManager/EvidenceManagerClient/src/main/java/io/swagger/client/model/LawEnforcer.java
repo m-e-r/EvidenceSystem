@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * LawEnforcer
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-20T09:27:31.815Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-22T09:15:28.707Z")
 public class LawEnforcer {
   @SerializedName("caseList")
   private List<CriminalCase> caseList = new ArrayList<CriminalCase>();
@@ -27,6 +27,9 @@ public class LawEnforcer {
 
   @SerializedName("userName")
   private String userName = null;
+
+  @SerializedName("location")
+  private String location = null;
 
   public LawEnforcer caseList(List<CriminalCase> caseList) {
     this.caseList = caseList;
@@ -123,6 +126,24 @@ public class LawEnforcer {
     this.userName = userName;
   }
 
+  public LawEnforcer location(String location) {
+    this.location = location;
+    return this;
+  }
+
+   /**
+   * Get location
+   * @return location
+  **/
+  @ApiModelProperty(value = "")
+  public String getLocation() {
+    return location;
+  }
+
+  public void setLocation(String location) {
+    this.location = location;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -137,12 +158,13 @@ public class LawEnforcer {
         Objects.equals(this.name, lawEnforcer.name) &&
         Objects.equals(this.employeeId, lawEnforcer.employeeId) &&
         Objects.equals(this.password, lawEnforcer.password) &&
-        Objects.equals(this.userName, lawEnforcer.userName);
+        Objects.equals(this.userName, lawEnforcer.userName) &&
+        Objects.equals(this.location, lawEnforcer.location);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(caseList, name, employeeId, password, userName);
+    return Objects.hash(caseList, name, employeeId, password, userName, location);
   }
 
 
@@ -156,6 +178,7 @@ public class LawEnforcer {
     sb.append("    employeeId: ").append(toIndentedString(employeeId)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
+    sb.append("    location: ").append(toIndentedString(location)).append("\n");
     sb.append("}");
     return sb.toString();
   }

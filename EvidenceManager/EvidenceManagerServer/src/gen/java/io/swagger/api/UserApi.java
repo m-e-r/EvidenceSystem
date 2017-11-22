@@ -27,7 +27,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the user API")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-20T09:27:35.152Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-22T09:15:34.527Z")
 public class UserApi  {
    private final UserApiService delegate = UserApiServiceFactory.getUserApi();
 
@@ -47,7 +47,31 @@ public class UserApi  {
     
     
     
-    @io.swagger.annotations.ApiOperation(value = "returns a boolean depend on the enum", notes = "returns a boolean", response = Boolean.class, tags={ "Security", })
+    @io.swagger.annotations.ApiOperation(value = "Gets a list of the users with a location", notes = "Returns a list of users with the location", response = User.class, responseContainer = "List", tags={ "Security", })
+    @io.swagger.annotations.ApiResponses(value = { 
+        @io.swagger.annotations.ApiResponse(code = 200, message = "List of users", response = User.class, responseContainer = "List") })
+    public Response getListOfUsers(@ApiParam(value = "",required=true) @QueryParam("location") String location
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.getListOfUsers(location,securityContext);
+    }
+    @GET
+    @Path("/{Id}")
+    
+    
+    @io.swagger.annotations.ApiOperation(value = "Gets a user based on Id", notes = "Retuns a user", response = void.class, tags={ "Security", })
+    @io.swagger.annotations.ApiResponses(value = { 
+        @io.swagger.annotations.ApiResponse(code = 200, message = "succesfully returned", response = void.class) })
+    public Response getUser(@ApiParam(value = "",required=true) @PathParam("Id") String id
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.getUser(id,securityContext);
+    }
+    @PUT
+    
+    
+    
+    @io.swagger.annotations.ApiOperation(value = "Send a rank", notes = "returns a boolean", response = Boolean.class, tags={ "Security", })
     @io.swagger.annotations.ApiResponses(value = { 
         @io.swagger.annotations.ApiResponse(code = 200, message = "OK", response = Boolean.class) })
     public Response sendRank(@ApiParam(value = "" ,required=true) UserType text

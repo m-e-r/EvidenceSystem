@@ -92,7 +92,7 @@ public class FXMLShowCaseScreenController implements Initializable {
         
         //Create validate user button if correct rank
         //if (this.token.getUsertype().equals(UserType.COMISSIONER.toString().toUpperCase())) {
-        if (UserType.valueOf(this.token.getUser()).equals(UserType.COMISSIONER)) {
+        if (UserType.valueOf(this.token.getUsertype()).equals(UserType.COMISSIONER)) {
             this.valiBTN = new Button();
             this.valiBTN.setText("Validate\nNew Users");
             //Remember to do check if new users need validation when available in the API
