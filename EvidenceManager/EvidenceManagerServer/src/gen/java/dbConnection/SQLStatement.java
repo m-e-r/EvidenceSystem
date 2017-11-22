@@ -1,6 +1,6 @@
 package dbConnection;
 
-import io.swagger.api.impl.IUserSql;
+import security.IUserSql;
 import io.swagger.api.impl.IsqlStatement;
 import io.swagger.model.CriminalCase;
 import io.swagger.model.CriminalCaseMap;
@@ -30,7 +30,7 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
 
     private List<Evidence> tempEvidenceList;
 
-    private DBConnection db;;
+    private DBConnection db;
 
     public SQLStatement() {
 
@@ -449,6 +449,28 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
         }
         return latestId;
     }
+    
+    @Override
+    public void updateTempUserId(String id) {
+        String query = "UPDATE latestid\n SET temp= " + "'" + id + "'";
+        db.updateQuery(query);
+    }
+    
+    @Override
+    public String getPrevTempUserId() {
+        String latestId = null;
+        String query = ("SELECT temp FROM latestId");
+        ResultSet select = db.executeQuery(query);
+        try {
+            while (select.next()) {
+                latestId = select.getString(1);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SQLStatement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return latestId;
+    }
 
     
     /**
@@ -507,8 +529,8 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
         
         String query = 
         String.format("INSERT INTO lawenforcer(name, id, positionref, username, passw, validated, address, birthday)\n" +
-        "VALUES ('%s', 'TempId2', %d, '%s', '%s', FALSE, '%s', '%s')", 
-        user.getName(), 2, user.getUsername(), user.getPassword(), user.getAddress(), user.getBirthday());
+        "VALUES ('%s', '%s', %d, '%s', '%s', FALSE, '%s', '%s')", 
+        user.getName(), user.getEmployeeId(), 2, user.getUsername(), user.getPassword(), user.getAddress(), user.getBirthday());
         
         return this.db.updateQuery(query) == 1;
     }

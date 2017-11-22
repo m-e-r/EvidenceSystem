@@ -51,6 +51,8 @@ public class FXMLCreateUserController implements Initializable {
     private DatePicker birthdayDP;
     @FXML
     private Label missingLabel;
+    @FXML
+    private Label userNameTakenLabel;
 
     /**
      * Initializes the controller class.
@@ -61,6 +63,7 @@ public class FXMLCreateUserController implements Initializable {
         this.newUser = new User();
         
         this.missingLabel.setVisible(false);
+        this.userNameTakenLabel.setVisible(false);
         
         this.roles = FXCollections.observableArrayList(UserType.values());
         this.roleCB.setItems(this.roles);
@@ -79,8 +82,11 @@ public class FXMLCreateUserController implements Initializable {
             this.newUser.setUsername(this.userNameTF.getText());
             this.newUser.setRole(this.roleCB.getValue());
             
-            this.connect.createNewUser(this.newUser);
-            
+            if (!this.connect.createNewUser(this.newUser)) {
+                this.userNameTakenLabel.setVisible(true);
+            } else {
+                this.userNameTakenLabel.setVisible(false);
+            }
         } else {
             this.missingLabel.setVisible(true);
         }

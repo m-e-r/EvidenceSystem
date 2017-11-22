@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="com.mycompany.evidencemanager.FXMLCreateUserController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.evidencemanager.FXMLCreateUserController">
    <children>
       <SplitPane dividerPositions="0.7713567839195979" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -45,7 +44,12 @@
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0" GridPane.rowIndex="1">
                            <children>
-                              <Label text="Username" />
+                              <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="16.0" prefWidth="200.0" spacing="20.0">
+                                 <children>
+                                    <Label text="Username" />
+                                    <Label fx:id="userNameTakenLabel" text="already taken" textFill="RED" />
+                                 </children>
+                              </HBox>
                               <TextField fx:id="userNameTF" />
                            </children>
                         </VBox>

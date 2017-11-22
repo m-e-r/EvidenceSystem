@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package io.swagger.api.impl;
+package security;
 
 import io.swagger.model.User;
 
@@ -13,4 +13,5 @@ import io.swagger.model.User;
  */
 public interface IUserSql {
     public boolean addUser(User user);
+
 }
