@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * CriminalCaseMap
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-20T09:27:31.815Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-22T09:15:28.707Z")
 public class CriminalCaseMap extends HashMap<String, String> {
 
   @Override

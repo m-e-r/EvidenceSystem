@@ -31,4 +31,10 @@ public class SecurityApiServiceImpl extends SecurityApiService {
         System.out.println(this.i.doLogin(s));
         return Response.ok().entity(this.i.doLogin(s)).build();
     }
+
+    @Override
+    public Response validateUser(String username, SecurityContext securityContext) throws NotFoundException {
+        // do some magic!
+        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
+    }
 }

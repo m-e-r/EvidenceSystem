@@ -68,7 +68,7 @@ public class FXMLLoginController implements Initializable {
         System.out.println(token);
         String hey = "";
         if (token != null) {
-            UserType rank = UserType.valueOf(token.getUser());
+            UserType rank = UserType.valueOf(token.getUsertype());
             switch (rank) {
                 case COMISSIONER: this.showCaseScreenStage(token);
                 break;

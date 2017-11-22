@@ -26,7 +26,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the security API")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-20T09:27:35.152Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-22T09:15:34.527Z")
 public class SecurityApi  {
    private final SecurityApiService delegate = SecurityApiServiceFactory.getSecurityApi();
 
@@ -44,5 +44,17 @@ public class SecurityApi  {
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.doLogin(userName,password,securityContext);
+    }
+    @GET
+    @Path("/{username}")
+    
+    
+    @io.swagger.annotations.ApiOperation(value = "a commissioner validates a user", notes = "validates a user", response = Boolean.class, tags={ "Security", })
+    @io.swagger.annotations.ApiResponses(value = { 
+        @io.swagger.annotations.ApiResponse(code = 200, message = "succesfully validated", response = Boolean.class) })
+    public Response validateUser(@ApiParam(value = "",required=true) @PathParam("username") String username
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.validateUser(username,securityContext);
     }
 }

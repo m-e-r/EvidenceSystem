@@ -4,12 +4,19 @@ import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.client.model.UserType;
 
 /**
  * User
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-20T09:27:31.815Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-22T09:31:49.013Z")
 public class User {
+  @SerializedName("name")
+  private String name = null;
+
+  @SerializedName("role")
+  private UserType role = null;
+
   @SerializedName("username")
   private String username = null;
 
@@ -25,11 +32,41 @@ public class User {
   @SerializedName("birthday")
   private String birthday = null;
 
-  @SerializedName("name")
-  private String name = null;
-  
-  @SerializedName("usertype")
-  private UserType role = null;
+  public User name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * Get name
+   * @return name
+  **/
+  @ApiModelProperty(value = "")
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public User role(UserType role) {
+    this.role = role;
+    return this;
+  }
+
+   /**
+   * Get role
+   * @return role
+  **/
+  @ApiModelProperty(value = "")
+  public UserType getRole() {
+    return role;
+  }
+
+  public void setRole(UserType role) {
+    this.role = role;
+  }
 
   public User username(String username) {
     this.username = username;
@@ -121,34 +158,6 @@ public class User {
     this.birthday = birthday;
   }
 
-  public User name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Get phoneNumber
-   * @return phoneNumber
-  **/
-  @ApiModelProperty(value = "")
-  public String name() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-    
-  //Temp getter and setter
-  public UserType getRole() {
-      return this.role;
-  }
-  
-  public void setRole(UserType role) {
-      this.role =role;
-  }
-
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -159,17 +168,18 @@ public class User {
       return false;
     }
     User user = (User) o;
-    return Objects.equals(this.username, user.username) &&
+    return Objects.equals(this.name, user.name) &&
+        Objects.equals(this.role, user.role) &&
+        Objects.equals(this.username, user.username) &&
         Objects.equals(this.password, user.password) &&
         Objects.equals(this.employeeId, user.employeeId) &&
         Objects.equals(this.address, user.address) &&
-        Objects.equals(this.birthday, user.birthday) &&
-        Objects.equals(this.name, user.name);
+        Objects.equals(this.birthday, user.birthday);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(username, password, employeeId, address, birthday, name);
+    return Objects.hash(name, role, username, password, employeeId, address, birthday);
   }
 
 
@@ -178,13 +188,13 @@ public class User {
     StringBuilder sb = new StringBuilder();
     sb.append("class User {\n");
     
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    role: ").append(toIndentedString(role)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    employeeId: ").append(toIndentedString(employeeId)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("    birthday: ").append(toIndentedString(birthday)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    role: ").append(toIndentedString(role.toString())).append("\n");
     sb.append("}");
     return sb.toString();
   }

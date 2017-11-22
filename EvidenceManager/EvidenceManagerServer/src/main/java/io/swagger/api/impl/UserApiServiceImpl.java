@@ -32,6 +32,18 @@ public class UserApiServiceImpl extends UserApiService {
         // do some magic!
         return Response.ok().entity(this.userH.addUser(user)).build();
     }
+
+    @Override
+    public Response getListOfUsers(String location, SecurityContext securityContext) throws NotFoundException {
+        // do some magic!
+        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
+    }
+    
+    @Override
+    public Response getUser(String id, SecurityContext securityContext) throws NotFoundException {
+        // do some magic!
+        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
+    }
     @Override
     public Response sendRank(UserType text, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
