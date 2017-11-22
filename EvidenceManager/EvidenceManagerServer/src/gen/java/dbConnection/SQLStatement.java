@@ -499,6 +499,12 @@ public class SQLStatement implements IsqlStatement, SecureSql {
 
     }
 
+    /**
+     * Method used to get all users at the same location as the admin user who
+     * views all users
+     * @param admin The lawenforcer object representing the admin user
+     * @return Returns a list of lawenforcers at same location as admin
+     */
     @Override
     public List<LawEnforcer> getAllUsers(LawEnforcer admin) {
         List<LawEnforcer> allUsers = new ArrayList<>();
