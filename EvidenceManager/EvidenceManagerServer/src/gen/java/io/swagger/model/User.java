@@ -51,8 +51,11 @@ public class User   {
   @JsonProperty("birthday")
   private String birthday = null;
 
-  @JsonProperty("phoneNumber")
-  private String phoneNumber = null;
+  @JsonProperty("name")
+  private String name = null;
+  
+  @JsonProperty("role")
+  private UserType role = null;
 
   public User username(String username) {
     this.username = username;
@@ -144,8 +147,8 @@ public class User   {
     this.birthday = birthday;
   }
 
-  public User phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
+  public User name(String name) {
+    this.name = name;
     return this;
   }
 
@@ -154,12 +157,21 @@ public class User   {
    * @return phoneNumber
   **/
   @ApiModelProperty(value = "")
-  public String getPhoneNumber() {
-    return phoneNumber;
+  public String getName() {
+    return name;
   }
 
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
+  public void setName(String name) {
+      this.name = name;
+  }
+  
+  //Temp getter and setter
+  public UserType getRole() {
+      return this.role;
+  }
+  
+  public void setRole(UserType role) {
+      this.role =role;
   }
 
 
@@ -177,12 +189,12 @@ public class User   {
         Objects.equals(this.employeeId, user.employeeId) &&
         Objects.equals(this.address, user.address) &&
         Objects.equals(this.birthday, user.birthday) &&
-        Objects.equals(this.phoneNumber, user.phoneNumber);
+        Objects.equals(this.name, user.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(username, password, employeeId, address, birthday, phoneNumber);
+    return Objects.hash(username, password, employeeId, address, birthday, name);
   }
 
 
@@ -196,7 +208,8 @@ public class User   {
     sb.append("    employeeId: ").append(toIndentedString(employeeId)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("    birthday: ").append(toIndentedString(birthday)).append("\n");
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    role: ").append(toIndentedString(role.toString())).append("\n");
     sb.append("}");
     return sb.toString();
   }

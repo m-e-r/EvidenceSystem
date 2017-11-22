@@ -17,12 +17,14 @@ import java.util.Date;
 public class Generator {
     private int a, x, m; //Integers used is the math used to generate ids
     private SecureSql sec; //SecureSql interfaces. Is implemented i the SQLstatement class
+
     
     /**
      * Class constructor. Instantiates SQLStatement (sec)
      */
     public Generator() {
-        this.sec = new SQLStatement();        
+        this.sec = new SQLStatement();  
+        
     }
     
     /**
@@ -46,23 +48,8 @@ public class Generator {
         System.out.println(fullId);
         this.sec.updateCaseId(this.x+"");
         return fullId;
-    }    
-    
-    /**
-     * Method used to generate a user id.
-     * @param enumValue string value from the user type enum class
-     * @return Returns a string containing the generated userid
-     */
-    public String generateUserId(String enumValue) {
-        this.x = this.sec.getPrevUserId(enumValue);
-        this.a =3;
-        this.m = 570926;
-        String s = enumValue + "-" + this.generatePrefix("yy") + "-"  + this.generateBody(100000);
-        return s;
-    }
-    
-    
-    /**
+    } 
+        /**
      * Method used to generate a new evidence id.
      * @return Returns the new evidence id as a string
      */
@@ -83,6 +70,34 @@ public class Generator {
         this.sec.updateEvidenceId(this.x+"");
         return fullId;
     } 
+    
+    /**
+     * Method used to generate a user id.
+     * @param enumValue string value from the user type enum class
+     * @return Returns a string containing the generated userid
+     */
+    public String generateUserId(String enumValue) {
+        this.x = this.sec.getPrevUserId(enumValue);
+        this.a =3;
+        this.m = 570926;
+        String s = enumValue + "-" + this.generatePrefix("yy") + "-"  + this.generateBody(100000);
+        return s;
+    }
+    
+    public String generateTempUserId() {
+        this.x = Integer.parseInt(this.sec.getPrevTempUserId());
+        this.a = 3;
+        this.m = 7321;
+        String prefix, date, body, fullId;
+        prefix = "NOTValidated";
+        date = this.generatePrefix("dd/MM");       
+        body = this.generateBody(1000);
+        
+        fullId = prefix + "-" + date + body;
+        this.sec.updateTempUserId(body);
+        return fullId;   
+    }
+
     
     
     private String generatePrefix(String format) {

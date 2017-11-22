@@ -202,7 +202,7 @@ public class FXMLCaseController implements Initializable {
        this.caseNrTF.setDisable(true);
        this.caseLawenforcerTF.setDisable(true);
        caseInfoTA.setText(this.cc.getCaseDescription());
-       caseTitleTF.setText(this.cc.getCaseName());
+       caseTitleTF.setText(this.cc.getCaseName());;;
        this.caseNrTF.setText(this.cc.getId());
        this.caseLawenforcerTF.setText(this.cc.getCaseSuspect().get(0).getDescription());
        
