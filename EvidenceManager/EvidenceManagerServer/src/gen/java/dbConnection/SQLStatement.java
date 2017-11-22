@@ -30,7 +30,7 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
 
     private List<Evidence> tempEvidenceList;
 
-    private DBConnection db;
+    private DBConnection db;;
 
     public SQLStatement() {
 
