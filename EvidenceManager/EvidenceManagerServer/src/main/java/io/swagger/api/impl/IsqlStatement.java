@@ -41,6 +41,8 @@ public interface IsqlStatement {
     
     public List<Evidence> getAllEvidence(LawEnforcer forensic);
     
+    public List<LawEnforcer> getAllUsers(LawEnforcer admin);
+    
             
     
     
