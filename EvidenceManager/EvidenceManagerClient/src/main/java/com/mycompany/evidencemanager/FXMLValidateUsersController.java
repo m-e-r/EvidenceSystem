@@ -36,7 +36,7 @@ public class FXMLValidateUsersController implements Initializable {
     @FXML
     private TextField lastNameTF;
     @FXML
-    private ChoiceBox<?> rankCB;
+    private ChoiceBox<?> rankCB;;
 
     /**
      * Initializes the controller class.
