@@ -7,6 +7,7 @@ package security;
 
 import dbConnection.SQLStatement;
 import io.swagger.model.User;
+import java.util.List;
 
 /**
  *
@@ -26,5 +27,9 @@ public class UserHandler {
         this.user = user;
         this.user.setEmployeeId(this.gen.generateTempUserId());
         return this.sql.addUser(this.user);
+    }
+    
+    public List<User> getListOfUsers(String location){
+        return sql.getListOfUsers(location);
     }
 }

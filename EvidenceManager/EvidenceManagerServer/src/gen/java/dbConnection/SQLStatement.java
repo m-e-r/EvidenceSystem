@@ -531,12 +531,11 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
      * @return Returns a list of lawenforcers at same location as admin
      */
     @Override
-    public List<LawEnforcer> getAllUsers(String admin) {
-        System.out.println("TERMINAL TEST!!!");
-        List<LawEnforcer> allUsers = new ArrayList<>();
-        LawEnforcer nextUser;
+    public List<User> getListOfUsers(String admin) {
+        List<User> allUsers = new ArrayList<>();
+        User nextUser;
         String query = String.format("select * from lawenforcer where locationref "
-                + "= (select locationref from locations where adress = '%s');", admin);
+                + "= (select _ref from locations where adress = '%s');", admin);
         
         ResultSet select = db.executeQuery(query);
         
@@ -544,9 +543,17 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
             while (select.next()) {
                 String name = select.getString("name");
                 String id = select.getString("id");
-                nextUser = new LawEnforcer();
+                int role = select.getInt("positionref");
+                
+                String queryPosition = String.format("SELECT title FROM lawenforcerposition WHERE _ref = %d", role);
+                ResultSet pos = db.executeQuery(queryPosition);
+                pos.next();
+                
+                nextUser = new User();
                 nextUser.setName(name);
                 nextUser.setEmployeeId(id);
+                nextUser.setRole(pos.getString(1));
+                
                 allUsers.add(nextUser);
             }
         } catch (SQLException ex) {
@@ -568,6 +575,8 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
         
         return this.db.updateQuery(query) == 1;
     }
+
+    
 
 
 }

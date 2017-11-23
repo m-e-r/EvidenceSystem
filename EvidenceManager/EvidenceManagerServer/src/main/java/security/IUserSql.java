@@ -6,6 +6,7 @@
 package security;
 
 import io.swagger.model.User;
+import java.util.List;
 
 /**
  *
@@ -13,5 +14,6 @@ import io.swagger.model.User;
  */
 public interface IUserSql {
     public boolean addUser(User user);
+    public List<User> getListOfUsers(String location);
 
 }

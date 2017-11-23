@@ -41,7 +41,7 @@ public class User   {
   private String name = null;
 
   @JsonProperty("role")
-  private UserType role = null;
+  private String role = null;
 
   @JsonProperty("username")
   private String username = null;
@@ -76,7 +76,7 @@ public class User   {
     this.name = name;
   }
 
-  public User role(UserType role) {
+  public User role(String role) {
     this.role = role;
     return this;
   }
@@ -86,11 +86,11 @@ public class User   {
    * @return role
   **/
   @ApiModelProperty(value = "")
-  public UserType getRole() {
+  public String getRole() {
     return role;
   }
 
-  public void setRole(UserType role) {
+  public void setRole(String role) {
     this.role = role;
   }
 

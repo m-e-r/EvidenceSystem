@@ -15,6 +15,7 @@ import io.swagger.client.model.CriminalCaseMap;
 import io.swagger.client.model.Evidence;
 import io.swagger.client.model.Token;
 import io.swagger.client.model.User;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -125,5 +126,10 @@ public class ServerConnect implements IServerConnect{
     @Override
     public boolean createNewUser(User user) throws ApiException {
         return this.sa.addUser(user);
+    }
+
+    @Override
+    public List<User> getListOfUsers(String location) throws ApiException {
+        return this.sa.getListOfUsers(location);
     }
 }

@@ -6,9 +6,11 @@
 package com.mycompany.evidencemanager;
 
 import io.swagger.client.ApiException;
+import io.swagger.client.ServerConnect;
 import io.swagger.client.api.SecurityApi;
 import io.swagger.client.model.LawEnforcer;
 import io.swagger.client.model.User;
+import io.swagger.client.model.UserType;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +51,8 @@ public class FXMLFindUserController implements Initializable {
     @FXML
     private TableColumn<User, String> TVRankCol;
 
-    private SecurityApi sa = new SecurityApi();
-    private List<User> userList;
+    private IServerConnect sc;
+    private ObservableList<User> userList;
     private User admin;
     
     /**
@@ -58,9 +60,10 @@ public class FXMLFindUserController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       admin = new User();
-       admin.setAddress("Campusvej 55"); 
-       setUserList();
+       this.sc = new ServerConnect();
+       this.admin = new User();
+       this.admin.setAddress("Campusvej 55"); 
+       this.setUserList();
     }    
 
     @FXML
@@ -74,15 +77,17 @@ public class FXMLFindUserController implements Initializable {
     
     private void setUserList(){
         try {
-            String l = admin.getAddress();
-            userList = sa.getListOfUsers(l);
-            ObservableList<User> usersObservableList = FXCollections.observableList(userList);
+            String address = admin.getAddress();
+            userList = FXCollections.observableArrayList(sc.getListOfUsers(address));
+            for(User s : userList) {
+                System.out.println(s.getRole());
+            }
             
             TVidCol.setCellValueFactory(new PropertyValueFactory<User, String>("employeeId"));
             TVNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
             TVRankCol.setCellValueFactory(new PropertyValueFactory<User, String>("role"));
             
-            usersTV.setItems(usersObservableList);
+            usersTV.setItems(userList);
             
             
         } catch (ApiException ex) {
