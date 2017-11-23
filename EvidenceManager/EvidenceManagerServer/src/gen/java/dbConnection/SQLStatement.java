@@ -546,6 +546,7 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
                 String address = select.getString("address");
                 String birthday = select.getString("birthday");
                 
+                
                 //ALSO GET POSITION !!
                 //ALSO CHECK FO DEFAULT ID!!!
                 
