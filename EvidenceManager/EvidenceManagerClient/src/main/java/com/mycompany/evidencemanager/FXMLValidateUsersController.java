@@ -42,17 +42,15 @@ public class FXMLValidateUsersController implements Initializable {
     private ListView<User> usersLV;
     @FXML
     private Button validateBTN;
-    private TextField firstNameTF;
     @FXML
     private TextArea addressTA;
     @FXML
-    private TextField lastNameTF;
-    @FXML
     private ChoiceBox<UserType> rankCB;;
-    @FXML
     private Label birthLabel;
     @FXML
-    private TextField NameTF;
+    private TextArea nameTA;
+    @FXML
+    private TextArea birthdayTA;
 
     /**
      * Initializes the controller class.
@@ -80,10 +78,10 @@ public class FXMLValidateUsersController implements Initializable {
             
             this.user = this.usersLV.getSelectionModel().getSelectedItem();
             
-            //this.NameTF.setText(this.user.getName());
+            this.nameTA.setText(this.user.getName());
             this.addressTA.setText(this.user.getAddress());
-            this.birthLabel.setText("Birthday: " + this.user.getBirthday());
-            this.rankCB.setValue(this.user.getRole());
+            this.birthdayTA.setText(this.user.getBirthday());
+            this.rankCB.setValue(UserType.valueOf(this.user.getRole()));
         }
     }
 

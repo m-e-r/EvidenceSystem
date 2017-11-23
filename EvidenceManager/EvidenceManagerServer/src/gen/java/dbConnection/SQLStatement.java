@@ -524,19 +524,18 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
     }
 
 
-    /**
+/**
      * Method used to get all users at the same location as the admin user who
      * views all users
      * @param admin The lawenforcer object representing the admin user
      * @return Returns a list of lawenforcers at same location as admin
      */
     @Override
-    public List<User> getAllUsers(String location) {
-        System.out.println(location);
+    public List<User> getListOfUsers(String admin) {
         List<User> allUsers = new ArrayList<>();
         User nextUser;
         String query = String.format("select * from lawenforcer where locationref "
-                + "= (select locationref from locations where adress = '%s');", location);
+                + "= (select _ref from locations where adress = '%s');", admin);
         
         ResultSet select = db.executeQuery(query);
         
@@ -545,15 +544,19 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
                 String name = select.getString("name");
                 String address = select.getString("address");
                 String birthday = select.getString("birthday");
+                int role = select.getInt("positionref");
                 
+                String queryPosition = String.format("SELECT title FROM lawenforcerposition WHERE _ref = %d;", role);
+                ResultSet pos = db.executeQuery(queryPosition);
+                pos.next();
                 
-                //ALSO GET POSITION !!
-                //ALSO CHECK FO DEFAULT ID!!!
                 
                 nextUser = new User();
                 nextUser.setName(name);
                 nextUser.setAddress(address);
                 nextUser.setBirthday(birthday);
+                nextUser.setRole(pos.getString(1));
+                
                 allUsers.add(nextUser);
             }
         } catch (SQLException ex) {

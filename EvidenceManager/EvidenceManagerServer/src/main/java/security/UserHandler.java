@@ -32,9 +32,11 @@ public class UserHandler {
         return this.sql.addUser(this.user);
     }
     
-    public List<User> getUsers(String location) {
-        List<User> temp =this.sql2.getAllUsers(location);
-        System.out.println(temp.size());
+    public List<User> getListOfUsers(String location) {
+        List<User> temp =this.sql2.getListOfUsers(location);
+        for (User u : temp) {
+            System.out.println(u.getName());
+        }
         return temp;
     }
 }

@@ -42,7 +42,7 @@ public interface IsqlStatement {
     
     public List<Evidence> getAllEvidence(LawEnforcer forensic);
     
-    public List<User> getAllUsers(String location);
+    public List<User> getListOfUsers(String location);
     
             
     
