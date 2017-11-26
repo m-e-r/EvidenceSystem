@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Security;
+package security;
 
+import com.mycompany.evidencemanager.ISecurity;
 import static jdk.nashorn.internal.objects.NativeRegExp.test;
 
 
@@ -17,7 +18,7 @@ import java.util.Random;
  *
  * @author Guest Account
  */
-public class ClientSecuriy {
+public class ClientSecurity implements ISecurity {
   
 
 /**
@@ -47,42 +48,39 @@ public class ClientSecuriy {
             + "75535677577667715377445252039747924531930948513504330924505535528"
             + "72165759629160744721474377168318662472572177028484481128552176780"
             + "258165133027801789915866451832227987862112469984557693";
+
+    private BigInteger nBI;
     
-    private static final String d = "9655019602454680779509916032732063979165605"
-            + "684267630724547872219237866637257212689055541925472128767869744765"
-            + "246635068842754302297780747965253775565200389564632282292601286275"
-            + "495068595281077018511515784065305103167499687276946935973087466224"
-            + "485956891441192623760713704815039339631729163673782343562766615712"
-            + "072328789146330940509920107228802861502774391293941782317066109057"
-            + "137549905083418024773744960258288865209391457670818330365529286788"
-            + "085254987875450165245203135152888321709240865866359518671543544732"
-            + "276743748140352043786434931170062845846775272839498355626422650516"
-            + "568837154021615965507235255616371723528844705";
+    private BigInteger eBI;
     
+    public ClientSecurity() {
+        nBI = new BigInteger(this.n);
+        eBI = new BigInteger(this.e);
+    }
 
     
-    public String encrypt() {
-        BigInteger nn = new BigInteger(this.n);
-        BigInteger ee = new BigInteger(this.e);
-        BigInteger dd = new BigInteger(this.d);
-        String m = "asdfghjklqwertyuiopvasqwercdfhdjslketugg";
+    @Override
+    public String encrypt(String message) {
+        BigInteger w = new BigInteger(this.messageToNumbers(message));
+        w = w.modPow(this.eBI, this.nBI);
+        return w.toString();
+    }
+    
+    private String messageToNumbers(String message) {
         StringBuilder str = new StringBuilder();
         String s;
         str.append('1');
-        for (char c : m.toCharArray()) {
+        for (char c : message.toCharArray()) {
             int i = c;
             s = "" + i;
-            System.out.println(i);
             while (s.length() < 4) {
                 s = "0" + s;
             }
-            
             str.append(s);
         }
-        BigInteger w = new BigInteger(str.toString());
-        w = w.modPow(ee, nn);
-        return w.toString();
+        return str.toString();
     }
+    
    /* 
     public void generate() {
         SecureRandom rnd = new SecureRandom();

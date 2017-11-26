@@ -18,11 +18,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import security.ClientSecurity;
 
 public class FXMLLoginController implements Initializable {
 
     //Attributes
     private IServerConnect connect; //For calling methods on the server
+    private ISecurity security;
 
     private Label label;
     @FXML
@@ -37,6 +39,7 @@ public class FXMLLoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.connect = new ServerConnect();
+        this.security = new ClientSecurity();
     }
 
     /**
@@ -62,6 +65,10 @@ public class FXMLLoginController implements Initializable {
         if (!this.passwordTF.getText().trim().isEmpty()) {
             password = this.passwordTF.getText();
         }
+        
+        //Encrypt username and password
+        userName = this.security.encrypt(userName);
+        password = this.security.encrypt(password);
 
         //Send the information the the server
         Token token = this.connect.doSomeLogin(userName, password);
