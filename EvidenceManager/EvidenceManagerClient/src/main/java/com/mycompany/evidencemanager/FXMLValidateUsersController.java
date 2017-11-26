@@ -46,7 +46,6 @@ public class FXMLValidateUsersController implements Initializable {
     private TextArea addressTA;
     @FXML
     private ChoiceBox<UserType> rankCB;;
-    private Label birthLabel;
     @FXML
     private TextArea nameTA;
     @FXML
