@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Kasper
  */
-public interface IUserSql {
+public interface IUserHandlerSQL {
     public boolean addUser(User user);
     public List<User> getListOfUsers(String location);
 

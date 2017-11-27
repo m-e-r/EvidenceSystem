@@ -17,7 +17,7 @@ import java.util.Arrays;
  */
 public class Login implements ILogin {
 
-    SecureSql sql;
+    ILoginSQL sql;
 
     /**
      * Class constructor. Instantiates a sqlStatement object.

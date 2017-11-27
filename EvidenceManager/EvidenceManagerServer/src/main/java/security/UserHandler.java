@@ -15,15 +15,15 @@ import java.util.List;
  * @author Kasper
  */
 public class UserHandler {
-    private IUserSql sql;
+    private IUserHandlerSQL sql;
     private IsqlStatement sql2; //Noget rod. Få det ændret når vi merger!!
     private User user;
-    private Generator gen;
+    private IdGenerator gen;
     
     public UserHandler() {
         this.sql = new SQLStatement();
         this.sql2 = new SQLStatement();
-        this.gen = new Generator();
+        this.gen = new IdGenerator();
     }
     
     /**
