@@ -59,6 +59,7 @@ public class FXMLValidateUsersController implements Initializable {
         this.connect = new ServerConnect();
         this.roles = FXCollections.observableArrayList(UserType.values());
         this.rankCB.setItems(this.roles);
+        this.validateBTN.setDisable(true);
         
        try {
            this.users = FXCollections.observableArrayList(this.connect.getListOfUsers("Campusvej 55")); //Make initData method to get id from token
@@ -69,6 +70,10 @@ public class FXMLValidateUsersController implements Initializable {
         this.usersLV.setItems(this.users);
     }    
 
+    /**
+     * Display information about the user when choosing a user from the list.
+     * @param event 
+     */
     @FXML
     private void handleUserChoiceAction(MouseEvent event) {
         
@@ -84,6 +89,11 @@ public class FXMLValidateUsersController implements Initializable {
         }
     }
 
+    /**
+     * Validates a chosen user and removes the user from the list.
+     * @param event
+     * @throws ApiException 
+     */
     @FXML
     private void handleValidationAction(ActionEvent event) throws ApiException {
         System.out.println("UserNAme: " + this.user.getUsername());
@@ -99,6 +109,9 @@ public class FXMLValidateUsersController implements Initializable {
                 }
             }    
             this.usersLV.setItems(this.users);
+            
+                this.validateBTN.setDisable(true);
+            
         }
         
     }

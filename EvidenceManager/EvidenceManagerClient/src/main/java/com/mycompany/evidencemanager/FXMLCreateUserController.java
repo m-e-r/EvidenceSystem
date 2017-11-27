@@ -71,6 +71,11 @@ public class FXMLCreateUserController implements Initializable {
         this.roleCB.setValue(UserType.POLICE_OFFICER);
     }    
     
+    /**
+     * Creates a user from using the text from inputs.
+     * @param event
+     * @throws ApiException 
+     */
     @FXML
     private void handleCreateUserAction(ActionEvent event) throws ApiException {
         if (this.fieldsAreNotNull()) {
@@ -98,6 +103,10 @@ public class FXMLCreateUserController implements Initializable {
         
     }
 
+    /**
+     * Check if an input field is empty. 
+     * @param event 
+     */
     @FXML
     private void handleCheckUserNameAction(ActionEvent event) {
     }
