@@ -36,9 +36,11 @@ public class Login implements ILogin {
     @Override
     public Token doLogin(String message) {
         String[] sA = message.split(";");
+        if (sA[0].trim().isEmpty() || sA[1].trim().isEmpty()) {
+            return new Token();
+        }
         ServerSecurity ss = new ServerSecurity();
         sA[0] = ss.decrypt(sA[0]);
-        System.out.println(Arrays.toString(sA));
         sA[1] = ss.decrypt(sA[1]);
 
         Token t = new Token();

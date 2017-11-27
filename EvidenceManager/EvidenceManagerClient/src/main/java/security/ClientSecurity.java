@@ -14,6 +14,9 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import static jdk.nashorn.internal.objects.NativeRegExp.test;
+import static jdk.nashorn.internal.objects.NativeRegExp.test;
+import static jdk.nashorn.internal.objects.NativeRegExp.test;
 /**
  *
  * @author Guest Account
@@ -27,7 +30,7 @@ public class ClientSecurity implements ISecurity {
  */
 
     
-    private static final String n = "248461095643171896537156319663096694761967"
+    private static final String N = "248461095643171896537156319663096694761967"
             + "72092091992014046668138059735795571392388905898726866170798401393"
             + "68754205054932739272208966839545681150328736361462412808758264493"
             + "75784406718614482866277471278232952692875637021639810922012007703"
@@ -38,7 +41,7 @@ public class ClientSecurity implements ISecurity {
             + "72131203811002524642495417522531049815414879677954183616165584109"
             + "7094646141617891256710672413422227705054443856658856741";
     
-    private static final String e = "767278482195590029138765730473564569387106"
+    private static final String E = "767278482195590029138765730473564569387106"
             + "21036804682525512918241133970081309125995747093301543324189170035"
             + "34513762712322505122420702746555598422982357809017148108217076604"
             + "59819265281614132980137684723796563472714264909438622350757336583"
@@ -54,16 +57,19 @@ public class ClientSecurity implements ISecurity {
     private BigInteger eBI;
     
     public ClientSecurity() {
-        nBI = new BigInteger(this.n);
-        eBI = new BigInteger(this.e);
+        nBI = new BigInteger(this.N);
+        eBI = new BigInteger(this.E);
     }
 
     
     @Override
     public String encrypt(String message) {
-        BigInteger w = new BigInteger(this.messageToNumbers(message));
-        w = w.modPow(this.eBI, this.nBI);
-        return w.toString();
+        if (!message.trim().isEmpty()) {
+            BigInteger w = new BigInteger(this.messageToNumbers(message));
+            w = w.modPow(this.eBI, this.nBI);
+            return w.toString();
+        }
+        return " ";
     }
     
     private String messageToNumbers(String message) {
@@ -94,8 +100,8 @@ public class ClientSecurity implements ISecurity {
         } while ((ee.compareTo(BigInteger.ONE) <= 0 || ee.compareTo(l) >= 0 || !ee.gcd(l).equals(BigInteger.ONE)));
         BigInteger z = ee.modInverse(l);
         System.out.println(z);
-        System.out.println(e);
-        System.out.println(n);
+        System.out.println(E);
+        System.out.println(N);
     }
     */
     

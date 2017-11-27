@@ -13,7 +13,7 @@ import java.math.BigInteger;
  */
 public class ServerSecurity {
     
-    private static final String n = "248461095643171896537156319663096694761967"
+    private static final String N = "248461095643171896537156319663096694761967"
             + "72092091992014046668138059735795571392388905898726866170798401393"
             + "68754205054932739272208966839545681150328736361462412808758264493"
             + "75784406718614482866277471278232952692875637021639810922012007703"
@@ -24,7 +24,7 @@ public class ServerSecurity {
             + "72131203811002524642495417522531049815414879677954183616165584109"
             + "7094646141617891256710672413422227705054443856658856741";
     
-    private static final String d = "9655019602454680779509916032732063979165605"
+    private static final String D = "9655019602454680779509916032732063979165605"
             + "684267630724547872219237866637257212689055541925472128767869744765"
             + "246635068842754302297780747965253775565200389564632282292601286275"
             + "495068595281077018511515784065305103167499687276946935973087466224"
@@ -40,8 +40,8 @@ public class ServerSecurity {
     private BigInteger dBI;
     
     public ServerSecurity() {
-        nBI = new BigInteger(this.n);
-        dBI = new BigInteger(this.d);
+        nBI = new BigInteger(this.N);
+        dBI = new BigInteger(this.D);
     }
     
     public String decrypt(String message) {
@@ -56,12 +56,9 @@ public class ServerSecurity {
         String m = message.substring(1);
         for (int i = 0; i < m.length(); i+=4) {
             int k = Integer.parseInt(m.substring(i, i+4));
-            System.out.println(k);
             char c = (char) k;
-            System.out.println(c);
             str.append(c);
         }
-        System.out.println(str.toString());
         return str.toString();
     }
     

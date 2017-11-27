@@ -52,10 +52,8 @@ public class FXMLLoginController implements Initializable {
      */
     @FXML
     private void handleLoginAction(ActionEvent event) throws ApiException, IOException {
-        LoginTestClass lgc = new LoginTestClass();
-        //Format expected by the server when the user leaves the textfields empty;
-        String userName = " ";
-        String password = " ";
+        String userName = "";
+        String password = "";
 
         //Set the strings if textfields are not empty
         if (!this.userNameTF.getText().trim().isEmpty()) {
@@ -69,12 +67,11 @@ public class FXMLLoginController implements Initializable {
         //Encrypt username and password
         userName = this.security.encrypt(userName);
         password = this.security.encrypt(password);
-
+        System.out.println(userName + ":" + password);
+        
         //Send the information the the server
         Token token = this.connect.doSomeLogin(userName, password);
-        System.out.println(token);
-        String hey = "";
-        if (token != null) {
+        if (token.getId() != null || token.getUsertype() != null) {
             UserType rank = UserType.valueOf(token.getUsertype());
             switch (rank) {
                 case COMISSIONER: this.showCaseScreenStage(token);
