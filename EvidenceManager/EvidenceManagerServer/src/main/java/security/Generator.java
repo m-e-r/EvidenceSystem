@@ -86,7 +86,7 @@ public class Generator {
         body = this.generateBody(100000);
         
         String s = enumValue + "-" + prefix + "-"  + body;
-        this.sec.updateUserId(body);
+        this.sec.updateUserId(body, enumValue);
         return s;
     }
     

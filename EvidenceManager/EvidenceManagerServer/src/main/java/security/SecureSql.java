@@ -18,7 +18,7 @@ public interface SecureSql {
     public void updateCaseId(String id);
     public void updateEvidenceId(String id);
     
-    public void updateUserId(String id);
+    public void updateUserId(String id, String role);
     public int getPrevUserId(String valueFromEnum);
     
     public boolean getPassAndName(String username, String password);

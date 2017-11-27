@@ -429,8 +429,9 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
      * @param id The newest user id
      */
     @Override
-    public void updateUserId(String id) {
-        String query = String.format("UPDATE latestid set lawenforcerId = '%s';", id);
+    public void updateUserId(String id, String role) {
+        System.out.println(role);
+        String query = String.format("UPDATE latestid set %s = '%s';", role, id);
         db.updateQuery(query);
     }
 
@@ -587,7 +588,12 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
 
         return this.db.updateQuery(query) == 1;
     }
-
+    
+    /**
+     * Sets a user to be validated.
+     * @param username
+     * @return 
+     */
     @Override
     public boolean validateUser(String username) {
 
@@ -598,7 +604,13 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
         return this.db.updateQuery(query) == 1;
 
     }
-
+    
+    /**
+     * Sets the new id for a user who has just been validated.
+     * @param username
+     * @param newId
+     * @return 
+     */
     @Override
     public boolean setNewUserId(String username, String newId) {
 
