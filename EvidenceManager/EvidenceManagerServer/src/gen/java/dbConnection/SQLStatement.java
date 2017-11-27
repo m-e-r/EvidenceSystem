@@ -524,46 +524,6 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
     }
 
 
-    /**
-     * Method used to get all users at the same location as the admin user who
-     * views all users
-     * @param admin The lawenforcer object representing the admin user
-     * @return Returns a list of lawenforcers at same location as admin
-     */
-    @Override
-    public List<User> getListOfUsers(String admin) {
-        List<User> allUsers = new ArrayList<>();
-        User nextUser;
-        String query = String.format("select * from lawenforcer where locationref "
-                + "= (select _ref from locations where adress = '%s');", admin);
-        
-        ResultSet select = db.executeQuery(query);
-        
-        try {
-            while (select.next()) {
-                String name = select.getString("name");
-                String id = select.getString("id");
-                int role = select.getInt("positionref");
-                
-                String queryPosition = String.format("SELECT title FROM lawenforcerposition WHERE _ref = %d", role);
-                ResultSet pos = db.executeQuery(queryPosition);
-                pos.next();
-                
-                nextUser = new User();
-                nextUser.setName(name);
-                nextUser.setEmployeeId(id);
-                nextUser.setRole(pos.getString(1));
-                
-                allUsers.add(nextUser);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SQLStatement.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return allUsers;
-    }
-        
-
     @Override
     public boolean addUser(User user) {
         //int positionRef = user.getRole().ordinal();
