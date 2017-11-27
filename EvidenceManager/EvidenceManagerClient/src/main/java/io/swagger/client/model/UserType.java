@@ -31,5 +31,6 @@ public enum UserType {
   public String toString() {
     return String.valueOf(value);
   }
+  
 }
 

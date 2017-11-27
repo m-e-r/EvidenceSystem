@@ -80,7 +80,13 @@ public class Generator {
         this.x = this.sec.getPrevUserId(enumValue);
         this.a =3;
         this.m = 570926;
-        String s = enumValue + "-" + this.generatePrefix("yy") + "-"  + this.generateBody(100000);
+        
+        String prefix, body;
+        prefix = this.generatePrefix("yy");
+        body = this.generateBody(100000);
+        
+        String s = enumValue + "-" + prefix + "-"  + body;
+        this.sec.updateUserId(body, enumValue);
         return s;
     }
     

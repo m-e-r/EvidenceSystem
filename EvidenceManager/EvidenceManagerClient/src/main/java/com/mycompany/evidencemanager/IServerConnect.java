@@ -38,4 +38,6 @@ public interface IServerConnect {
     
     //For User
     public boolean createNewUser(User user) throws ApiException;
+    public List<User> getListOfUsers(String location) throws ApiException;
+    public boolean validateUser(String userName) throws ApiException;
 }

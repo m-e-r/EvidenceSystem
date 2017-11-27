@@ -36,7 +36,7 @@ public class UserApiServiceImpl extends UserApiService {
     @Override
     public Response getListOfUsers(String location, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
-        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
+        return Response.ok().entity(this.userH.getListOfUsers(location)).build();
     }
     
     @Override
