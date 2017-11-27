@@ -41,7 +41,7 @@ public class UserHandler {
     }
     
     public boolean validateUser(String userName) {
-        return this.sql.validateUser(userName) == this.sql.setNewId(userName, this.gen.generateUserId("PO")); //Replace 'PO' when you get
+        return this.sql2.validateUser(userName) == this.sql2.setNewUserId(userName, this.gen.generateUserId("PO")); //Replace 'PO' when you get
                                                                                                     //User object as param
     }
 }

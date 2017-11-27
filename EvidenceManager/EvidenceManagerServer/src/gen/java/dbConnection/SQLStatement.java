@@ -544,13 +544,14 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
         List<User> allUsers = new ArrayList<>();
         User nextUser;
         String query = String.format("select * from lawenforcer where locationref "
-                + "= (select _ref from locations where adress = '%s');", admin);
+                + "= (select _ref from locations where adress = '%s') AND validated = false;", admin);
 
         ResultSet select = db.executeQuery(query);
 
         try {
             while (select.next()) {
                 String name = select.getString("name");
+                String username = select.getString("username");
                 String address = select.getString("address");
                 String birthday = select.getString("birthday");
                 int role = select.getInt("positionref");
@@ -561,6 +562,7 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
 
                 nextUser = new User();
                 nextUser.setName(name);
+                nextUser.setUsername(username);
                 nextUser.setAddress(address);
                 nextUser.setBirthday(birthday);
                 nextUser.setRole(pos.getString(1));
