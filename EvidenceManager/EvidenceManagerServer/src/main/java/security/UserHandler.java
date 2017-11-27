@@ -39,4 +39,8 @@ public class UserHandler {
         }
         return temp;
     }
+    
+    public boolean validateUser(String userName) {
+        return this.sql.validateUser(userName);
+    }
 }
