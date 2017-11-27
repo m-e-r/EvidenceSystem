@@ -28,6 +28,10 @@ public class UserHandler {
         this.gen = new IdGenerator();
     }
     
+    public boolean updaterUser(User user){
+        return this.handler.updateUser(user);
+    }
+    
     /**
      * Adds a new user to the database after assigning it a temporary id.
      * This user will need validation before having access to the system.

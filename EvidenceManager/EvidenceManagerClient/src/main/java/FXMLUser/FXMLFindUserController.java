@@ -5,7 +5,6 @@
  */
 package FXMLUser;
 
-import FXMLEntity.FXMLViewUserProfileController;
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
 import io.swagger.client.api.SecurityApi;

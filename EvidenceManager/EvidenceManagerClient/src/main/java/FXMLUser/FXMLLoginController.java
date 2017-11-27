@@ -84,7 +84,7 @@ public class FXMLLoginController implements Initializable {
                 case FORENSIC_SCIENTIST: this.showForensicEvidenceStage(token);
                 break;
                 
-                case SYSTEM_ADMIN: this.loginLabel.setText("Hey Admin");
+                case SYSTEM_ADMIN: this.showAdminStage(token);
                 break;
                 
                 default: this.loginLabel.setText("Somthing wrong");
@@ -140,6 +140,24 @@ public class FXMLLoginController implements Initializable {
         stage.setScene(new Scene((Pane) loader.load()));
 
         FXMLForensicEvidenceController controller = loader.<FXMLForensicEvidenceController>getController();
+
+        stage.show();
+        return stage;
+    }
+    
+    /** 
+     *  Displays the relevant screen to the user(Admin)
+     * @param token
+     * @return stage.
+     * @throws IOException 
+     */
+    private Stage showAdminStage(Token token) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/FindUser.fxml"));
+
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene((Pane) loader.load()));
+
+        FXMLFindUserController controller = loader.<FXMLFindUserController>getController();
 
         stage.show();
         return stage;

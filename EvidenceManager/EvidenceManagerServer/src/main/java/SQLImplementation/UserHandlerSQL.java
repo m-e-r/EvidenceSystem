@@ -20,16 +20,21 @@ import security.IUserHandlerSQL;
  * @author jacob
  */
 public class UserHandlerSQL implements IUserHandlerSQL {
-    
+
     private DBConnection db;
-    
-    public UserHandlerSQL(){
+
+    public UserHandlerSQL() {
         this.db = new DBConnection();
     }
 
     @Override
     public boolean updateUser(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = String.format("UPDATE lawenforcer\n"
+                + "   SET name='%s', positionref= (SELECT _ref FROM lawenforcerposition WHERE title='%s', username='%s',\n"
+                + "       address='%s'\n"
+                + "   WHERE id = '%d';", user.getName(), user.getRole(), user.getUsername(), user.getAddress());
+        
+        return this.db.updateQuery(query) == 1;
     }
 
     @Override
@@ -90,8 +95,9 @@ public class UserHandlerSQL implements IUserHandlerSQL {
 
     /**
      * Sets a user to be validated.
+     *
      * @param username
-     * @return 
+     * @return
      */
     @Override
     public boolean validateUser(String username, String newId) {
@@ -103,5 +109,5 @@ public class UserHandlerSQL implements IUserHandlerSQL {
         return this.db.updateQuery(query) == 1;
 
     }
-    
+
 }
