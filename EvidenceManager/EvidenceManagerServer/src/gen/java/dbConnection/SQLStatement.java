@@ -47,7 +47,7 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
     public boolean addCase(CriminalCase c) {
 
         String query = String.format("INSERT INTO criminalcase (title, description, status, id, responsible) VALUES "
-                + "('%s', '%s', '%s', '%s', '%s');", c.getCaseName(), c.getCaseDescription(), 
+                + "('%s', '%s', '%s', '%s', '%s');", c.getCaseName(), c.getCaseDescription(),
                 c.getStatus().toString(), c.getId(), c.getCaseSuspect().get(0).getDescription());
 
         db.updateQuery(query);
@@ -317,8 +317,9 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
     }
 
     /**
-     * Method to get the case id of the latest inserted case in the database. 
+     * Method to get the case id of the latest inserted case in the database.
      * Should be used to ??
+     *
      * @return The latest caseid as a String
      */
     @Override
@@ -341,8 +342,9 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
     }
 
     /**
-     * Method to get the evidence id of the latest inserted evidence in the database. 
-     * Should be used to ??
+     * Method to get the evidence id of the latest inserted evidence in the
+     * database. Should be used to ??
+     *
      * @return The latest evidenceid as a String
      */
     @Override
@@ -365,8 +367,9 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
     }
 
     /**
-     * Method to update the latest case id in the database. Should be called whenever a
-     * new case is added.
+     * Method to update the latest case id in the database. Should be called
+     * whenever a new case is added.
+     *
      * @param id The newest id as a string.
      */
     @Override
@@ -376,8 +379,9 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
     }
 
     /**
-     * Method to update the latest evidence id in the database. Should be called whenever a
-     * new evidence is added.
+     * Method to update the latest evidence id in the database. Should be called
+     * whenever a new evidence is added.
+     *
      * @param id The newest id as a string.
      */
     @Override
@@ -389,8 +393,9 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
     }
 
     /**
-     * Method to get the rank of a user from the database. 
-     * Select the rank from database corrosponding to an id
+     * Method to get the rank of a user from the database. Select the rank from
+     * database corrosponding to an id
+     *
      * @param id The id of the user from who we want to get the rank
      * @return The rank of the found user as a String
      */
@@ -401,11 +406,11 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
         String query = String.format("select title from lawenforcerposition where _ref = (SELECT positionref from lawenforcer where id = '%s')", id);
 
         ResultSet select = db.executeQuery(query);
-        
+
         String position = null;
         int i = 1;
         try {
-            while(select.next() | i ==1) {
+            while (select.next() | i == 1) {
                 position = select.getString("title");
                 System.out.println(position);
                 i++;
@@ -413,13 +418,14 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
         } catch (SQLException ex) {
             System.err.println(ex);
         }
-        
+
         return position;
 
     }
 
     /**
      * Method to update the latest user id in the database table latestid.
+     *
      * @param id The newest user id
      */
     @Override
@@ -430,9 +436,11 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
 
     /**
      * Method to get the latest added userid in the database.
-     * @param valueFromEnum A string representing the usertype enum value, from the UserType enum from the client
-     *  This should be one of the toStrings from the userype enum.
-     * @return  Returns the latest id from the specified usertype in the database
+     *
+     * @param valueFromEnum A string representing the usertype enum value, from
+     * the UserType enum from the client This should be one of the toStrings
+     * from the userype enum.
+     * @return Returns the latest id from the specified usertype in the database
      */
     @Override
     public int getPrevUserId(String valueFromEnum) {
@@ -449,13 +457,13 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
         }
         return latestId;
     }
-    
+
     @Override
     public void updateTempUserId(String id) {
         String query = "UPDATE latestid\n SET temp= " + "'" + id + "'";
         db.updateQuery(query);
     }
-    
+
     @Override
     public String getPrevTempUserId() {
         String latestId = null;
@@ -472,22 +480,22 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
         return latestId;
     }
 
-    
     /**
-     * Method to check wether a user exists in the database using a username and a password
+     * Method to check wether a user exists in the database using a username and
+     * a password
+     *
      * @param username The username of a user as a string
      * @param password The password of a user as a string
-     * @return returns true if the user exists in the database, false if not. 
+     * @return returns true if the user exists in the database, false if not.
      */
     @Override
     public boolean getPassAndName(String username, String password) {
 
-        String query = "select username, passw from lawenforcer where username = '" 
+        String query = "select username, passw from lawenforcer where username = '"
                 + username + "' and passw = '" + password + "'";
 
-
         ResultSet select = db.executeQuery(query);
-        
+
         try {
             return select.next();
         } catch (SQLException ex) {
@@ -498,9 +506,10 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
 
     /**
      * Method to get the id of a lawenforcer from the database
+     *
      * @param username The username of the lawenforcer whoese id should be found
      * @param password The password of the lawenforcer whoese id should be found
-     * @return The lawenforcerid found, as a string. 
+     * @return The lawenforcerid found, as a string.
      */
     @Override
     public String getLawEnforcerId(String username, String password) {
@@ -518,15 +527,15 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
         } catch (SQLException ex) {
             Logger.getLogger(SQLStatement.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return id;
 
     }
 
-
-/**
+    /**
      * Method used to get all users at the same location as the admin user who
      * views all users
+     *
      * @param admin The lawenforcer object representing the admin user
      * @return Returns a list of lawenforcers at same location as admin
      */
@@ -536,48 +545,66 @@ public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
         User nextUser;
         String query = String.format("select * from lawenforcer where locationref "
                 + "= (select _ref from locations where adress = '%s');", admin);
-        
+
         ResultSet select = db.executeQuery(query);
-        
+
         try {
             while (select.next()) {
                 String name = select.getString("name");
                 String address = select.getString("address");
                 String birthday = select.getString("birthday");
                 int role = select.getInt("positionref");
-                
+
                 String queryPosition = String.format("SELECT title FROM lawenforcerposition WHERE _ref = %d;", role);
                 ResultSet pos = db.executeQuery(queryPosition);
                 pos.next();
-                
-                
+
                 nextUser = new User();
                 nextUser.setName(name);
                 nextUser.setAddress(address);
                 nextUser.setBirthday(birthday);
                 nextUser.setRole(pos.getString(1));
-                
+
                 allUsers.add(nextUser);
             }
         } catch (SQLException ex) {
             Logger.getLogger(SQLStatement.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return allUsers;
     }
-        
 
     @Override
     public boolean addUser(User user) {
         //int positionRef = user.getRole().ordinal();
-        
-        String query = 
-        String.format("INSERT INTO lawenforcer(name, id, positionref, username, passw, validated, address, birthday)\n" +
-        "VALUES ('%s', '%s', %d, '%s', '%s', FALSE, '%s', '%s')", 
-        user.getName(), user.getEmployeeId(), 2, user.getUsername(), user.getPassword(), user.getAddress(), user.getBirthday());
-        
+
+        String query
+                = String.format("INSERT INTO lawenforcer(name, id, positionref, username, passw, validated, address, birthday)\n"
+                        + "VALUES ('%s', '%s', %d, '%s', '%s', FALSE, '%s', '%s')",
+                        user.getName(), user.getEmployeeId(), 2, user.getUsername(), user.getPassword(), user.getAddress(), user.getBirthday());
+
         return this.db.updateQuery(query) == 1;
     }
 
+    @Override
+    public boolean validateUser(String username) {
+
+        String query = String.format("UPDATE public.lawenforcer\n"
+                + "	SET validated=true\n"
+                + "	WHERE username = '%s';", username);
+
+        return this.db.updateQuery(query) == 1;
+
+    }
+
+    @Override
+    public boolean setNewUserId(String username, String newId) {
+
+        String query = String.format("UPDATE public.lawenforcer\n"
+                + "	SET id = '%s'\n"
+                + "    WHERE username = '%s';", newId, username);
+
+        return this.db.updateQuery(query) == 1;
+    }
 
 }

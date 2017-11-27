@@ -44,7 +44,8 @@ public interface IsqlStatement {
     
     public List<User> getListOfUsers(String location);
     
-            
+    public boolean validateUser(String username);
     
+    public boolean setNewUserId(String username, String newId);
     
 }
