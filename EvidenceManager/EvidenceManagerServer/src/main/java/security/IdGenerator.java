@@ -5,7 +5,8 @@
  */
 package security;
 
-import dbConnection.SQLStatement;
+
+import SQLImplementation.IdGeneratorSQL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,7 +24,7 @@ public class IdGenerator {
      * Class constructor. Instantiates SQLStatement (sec)
      */
     public IdGenerator() {
-        this.sec = new SQLStatement();
+        this.sec = new IdGeneratorSQL();
         
     }
     

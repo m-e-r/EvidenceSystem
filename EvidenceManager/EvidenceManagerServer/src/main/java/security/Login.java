@@ -5,7 +5,7 @@
  */
 package security;
 
-import dbConnection.SQLStatement;
+import SQLImplementation.LoginSQL;
 import io.swagger.api.impl.ILogin;
 import io.swagger.model.Token;
 import io.swagger.model.UserType;
@@ -23,7 +23,7 @@ public class Login implements ILogin {
      * Class constructor. Instantiates a sqlStatement object.
      */
     public Login() {
-        sql = new SQLStatement();
+        sql = new LoginSQL();
     }
 
     
@@ -45,13 +45,27 @@ public class Login implements ILogin {
 
         Token t = new Token();
 
-        if (sql.getPassAndName(sA[0], sA[1])) {
-            String id = this.sql.getLawEnforcerId(sA[0], sA[1]);
+        if (this.userExists(sA[0], sA[1])) {
+            String id = this.getUserId(sA[0], sA[1]);
             t.setId(id);
-            t.setUsertype(this.sql.getRank(id));
+            t.setUsertype(this.getRank(id));
         }
         System.out.println(UserType.valueOf(t.getUsertype()) + " -- " + UserType.valueOf(t.getUsertype()).equals(UserType.COMISSIONER));
         return t;
     }
+    
+    public boolean userExists(String username, String password){
+        return this.sql.userExists(username, password);
+    }
+    
+    public String getUserId(String username, String password){
+        return this.sql.getUserId(username, password);
+    }
+    
+    public String getRank(String id){
+        return this.sql.getRank(id);
+    }
+    
+    
 
 }

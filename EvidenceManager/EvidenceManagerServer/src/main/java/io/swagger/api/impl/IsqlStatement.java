@@ -20,32 +20,12 @@ import io.swagger.model.UserType;
  */
 public interface IsqlStatement {
     
-    public boolean addCase(CriminalCase c);
     
-    public boolean updateCase(CriminalCase c);
-    
-    public CriminalCase getCase(int Id);
-    
-    //public boolean addEvidence(Evidence e);
-    
-    public CriminalCaseMap getCases(String employeeId);
 
-    public List<Evidence> getEvidenceList(String keyword);
     
-    public Evidence pickupEvidence(Evidence evidence, LawEnforcer lawEnforcer);
     
-    public void setUserPassword(LawEnforcer lawEnforcer, String newPassword);
+  
     
-    public Evidence getEvidence(int id);
     
-    public void editEvidence(Evidence evidence);
-    
-    public List<Evidence> getAllEvidence(LawEnforcer forensic);
-    
-    public List<User> getListOfUsers(String location);
-    
-    public boolean validateUser(String username);
-    
-    public boolean setNewUserId(String username, String newId);
     
 }

@@ -1,6 +1,6 @@
 package io.swagger.api.impl;
 
-import dbConnection.SQLStatement;
+import SQLImplementation.CaseHandlerSQL;
 import io.swagger.api.*;
 import io.swagger.model.*;
 
@@ -18,15 +18,15 @@ import javax.ws.rs.core.SecurityContext;
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-14T14:42:45.231Z")
 public class LawEnforcerApiServiceImpl extends LawEnforcerApiService {
-    private IsqlStatement isql;
+    private CaseHandlerSQL handler;
     
     public LawEnforcerApiServiceImpl() {
-        this.isql = new SQLStatement();
+        this.handler = new CaseHandlerSQL();
     }
     
     @Override
     public Response getCasesFromId(String employeeId, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
-        return Response.ok().entity(this.isql.getCases(employeeId)).build();
+        return Response.ok().entity(this.handler.getCases(employeeId)).build();
     }
 }

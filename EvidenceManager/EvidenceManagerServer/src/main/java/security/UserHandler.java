@@ -5,7 +5,9 @@
  */
 package security;
 
-import dbConnection.SQLStatement;
+import SQLImplementation.LoginSQL;
+import SQLImplementation.UserHandlerSQL;
+
 import io.swagger.api.impl.IsqlStatement;
 import io.swagger.model.User;
 import java.util.List;
@@ -15,14 +17,14 @@ import java.util.List;
  * @author Kasper
  */
 public class UserHandler {
-    private IUserHandlerSQL sql;
-    private IsqlStatement sql2; //Noget rod. Få det ændret når vi merger!!
+    private IUserHandlerSQL handler;
+    private ILoginSQL login; //Noget rod. Få det ændret når vi merger!!
     private User user;
     private IdGenerator gen;
     
     public UserHandler() {
-        this.sql = new SQLStatement();
-        this.sql2 = new SQLStatement();
+        this.handler = new UserHandlerSQL();
+        this.login = new LoginSQL();
         this.gen = new IdGenerator();
     }
     
@@ -35,7 +37,7 @@ public class UserHandler {
     public boolean addUser(User user) {
         this.user = user;
         this.user.setEmployeeId(this.gen.generateTempUserId());
-        return this.sql.addUser(this.user);
+        return this.handler.addUser(this.user);
     }
     
     /**
@@ -45,7 +47,7 @@ public class UserHandler {
      * @return 
      */
     public List<User> getListOfUsers(String location) {
-        return this.sql2.getListOfUsers(location);
+        return this.handler.getListOfUsers(location);
     }
     
     /**
@@ -56,9 +58,7 @@ public class UserHandler {
     public boolean validateUser(String userName) {
         String newId = this.gen.generateUserId("PO"); //Replace 'PO' when you get User object as param
         
-        if (this.sql2.validateUser(userName))
-            return this.sql2.setNewUserId(userName, newId);
-        
-        return false;
+        return this.handler.validateUser(userName, newId);
+   
     }
 }
