@@ -30,7 +30,7 @@
             </TableView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="viewBTN" mnemonicParsing="false" onAction="#viewUser" text="View user">
+                  <Button fx:id="searchBTN" mnemonicParsing="false" onAction="#search" text="Search">
                      <HBox.margin>
                         <Insets right="40.0" />
                      </HBox.margin>
