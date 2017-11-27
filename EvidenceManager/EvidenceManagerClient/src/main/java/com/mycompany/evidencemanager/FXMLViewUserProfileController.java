@@ -6,6 +6,7 @@ package com.mycompany.evidencemanager;
  * and open the template in the editor.
  */
 
+import io.swagger.client.model.User;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -48,17 +49,29 @@ public class FXMLViewUserProfileController implements Initializable {
     private RadioButton nonValidatedRBTN;
     @FXML
     private Button editProfilBTN;
+    
+    private User user;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }    
 
     @FXML
     private void saveEditProfle(ActionEvent event) {
+    }
+
+    public void initData(User user) {
+        this.user = user;
+        this.nameTF.setText(this.user.getName());
+        this.idTF.setText(this.user.getEmployeeId());
+        this.birthdayTF.setText(this.user.getBirthday());
+        this.usernameTF.setText(this.user.getUsername());
+        this.passwordTF.setText(this.user.getPassword());
+        this.adressTF.setText(this.user.getAddress());
+        
     }
     
 }

@@ -15,6 +15,7 @@ import io.swagger.client.model.CriminalCaseMap;
 import io.swagger.client.model.Evidence;
 import io.swagger.client.model.Token;
 import io.swagger.client.model.User;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,9 +36,9 @@ public class ServerConnect implements IServerConnect{
      */
     public ServerConnect() {
         this.ac = new ApiClient();
-        //this.ac.setBasePath("http://localhost:8080/m-e-r/Evidence/5");
+        this.ac.setBasePath("http://localhost:8080/m-e-r/Evidence/5");
         //this.ac.setBasePath("http://10.126.118.185:8080/m-e-r/Evidence/5");
-        this.ac.setBasePath("http://10.126.93.21:8080/m-e-r/Evidence/5");
+        //this.ac.setBasePath("http://10.126.93.21:8080/m-e-r/Evidence/5");
         this.cca = new CriminalCaseApi(this.ac);
         this.ea = new EvidenceApi(this.ac);
         this.sa = new SecurityApi(this.ac);
