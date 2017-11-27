@@ -86,19 +86,18 @@ public class FXMLValidateUsersController implements Initializable {
 
     @FXML
     private void handleValidationAction(ActionEvent event) throws ApiException {
+        System.out.println("UserNAme: " + this.user.getUsername());
         
         if(this.connect.validateUser(this.user.getUsername())) {
+            System.out.println("hejyasa");
             
-            for (int i = 0; i < this.roles.size(); i++) {
+            for (int i = 0; i < this.users.size(); i++) {
                 
-                if(this.users.get(i).getUsername().equals(this.user.getUsername())) {
-                    
-                    this.users.remove(i);
-                    
+                if(this.users.get(i).getUsername().equals(this.user.getUsername())) {                  
+                    this.users.remove(i);     
                     break;
                 }
-            }
-            
+            }    
             this.usersLV.setItems(this.users);
         }
         

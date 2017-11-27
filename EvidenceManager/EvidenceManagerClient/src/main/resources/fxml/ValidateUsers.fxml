@@ -27,7 +27,7 @@
                               <Insets left="6.0" right="6.0" top="6.0" />
                            </VBox.margin>
                            <cursor>
-                              <Cursor fx:constant="NONE" />
+                              <Cursor fx:constant="DEFAULT" />
                            </cursor>
                         </ListView>
                         <Button fx:id="validateBTN" mnemonicParsing="false" onAction="#handleValidationAction" text="Validate" />
