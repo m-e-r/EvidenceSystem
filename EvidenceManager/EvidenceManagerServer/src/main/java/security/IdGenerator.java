@@ -14,16 +14,16 @@ import java.util.Date;
  * Class used to generate pseudorandom id's for evidence and cases. 
  * @author Kasper
  */
-public class Generator {
+public class IdGenerator {
     private int a, x, m; //Integers used is the math used to generate ids
-    private SecureSql sec; //SecureSql interfaces. Is implemented i the SQLstatement class
+    private IIdGeneratorSQL sec; //SecureSql interfaces. Is implemented i the SQLstatement class
 
     
     /**
      * Class constructor. Instantiates SQLStatement (sec)
      */
-    public Generator() {
-        this.sec = new SQLStatement();  
+    public IdGenerator() {
+        this.sec = new SQLStatement();
         
     }
     

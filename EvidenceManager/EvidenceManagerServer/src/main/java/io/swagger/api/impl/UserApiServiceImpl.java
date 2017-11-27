@@ -1,19 +1,12 @@
 package io.swagger.api.impl;
 
-import security.IUserSql;
-import dbConnection.SQLStatement;
 import io.swagger.api.*;
-import io.swagger.model.*;
 
 import io.swagger.model.User;
 import io.swagger.model.UserType;
 
-import java.util.List;
 import io.swagger.api.NotFoundException;
 
-import java.io.InputStream;
-
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;

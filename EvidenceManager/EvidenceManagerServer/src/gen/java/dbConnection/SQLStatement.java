@@ -1,6 +1,6 @@
 package dbConnection;
 
-import security.IUserSql;
+import security.IUserHandlerSQL;
 import io.swagger.api.impl.IsqlStatement;
 import io.swagger.model.CriminalCase;
 import io.swagger.model.CriminalCaseMap;
@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import security.SecureSql;
+import security.IIdGeneratorSQL;
+import security.ILoginSQL;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -26,7 +27,7 @@ import security.SecureSql;
  *
  * @author Bruger
  */
-public class SQLStatement implements IsqlStatement, SecureSql, IUserSql {
+public class SQLStatement implements IsqlStatement, ILoginSQL, IUserHandlerSQL, IIdGeneratorSQL {
 
     private List<Evidence> tempEvidenceList;
 
