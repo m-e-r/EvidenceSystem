@@ -1,4 +1,4 @@
-package com.mycompany.evidencemanager;
+package FXMLUser;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -6,6 +6,7 @@ package com.mycompany.evidencemanager;
  * and open the template in the editor.
  */
 
+import io.swagger.client.ServerConnect;
 import io.swagger.client.model.User;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -51,16 +52,28 @@ public class FXMLViewUserProfileController implements Initializable {
     private Button editProfilBTN;
     
     private User user;
+    
+    private IUser connect;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.connect = new ServerConnect();
+        
     }    
 
     @FXML
     private void saveEditProfle(ActionEvent event) {
+        String name = this.nameTF.getText();
+        String username = this.usernameTF.getText();
+        String adress = this.adressTF.getText();
+        String position = this.rankCB.getSelectionModel().getSelectedItem().toString();
+        
+        User updatedUser = new User();
+        //updatedUser.set
+        
     }
 
     public void initData(User user) {

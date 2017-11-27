@@ -1,4 +1,4 @@
-package com.mycompany.evidencemanager;
+package FXMLUser;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,6 +22,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -29,7 +30,7 @@ import javafx.scene.control.TextField;
  * @author Kasper
  */
 public class FXMLCreateUserController implements Initializable {
-    private IServerConnect connect;
+    private IUser connect;
     private ObservableList<UserType> roles;
     private User newUser;
 
@@ -70,6 +71,11 @@ public class FXMLCreateUserController implements Initializable {
         this.roleCB.setValue(UserType.POLICE_OFFICER);
     }    
     
+    /**
+     * Creates a user from using the text from inputs.
+     * @param event
+     * @throws ApiException 
+     */
     @FXML
     private void handleCreateUserAction(ActionEvent event) throws ApiException {
         if (this.fieldsAreNotNull()) {
@@ -86,13 +92,21 @@ public class FXMLCreateUserController implements Initializable {
                 this.userNameTakenLabel.setVisible(true);
             } else {
                 this.userNameTakenLabel.setVisible(false);
+                Stage stageToClose = (Stage) this.createUserBTN.getScene().getWindow();
+                stageToClose.close();
             }
+            
+            
         } else {
             this.missingLabel.setVisible(true);
         }
         
     }
 
+    /**
+     * Check if an input field is empty. 
+     * @param event 
+     */
     @FXML
     private void handleCheckUserNameAction(ActionEvent event) {
     }
@@ -110,7 +124,7 @@ public class FXMLCreateUserController implements Initializable {
         if (this.addressTF.getText().trim().isEmpty())
             return false;
         
-        if (this.birthdayDP.getValue().toString() == null) //Ikke godt nok
+        if (this.birthdayDP.getValue() == null) //Ikke godt nok
             return false;
         
         return true;

@@ -1,5 +1,7 @@
-package com.mycompany.evidencemanager;
+package FXMLUser;
 
+import FXMLEntity.FXMLShowCaseScreenController;
+import FXMLEntity.FXMLForensicEvidenceController;
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
 import io.swagger.client.model.Token;
@@ -18,11 +20,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import security.ClientSecurity;
 
 public class FXMLLoginController implements Initializable {
 
     //Attributes
-    private IServerConnect connect; //For calling methods on the server
+    private IUser connect; //For calling methods on the server
+    private ISecurity security;
 
     private Label label;
     @FXML
@@ -37,6 +41,7 @@ public class FXMLLoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.connect = new ServerConnect();
+        this.security = new ClientSecurity();
     }
 
     /**
@@ -49,10 +54,8 @@ public class FXMLLoginController implements Initializable {
      */
     @FXML
     private void handleLoginAction(ActionEvent event) throws ApiException, IOException {
-        LoginTestClass lgc = new LoginTestClass();
-        //Format expected by the server when the user leaves the textfields empty;
-        String userName = " ";
-        String password = " ";
+        String userName = "";
+        String password = "";
 
         //Set the strings if textfields are not empty
         if (!this.userNameTF.getText().trim().isEmpty()) {
@@ -62,12 +65,14 @@ public class FXMLLoginController implements Initializable {
         if (!this.passwordTF.getText().trim().isEmpty()) {
             password = this.passwordTF.getText();
         }
-
+        
+        //Encrypt username and password
+        userName = this.security.encrypt(userName);
+        password = this.security.encrypt(password);
+        
         //Send the information the the server
         Token token = this.connect.doSomeLogin(userName, password);
-        System.out.println(token);
-        String hey = "";
-        if (token != null) {
+        if (token.getId() != null || token.getUsertype() != null) {
             UserType rank = UserType.valueOf(token.getUsertype());
             switch (rank) {
                 case COMISSIONER: this.showCaseScreenStage(token);
@@ -79,7 +84,7 @@ public class FXMLLoginController implements Initializable {
                 case FORENSIC_SCIENTIST: this.showForensicEvidenceStage(token);
                 break;
                 
-                case SYSTEM_ADMIN: this.loginLabel.setText("Hey Admin");
+                case SYSTEM_ADMIN: this.showAdminStage(token);
                 break;
                 
                 default: this.loginLabel.setText("Somthing wrong");
@@ -135,6 +140,24 @@ public class FXMLLoginController implements Initializable {
         stage.setScene(new Scene((Pane) loader.load()));
 
         FXMLForensicEvidenceController controller = loader.<FXMLForensicEvidenceController>getController();
+
+        stage.show();
+        return stage;
+    }
+    
+    /** 
+     *  Displays the relevant screen to the user(Admin)
+     * @param token
+     * @return stage.
+     * @throws IOException 
+     */
+    private Stage showAdminStage(Token token) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/FindUser.fxml"));
+
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene((Pane) loader.load()));
+
+        FXMLFindUserController controller = loader.<FXMLFindUserController>getController();
 
         stage.show();
         return stage;

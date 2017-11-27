@@ -1,4 +1,4 @@
-package com.mycompany.evidencemanager;
+package main;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -12,8 +12,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        //Parent root = FXMLLoader.load(getClass().getResource("/fxml/CreateUser.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/FindUser.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginScreen.fxml"));
         
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");

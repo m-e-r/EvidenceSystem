@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.evidencemanager;
+package FXMLEntity;
 
+import FXMLEntity.FXMLCaseController;
+import FXMLUser.FXMLValidateUsersController;
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
 import io.swagger.client.model.CriminalCase;
@@ -43,7 +45,7 @@ import javafx.stage.StageStyle;
  */
 public class FXMLShowCaseScreenController implements Initializable {
     //Attributes
-    private IServerConnect connect; //Used for calling methods on the server
+    private IEntity connect; //Used for calling methods on the server
     private ObservableList<String> occ; //Used for holding case name and id for displaying in the ListView
     private Button valiBTN;
     private Token token;
@@ -109,8 +111,25 @@ public class FXMLShowCaseScreenController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("heyyo");
+                try {
+                    showValidationStage();
+                } catch (IOException ex) {
+                    Logger.getLogger(FXMLShowCaseScreenController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ApiException ex) {
+                    Logger.getLogger(FXMLShowCaseScreenController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
+    }
+    private Stage showValidationStage() throws IOException, ApiException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ValidateUsers.fxml"));
+
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene((Pane) loader.load()));
+
+        FXMLValidateUsersController controller = loader.<FXMLValidateUsersController>getController();
+        stage.show();
+        return stage;
     }
     
     /**

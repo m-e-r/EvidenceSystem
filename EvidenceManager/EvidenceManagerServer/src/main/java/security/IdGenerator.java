@@ -5,7 +5,8 @@
  */
 package security;
 
-import dbConnection.SQLStatement;
+
+import SQLImplementation.IdGeneratorSQL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,16 +15,16 @@ import java.util.Date;
  * Class used to generate pseudorandom id's for evidence and cases. 
  * @author Kasper
  */
-public class Generator {
+public class IdGenerator {
     private int a, x, m; //Integers used is the math used to generate ids
-    private SecureSql sec; //SecureSql interfaces. Is implemented i the SQLstatement class
+    private IIdGeneratorSQL sec; //SecureSql interfaces. Is implemented i the SQLstatement class
 
     
     /**
      * Class constructor. Instantiates SQLStatement (sec)
      */
-    public Generator() {
-        this.sec = new SQLStatement();  
+    public IdGenerator() {
+        this.sec = new IdGeneratorSQL();
         
     }
     
@@ -80,7 +81,13 @@ public class Generator {
         this.x = this.sec.getPrevUserId(enumValue);
         this.a =3;
         this.m = 570926;
-        String s = enumValue + "-" + this.generatePrefix("yy") + "-"  + this.generateBody(100000);
+        
+        String prefix, body;
+        prefix = this.generatePrefix("yy");
+        body = this.generateBody(100000);
+        
+        String s = enumValue + "-" + prefix + "-"  + body;
+        this.sec.updateUserId(body, enumValue);
         return s;
     }
     

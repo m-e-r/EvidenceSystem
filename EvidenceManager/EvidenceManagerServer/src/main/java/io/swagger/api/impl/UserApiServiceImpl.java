@@ -1,19 +1,12 @@
 package io.swagger.api.impl;
 
-import security.IUserSql;
-import dbConnection.SQLStatement;
 import io.swagger.api.*;
-import io.swagger.model.*;
 
 import io.swagger.model.User;
 import io.swagger.model.UserType;
 
-import java.util.List;
 import io.swagger.api.NotFoundException;
 
-import java.io.InputStream;
-
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
@@ -36,7 +29,7 @@ public class UserApiServiceImpl extends UserApiService {
     @Override
     public Response getListOfUsers(String location, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
-        return Response.ok().entity(userH.getListOfUsers(location)).build();
+        return Response.ok().entity(this.userH.getListOfUsers(location)).build();
     }
     
     @Override

@@ -4,7 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.evidencemanager;
+package FXMLEntity;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
@@ -51,7 +51,7 @@ import javafx.stage.StageStyle;
  */
 public class FXMLCaseController implements Initializable {
     //Attributes
-    private IServerConnect connect; //For calling webservice methods in the ServerConnect implementation. 
+    private IEntity connect; //For calling webservice methods in the ServerConnect implementation. 
     private CriminalCase cc; //Gets parsed from FXMLShowCaseScreenController.
     private Token token;
     

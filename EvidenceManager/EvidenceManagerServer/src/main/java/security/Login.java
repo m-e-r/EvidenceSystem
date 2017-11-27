@@ -5,10 +5,11 @@
  */
 package security;
 
-import dbConnection.SQLStatement;
+import SQLImplementation.LoginSQL;
 import io.swagger.api.impl.ILogin;
 import io.swagger.model.Token;
 import io.swagger.model.UserType;
+import java.util.Arrays;
 
 /**
  * Class used to handle the login at server level. Class generates a token and communicates with the database
@@ -16,13 +17,13 @@ import io.swagger.model.UserType;
  */
 public class Login implements ILogin {
 
-    SecureSql sql;
+    ILoginSQL sql;
 
     /**
      * Class constructor. Instantiates a sqlStatement object.
      */
     public Login() {
-        sql = new SQLStatement();
+        sql = new LoginSQL();
     }
 
     
@@ -34,30 +35,37 @@ public class Login implements ILogin {
      */
     @Override
     public Token doLogin(String message) {
-
-        String[] s = new String[2];
+        String[] sA = message.split(";");
+        if (sA[0].trim().isEmpty() || sA[1].trim().isEmpty()) {
+            return new Token();
+        }
+        ServerSecurity ss = new ServerSecurity();
+        sA[0] = ss.decrypt(sA[0]);
+        sA[1] = ss.decrypt(sA[1]);
 
         Token t = new Token();
 
-        String text = this.decrypt(message);
-
-        s = text.split(";");
-
-        if (sql.getPassAndName(s[0], s[1])) {
-            String id = this.sql.getLawEnforcerId(s[0], s[1]);
+        if (this.userExists(sA[0], sA[1])) {
+            String id = this.getUserId(sA[0], sA[1]);
             t.setId(id);
-            t.setUsertype(this.sql.getRank(id));
+            t.setUsertype(this.getRank(id));
         }
         System.out.println(UserType.valueOf(t.getUsertype()) + " -- " + UserType.valueOf(t.getUsertype()).equals(UserType.COMISSIONER));
         return t;
     }
-
-    public String hash(String text) {
-        return text;
+    
+    public boolean userExists(String username, String password){
+        return this.sql.userExists(username, password);
     }
-
-    public String decrypt(String message) {
-        return message;
+    
+    public String getUserId(String username, String password){
+        return this.sql.getUserId(username, password);
     }
+    
+    public String getRank(String id){
+        return this.sql.getRank(id);
+    }
+    
+    
 
 }

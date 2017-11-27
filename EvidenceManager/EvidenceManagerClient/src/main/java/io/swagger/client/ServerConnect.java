@@ -5,7 +5,8 @@
  */
 package io.swagger.client;
 
-import com.mycompany.evidencemanager.IServerConnect;
+import FXMLEntity.IEntity;
+import FXMLUser.IUser;
 import io.swagger.client.api.CriminalCaseApi;
 import io.swagger.client.api.EvidenceApi;
 import io.swagger.client.api.LawEnForcerApi;
@@ -22,7 +23,7 @@ import java.util.List;
  * This class makes the connection to the server possible for the client
  * @author Kasper
  */
-public class ServerConnect implements IServerConnect{
+public class ServerConnect implements IUser, IEntity {
     private ApiClient ac;
     private CriminalCaseApi cca;
     private EvidenceApi ea;
@@ -38,6 +39,7 @@ public class ServerConnect implements IServerConnect{
         this.ac = new ApiClient();
         this.ac.setBasePath("http://localhost:8080/m-e-r/Evidence/5");
         //this.ac.setBasePath("http://10.126.118.185:8080/m-e-r/Evidence/5");
+        //this.ac.setBasePath("http://10.126.93.21:8080/m-e-r/Evidence/5");
         this.cca = new CriminalCaseApi(this.ac);
         this.ea = new EvidenceApi(this.ac);
         this.sa = new SecurityApi(this.ac);
@@ -123,13 +125,36 @@ public class ServerConnect implements IServerConnect{
         return this.sa.genCaseId();
     }
 
+    /**
+     * Creates a new user object and adds to the database.
+     * @param user
+     * @return
+     * @throws ApiException 
+     */
     @Override
     public boolean createNewUser(User user) throws ApiException {
         return this.sa.addUser(user);
     }
-
+    
+    /**
+     * Returns a list of users. 
+     * @param location
+     * @return
+     * @throws ApiException 
+     */
     @Override
     public List<User> getListOfUsers(String location) throws ApiException {
         return this.sa.getListOfUsers(location);
+    }
+    
+    /**
+     * Validates a user based on a username.
+     * @param userName
+     * @return true if validated
+     * @throws ApiException 
+     */
+    @Override
+    public boolean validateUser(String userName) throws ApiException {
+        return this.sa.validateUser(userName);
     }
 }
