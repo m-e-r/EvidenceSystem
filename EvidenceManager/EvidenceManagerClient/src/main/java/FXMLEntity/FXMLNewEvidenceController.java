@@ -1,4 +1,4 @@
-package com.mycompany.evidencemanager;
+package FXMLEntity;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -6,6 +6,7 @@ package com.mycompany.evidencemanager;
  * and open the template in the editor.
  */
 
+import FXMLEntity.FXMLCaseController;
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
 import io.swagger.client.model.Evidence;
@@ -36,7 +37,7 @@ import javafx.stage.StageStyle;
  * @author Kasper
  */
 public class FXMLNewEvidenceController implements Initializable {
-    private IServerConnect connect;
+    private IEntity connect;
     private Evidence evidence;
     private FXMLCaseController controller;
     private ObservableList<String> categories;

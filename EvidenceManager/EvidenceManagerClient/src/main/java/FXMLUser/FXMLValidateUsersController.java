@@ -1,4 +1,4 @@
-package com.mycompany.evidencemanager;
+package FXMLUser;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -36,7 +36,7 @@ public class FXMLValidateUsersController implements Initializable {
    private ObservableList<UserType> roles;
    private ObservableList<User> users;
    private User user;
-   private IServerConnect connect;
+   private IUser connect;
 
     @FXML
     private ListView<User> usersLV;

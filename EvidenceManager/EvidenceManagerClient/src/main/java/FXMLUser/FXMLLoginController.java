@@ -1,5 +1,7 @@
-package com.mycompany.evidencemanager;
+package FXMLUser;
 
+import FXMLEntity.FXMLShowCaseScreenController;
+import FXMLEntity.FXMLForensicEvidenceController;
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
 import io.swagger.client.model.Token;
@@ -23,7 +25,7 @@ import security.ClientSecurity;
 public class FXMLLoginController implements Initializable {
 
     //Attributes
-    private IServerConnect connect; //For calling methods on the server
+    private IUser connect; //For calling methods on the server
     private ISecurity security;
 
     private Label label;

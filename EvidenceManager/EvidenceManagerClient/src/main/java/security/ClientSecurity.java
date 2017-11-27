@@ -5,7 +5,7 @@
  */
 package security;
 
-import com.mycompany.evidencemanager.ISecurity;
+import FXMLUser.ISecurity;
 import static jdk.nashorn.internal.objects.NativeRegExp.test;
 
 
