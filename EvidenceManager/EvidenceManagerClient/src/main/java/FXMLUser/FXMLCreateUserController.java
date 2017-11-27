@@ -1,4 +1,4 @@
-package com.mycompany.evidencemanager;
+package FXMLUser;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -30,7 +30,7 @@ import javafx.stage.Stage;
  * @author Kasper
  */
 public class FXMLCreateUserController implements Initializable {
-    private IServerConnect connect;
+    private IUser connect;
     private ObservableList<UserType> roles;
     private User newUser;
 

@@ -1,4 +1,4 @@
-package com.mycompany.evidencemanager;
+package FXMLEntity;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

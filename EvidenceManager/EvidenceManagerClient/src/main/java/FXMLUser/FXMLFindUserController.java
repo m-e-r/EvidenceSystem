@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.evidencemanager;
+package FXMLUser;
 
+import FXMLEntity.FXMLViewUserProfileController;
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
 import io.swagger.client.api.SecurityApi;
@@ -56,7 +57,7 @@ public class FXMLFindUserController implements Initializable {
     @FXML
     private TableColumn<User, String> TVRankCol;
 
-    private IServerConnect sc;
+    private IUser connect;
     private ObservableList<User> userList;
     private User admin;
     @FXML
@@ -67,7 +68,7 @@ public class FXMLFindUserController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       this.sc = new ServerConnect();
+       this.connect = new ServerConnect();
        this.admin = new User();
        this.admin.setAddress("Campusvej 55"); 
        this.setUserList();
@@ -85,7 +86,7 @@ public class FXMLFindUserController implements Initializable {
     private void setUserList(){
         try {
             String address = admin.getAddress();
-            userList = FXCollections.observableArrayList(sc.getListOfUsers(address));
+            userList = FXCollections.observableArrayList(connect.getListOfUsers(address));
             for(User s : userList) {
                 System.out.println(s.getRole());
                 UserType us = UserType.valueOf(s.getRole());

@@ -5,7 +5,8 @@
  */
 package io.swagger.client;
 
-import com.mycompany.evidencemanager.IServerConnect;
+import FXMLEntity.IEntity;
+import FXMLUser.IUser;
 import io.swagger.client.api.CriminalCaseApi;
 import io.swagger.client.api.EvidenceApi;
 import io.swagger.client.api.LawEnForcerApi;
@@ -22,7 +23,7 @@ import java.util.List;
  * This class makes the connection to the server possible for the client
  * @author Kasper
  */
-public class ServerConnect implements IServerConnect{
+public class ServerConnect implements IUser, IEntity {
     private ApiClient ac;
     private CriminalCaseApi cca;
     private EvidenceApi ea;
