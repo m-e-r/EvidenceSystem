@@ -11,9 +11,9 @@ package security;
  */
 public interface ILoginSQL {
     
-    public boolean getPassAndName(String username, String password);
+    public boolean userExists(String username, String password);
     
-    public String getLawEnforcerId(String username, String password);
+    public String getUserId(String username, String password);
     
     public String getRank(String id);
     
