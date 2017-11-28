@@ -7,6 +7,7 @@ package FXMLUser;
  */
 
 import io.swagger.client.ServerConnect;
+import io.swagger.client.model.Token;
 import io.swagger.client.model.User;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -50,6 +51,8 @@ public class FXMLViewUserProfileController implements Initializable {
     private IUser connect;
     @FXML
     private TextField isValidatedTF;
+    
+    
 
     /**
      * Initializes the controller class.
@@ -72,6 +75,9 @@ public class FXMLViewUserProfileController implements Initializable {
         updatedUser.setName(name);
         updatedUser.setUsername(username);
         updatedUser.setRole(position);
+        
+       
+        
         
         System.out.println("user updated! need to call some api methods!");
     }

@@ -98,7 +98,7 @@ public class UserHandlerSQL implements IUserHandlerSQL {
     public List<User> getListOfUsers(String admin) {
         List<User> listOfUsers = new ArrayList<>();
         User nextUser;
-        String query = String.format(" SELECT * FROM lawenforcer WHERE locationref = (select _ref FROM locations WHERE adress = %s)",admin);
+        String query = String.format(" SELECT * FROM lawenforcer WHERE locationref = (select _ref FROM locations WHERE adress = '%s')",admin);
 
         ResultSet select = db.executeQuery(query);
 
@@ -108,7 +108,7 @@ public class UserHandlerSQL implements IUserHandlerSQL {
                 int role = select.getInt("positionref");
                 String id = select.getString("id");
                 String username = select.getString("username");
-                String password = select.getString("password");
+                String password = select.getString("passw");
                 String address = select.getString("address");
                 String birthday = select.getString("birthday");
                 

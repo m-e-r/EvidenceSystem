@@ -157,4 +157,6 @@ public class ServerConnect implements IUser, IEntity {
     public boolean validateUser(String userName) throws ApiException {
         return this.sa.validateUser(userName);
     }
+
+    
 }

@@ -69,7 +69,7 @@ public class FXMLFindUserController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
        this.connect = new ServerConnect();
        this.admin = new User();
-       this.admin.setAddress("Campusvej 55"); 
+       this.admin.setAddress("Somewhere far away, maybe Bolbro"); 
        this.setUserList();
     }    
 
@@ -85,7 +85,7 @@ public class FXMLFindUserController implements Initializable {
     private void setUserList(){
         try {
             String address = admin.getAddress();
-            userList = FXCollections.observableArrayList(connect.getUsersList(address));
+            userList = FXCollections.observableArrayList(connect.getListOfUsers(address));
             for(User s : userList) {
                 //System.out.println(s.getRole());
                 UserType us = UserType.valueOf(s.getRole());
