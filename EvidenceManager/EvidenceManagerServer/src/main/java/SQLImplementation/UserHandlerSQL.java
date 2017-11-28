@@ -56,45 +56,46 @@ public class UserHandlerSQL implements IUserHandlerSQL {
      * @param admin The lawenforcer object representing the admin user
      * @return Returns a list of lawenforcers at same location as admin
      */
-    @Override
-    public List<User> getListOfUsers(String admin) {
-        List<User> allUsers = new ArrayList<>();
-        User nextUser;
-        String query = String.format("select * from lawenforcer where locationref "
-                + "= (select _ref from locations where adress = '%s') AND validated = false;", admin);
-
-        ResultSet select = db.executeQuery(query);
-
-        try {
-            while (select.next()) {
-                String name = select.getString("name");
-                String username = select.getString("username");
-                String address = select.getString("address");
-                String birthday = select.getString("birthday");
-                int role = select.getInt("positionref");
-
-                String queryPosition = String.format("SELECT title FROM lawenforcerposition WHERE _ref = %d;", role);
-                ResultSet pos = db.executeQuery(queryPosition);
-                pos.next();
-
-                nextUser = new User();
-                nextUser.setName(name);
-                nextUser.setUsername(username);
-                nextUser.setAddress(address);
-                nextUser.setBirthday(birthday);
-                nextUser.setRole(pos.getString(1));
-
-                allUsers.add(nextUser);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return allUsers;
-    }
+//    @Override
+//    public List<User> getListOfUsers(String admin) {
+//        List<User> allUsers = new ArrayList<>();
+//        User nextUser;
+//        String query = String.format("select * from lawenforcer where locationref "
+//                + "= (select _ref from locations where adress = '%s') AND validated = false;", admin);
+//
+//        ResultSet select = db.executeQuery(query);
+//
+//        try {
+//            while (select.next()) {
+//                String name = select.getString("name");
+//                String username = select.getString("username");
+//                String address = select.getString("address");
+//                String birthday = select.getString("birthday");
+//                int role = select.getInt("positionref");
+//
+//                String queryPosition = String.format("SELECT title FROM lawenforcerposition WHERE _ref = %d;", role);
+//                ResultSet pos = db.executeQuery(queryPosition);
+//                pos.next();
+//
+//                nextUser = new User();
+//                nextUser.setName(name);
+//                nextUser.setUsername(username);
+//                nextUser.setAddress(address);
+//                nextUser.setBirthday(birthday);
+//                nextUser.setRole(pos.getString(1));
+//
+//                allUsers.add(nextUser);
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(UserHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//        return allUsers;
+//    }
 
     
-    public List<User> getUsersList(String admin) {
+    @Override
+    public List<User> getListOfUsers(String admin) {
         List<User> listOfUsers = new ArrayList<>();
         User nextUser;
         String query = String.format(" SELECT * FROM lawenforcer WHERE locationref = (select _ref FROM locations WHERE adress = %s)",admin);
