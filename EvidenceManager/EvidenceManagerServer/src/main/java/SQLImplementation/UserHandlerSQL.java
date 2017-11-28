@@ -93,6 +93,48 @@ public class UserHandlerSQL implements IUserHandlerSQL {
         return allUsers;
     }
 
+    
+    public List<User> getUsersList(String admin) {
+        List<User> listOfUsers = new ArrayList<>();
+        User nextUser;
+        String query = String.format(" SELECT * FROM lawenforcer WHERE locationref = (select _ref FROM locations WHERE adress = %s)",admin);
+
+        ResultSet select = db.executeQuery(query);
+
+        try {
+            while (select.next()) {
+                String name = select.getString("name");
+                int role = select.getInt("positionref");
+                String id = select.getString("id");
+                String username = select.getString("username");
+                String password = select.getString("password");
+                String address = select.getString("address");
+                String birthday = select.getString("birthday");
+                
+
+                String queryPosition = String.format("SELECT title FROM lawenforcerposition WHERE _ref = %d;", role);
+                ResultSet pos = db.executeQuery(queryPosition);
+                pos.next();
+
+                nextUser = new User();
+                nextUser.setName(name);
+                nextUser.setRole(pos.getString(1));
+                nextUser.setEmployeeId(id);
+                nextUser.setUsername(username);
+                nextUser.setPassword(password);
+                nextUser.setAddress(address);
+                nextUser.setBirthday(birthday);
+                
+
+                listOfUsers.add(nextUser);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return listOfUsers;
+    }
+    
     /**
      * Sets a user to be validated.
      *
