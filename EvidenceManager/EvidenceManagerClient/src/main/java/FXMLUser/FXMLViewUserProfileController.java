@@ -43,17 +43,13 @@ public class FXMLViewUserProfileController implements Initializable {
     @FXML
     private TextField stationTF;
     @FXML
-    private RadioButton validatedRBTN;
-    @FXML
-    private ToggleGroup validateTG;
-    @FXML
-    private RadioButton nonValidatedRBTN;
-    @FXML
     private Button editProfilBTN;
     
     private User user;
     
     private IUser connect;
+    @FXML
+    private TextField isValidatedTF;
 
     /**
      * Initializes the controller class.
@@ -72,8 +68,12 @@ public class FXMLViewUserProfileController implements Initializable {
         String position = this.rankCB.getSelectionModel().getSelectedItem().toString();
         
         User updatedUser = new User();
-        //updatedUser.set
+        updatedUser.setAddress(adress);
+        updatedUser.setName(name);
+        updatedUser.setUsername(username);
+        updatedUser.setRole(position);
         
+        System.out.println("user updated! need to call some api methods!");
     }
 
     public void initData(User user) {
