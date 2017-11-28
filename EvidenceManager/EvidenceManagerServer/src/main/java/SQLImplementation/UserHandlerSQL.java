@@ -33,7 +33,7 @@ public class UserHandlerSQL implements IUserHandlerSQL {
                 + "   SET name='%s', positionref= (SELECT _ref FROM lawenforcerposition WHERE title='%s', username='%s',\n"
                 + "       address='%s'\n"
                 + "   WHERE id = '%d';", user.getName(), user.getRole(), user.getUsername(), user.getAddress());
-        
+
         return this.db.updateQuery(query) == 1;
     }
 
@@ -92,13 +92,11 @@ public class UserHandlerSQL implements IUserHandlerSQL {
 //
 //        return allUsers;
 //    }
-
-    
     @Override
     public List<User> getListOfUsers(String admin) {
         List<User> listOfUsers = new ArrayList<>();
         User nextUser;
-        String query = String.format(" SELECT * FROM lawenforcer WHERE locationref = (select _ref FROM locations WHERE adress = '%s')",admin);
+        String query = String.format(" SELECT * FROM lawenforcer WHERE locationref = (select _ref FROM locations WHERE adress = '%s')", admin);
 
         ResultSet select = db.executeQuery(query);
 
@@ -111,7 +109,6 @@ public class UserHandlerSQL implements IUserHandlerSQL {
                 String password = select.getString("passw");
                 String address = select.getString("address");
                 String birthday = select.getString("birthday");
-                
 
                 String queryPosition = String.format("SELECT title FROM lawenforcerposition WHERE _ref = %d;", role);
                 ResultSet pos = db.executeQuery(queryPosition);
@@ -125,7 +122,6 @@ public class UserHandlerSQL implements IUserHandlerSQL {
                 nextUser.setPassword(password);
                 nextUser.setAddress(address);
                 nextUser.setBirthday(birthday);
-                
 
                 listOfUsers.add(nextUser);
             }
@@ -135,7 +131,7 @@ public class UserHandlerSQL implements IUserHandlerSQL {
 
         return listOfUsers;
     }
-    
+
     /**
      * Sets a user to be validated.
      *
@@ -151,6 +147,43 @@ public class UserHandlerSQL implements IUserHandlerSQL {
 
         return this.db.updateQuery(query) == 1;
 
+    }
+
+    @Override
+    public User getUser(String id) {
+        User user = null;
+        String query = String.format("Select * from lawenforcer where id = '%s", id);
+
+        ResultSet select = db.executeQuery(query);
+
+        try {
+            while (select.next()) {
+                String name = select.getString("name");
+                int role = select.getInt("positionref");
+                String username = select.getString("username");
+                String password = select.getString("passw");
+                String address = select.getString("address");
+                String birthday = select.getString("birthday");
+
+                String queryPosition = String.format("SELECT title FROM lawenforcerposition WHERE _ref = %d;", role);
+                ResultSet pos = db.executeQuery(queryPosition);
+                pos.next();
+
+                user = new User();
+                user.setName(name);
+                user.setRole(pos.getString(1));
+                user.setEmployeeId(id);
+                user.setUsername(username);
+                user.setPassword(password);
+                user.setAddress(address);
+                user.setBirthday(birthday);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return user;
     }
 
 }
