@@ -28,7 +28,11 @@ public class UserHandler {
         this.gen = new IdGenerator();
     }
     
-    public boolean updaterUser(User user){
+    public User getUser(String id){
+        return this.handler.getUser(id);
+    }
+    
+    public boolean updateUser(User user){
         return this.handler.updateUser(user);
     }
     

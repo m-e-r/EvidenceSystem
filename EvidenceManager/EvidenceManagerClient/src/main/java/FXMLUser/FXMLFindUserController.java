@@ -112,7 +112,8 @@ public class FXMLFindUserController implements Initializable {
     @FXML
     private void viewUser(ActionEvent event) throws IOException, ApiException {
         User selectedUser = this.usersTV.getSelectionModel().getSelectedItem();
-        this.showUserScreenStage(selectedUser);
+        
+        this.showUserScreenStage(selectedUser, null);
         
     }
     
@@ -123,14 +124,14 @@ public class FXMLFindUserController implements Initializable {
      * @return stage.
      * @throws IOException
      */
-    private Stage showUserScreenStage(User user) throws IOException, ApiException {
+    private Stage showUserScreenStage(User user, Token t) throws IOException, ApiException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ViewUserProfile.fxml"));
 
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene((Pane) loader.load()));
 
         FXMLViewUserProfileController controller = loader.<FXMLViewUserProfileController>getController();
-        controller.initData(user);
+        controller.initData(user, t);
         stage.show();
         return stage;
     }
