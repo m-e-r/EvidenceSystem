@@ -63,6 +63,10 @@ public class FXMLViewUserProfileController implements Initializable {
         
     }    
 
+    /**
+     * Method that saves an edited profile to the database
+     * @param event 
+     */
     @FXML
     private void saveEditProfle(ActionEvent event) {
         String name = this.nameTF.getText();
@@ -82,6 +86,10 @@ public class FXMLViewUserProfileController implements Initializable {
         System.out.println("user updated! need to call some api methods!");
     }
 
+    /**
+     * Method that initializes the text fields. Is called when screen is set.
+     * @param user The user that should be shown.
+     */
     public void initData(User user) {
         this.user = user;
         this.nameTF.setText(this.user.getName());
