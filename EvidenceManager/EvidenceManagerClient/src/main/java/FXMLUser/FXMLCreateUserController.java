@@ -23,6 +23,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import security.ClientSecurity;
 
 /**
  * FXML Controller class
@@ -33,7 +34,7 @@ public class FXMLCreateUserController implements Initializable {
     private IUser connect;
     private ObservableList<UserType> roles;
     private User newUser;
-
+    private ClientSecurity cs;
     @FXML
     private TextField nameTF;
     @FXML
@@ -62,6 +63,7 @@ public class FXMLCreateUserController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.connect = new ServerConnect();
         this.newUser = new User();
+        this.cs= new ClientSecurity();
         
         this.missingLabel.setVisible(false);
         this.userNameTakenLabel.setVisible(false);
@@ -78,13 +80,15 @@ public class FXMLCreateUserController implements Initializable {
      */
     @FXML
     private void handleCreateUserAction(ActionEvent event) throws ApiException {
+        
+        
         if (this.fieldsAreNotNull()) {
             this.missingLabel.setVisible(false);
             
             this.newUser.setAddress(this.addressTF.getText());
             this.newUser.setBirthday(this.birthdayDP.getValue().toString());
             this.newUser.setName(this.nameTF.getText());
-            this.newUser.setPassword(this.passwordTF.getText());
+            this.newUser.setPassword(cs.encrypt(this.passwordTF.getText()));
             this.newUser.setUsername(this.userNameTF.getText());
             this.newUser.setRole(this.roleCB.getValue().toString());
             

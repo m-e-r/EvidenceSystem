@@ -7,11 +7,14 @@ package SQLImplementation;
 
 import dbConnection.DBConnection;
 import io.swagger.model.Token;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import security.ILoginSQL;
+import security.Passwords;
 
 /**
  *
@@ -67,9 +70,16 @@ public class LoginSQL implements ILoginSQL {
      */
     @Override
     public boolean userExists(String username, String password) {
-
+         String hashPassword = "";
+        try {
+            hashPassword = Passwords.passwordHashGenerator(password);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(LoginSQL.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(LoginSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String query = "select username, passw from lawenforcer where username = '"
-                + username + "' and passw = '" + password + "'";
+                + username + "' and passw = '" + hashPassword + "'";
 
         ResultSet select = db.executeQuery(query);
 

@@ -7,6 +7,8 @@ package SQLImplementation;
 
 import dbConnection.DBConnection;
 import io.swagger.model.User;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import security.IUserHandlerSQL;
+import security.Passwords;
+import security.ServerSecurity;
 
 /**
  *
@@ -39,12 +43,21 @@ public class UserHandlerSQL implements IUserHandlerSQL {
 
     @Override
     public boolean addUser(User user) {
+        ServerSecurity ss = new ServerSecurity();
         //int positionRef = user.getRole().ordinal();
-
-        String query
-                = String.format("INSERT INTO lawenforcer(name, id, positionref, username, passw, validated, address, birthday)\n"
-                        + "VALUES ('%s', '%s', %d, '%s', '%s', FALSE, '%s', '%s')",
-                        user.getName(), user.getEmployeeId(), 2, user.getUsername(), user.getPassword(), user.getAddress(), user.getBirthday());
+        System.err.println(user.getPassword());
+        
+        String password = ss.decrypt(user.getPassword());
+        String query = null;
+        try {
+            query = String.format("INSERT INTO lawenforcer(name, id, positionref, username, passw, validated, address, birthday)\n"
+                    + "VALUES ('%s', '%s', %d, '%s', '%s', FALSE, '%s', '%s')",
+                    user.getName(), user.getEmployeeId(), 2, user.getUsername(), Passwords.passwordHashGenerator(password), user.getAddress(), user.getBirthday());
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(UserHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         return this.db.updateQuery(query) == 1;
     }
