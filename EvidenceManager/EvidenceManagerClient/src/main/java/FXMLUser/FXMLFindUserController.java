@@ -38,6 +38,7 @@ import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
+ * Shows list of users with same location as admin logged in
  *
  * @author jacob
  */
