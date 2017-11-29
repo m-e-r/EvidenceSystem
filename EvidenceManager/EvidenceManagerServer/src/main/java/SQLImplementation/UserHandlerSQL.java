@@ -43,26 +43,10 @@ public class UserHandlerSQL implements IUserHandlerSQL {
 
     @Override
     public boolean addUser(User user) {
-        ServerSecurity ss = new ServerSecurity();
-        //int positionRef = user.getRole().ordinal();
-        System.err.println(user.getPassword());
         
-        String password = ss.decrypt(user.getPassword());
-        String hashPassword = "";
-        
-        try {
-            hashPassword = Passwords.passwordHashGenerator(password, false);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(UserHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidKeySpecException ex) {
-            Logger.getLogger(UserHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String query = null;
-        System.out.println(hashPassword);
-
-            query = String.format("INSERT INTO lawenforcer(name, id, positionref, username, passw, validated, address, birthday)\n"
+            String query = String.format("INSERT INTO lawenforcer(name, id, positionref, username, passw, validated, address, birthday)\n"
                     + "VALUES ('%s', '%s', %d, '%s', '%s', FALSE, '%s', '%s')",
-                    user.getName(), user.getEmployeeId(), 2, user.getUsername(), hashPassword , user.getAddress(), user.getBirthday());
+                    user.getName(), user.getEmployeeId(), 2, user.getUsername(), user.getPassword() , user.getAddress(), user.getBirthday());
 
 
         return this.db.updateQuery(query) == 1;

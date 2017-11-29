@@ -38,7 +38,6 @@ public class LoginSQL implements ILoginSQL {
      */
     @Override
     public String getRank(String id) {
-        System.out.println(id);
 
         String query = String.format("select title from lawenforcerposition where _ref = (SELECT positionref from lawenforcer where id = '%s')", id);
 
@@ -49,10 +48,10 @@ public class LoginSQL implements ILoginSQL {
         try {
             while (select.next() | i == 1) {
                 position = select.getString("title");
-                System.out.println(position);
                 i++;
             }
         } catch (SQLException ex) {
+           
             System.err.println(ex);
         }
 
@@ -70,22 +69,15 @@ public class LoginSQL implements ILoginSQL {
      */
     @Override
     public boolean userExists(String username, String password) {
-         String hashPassword = "";
-        try {
-            hashPassword = Passwords.passwordHashGenerator(password, true);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(LoginSQL.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidKeySpecException ex) {
-            Logger.getLogger(LoginSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println("\n" + hashPassword);
-        String query = "select username, passw from lawenforcer where username = '"
-                + username + "' and passw = '" + hashPassword + "'";
-
+        String query = String.format("select username, passw from lawenforcer where username = '%s' and passw = '%s'", username, password);
         ResultSet select = db.executeQuery(query);
-
-        try {
-            return select.next();
+        String[] test = password.split(":");
+        System.out.println(test[0].equals("1000"));
+        System.out.println(test[1].equals("43e418504165b42067630af43ca485b983f490436ca235456846ce38c3c9cbdf792ee8614fc629e594d73f3288d43fa2da1eff5e2bcdf9631df6c87b4cca5ad3b408b3a17a6869b2d86da0a3b8a0f79d278629c60feef60a95d388f938cd8e496c6e4229a2a23ab5f63390434f5d98433f131d082d0ce9ccb669a3aa3312dab3e2a117a398c693a3ae7787f2dafb4efeddb2042a265f9c278d172a334132a021"));
+        System.out.println(test[2].equals("b2a1ae045134e4240b875fed0c80738b9f244d00181fbe4340263269c1a8710c4029e07fe1827c3e"));
+       
+        try {         
+           return select.next();
         } catch (SQLException ex) {
             Logger.getLogger(LoginSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -126,19 +118,17 @@ public class LoginSQL implements ILoginSQL {
 
         ResultSet select = db.executeQuery(query);
         String [] saltArray = new String [3];
+        String temp = "";
+        
         
         try {
             while (select.next()) {
-                try {
-                    saltArray = select.getString("passw").split(":");
-                } catch (SQLException ex) {
-                    Logger.getLogger(LoginSQL.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                    temp = select.getString("passw");
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        saltArray = temp.split(":");
         String salt = saltArray[1];
         
         return salt;

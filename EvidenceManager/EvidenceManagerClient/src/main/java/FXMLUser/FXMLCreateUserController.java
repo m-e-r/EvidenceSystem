@@ -89,7 +89,7 @@ public class FXMLCreateUserController implements Initializable {
             this.newUser.setBirthday(this.birthdayDP.getValue().toString());
             this.newUser.setName(this.nameTF.getText());
             this.newUser.setPassword(cs.encrypt(this.passwordTF.getText()));
-            this.newUser.setUsername(this.userNameTF.getText());
+            this.newUser.setUsername(cs.encrypt(this.userNameTF.getText()));
             this.newUser.setRole(this.roleCB.getValue().toString());
             
             if (!this.connect.createNewUser(this.newUser)) {

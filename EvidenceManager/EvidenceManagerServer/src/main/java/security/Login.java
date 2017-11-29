@@ -12,6 +12,8 @@ import io.swagger.model.UserType;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
@@ -24,12 +26,14 @@ import javax.crypto.spec.PBEKeySpec;
 public class Login implements ILogin {
     private static final int KEY_LENGTH = 160;
     ILoginSQL sql;
+    private Passwords pass;
 
     /**
      * Class constructor. Instantiates a sqlStatement object.
      */
     public Login() {
         sql = new LoginSQL();
+        this.pass = new Passwords();
     }
 
     /**
@@ -43,7 +47,6 @@ public class Login implements ILogin {
      */
     @Override
     public Token doLogin(String message) {
-        System.out.println(message);
         String[] sA = message.split(";");
         if (sA[0].trim().isEmpty() || sA[1].trim().isEmpty()) {
             return new Token();
@@ -51,11 +54,18 @@ public class Login implements ILogin {
         ServerSecurity ss = new ServerSecurity();
         sA[0] = ss.decrypt(sA[0]);
         sA[1] = ss.decrypt(sA[1]);
-        
+        try {
+            sA[1] = this.pass.passwordHashGenerator(sA[1], sA[0], true);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Token t = new Token();
 
         if (this.userExists(sA[0], sA[1])) {
             String id = this.getUserId(sA[0], sA[1]);
+            System.out.println(id);
             t.setId(id);
             t.setUsertype(this.getRank(id));
         }
