@@ -72,12 +72,13 @@ public class LoginSQL implements ILoginSQL {
     public boolean userExists(String username, String password) {
          String hashPassword = "";
         try {
-            hashPassword = Passwords.passwordHashGenerator(password);
+            hashPassword = Passwords.passwordHashGenerator(password, true);
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(LoginSQL.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidKeySpecException ex) {
             Logger.getLogger(LoginSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println("\n" + hashPassword);
         String query = "select username, passw from lawenforcer where username = '"
                 + username + "' and passw = '" + hashPassword + "'";
 

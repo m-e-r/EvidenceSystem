@@ -15,6 +15,5 @@ public interface ILogin {
     
     public Token doLogin(String message);
     
-    
    
 }

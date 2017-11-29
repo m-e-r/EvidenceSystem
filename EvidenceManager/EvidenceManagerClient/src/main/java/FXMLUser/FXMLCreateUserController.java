@@ -97,7 +97,7 @@ public class FXMLCreateUserController implements Initializable {
             } else {
                 this.userNameTakenLabel.setVisible(false);
                 Stage stageToClose = (Stage) this.createUserBTN.getScene().getWindow();
-                stageToClose.close();
+                //stageToClose.close();
             }
             
             
