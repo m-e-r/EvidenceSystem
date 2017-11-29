@@ -90,8 +90,8 @@ public class FXMLFindUserController implements Initializable {
             for(User s : userList) {
                 //System.out.println(s.getRole());
                 UserType us = UserType.valueOf(s.getRole());
-               // System.out.println(us);
-                System.out.println("GET ID" + s.getEmployeeId());
+                System.out.println("User: " + s.getName() + "\nType: " + us + "\n\n");
+                //System.out.println("GET ID" + s.getEmployeeId());
             }
             
             TVidCol.setCellValueFactory(new PropertyValueFactory<User, String>("employeeId"));

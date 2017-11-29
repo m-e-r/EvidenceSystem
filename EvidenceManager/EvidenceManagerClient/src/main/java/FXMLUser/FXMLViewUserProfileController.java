@@ -8,8 +8,13 @@ package FXMLUser;
 import io.swagger.client.ServerConnect;
 import io.swagger.client.model.Token;
 import io.swagger.client.model.User;
+import io.swagger.client.model.UserType;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -39,7 +44,7 @@ public class FXMLViewUserProfileController implements Initializable {
     @FXML
     private TextField adressTF;
     @FXML
-    private ChoiceBox<?> rankCB;
+    private ChoiceBox<String> rankCB;
     @FXML
     private TextField stationTF;
     @FXML
@@ -50,13 +55,23 @@ public class FXMLViewUserProfileController implements Initializable {
     private IUser connect;
     @FXML
     private TextField isValidatedTF;
-
+    
+    private ObservableList<String> cbList;
+    private List<String> userList;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.connect = new ServerConnect();
+        this.userList = new ArrayList<>();
+        
+        for(UserType type : UserType.values()){
+            userList.add(type.toString());
+        }
+        
+        this.cbList = FXCollections.observableArrayList(userList);
+        rankCB.setItems(cbList);
 
     }
 
@@ -78,7 +93,6 @@ public class FXMLViewUserProfileController implements Initializable {
         updatedUser.setUsername(username);
         updatedUser.setRole(position);
 
-        System.out.println("user updated! need to call some api methods!");
     }
 
     /**
@@ -95,6 +109,7 @@ public class FXMLViewUserProfileController implements Initializable {
         } else {
             this.user = user;
         }
+        
 
         this.nameTF.setText(this.user.getName());
         this.idTF.setText(this.user.getEmployeeId());
@@ -102,7 +117,12 @@ public class FXMLViewUserProfileController implements Initializable {
         this.usernameTF.setText(this.user.getUsername());
         this.passwordTF.setText(this.user.getPassword());
         this.adressTF.setText(this.user.getAddress());
-
+        
+        try {
+        this.rankCB.setValue(UserType.valueOf(this.user.getRole()).toString());
+        } catch (NullPointerException e){
+            this.rankCB.setValue("No role found");
+        }
     }
 
 }
