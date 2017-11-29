@@ -118,4 +118,31 @@ public class LoginSQL implements ILoginSQL {
         return id;
 
     }
+
+    @Override
+    public String getSalt(String username) {
+        String query = "Select passw from lawenforcer where username = '" + username + "'";
+
+        ResultSet select = db.executeQuery(query);
+        String [] saltArray = new String [3];
+        
+        try {
+            while (select.next()) {
+                try {
+                    saltArray = select.getString("passw").split(":");
+                } catch (SQLException ex) {
+                    Logger.getLogger(LoginSQL.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        String salt = saltArray[1];
+        
+        return salt;
+    }
+    
+    
+    
 }
