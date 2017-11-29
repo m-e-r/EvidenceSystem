@@ -5,8 +5,8 @@ package FXMLUser;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import io.swagger.client.ServerConnect;
+import io.swagger.client.model.Token;
 import io.swagger.client.model.User;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,17 +43,13 @@ public class FXMLViewUserProfileController implements Initializable {
     @FXML
     private TextField stationTF;
     @FXML
-    private RadioButton validatedRBTN;
-    @FXML
-    private ToggleGroup validateTG;
-    @FXML
-    private RadioButton nonValidatedRBTN;
-    @FXML
     private Button editProfilBTN;
-    
+
     private User user;
-    
+
     private IUser connect;
+    @FXML
+    private TextField isValidatedTF;
 
     /**
      * Initializes the controller class.
@@ -61,30 +57,52 @@ public class FXMLViewUserProfileController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.connect = new ServerConnect();
-        
-    }    
 
+    }
+
+    /**
+     * Method that saves an edited profile to the database
+     *
+     * @param event
+     */
     @FXML
     private void saveEditProfle(ActionEvent event) {
         String name = this.nameTF.getText();
         String username = this.usernameTF.getText();
         String adress = this.adressTF.getText();
         String position = this.rankCB.getSelectionModel().getSelectedItem().toString();
-        
+
         User updatedUser = new User();
-        //updatedUser.set
-        
+        updatedUser.setAddress(adress);
+        updatedUser.setName(name);
+        updatedUser.setUsername(username);
+        updatedUser.setRole(position);
+
+        System.out.println("user updated! need to call some api methods!");
     }
 
-    public void initData(User user) {
-        this.user = user;
+    /**
+     * Method that initializes the text fields. Is called when screen is set.
+     *
+     * @param user The user that should be shown.
+     */
+    public void initData(User user, Token t) {
+
+        
+        if (user == null) {
+            // For when getUser works
+            this.user = connect.getUser(t.getId());
+        } else {
+            this.user = user;
+        }
+
         this.nameTF.setText(this.user.getName());
         this.idTF.setText(this.user.getEmployeeId());
         this.birthdayTF.setText(this.user.getBirthday());
         this.usernameTF.setText(this.user.getUsername());
         this.passwordTF.setText(this.user.getPassword());
         this.adressTF.setText(this.user.getAddress());
-        
+
     }
-    
+
 }

@@ -17,7 +17,10 @@ import java.util.List;
 public interface IUser {
     public boolean createNewUser(User user) throws ApiException;
     public List<User> getListOfUsers(String location) throws ApiException;
+   // public List<User> getUsersList(String location) throws ApiException;
     public boolean validateUser(String userName) throws ApiException;
+    
+    public User getUser(String id);
     
     public Token doSomeLogin(String userName, String password) throws ApiException;
 }

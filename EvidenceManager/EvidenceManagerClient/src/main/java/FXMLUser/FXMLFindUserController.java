@@ -38,6 +38,7 @@ import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
+ * Shows list of users with same location as admin logged in
  *
  * @author jacob
  */
@@ -69,7 +70,7 @@ public class FXMLFindUserController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
        this.connect = new ServerConnect();
        this.admin = new User();
-       this.admin.setAddress("Campusvej 55"); 
+       this.admin.setAddress("Somewhere far away, maybe Bolbro"); 
        this.setUserList();
     }    
 
@@ -87,9 +88,10 @@ public class FXMLFindUserController implements Initializable {
             String address = admin.getAddress();
             userList = FXCollections.observableArrayList(connect.getListOfUsers(address));
             for(User s : userList) {
-                System.out.println(s.getRole());
+                //System.out.println(s.getRole());
                 UserType us = UserType.valueOf(s.getRole());
-                System.out.println(us);
+               // System.out.println(us);
+                System.out.println("GET ID" + s.getEmployeeId());
             }
             
             TVidCol.setCellValueFactory(new PropertyValueFactory<User, String>("employeeId"));
@@ -110,7 +112,8 @@ public class FXMLFindUserController implements Initializable {
     @FXML
     private void viewUser(ActionEvent event) throws IOException, ApiException {
         User selectedUser = this.usersTV.getSelectionModel().getSelectedItem();
-        this.showUserScreenStage(selectedUser);
+        
+        this.showUserScreenStage(selectedUser, null);
         
     }
     
@@ -121,14 +124,14 @@ public class FXMLFindUserController implements Initializable {
      * @return stage.
      * @throws IOException
      */
-    private Stage showUserScreenStage(User user) throws IOException, ApiException {
+    private Stage showUserScreenStage(User user, Token t) throws IOException, ApiException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ViewUserProfile.fxml"));
 
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene((Pane) loader.load()));
 
         FXMLViewUserProfileController controller = loader.<FXMLViewUserProfileController>getController();
-        controller.initData(user);
+        controller.initData(user, t);
         stage.show();
         return stage;
     }

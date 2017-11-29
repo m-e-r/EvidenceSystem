@@ -20,9 +20,9 @@
             </TextField>
             <TableView fx:id="usersTV" prefHeight="200.0" prefWidth="200.0">
               <columns>
-                <TableColumn fx:id="TVidCol" minWidth="-1.0" prefWidth="75.0" text="Id" />
-                <TableColumn fx:id="TVNameCol" minWidth="-1.0" prefWidth="75.0" text="Name" />
-                  <TableColumn fx:id="TVRankCol" minWidth="-1.0" prefWidth="100.0" text="Rank" />
+                <TableColumn fx:id="TVidCol" minWidth="-1.0" prefWidth="166.0" text="Id" />
+                <TableColumn fx:id="TVNameCol" minWidth="-1.0" prefWidth="240.0" text="Name" />
+                  <TableColumn fx:id="TVRankCol" minWidth="-1.0" prefWidth="193.0" text="Rank" />
               </columns>
                <VBox.margin>
                   <Insets top="20.0" />

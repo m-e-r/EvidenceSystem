@@ -157,4 +157,17 @@ public class ServerConnect implements IUser, IEntity {
     public boolean validateUser(String userName) throws ApiException {
         return this.sa.validateUser(userName);
     }
+
+    @Override
+    public User getUser(String id) {
+        
+        //Should return a user after next yaml update
+        //return this.sa.getUser(id);
+        User u = new User();
+        u.setAddress("sdlf");
+        u.setName("test");
+        return u;
+    }
+
+    
 }

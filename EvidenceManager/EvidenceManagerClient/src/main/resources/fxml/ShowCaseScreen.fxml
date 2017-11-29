@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLEntity.FXMLShowCaseScreenController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLEntity.FXMLShowCaseScreenController">
    <children>
       <SplitPane dividerPositions="0.8504065040650407" orientation="VERTICAL" prefHeight="600.0" prefWidth="630.0">
          <items>
@@ -17,6 +17,7 @@
                   <ListView fx:id="caseEditLV" layoutX="14.0" layoutY="100.0" prefHeight="415.0" prefWidth="598.0" />
                   <TextField fx:id="caseSearchTF" layoutX="14.0" layoutY="73.0" prefHeight="25.0" prefWidth="598.0" text="Search cases" />
                   <Button fx:id="malplacedSearchBTN" layoutX="295.0" layoutY="38.0" mnemonicParsing="false" text="Search" />
+                  <Button fx:id="viewProfileBTN" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onAction="#viewProfile" text="View profile" />
                </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="105.0" prefWidth="160.0">

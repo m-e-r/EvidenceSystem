@@ -18,6 +18,7 @@ public interface IUserHandlerSQL {
     public boolean addUser(User user);
     public List<User> getListOfUsers(String location);
     public boolean validateUser(String username, String newId);
+    public User getUser(String id);
     
     
 

@@ -7,10 +7,12 @@ package FXMLEntity;
 
 import FXMLEntity.FXMLCaseController;
 import FXMLUser.FXMLValidateUsersController;
+import FXMLUser.FXMLViewUserProfileController;
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
 import io.swagger.client.model.CriminalCase;
 import io.swagger.client.model.Token;
+import io.swagger.client.model.User;
 import io.swagger.client.model.UserType;
 import java.io.IOException;
 import java.net.URL;
@@ -62,6 +64,8 @@ public class FXMLShowCaseScreenController implements Initializable {
     private Button malplacedSearchBTN;
     @FXML
     private HBox buttonsHB;
+    @FXML
+    private Button viewProfileBTN;
 
     /**
      * Initializes the controller class.
@@ -189,6 +193,46 @@ public class FXMLShowCaseScreenController implements Initializable {
         stage.show();
         return stage;
 
+    }
+
+//    @FXML
+//    private void viewProfile(ActionEvent event) throws IOException{
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ViewUserProfile.fxml"));
+//
+//        Stage stage = new Stage(StageStyle.DECORATED);
+//        stage.setScene(new Scene((Pane) loader.load()));
+//
+//        FXMLViewUserProfileController controller = loader.<FXMLViewUserProfileController>getController();
+//        controller.initData(null, this.token);
+//        
+//        stage.show();
+//        return stage;
+//        
+//    }
+
+    @FXML
+    private void viewProfile(ActionEvent event) throws IOException, ApiException {
+        showUserScreenStage(this.token);
+        
+    }
+    
+    /**
+     * Displays the view user screen.
+     *
+     * @param connector not relevant
+     * @return stage.
+     * @throws IOException
+     */
+    private Stage showUserScreenStage(Token t) throws IOException, ApiException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ViewUserProfile.fxml"));
+
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene((Pane) loader.load()));
+
+        FXMLViewUserProfileController controller = loader.<FXMLViewUserProfileController>getController();
+        controller.initData(null, t);
+        stage.show();
+        return stage;
     }
 
 
