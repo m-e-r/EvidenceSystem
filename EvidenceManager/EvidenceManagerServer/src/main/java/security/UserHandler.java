@@ -10,7 +10,11 @@ import SQLImplementation.UserHandlerSQL;
 
 import io.swagger.api.impl.IsqlStatement;
 import io.swagger.model.User;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,11 +25,15 @@ public class UserHandler {
     private ILoginSQL login; //Noget rod. Få det ændret når vi merger!!
     private User user;
     private IdGenerator gen;
+    private Passwords pass;
+    private ServerSecurity ss;
     
     public UserHandler() {
         this.handler = new UserHandlerSQL();
         this.login = new LoginSQL();
         this.gen = new IdGenerator();
+        this.pass = new Passwords();
+        this.ss = new ServerSecurity();
     }
     
     public User getUser(String id){
@@ -45,6 +53,22 @@ public class UserHandler {
     public boolean addUser(User user) {
         this.user = user;
         this.user.setEmployeeId(this.gen.generateTempUserId());
+        
+        String password = this.ss.decrypt(user.getPassword());
+        String username = this.ss.decrypt(user.getUsername());
+        String hashPassword = "";
+        
+        try {
+            hashPassword = this.pass.passwordHashGenerator(password, username, false);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(UserHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        user.setUsername(username);
+        user.setPassword(hashPassword);
+        
         return this.handler.addUser(this.user);
     }
     

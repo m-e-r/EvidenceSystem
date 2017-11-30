@@ -16,5 +16,7 @@ public interface ILoginSQL {
     public String getUserId(String username, String password);
     
     public String getRank(String id);
-    
+
+    public String getSalt(String username);
+
 }

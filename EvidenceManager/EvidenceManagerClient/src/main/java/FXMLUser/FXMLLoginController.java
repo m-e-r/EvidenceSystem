@@ -8,6 +8,8 @@ import io.swagger.client.model.Token;
 import io.swagger.client.model.UserType;
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,7 +55,9 @@ public class FXMLLoginController implements Initializable {
      * @throws IOException
      */
     @FXML
-    private void handleLoginAction(ActionEvent event) throws ApiException, IOException {
+    private void handleLoginAction(ActionEvent event) throws ApiException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+   
+        
         String userName = "";
         String password = "";
 
@@ -61,9 +65,10 @@ public class FXMLLoginController implements Initializable {
         if (!this.userNameTF.getText().trim().isEmpty()) {
             userName = this.userNameTF.getText();
         }
+        
 
         if (!this.passwordTF.getText().trim().isEmpty()) {
-            password = this.passwordTF.getText();
+            password =this.passwordTF.getText();
         }
         
         //Encrypt username and password
