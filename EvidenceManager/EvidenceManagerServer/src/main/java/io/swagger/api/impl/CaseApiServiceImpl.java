@@ -25,16 +25,21 @@ public class CaseApiServiceImpl extends CaseApiService {
     @Override
     public Response addCase(CriminalCase theCase, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
-        return Response.ok().entity(handler.addCase(theCase)).build();
+        return Response.ok().entity(this.handler.addCase(theCase)).build();
     }
     @Override
     public Response getCase(String caseId, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
-        return Response.ok().entity(handler.getCase(Integer.parseInt(caseId))).build();
+        return Response.ok().entity(this.handler.getCase(Integer.parseInt(caseId))).build();
     }
     @Override
     public Response updateCase(CriminalCase theCase, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
-        return Response.ok().entity(handler.updateCase(theCase)).build();
+        return Response.ok().entity(this.handler.updateCase(theCase)).build();
+    }
+    @Override
+    public Response getCasesFromId(Token token, SecurityContext securityContext) throws NotFoundException {
+        // do some magic!
+        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
 }

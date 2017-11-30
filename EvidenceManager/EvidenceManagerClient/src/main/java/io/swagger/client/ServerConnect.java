@@ -9,8 +9,8 @@ import FXMLEntity.IEntity;
 import FXMLUser.IUser;
 import io.swagger.client.api.CriminalCaseApi;
 import io.swagger.client.api.EvidenceApi;
-import io.swagger.client.api.LawEnForcerApi;
 import io.swagger.client.api.SecurityApi;
+import io.swagger.client.api.UserApi;
 import io.swagger.client.model.CriminalCase;
 import io.swagger.client.model.CriminalCaseMap;
 import io.swagger.client.model.Evidence;
@@ -28,7 +28,7 @@ public class ServerConnect implements IUser, IEntity {
     private CriminalCaseApi cca;
     private EvidenceApi ea;
     private SecurityApi sa;
-    private LawEnForcerApi lea;
+    private UserApi ua;
     
     /**
      * The class' constructor. 
@@ -43,7 +43,7 @@ public class ServerConnect implements IUser, IEntity {
         this.cca = new CriminalCaseApi(this.ac);
         this.ea = new EvidenceApi(this.ac);
         this.sa = new SecurityApi(this.ac);
-        this.lea = new LawEnForcerApi(this.ac);
+        this.ua = new UserApi(this.ac);
     }
     
     /**
@@ -99,8 +99,8 @@ public class ServerConnect implements IUser, IEntity {
      * @throws ApiException 
      */
     @Override
-    public CriminalCaseMap getCases(String employeeId) throws ApiException {
-        return this.lea.getCasesFromId(employeeId);
+    public CriminalCaseMap getCases(Token token) throws ApiException {
+        return this.cca.getCasesFromId(token);
     }
 
     /**
@@ -111,8 +111,8 @@ public class ServerConnect implements IUser, IEntity {
      * @throws ApiException 
      */
     @Override
-    public List<Evidence> findEvidence(String keyword) throws ApiException {
-        return this.ea.getEvidenceList(keyword);
+    public List<Evidence> findEvidence(Token token) throws ApiException {
+        return this.ea.getEvidenceList(token);
     }
 
     @Override
@@ -133,7 +133,7 @@ public class ServerConnect implements IUser, IEntity {
      */
     @Override
     public boolean createNewUser(User user) throws ApiException {
-        return this.sa.addUser(user);
+        return this.ua.addUser(user);
     }
     
     /**
@@ -143,8 +143,8 @@ public class ServerConnect implements IUser, IEntity {
      * @throws ApiException 
      */
     @Override
-    public List<User> getListOfUsers(String location) throws ApiException {
-        return this.sa.getListOfUsers(location);
+    public List<User> getListOfUsers(Token token) throws ApiException {
+        return this.ua.getListOfUsers(token);
     }
     
     /**
@@ -154,8 +154,8 @@ public class ServerConnect implements IUser, IEntity {
      * @throws ApiException 
      */
     @Override
-    public boolean validateUser(String userName) throws ApiException {
-        return this.sa.validateUser(userName);
+    public boolean validateUser(User user) throws ApiException {
+        return this.sa.validateUser(user);
     }
 
     @Override

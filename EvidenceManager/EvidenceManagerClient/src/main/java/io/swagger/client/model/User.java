@@ -1,15 +1,19 @@
 package io.swagger.client.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.client.model.UserType;
+import java.io.IOException;
 
 /**
  * User
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-22T09:31:49.013Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-30T15:14:56.475Z")
 public class User {
   @SerializedName("name")
   private String name = null;
@@ -31,6 +35,9 @@ public class User {
 
   @SerializedName("birthday")
   private String birthday = null;
+
+  @SerializedName("location")
+  private String location = null;
 
   public User name(String name) {
     this.name = name;
@@ -158,6 +165,24 @@ public class User {
     this.birthday = birthday;
   }
 
+  public User location(String location) {
+    this.location = location;
+    return this;
+  }
+
+   /**
+   * Get location
+   * @return location
+  **/
+  @ApiModelProperty(value = "")
+  public String getLocation() {
+    return location;
+  }
+
+  public void setLocation(String location) {
+    this.location = location;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -174,21 +199,30 @@ public class User {
         Objects.equals(this.password, user.password) &&
         Objects.equals(this.employeeId, user.employeeId) &&
         Objects.equals(this.address, user.address) &&
-        Objects.equals(this.birthday, user.birthday);
+        Objects.equals(this.birthday, user.birthday) &&
+        Objects.equals(this.location, user.location);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, role, username, password, employeeId, address, birthday);
+    return Objects.hash(name, role, username, password, employeeId, address, birthday, location);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append(this.name)
-            .append("\n")
-            .append(this.role);
+    sb.append("class User {\n");
+    
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    role: ").append(toIndentedString(role)).append("\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
+    sb.append("    employeeId: ").append(toIndentedString(employeeId)).append("\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    birthday: ").append(toIndentedString(birthday)).append("\n");
+    sb.append("    location: ").append(toIndentedString(location)).append("\n");
+    sb.append("}");
     return sb.toString();
   }
 
@@ -202,6 +236,6 @@ public class User {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

@@ -15,7 +15,10 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
+
 import io.swagger.client.model.CriminalCase;
+import io.swagger.client.model.CriminalCaseMap;
+import io.swagger.client.model.Token;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -42,20 +45,22 @@ public class CriminalCaseApi {
         this.apiClient = apiClient;
     }
 
-    /* Build call for addCase */
-    private com.squareup.okhttp.Call addCaseCall(CriminalCase theCase, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    /**
+     * Build call for addCase
+     * @param theCase  (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call addCaseCall(CriminalCase theCase, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = theCase;
-        
-        // verify the required parameter 'theCase' is set
-        if (theCase == null) {
-            throw new ApiException("Missing the required parameter 'theCase' when calling addCase(Async)");
-        }
-        
 
         // create path and map variables
-        String localVarPath = "/case/{caseId}".replaceAll("\\{format\\}","json");
+        String localVarPath = "/case/{caseId}";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
 
@@ -86,7 +91,21 @@ public class CriminalCaseApi {
         }
 
         String[] localVarAuthNames = new String[] {  };
-        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call addCaseValidateBeforeCall(CriminalCase theCase, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'theCase' is set
+        if (theCase == null) {
+            throw new ApiException("Missing the required parameter 'theCase' when calling addCase(Async)");
+        }
+        
+
+        com.squareup.okhttp.Call call = addCaseCall(theCase, progressListener, progressRequestListener);
+        return call;
+
     }
 
     /**
@@ -109,7 +128,7 @@ public class CriminalCaseApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public ApiResponse<Boolean> addCaseWithHttpInfo(CriminalCase theCase) throws ApiException {
-        com.squareup.okhttp.Call call = addCaseCall(theCase, null, null);
+        com.squareup.okhttp.Call call = addCaseValidateBeforeCall(theCase, null, null);
         Type localVarReturnType = new TypeToken<Boolean>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -143,26 +162,28 @@ public class CriminalCaseApi {
             };
         }
 
-        com.squareup.okhttp.Call call = addCaseCall(theCase, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = addCaseValidateBeforeCall(theCase, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<Boolean>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
-    /* Build call for getCase */
-    private com.squareup.okhttp.Call getCaseCall(String caseId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    /**
+     * Build call for getCase
+     * @param caseId  (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call getCaseCall(String caseId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
-        
-        // verify the required parameter 'caseId' is set
-        if (caseId == null) {
-            throw new ApiException("Missing the required parameter 'caseId' when calling getCase(Async)");
-        }
-        
 
         // create path and map variables
-        String localVarPath = "/case/{caseId}".replaceAll("\\{format\\}","json")
-        .replaceAll("\\{" + "caseId" + "\\}", apiClient.escapeString(caseId.toString()));
+        String localVarPath = "/case/{caseId}"
+            .replaceAll("\\{" + "caseId" + "\\}", apiClient.escapeString(caseId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
 
@@ -193,7 +214,21 @@ public class CriminalCaseApi {
         }
 
         String[] localVarAuthNames = new String[] {  };
-        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getCaseValidateBeforeCall(String caseId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'caseId' is set
+        if (caseId == null) {
+            throw new ApiException("Missing the required parameter 'caseId' when calling getCase(Async)");
+        }
+        
+
+        com.squareup.okhttp.Call call = getCaseCall(caseId, progressListener, progressRequestListener);
+        return call;
+
     }
 
     /**
@@ -216,7 +251,7 @@ public class CriminalCaseApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public ApiResponse<CriminalCase> getCaseWithHttpInfo(String caseId) throws ApiException {
-        com.squareup.okhttp.Call call = getCaseCall(caseId, null, null);
+        com.squareup.okhttp.Call call = getCaseValidateBeforeCall(caseId, null, null);
         Type localVarReturnType = new TypeToken<CriminalCase>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -250,25 +285,27 @@ public class CriminalCaseApi {
             };
         }
 
-        com.squareup.okhttp.Call call = getCaseCall(caseId, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getCaseValidateBeforeCall(caseId, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<CriminalCase>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
-    /* Build call for updateCase */
-    private com.squareup.okhttp.Call updateCaseCall(CriminalCase theCase, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = theCase;
-        
-        // verify the required parameter 'theCase' is set
-        if (theCase == null) {
-            throw new ApiException("Missing the required parameter 'theCase' when calling updateCase(Async)");
-        }
-        
+    /**
+     * Build call for getCasesFromId
+     * @param user  (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call getCasesFromIdCall(Token user, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = user;
 
         // create path and map variables
-        String localVarPath = "/case/{caseId}".replaceAll("\\{format\\}","json");
+        String localVarPath = "/case";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
 
@@ -299,7 +336,143 @@ public class CriminalCaseApi {
         }
 
         String[] localVarAuthNames = new String[] {  };
-        return apiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getCasesFromIdValidateBeforeCall(Token user, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'user' is set
+        if (user == null) {
+            throw new ApiException("Missing the required parameter 'user' when calling getCasesFromId(Async)");
+        }
+        
+
+        com.squareup.okhttp.Call call = getCasesFromIdCall(user, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * gets a hashmap with caseId as key and Case name value
+     * returns a hashmap
+     * @param user  (required)
+     * @return CriminalCaseMap
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public CriminalCaseMap getCasesFromId(Token user) throws ApiException {
+        ApiResponse<CriminalCaseMap> resp = getCasesFromIdWithHttpInfo(user);
+        return resp.getData();
+    }
+
+    /**
+     * gets a hashmap with caseId as key and Case name value
+     * returns a hashmap
+     * @param user  (required)
+     * @return ApiResponse&lt;CriminalCaseMap&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<CriminalCaseMap> getCasesFromIdWithHttpInfo(Token user) throws ApiException {
+        com.squareup.okhttp.Call call = getCasesFromIdValidateBeforeCall(user, null, null);
+        Type localVarReturnType = new TypeToken<CriminalCaseMap>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * gets a hashmap with caseId as key and Case name value (asynchronously)
+     * returns a hashmap
+     * @param user  (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getCasesFromIdAsync(Token user, final ApiCallback<CriminalCaseMap> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getCasesFromIdValidateBeforeCall(user, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<CriminalCaseMap>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for updateCase
+     * @param theCase  (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call updateCaseCall(CriminalCase theCase, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = theCase;
+
+        // create path and map variables
+        String localVarPath = "/case/{caseId}";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return apiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call updateCaseValidateBeforeCall(CriminalCase theCase, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'theCase' is set
+        if (theCase == null) {
+            throw new ApiException("Missing the required parameter 'theCase' when calling updateCase(Async)");
+        }
+        
+
+        com.squareup.okhttp.Call call = updateCaseCall(theCase, progressListener, progressRequestListener);
+        return call;
+
     }
 
     /**
@@ -322,7 +495,7 @@ public class CriminalCaseApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public ApiResponse<Boolean> updateCaseWithHttpInfo(CriminalCase theCase) throws ApiException {
-        com.squareup.okhttp.Call call = updateCaseCall(theCase, null, null);
+        com.squareup.okhttp.Call call = updateCaseValidateBeforeCall(theCase, null, null);
         Type localVarReturnType = new TypeToken<Boolean>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -356,7 +529,7 @@ public class CriminalCaseApi {
             };
         }
 
-        com.squareup.okhttp.Call call = updateCaseCall(theCase, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = updateCaseValidateBeforeCall(theCase, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<Boolean>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

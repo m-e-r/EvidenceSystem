@@ -22,8 +22,14 @@ public class EvidenceApiServiceImpl extends EvidenceApiService {
     private EvidenceHandler handler = new EvidenceHandler();
     
     @Override
-    public Response getEvidenceList(String keyword, SecurityContext securityContext) throws NotFoundException {
+    public Response getEvidenceList(Token token, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
-        return Response.ok().entity(handler.getEvidenceList(keyword)).build();
+        return Response.ok().entity(this.handler.getEvidenceList(token.getId())).build();
+    }
+
+    @Override
+    public Response pickUpEvidence(Evidence evidence, String userId, SecurityContext securityContext) throws NotFoundException {
+        // do some magic!
+        return Response.ok().entity(this.handler.pickupEvidence(evidence, userId)).build();
     }
 }

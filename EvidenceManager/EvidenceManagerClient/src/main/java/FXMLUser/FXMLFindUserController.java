@@ -7,20 +7,15 @@ package FXMLUser;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
-import io.swagger.client.api.SecurityApi;
-import io.swagger.client.model.LawEnforcer;
 import io.swagger.client.model.Token;
 import io.swagger.client.model.User;
 import io.swagger.client.model.UserType;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -56,12 +51,15 @@ public class FXMLFindUserController implements Initializable {
     private TableColumn<User, String> TVNameCol;
     @FXML
     private TableColumn<User, String> TVRankCol;
-
+    @FXML
+    private Button viewBTN; 
+    
+    
     private IUser connect;
     private ObservableList<User> userList;
     private User admin;
-    @FXML
-    private Button viewBTN;
+    private Token token;
+    
     
     /**
      * Initializes the controller class.
@@ -71,7 +69,7 @@ public class FXMLFindUserController implements Initializable {
        this.connect = new ServerConnect();
        this.admin = new User();
        this.admin.setAddress("Somewhere far away, maybe Bolbro"); 
-       this.setUserList();
+       
     }    
 
 
@@ -84,9 +82,9 @@ public class FXMLFindUserController implements Initializable {
      * Method that sets the tableview with all the user, that has the same adress as the logged in admin
      */
     private void setUserList(){
+        System.out.println("Fra getUserList: " + this.token.getId());
         try {
-            String address = admin.getAddress();
-            userList = FXCollections.observableArrayList(connect.getListOfUsers(address));
+            userList = FXCollections.observableArrayList(connect.getListOfUsers(this.token));
             for(User s : userList) {
                 //System.out.println(s.getRole());
                 UserType us = UserType.valueOf(s.getRole());
@@ -134,6 +132,11 @@ public class FXMLFindUserController implements Initializable {
         controller.initData(user, t);
         stage.show();
         return stage;
+    }
+    
+    public void initData(Token token) {
+        this.token = token;
+        this.setUserList();
     }
     
     

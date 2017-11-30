@@ -35,8 +35,14 @@ public class SecurityApiServiceImpl extends SecurityApiService {
     }
 
     @Override
-    public Response validateUser(String username, SecurityContext securityContext) throws NotFoundException {
+    public Response validateUser(User user, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
-        return Response.ok().entity(this.userH.validateUser(username)).build();
+        return Response.ok().entity(this.userH.validateUser(user)).build();
+    }
+
+    @Override
+    public Response sendRank(UserType text, SecurityContext securityContext) throws NotFoundException {
+        // do some magic!
+        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
 }

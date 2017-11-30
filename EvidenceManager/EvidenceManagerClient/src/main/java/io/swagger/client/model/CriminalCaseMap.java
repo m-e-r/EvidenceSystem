@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * CriminalCaseMap
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-22T09:15:28.707Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-30T15:14:56.475Z")
 public class CriminalCaseMap extends HashMap<String, String> {
 
   @Override
@@ -18,7 +18,7 @@ public class CriminalCaseMap extends HashMap<String, String> {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    return true;
+    return super.equals(o);
   }
 
   @Override
@@ -46,6 +46,6 @@ public class CriminalCaseMap extends HashMap<String, String> {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

@@ -8,6 +8,7 @@ package FXMLEntity;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
+import io.swagger.client.model.CaseStatus;
 import io.swagger.client.model.CriminalCase;
 import io.swagger.client.model.Evidence;
 import io.swagger.client.model.Suspect;
@@ -125,7 +126,7 @@ public class FXMLCaseController implements Initializable {
         cc.setCaseDescription(this.caseInfoTA.getText());
         cc.setCaseName(this.caseTitleTF.getText());
         cc.setId(this.caseNrTF.getText());
-        cc.setStatus(CriminalCase.StatusEnum.OPEN);
+        cc.setStatus(CaseStatus.OPEN.toString());
         
         //Change all this when YAML is updated so CriminalCase holds a responsible id
         ArrayList<Suspect> temp = new ArrayList();
@@ -181,7 +182,7 @@ public class FXMLCaseController implements Initializable {
     private void saveChangesToCase(ActionEvent event) throws ApiException {
         this.cc.setCaseDescription(this.caseInfoTA.getText());
         this.cc.setCaseName(this.caseTitleTF.getText());
-        this.cc.setStatus(CriminalCase.StatusEnum.OPEN);
+        this.cc.setStatus(CaseStatus.OPEN.toString());
         
         this.connect.updateCase(this.cc);
         

@@ -2,6 +2,8 @@ package io.swagger.client.api;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.model.CriminalCase;
+import io.swagger.client.model.CriminalCaseMap;
+import io.swagger.client.model.Token;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -45,6 +47,22 @@ public class CriminalCaseApiTest {
     public void getCaseTest() throws ApiException {
         String caseId = null;
         // CriminalCase response = api.getCase(caseId);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * gets a hashmap with caseId as key and Case name value
+     *
+     * returns a hashmap
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void getCasesFromIdTest() throws ApiException {
+        Token user = null;
+        // CriminalCaseMap response = api.getCasesFromId(user);
 
         // TODO: test validations
     }

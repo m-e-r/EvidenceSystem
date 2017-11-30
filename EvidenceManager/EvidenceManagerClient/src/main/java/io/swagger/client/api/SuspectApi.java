@@ -15,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
+
 import io.swagger.client.model.Suspect;
 
 import java.lang.reflect.Type;
@@ -42,15 +43,21 @@ public class SuspectApi {
         this.apiClient = apiClient;
     }
 
-    /* Build call for getSuspectList */
-    private com.squareup.okhttp.Call getSuspectListCall(final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    /**
+     * Build call for getSuspectList
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call getSuspectListCall(final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
-        
 
         // create path and map variables
-        String localVarPath = "/suspect".replaceAll("\\{format\\}","json");
+        String localVarPath = "/suspect";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
 
@@ -81,7 +88,16 @@ public class SuspectApi {
         }
 
         String[] localVarAuthNames = new String[] {  };
-        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getSuspectListValidateBeforeCall(final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+
+        com.squareup.okhttp.Call call = getSuspectListCall(progressListener, progressRequestListener);
+        return call;
+
     }
 
     /**
@@ -102,7 +118,7 @@ public class SuspectApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public ApiResponse<List<Suspect>> getSuspectListWithHttpInfo() throws ApiException {
-        com.squareup.okhttp.Call call = getSuspectListCall(null, null);
+        com.squareup.okhttp.Call call = getSuspectListValidateBeforeCall(null, null);
         Type localVarReturnType = new TypeToken<List<Suspect>>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -135,7 +151,7 @@ public class SuspectApi {
             };
         }
 
-        com.squareup.okhttp.Call call = getSuspectListCall(progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getSuspectListValidateBeforeCall(progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<List<Suspect>>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

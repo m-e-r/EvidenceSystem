@@ -5,6 +5,7 @@
  */
 package security;
 
+import io.swagger.model.Token;
 import io.swagger.model.User;
 import java.util.List;
 
@@ -16,8 +17,8 @@ public interface IUserHandlerSQL {
     
     public boolean updateUser(User user);
     public boolean addUser(User user);
-    public List<User> getListOfUsers(String location);
-    public boolean validateUser(String username, String newId);
+    public List<User> getListOfUsers(Token token);
+    public boolean validateUser(User user);
     public User getUser(String id);
     
     

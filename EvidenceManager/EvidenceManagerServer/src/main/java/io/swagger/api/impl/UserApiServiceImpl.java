@@ -6,6 +6,7 @@ import io.swagger.model.User;
 import io.swagger.model.UserType;
 
 import io.swagger.api.NotFoundException;
+import io.swagger.model.Token;
 
 
 import javax.ws.rs.core.Response;
@@ -27,19 +28,22 @@ public class UserApiServiceImpl extends UserApiService {
     }
 
     @Override
-    public Response getListOfUsers(String location, SecurityContext securityContext) throws NotFoundException {
+    public Response getListOfUsers(Token token, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
-        return Response.ok().entity(this.userH.getListOfUsers(location)).build();
+        System.out.println("Fra API: " + token.getId());
+        return Response.ok().entity(this.userH.getListOfUsers(token)).build();
     }
     
     @Override
     public Response getUser(String id, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
-        return Response.ok().entity(userH.getUser(id)).build();
+        return Response.ok().entity(this.userH.getUser(id)).build();
     }
+
     @Override
-    public Response sendRank(UserType text, SecurityContext securityContext) throws NotFoundException {
+    public Response updateUser(User user, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
         return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
     }
+
 }

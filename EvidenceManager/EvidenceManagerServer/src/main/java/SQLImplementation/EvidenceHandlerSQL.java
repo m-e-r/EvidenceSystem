@@ -7,7 +7,6 @@ package SQLImplementation;
 
 import dbConnection.DBConnection;
 import io.swagger.model.Evidence;
-import io.swagger.model.LawEnforcer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,6 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Entity.IEvidenceHandlerSQL;
+import io.swagger.model.User;
 
 /**
  *
@@ -64,7 +64,7 @@ public class EvidenceHandlerSQL implements IEvidenceHandlerSQL {
     }
 
     @Override
-    public Evidence pickupEvidence(Evidence evidence, LawEnforcer lawEnforcer) {
+    public Evidence pickupEvidence(Evidence evidence, String userId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -82,7 +82,7 @@ public class EvidenceHandlerSQL implements IEvidenceHandlerSQL {
      * @return Returns a list of the found pieces of evidence.
      */
     @Override
-    public List<Evidence> getAllEvidence(LawEnforcer forensic) {
+    public List<Evidence> getAllEvidence(User forensic) {
         List<Evidence> evidenceList = new ArrayList<>();
 
         String query = String.format("SELECT evidence.id, evidence.title FROM evidence\n"

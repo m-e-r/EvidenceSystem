@@ -157,13 +157,14 @@ public class FXMLLoginController implements Initializable {
      * @throws IOException 
      */
     private Stage showAdminStage(Token token) throws IOException {
+        System.out.println("Fra Login: " + token.getId());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/FindUser.fxml"));
 
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene((Pane) loader.load()));
 
         FXMLFindUserController controller = loader.<FXMLFindUserController>getController();
-
+        controller.initData(token);
         stage.show();
         return stage;
     }

@@ -30,12 +30,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.model.UserType;
+import javax.validation.constraints.*;
 
 /**
  * User
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-22T09:31:51.957Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-30T15:15:00.455Z")
 public class User   {
   @JsonProperty("name")
   private String name = null;
@@ -58,15 +58,19 @@ public class User   {
   @JsonProperty("birthday")
   private String birthday = null;
 
+  @JsonProperty("location")
+  private String location = null;
+
   public User name(String name) {
     this.name = name;
     return this;
   }
 
-   /**
+  /**
    * Get name
    * @return name
-  **/
+   **/
+  @JsonProperty("name")
   @ApiModelProperty(value = "")
   public String getName() {
     return name;
@@ -81,10 +85,11 @@ public class User   {
     return this;
   }
 
-   /**
+  /**
    * Get role
    * @return role
-  **/
+   **/
+  @JsonProperty("role")
   @ApiModelProperty(value = "")
   public String getRole() {
     return role;
@@ -99,10 +104,11 @@ public class User   {
     return this;
   }
 
-   /**
+  /**
    * Get username
    * @return username
-  **/
+   **/
+  @JsonProperty("username")
   @ApiModelProperty(value = "")
   public String getUsername() {
     return username;
@@ -117,10 +123,11 @@ public class User   {
     return this;
   }
 
-   /**
+  /**
    * Get password
    * @return password
-  **/
+   **/
+  @JsonProperty("password")
   @ApiModelProperty(value = "")
   public String getPassword() {
     return password;
@@ -135,10 +142,11 @@ public class User   {
     return this;
   }
 
-   /**
+  /**
    * Get employeeId
    * @return employeeId
-  **/
+   **/
+  @JsonProperty("employeeId")
   @ApiModelProperty(value = "")
   public String getEmployeeId() {
     return employeeId;
@@ -153,10 +161,11 @@ public class User   {
     return this;
   }
 
-   /**
+  /**
    * Get address
    * @return address
-  **/
+   **/
+  @JsonProperty("address")
   @ApiModelProperty(value = "")
   public String getAddress() {
     return address;
@@ -171,10 +180,11 @@ public class User   {
     return this;
   }
 
-   /**
+  /**
    * Get birthday
    * @return birthday
-  **/
+   **/
+  @JsonProperty("birthday")
   @ApiModelProperty(value = "")
   public String getBirthday() {
     return birthday;
@@ -182,6 +192,25 @@ public class User   {
 
   public void setBirthday(String birthday) {
     this.birthday = birthday;
+  }
+
+  public User location(String location) {
+    this.location = location;
+    return this;
+  }
+
+  /**
+   * Get location
+   * @return location
+   **/
+  @JsonProperty("location")
+  @ApiModelProperty(value = "")
+  public String getLocation() {
+    return location;
+  }
+
+  public void setLocation(String location) {
+    this.location = location;
   }
 
 
@@ -200,12 +229,13 @@ public class User   {
         Objects.equals(this.password, user.password) &&
         Objects.equals(this.employeeId, user.employeeId) &&
         Objects.equals(this.address, user.address) &&
-        Objects.equals(this.birthday, user.birthday);
+        Objects.equals(this.birthday, user.birthday) &&
+        Objects.equals(this.location, user.location);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, role, username, password, employeeId, address, birthday);
+    return Objects.hash(name, role, username, password, employeeId, address, birthday, location);
   }
 
 
@@ -221,6 +251,7 @@ public class User   {
     sb.append("    employeeId: ").append(toIndentedString(employeeId)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("    birthday: ").append(toIndentedString(birthday)).append("\n");
+    sb.append("    location: ").append(toIndentedString(location)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -21,7 +21,7 @@ public class Bootstrap extends HttpServlet {
         .email(""))
       .license(new License()
         .name("")
-        .url(""));
+        .url("http://unlicense.org"));
 
     ServletContext context = config.getServletContext();
     Swagger swagger = new Swagger().info(info);

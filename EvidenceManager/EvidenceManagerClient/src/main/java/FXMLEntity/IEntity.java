@@ -9,6 +9,7 @@ import io.swagger.client.ApiException;
 import io.swagger.client.model.CriminalCase;
 import io.swagger.client.model.CriminalCaseMap;
 import io.swagger.client.model.Evidence;
+import io.swagger.client.model.Token;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ public interface IEntity {
     public String generateEvidenceId() throws ApiException;
     public String generateCaseId() throws ApiException;
     
-    public CriminalCaseMap getCases(String employeeId) throws ApiException;
+    public CriminalCaseMap getCases(Token token) throws ApiException;
     
-    public List<Evidence> findEvidence(String keyword) throws ApiException;
+    public List<Evidence> findEvidence(Token token) throws ApiException;
 }

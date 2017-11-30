@@ -28,11 +28,12 @@ package io.swagger.model;
 import java.util.Objects;
 import java.util.HashMap;
 import java.util.Map;
+import javax.validation.constraints.*;
 
 /**
  * CriminalCaseMap
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-22T09:15:34.527Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-30T15:15:00.455Z")
 public class CriminalCaseMap extends HashMap<String, String>  {
 
   @Override

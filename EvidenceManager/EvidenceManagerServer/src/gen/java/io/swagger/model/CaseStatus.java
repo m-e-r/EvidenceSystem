@@ -32,21 +32,17 @@ import javax.validation.constraints.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 /**
- * Gets or Sets UserType
+ * Gets or Sets CaseStatus
  */
-public enum UserType {
+public enum CaseStatus {
   
-  COMISSIONER("Comissioner"),
+  OPEN("Open"),
   
-  SYSTEM_ADMIN("System admin"),
-  
-  FORENSIC_SCIENTIST("Forensic Scientist"),
-  
-  POLICE_OFFICER("Police officer");
+  CLOSED("Closed");
 
   private String value;
 
-  UserType(String value) {
+  CaseStatus(String value) {
     this.value = value;
   }
 
@@ -56,8 +52,8 @@ public enum UserType {
   }
 
   @JsonCreator
-  public static UserType fromValue(String text) {
-    for (UserType b : UserType.values()) {
+  public static CaseStatus fromValue(String text) {
+    for (CaseStatus b : CaseStatus.values()) {
       if (String.valueOf(b.value).equals(text)) {
         return b;
       }

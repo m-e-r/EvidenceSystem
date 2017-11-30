@@ -85,7 +85,7 @@ public class FXMLShowCaseScreenController implements Initializable {
      * @throws ApiException 
      */
     private void showsRelevantCases() throws ApiException {
-        Map<String, String>tempMap = this.connect.getCases(this.token.getId());
+        Map<String, String>tempMap = this.connect.getCases(this.token);
 //        Map<String, String> tempMap = new HashMap();
 //        
 //        tempMap.put("14323", "Malte is the killer");
@@ -132,6 +132,7 @@ public class FXMLShowCaseScreenController implements Initializable {
         stage.setScene(new Scene((Pane) loader.load()));
 
         FXMLValidateUsersController controller = loader.<FXMLValidateUsersController>getController();
+        controller.initData(this.token);
         stage.show();
         return stage;
     }

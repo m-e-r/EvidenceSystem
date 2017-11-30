@@ -6,6 +6,7 @@
 package SQLImplementation;
 
 import dbConnection.DBConnection;
+import io.swagger.model.Token;
 import io.swagger.model.User;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -96,10 +97,11 @@ public class UserHandlerSQL implements IUserHandlerSQL {
 //        return allUsers;
 //    }
     @Override
-    public List<User> getListOfUsers(String admin) {
+    public List<User> getListOfUsers(Token token) {
         List<User> listOfUsers = new ArrayList<>();
         User nextUser;
-        String query = String.format(" SELECT * FROM lawenforcer WHERE locationref = (select _ref FROM locations WHERE adress = '%s')", admin);
+        String query = String.format("SELECT * FROM lawenforcer WHERE locationref "
+                + "= (SELECT locationref FROM lawenforcer WHERE id = '%s'", token.getId());
 
         ResultSet select = db.executeQuery(query);
 
@@ -109,7 +111,6 @@ public class UserHandlerSQL implements IUserHandlerSQL {
                 int role = select.getInt("positionref");
                 String id = select.getString("id");
                 String username = select.getString("username");
-                String password = select.getString("passw");
                 String address = select.getString("address");
                 String birthday = select.getString("birthday");
 
@@ -122,7 +123,6 @@ public class UserHandlerSQL implements IUserHandlerSQL {
                 nextUser.setRole(pos.getString(1));
                 nextUser.setEmployeeId(id);
                 nextUser.setUsername(username);
-                nextUser.setPassword(password);
                 nextUser.setAddress(address);
                 nextUser.setBirthday(birthday);
 
@@ -142,11 +142,11 @@ public class UserHandlerSQL implements IUserHandlerSQL {
      * @return
      */
     @Override
-    public boolean validateUser(String username, String newId) {
+    public boolean validateUser(User user) {
 
         String query = String.format("UPDATE public.lawenforcer\n"
                 + "	SET validated=true, id = $s\n"
-                + "	WHERE username = '%s';", newId, username);
+                + "	WHERE username = '%s';", user.getEmployeeId(), user.getUsername());
 
         return this.db.updateQuery(query) == 1;
 

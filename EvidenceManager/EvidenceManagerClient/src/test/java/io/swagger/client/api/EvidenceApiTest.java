@@ -2,6 +2,7 @@ package io.swagger.client.api;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.model.Evidence;
+import io.swagger.client.model.Token;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -27,8 +28,24 @@ public class EvidenceApiTest {
      */
     @Test
     public void getEvidenceListTest() throws ApiException {
-        String keyword = null;
-        // List<Evidence> response = api.getEvidenceList(keyword);
+        Token token = null;
+        // List<Evidence> response = api.getEvidenceList(token);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * pick up evidence
+     *
+     * pick up evidence
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void pickUpEvidenceTest() throws ApiException {
+        Evidence user = null;
+        // Boolean response = api.pickUpEvidence(user);
 
         // TODO: test validations
     }

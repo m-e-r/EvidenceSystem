@@ -7,8 +7,8 @@ package security;
 
 import SQLImplementation.LoginSQL;
 import SQLImplementation.UserHandlerSQL;
+import io.swagger.model.Token;
 
-import io.swagger.api.impl.IsqlStatement;
 import io.swagger.model.User;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -78,8 +78,8 @@ public class UserHandler {
      * @param location
      * @return 
      */
-    public List<User> getListOfUsers(String location) {
-        return this.handler.getListOfUsers(location);
+    public List<User> getListOfUsers(Token token) {
+        return this.handler.getListOfUsers(token);
     }
     
     /**
@@ -87,10 +87,10 @@ public class UserHandler {
      * @param userName
      * @return false if either sql statement fails.
      */
-    public boolean validateUser(String userName) {
-        String newId = this.gen.generateUserId("PO"); //Replace 'PO' when you get User object as param
-        
-        return this.handler.validateUser(userName, newId);
+    public boolean validateUser(User user) {
+        String newId = this.gen.generateUserId(user.getRole()); //Replace 'PO' when you get User object as param
+        user.setEmployeeId(newId);
+        return this.handler.validateUser(user);
    
     }
 }

@@ -20,22 +20,6 @@ public class SecurityApiTest {
 
     
     /**
-     * Adds a user
-     *
-     * adds a user
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void addUserTest() throws ApiException {
-        User user = null;
-        // Boolean response = api.addUser(user);
-
-        // TODO: test validations
-    }
-    
-    /**
      * 
      *
      * 
@@ -83,7 +67,7 @@ public class SecurityApiTest {
     }
     
     /**
-     * returns a boolean depend on the enum
+     * Send a rank
      *
      * returns a boolean
      *
@@ -94,6 +78,22 @@ public class SecurityApiTest {
     public void sendRankTest() throws ApiException {
         UserType text = null;
         // Boolean response = api.sendRank(text);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * a commissioner validates a user
+     *
+     * validates a user
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void validateUserTest() throws ApiException {
+        User user = null;
+        // Boolean response = api.validateUser(user);
 
         // TODO: test validations
     }

@@ -7,7 +7,7 @@ package Entity;
 
 import SQLImplementation.EvidenceHandlerSQL;
 import io.swagger.model.Evidence;
-import io.swagger.model.LawEnforcer;
+import io.swagger.model.User;
 import java.util.List;
 
 /**
@@ -25,8 +25,8 @@ public class EvidenceHandler {
         return this.handler.getEvidenceList(keyword);
     }
     
-    public Evidence pickupEvidence(Evidence evidence, LawEnforcer lawEnforcer){
-        return this.handler.pickupEvidence(evidence, lawEnforcer);
+    public Evidence pickupEvidence(Evidence evidence, String userId){
+        return this.handler.pickupEvidence(evidence, userId);
     }
     
     public Evidence getEvidence(int id){
@@ -37,7 +37,7 @@ public class EvidenceHandler {
         //TODO
     }
     
-    public List<Evidence> getAllEvidence(LawEnforcer forensic) {
+    public List<Evidence> getAllEvidence(User forensic) {
         return this.handler.getAllEvidence(forensic);
     }
 }

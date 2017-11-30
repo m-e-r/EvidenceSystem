@@ -10,22 +10,18 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 /**
- * Gets or Sets UserType
+ * Gets or Sets CaseStatus
  */
-@JsonAdapter(UserType.Adapter.class)
-public enum UserType {
+@JsonAdapter(CaseStatus.Adapter.class)
+public enum CaseStatus {
   
-  COMISSIONER("Comissioner"),
+  OPEN("Open"),
   
-  SYSTEM_ADMIN("System admin"),
-  
-  FORENSIC_SCIENTIST("Forensic Scientist"),
-  
-  POLICE_OFFICER("Police officer");
+  CLOSED("Closed");
 
   private String value;
 
-  UserType(String value) {
+  CaseStatus(String value) {
     this.value = value;
   }
 
@@ -38,8 +34,8 @@ public enum UserType {
     return String.valueOf(value);
   }
 
-  public static UserType fromValue(String text) {
-    for (UserType b : UserType.values()) {
+  public static CaseStatus fromValue(String text) {
+    for (CaseStatus b : CaseStatus.values()) {
       if (String.valueOf(b.value).equals(text)) {
         return b;
       }
@@ -47,16 +43,16 @@ public enum UserType {
     return null;
   }
 
-  public static class Adapter extends TypeAdapter<UserType> {
+  public static class Adapter extends TypeAdapter<CaseStatus> {
     @Override
-    public void write(final JsonWriter jsonWriter, final UserType enumeration) throws IOException {
+    public void write(final JsonWriter jsonWriter, final CaseStatus enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public UserType read(final JsonReader jsonReader) throws IOException {
+    public CaseStatus read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
-      return UserType.fromValue(String.valueOf(value));
+      return CaseStatus.fromValue(String.valueOf(value));
     }
   }
 }

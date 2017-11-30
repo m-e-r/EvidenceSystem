@@ -8,6 +8,7 @@ package FXMLUser;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
+import io.swagger.client.model.Token;
 import io.swagger.client.model.User;
 import io.swagger.client.model.UserType;
 import java.net.URL;
@@ -37,6 +38,7 @@ public class FXMLValidateUsersController implements Initializable {
    private ObservableList<User> users;
    private User user;
    private IUser connect;
+   private Token token;
 
     @FXML
     private ListView<User> usersLV;
@@ -60,14 +62,6 @@ public class FXMLValidateUsersController implements Initializable {
         this.roles = FXCollections.observableArrayList(UserType.values());
         this.rankCB.setItems(this.roles);
         this.validateBTN.setDisable(true);
-        
-       try {
-           this.users = FXCollections.observableArrayList(this.connect.getListOfUsers("Campusvej 55")); //Make initData method to get id from token
-       } catch (ApiException ex) {
-           Logger.getLogger(FXMLValidateUsersController.class.getName()).log(Level.SEVERE, null, ex);
-       }
-        
-        this.usersLV.setItems(this.users);
     }    
 
     /**
@@ -98,7 +92,7 @@ public class FXMLValidateUsersController implements Initializable {
     private void handleValidationAction(ActionEvent event) throws ApiException {
         System.out.println("UserNAme: " + this.user.getUsername());
         
-        if(this.connect.validateUser(this.user.getUsername())) {
+        if(this.connect.validateUser(this.user)) {
             System.out.println("hejyasa");
             
             for (int i = 0; i < this.users.size(); i++) {
@@ -114,6 +108,17 @@ public class FXMLValidateUsersController implements Initializable {
             
         }
         
+    }
+    
+    public void initData(Token token) {
+        this.token = token;
+        try {
+           this.users = FXCollections.observableArrayList(this.connect.getListOfUsers(this.token)); //Make initData method to get id from token
+        } catch (ApiException ex) {
+           Logger.getLogger(FXMLValidateUsersController.class.getName()).log(Level.SEVERE, null, ex);
+       }
+        
+        this.usersLV.setItems(this.users);
     }
     
 }

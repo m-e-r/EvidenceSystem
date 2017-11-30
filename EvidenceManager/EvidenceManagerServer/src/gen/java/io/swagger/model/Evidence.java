@@ -30,11 +30,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import javax.validation.constraints.*;
 
 /**
  * Evidence
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-22T09:15:34.527Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-30T15:15:00.455Z")
 public class Evidence   {
   @JsonProperty("category")
   private String category = null;
@@ -59,10 +60,11 @@ public class Evidence   {
     return this;
   }
 
-   /**
+  /**
    * Get category
    * @return category
-  **/
+   **/
+  @JsonProperty("category")
   @ApiModelProperty(value = "")
   public String getCategory() {
     return category;
@@ -77,10 +79,11 @@ public class Evidence   {
     return this;
   }
 
-   /**
+  /**
    * Get description
    * @return description
-  **/
+   **/
+  @JsonProperty("description")
   @ApiModelProperty(value = "")
   public String getDescription() {
     return description;
@@ -95,10 +98,11 @@ public class Evidence   {
     return this;
   }
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   **/
+  @JsonProperty("id")
   @ApiModelProperty(value = "")
   public String getId() {
     return id;
@@ -113,10 +117,11 @@ public class Evidence   {
     return this;
   }
 
-   /**
+  /**
    * Get location
    * @return location
-  **/
+   **/
+  @JsonProperty("location")
   @ApiModelProperty(value = "")
   public String getLocation() {
     return location;
@@ -131,10 +136,11 @@ public class Evidence   {
     return this;
   }
 
-   /**
+  /**
    * Get personResponsible
    * @return personResponsible
-  **/
+   **/
+  @JsonProperty("personResponsible")
   @ApiModelProperty(value = "")
   public String getPersonResponsible() {
     return personResponsible;
@@ -149,10 +155,11 @@ public class Evidence   {
     return this;
   }
 
-   /**
+  /**
    * Get title
    * @return title
-  **/
+   **/
+  @JsonProperty("title")
   @ApiModelProperty(value = "")
   public String getTitle() {
     return title;

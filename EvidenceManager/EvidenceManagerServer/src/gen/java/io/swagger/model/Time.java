@@ -33,30 +33,74 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.*;
 
 /**
- * Suspect
+ * Time
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-30T15:15:00.455Z")
-public class Suspect   {
-  @JsonProperty("description")
-  private String description = null;
+public class Time   {
+  @JsonProperty("startTime")
+  private String startTime = null;
 
-  public Suspect description(String description) {
-    this.description = description;
+  @JsonProperty("endTime")
+  private String endTime = null;
+
+  @JsonProperty("stillGoing")
+  private Boolean stillGoing = null;
+
+  public Time startTime(String startTime) {
+    this.startTime = startTime;
     return this;
   }
 
   /**
-   * Get description
-   * @return description
+   * Get startTime
+   * @return startTime
    **/
-  @JsonProperty("description")
+  @JsonProperty("startTime")
   @ApiModelProperty(value = "")
-  public String getDescription() {
-    return description;
+  public String getStartTime() {
+    return startTime;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setStartTime(String startTime) {
+    this.startTime = startTime;
+  }
+
+  public Time endTime(String endTime) {
+    this.endTime = endTime;
+    return this;
+  }
+
+  /**
+   * Get endTime
+   * @return endTime
+   **/
+  @JsonProperty("endTime")
+  @ApiModelProperty(value = "")
+  public String getEndTime() {
+    return endTime;
+  }
+
+  public void setEndTime(String endTime) {
+    this.endTime = endTime;
+  }
+
+  public Time stillGoing(Boolean stillGoing) {
+    this.stillGoing = stillGoing;
+    return this;
+  }
+
+  /**
+   * Get stillGoing
+   * @return stillGoing
+   **/
+  @JsonProperty("stillGoing")
+  @ApiModelProperty(value = "")
+  public Boolean isStillGoing() {
+    return stillGoing;
+  }
+
+  public void setStillGoing(Boolean stillGoing) {
+    this.stillGoing = stillGoing;
   }
 
 
@@ -68,22 +112,26 @@ public class Suspect   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Suspect suspect = (Suspect) o;
-    return Objects.equals(this.description, suspect.description);
+    Time time = (Time) o;
+    return Objects.equals(this.startTime, time.startTime) &&
+        Objects.equals(this.endTime, time.endTime) &&
+        Objects.equals(this.stillGoing, time.stillGoing);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(description);
+    return Objects.hash(startTime, endTime, stillGoing);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Suspect {\n");
+    sb.append("class Time {\n");
     
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");
+    sb.append("    endTime: ").append(toIndentedString(endTime)).append("\n");
+    sb.append("    stillGoing: ").append(toIndentedString(stillGoing)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -30,11 +30,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import javax.validation.constraints.*;
 
 /**
  * Token
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-22T09:36:06.295Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-30T15:15:00.455Z")
 public class Token   {
   @JsonProperty("Id")
   private String id = null;
@@ -42,15 +43,22 @@ public class Token   {
   @JsonProperty("usertype")
   private String usertype = null;
 
+  @JsonProperty("name")
+  private String name = null;
+
+  @JsonProperty("timeStamp")
+  private String timeStamp = null;
+
   public Token id(String id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   **/
+  @JsonProperty("Id")
   @ApiModelProperty(value = "")
   public String getId() {
     return id;
@@ -65,10 +73,11 @@ public class Token   {
     return this;
   }
 
-   /**
+  /**
    * Get usertype
    * @return usertype
-  **/
+   **/
+  @JsonProperty("usertype")
   @ApiModelProperty(value = "")
   public String getUsertype() {
     return usertype;
@@ -76,6 +85,44 @@ public class Token   {
 
   public void setUsertype(String usertype) {
     this.usertype = usertype;
+  }
+
+  public Token name(String name) {
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   **/
+  @JsonProperty("name")
+  @ApiModelProperty(value = "")
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public Token timeStamp(String timeStamp) {
+    this.timeStamp = timeStamp;
+    return this;
+  }
+
+  /**
+   * Get timeStamp
+   * @return timeStamp
+   **/
+  @JsonProperty("timeStamp")
+  @ApiModelProperty(value = "")
+  public String getTimeStamp() {
+    return timeStamp;
+  }
+
+  public void setTimeStamp(String timeStamp) {
+    this.timeStamp = timeStamp;
   }
 
 
@@ -89,12 +136,14 @@ public class Token   {
     }
     Token token = (Token) o;
     return Objects.equals(this.id, token.id) &&
-        Objects.equals(this.usertype, token.usertype);
+        Objects.equals(this.usertype, token.usertype) &&
+        Objects.equals(this.name, token.name) &&
+        Objects.equals(this.timeStamp, token.timeStamp);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, usertype);
+    return Objects.hash(id, usertype, name, timeStamp);
   }
 
 
@@ -105,6 +154,8 @@ public class Token   {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    usertype: ").append(toIndentedString(usertype)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    timeStamp: ").append(toIndentedString(timeStamp)).append("\n");
     sb.append("}");
     return sb.toString();
   }
