@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * CriminalCase
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-12-04T13:34:31.150Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-12-04T14:11:26.502Z")
 public class CriminalCase {
   @SerializedName("caseDescription")
   private String caseDescription = null;

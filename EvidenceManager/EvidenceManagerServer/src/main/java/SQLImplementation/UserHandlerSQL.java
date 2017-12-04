@@ -101,7 +101,7 @@ public class UserHandlerSQL implements IUserHandlerSQL {
         List<User> listOfUsers = new ArrayList<>();
         User nextUser;
         String query = String.format("SELECT * FROM lawenforcer WHERE locationref "
-                + "= (SELECT locationref FROM lawenforcer WHERE id = '%s'", token.getId());
+                + "= (SELECT locationref FROM lawenforcer WHERE id = '%s')", token.getId());
 
         ResultSet select = db.executeQuery(query);
 

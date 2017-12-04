@@ -68,8 +68,7 @@ public class FXMLFindUserController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
        this.connect = new ServerConnect();
        this.admin = new User();
-       this.admin.setAddress("Somewhere far away, maybe Bolbro"); 
-       
+       this.admin.setAddress("Somewhere far away, maybe Bolbro");
     }    
 
 
