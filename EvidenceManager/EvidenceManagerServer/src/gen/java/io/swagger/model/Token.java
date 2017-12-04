@@ -35,9 +35,9 @@ import javax.validation.constraints.*;
 /**
  * Token
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-30T15:15:00.455Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-12-04T13:34:37.260Z")
 public class Token   {
-  @JsonProperty("Id")
+  @JsonProperty("id")
   private String id = null;
 
   @JsonProperty("usertype")
@@ -58,7 +58,7 @@ public class Token   {
    * Get id
    * @return id
    **/
-  @JsonProperty("Id")
+  @JsonProperty("id")
   @ApiModelProperty(value = "")
   public String getId() {
     return id;

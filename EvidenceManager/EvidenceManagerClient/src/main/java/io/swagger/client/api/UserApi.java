@@ -178,7 +178,7 @@ public class UserApi {
         Object localVarPostBody = token;
 
         // create path and map variables
-        String localVarPath = "/user";
+        String localVarPath = "/token";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();

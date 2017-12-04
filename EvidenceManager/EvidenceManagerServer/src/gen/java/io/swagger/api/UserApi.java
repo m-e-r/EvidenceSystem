@@ -7,7 +7,6 @@ import io.swagger.api.factories.UserApiServiceFactory;
 import io.swagger.annotations.ApiParam;
 import io.swagger.jaxrs.*;
 
-import io.swagger.model.Token;
 import io.swagger.model.User;
 
 import java.util.Map;
@@ -30,7 +29,7 @@ import javax.validation.constraints.*;
 
 
 @io.swagger.annotations.Api(description = "the user API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-11-30T15:15:00.455Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-12-04T13:34:37.260Z")
 public class UserApi  {
    private final UserApiService delegate;
 
@@ -66,18 +65,6 @@ public class UserApi  {
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.addUser(user,securityContext);
-    }
-    @GET
-    
-    
-    
-    @io.swagger.annotations.ApiOperation(value = "Gets a list of the users with a location", notes = "Returns a list of users with the location", response = User.class, responseContainer = "List", tags={ "User", })
-    @io.swagger.annotations.ApiResponses(value = { 
-        @io.swagger.annotations.ApiResponse(code = 200, message = "List of users", response = User.class, responseContainer = "List") })
-    public Response getListOfUsers(@ApiParam(value = "" ,required=true) Token token
-,@Context SecurityContext securityContext)
-    throws NotFoundException {
-        return delegate.getListOfUsers(token,securityContext);
     }
     @GET
     @Path("/{Id}")

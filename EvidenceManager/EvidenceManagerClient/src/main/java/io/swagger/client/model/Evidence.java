@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * Evidence
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-12-04T11:59:09.964Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-12-04T13:34:31.150Z")
 public class Evidence {
   @SerializedName("category")
   private String category = null;
