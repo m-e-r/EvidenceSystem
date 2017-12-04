@@ -5,6 +5,7 @@ import io.swagger.client.model.CriminalCase;
 import io.swagger.client.model.CriminalCaseMap;
 import io.swagger.client.model.Token;
 import org.junit.Test;
+import org.junit.Ignore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import java.util.Map;
 /**
  * API tests for CriminalCaseApi
  */
+@Ignore
 public class CriminalCaseApiTest {
 
     private final CriminalCaseApi api = new CriminalCaseApi();
@@ -30,7 +32,7 @@ public class CriminalCaseApiTest {
     @Test
     public void addCaseTest() throws ApiException {
         CriminalCase theCase = null;
-        // Boolean response = api.addCase(theCase);
+        Boolean response = api.addCase(theCase);
 
         // TODO: test validations
     }
@@ -46,7 +48,7 @@ public class CriminalCaseApiTest {
     @Test
     public void getCaseTest() throws ApiException {
         String caseId = null;
-        // CriminalCase response = api.getCase(caseId);
+        CriminalCase response = api.getCase(caseId);
 
         // TODO: test validations
     }
@@ -62,7 +64,7 @@ public class CriminalCaseApiTest {
     @Test
     public void getCasesFromIdTest() throws ApiException {
         Token user = null;
-        // CriminalCaseMap response = api.getCasesFromId(user);
+        CriminalCaseMap response = api.getCasesFromId(user);
 
         // TODO: test validations
     }
@@ -78,7 +80,7 @@ public class CriminalCaseApiTest {
     @Test
     public void updateCaseTest() throws ApiException {
         CriminalCase theCase = null;
-        // Boolean response = api.updateCase(theCase);
+        Boolean response = api.updateCase(theCase);
 
         // TODO: test validations
     }

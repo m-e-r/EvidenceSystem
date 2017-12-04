@@ -20,14 +20,27 @@ import java.util.logging.Logger;
 public class DBConnection {
 
     private static Connection con = null;
-    private static final String URL = "jdbc:postgresql://tek-mmmi-db0a.tek.c.sdu.dk:5432/si3_2017_group_13_db";
-    private static final String USERNAME = "si3_2017_group_13";
-    private static final String PASSWORD = "grim26:bijou";
 
     /**
      * Method for connecting to database.
      */
     public DBConnection() {
+                
+        //Used to connect to database.
+        String url = "jdbc:postgresql://tek-mmmi-db0a.tek.c.sdu.dk:5432/si3_2017_group_13_db";
+        String username = "si3_2017_group_13";
+        String password = "grim26:bijou";
+
+        try {
+
+            con = DriverManager.getConnection(url, username, password);
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(DBConnection.class.getName());
+            lgr.log(Level.WARNING, ex.getMessage(), ex);
+
+        }
 
     }
 
@@ -68,11 +81,9 @@ public class DBConnection {
 
         return -1;
     }
-
-    public void startConnection() {
+/*
+    private void startConnection() {
         //Used to connect to database.
-
-        new Thread(() -> {
             try {
                 if (this.con.isClosed()) {
                     this.connectionSetup();
@@ -81,9 +92,9 @@ public class DBConnection {
             } catch (SQLException ex) {
                 Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }).start();
     }
-
+*/
+    /*
     private void connectionSetup() {
         try {
 
@@ -96,5 +107,5 @@ public class DBConnection {
 
         }
     }
-
+*/
 }

@@ -26,7 +26,7 @@ public class LoginSQL implements ILoginSQL {
     
     public LoginSQL(){
         this.db = new DBConnection();
-        this.db.startConnection();
+        //this.db.startConnection();
     }
     
     

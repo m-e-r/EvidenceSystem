@@ -4,6 +4,7 @@ import io.swagger.client.ApiException;
 import io.swagger.client.model.Evidence;
 import io.swagger.client.model.Token;
 import org.junit.Test;
+import org.junit.Ignore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.Map;
 /**
  * API tests for EvidenceApi
  */
+@Ignore
 public class EvidenceApiTest {
 
     private final EvidenceApi api = new EvidenceApi();
@@ -29,7 +31,7 @@ public class EvidenceApiTest {
     @Test
     public void getEvidenceListTest() throws ApiException {
         Token token = null;
-        // List<Evidence> response = api.getEvidenceList(token);
+        List<Evidence> response = api.getEvidenceList(token);
 
         // TODO: test validations
     }
@@ -44,8 +46,9 @@ public class EvidenceApiTest {
      */
     @Test
     public void pickUpEvidenceTest() throws ApiException {
-        Evidence user = null;
-        // Boolean response = api.pickUpEvidence(user);
+        Evidence evidence = null;
+        String userId = null;
+        Boolean response = api.pickUpEvidence(evidence, userId);
 
         // TODO: test validations
     }

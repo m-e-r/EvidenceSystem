@@ -3,6 +3,7 @@ package io.swagger.client.api;
 import io.swagger.client.ApiException;
 import io.swagger.client.model.Suspect;
 import org.junit.Test;
+import org.junit.Ignore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.Map;
 /**
  * API tests for SuspectApi
  */
+@Ignore
 public class SuspectApiTest {
 
     private final SuspectApi api = new SuspectApi();
@@ -27,7 +29,7 @@ public class SuspectApiTest {
      */
     @Test
     public void getSuspectListTest() throws ApiException {
-        // List<Suspect> response = api.getSuspectList();
+        List<Suspect> response = api.getSuspectList();
 
         // TODO: test validations
     }

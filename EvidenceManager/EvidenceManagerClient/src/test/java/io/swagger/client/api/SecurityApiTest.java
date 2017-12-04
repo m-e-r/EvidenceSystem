@@ -5,6 +5,7 @@ import io.swagger.client.model.Token;
 import io.swagger.client.model.User;
 import io.swagger.client.model.UserType;
 import org.junit.Test;
+import org.junit.Ignore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import java.util.Map;
 /**
  * API tests for SecurityApi
  */
+@Ignore
 public class SecurityApiTest {
 
     private final SecurityApi api = new SecurityApi();
@@ -31,7 +33,7 @@ public class SecurityApiTest {
     public void doLoginTest() throws ApiException {
         String userName = null;
         String password = null;
-        // Token response = api.doLogin(userName, password);
+        Token response = api.doLogin(userName, password);
 
         // TODO: test validations
     }
@@ -46,7 +48,7 @@ public class SecurityApiTest {
      */
     @Test
     public void genCaseIdTest() throws ApiException {
-        // String response = api.genCaseId();
+        String response = api.genCaseId();
 
         // TODO: test validations
     }
@@ -61,7 +63,7 @@ public class SecurityApiTest {
      */
     @Test
     public void genEvidenceIdTest() throws ApiException {
-        // String response = api.genEvidenceId();
+        String response = api.genEvidenceId();
 
         // TODO: test validations
     }
@@ -77,7 +79,7 @@ public class SecurityApiTest {
     @Test
     public void sendRankTest() throws ApiException {
         UserType text = null;
-        // Boolean response = api.sendRank(text);
+        Boolean response = api.sendRank(text);
 
         // TODO: test validations
     }
@@ -93,7 +95,7 @@ public class SecurityApiTest {
     @Test
     public void validateUserTest() throws ApiException {
         User user = null;
-        // Boolean response = api.validateUser(user);
+        Boolean response = api.validateUser(user);
 
         // TODO: test validations
     }

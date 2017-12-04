@@ -1,8 +1,10 @@
 package io.swagger.client.api;
 
 import io.swagger.client.ApiException;
+import io.swagger.client.model.Token;
 import io.swagger.client.model.User;
 import org.junit.Test;
+import org.junit.Ignore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +14,7 @@ import java.util.Map;
 /**
  * API tests for UserApi
  */
+@Ignore
 public class UserApiTest {
 
     private final UserApi api = new UserApi();
@@ -28,7 +31,7 @@ public class UserApiTest {
     @Test
     public void addUserTest() throws ApiException {
         User user = null;
-        // Boolean response = api.addUser(user);
+        Boolean response = api.addUser(user);
 
         // TODO: test validations
     }
@@ -43,8 +46,8 @@ public class UserApiTest {
      */
     @Test
     public void getListOfUsersTest() throws ApiException {
-        User user = null;
-        // List<User> response = api.getListOfUsers(user);
+        Token token = null;
+        List<User> response = api.getListOfUsers(token);
 
         // TODO: test validations
     }
@@ -60,7 +63,7 @@ public class UserApiTest {
     @Test
     public void getUserTest() throws ApiException {
         String id = null;
-        // User response = api.getUser(id);
+        User response = api.getUser(id);
 
         // TODO: test validations
     }
@@ -76,7 +79,7 @@ public class UserApiTest {
     @Test
     public void updateUserTest() throws ApiException {
         User user = null;
-        // Boolean response = api.updateUser(user);
+        Boolean response = api.updateUser(user);
 
         // TODO: test validations
     }
