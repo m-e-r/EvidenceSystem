@@ -51,12 +51,15 @@ public class UserHandler {
      * @return true if the sql statement was successfull
      */
     public boolean addUser(User user) {
+        String hashPassword = "";
         this.user = user;
         this.user.setEmployeeId(this.gen.generateTempUserId());
         
         String password = this.ss.decrypt(user.getPassword());
         String username = this.ss.decrypt(user.getUsername());
-        String hashPassword = "";
+        
+        
+        
         
         try {
             hashPassword = this.pass.passwordHashGenerator(password, username, false);

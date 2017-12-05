@@ -52,7 +52,7 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
             Logger.getLogger(CaseHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return caseMap;
+        return null;
 
     }
     

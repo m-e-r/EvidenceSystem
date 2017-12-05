@@ -14,7 +14,7 @@ import java.io.IOException;
  * Evidence
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-12-04T14:11:26.502Z")
-public class Evidence {
+public class Evidence extends Tokenfy{
   @SerializedName("category")
   private String category = null;
 

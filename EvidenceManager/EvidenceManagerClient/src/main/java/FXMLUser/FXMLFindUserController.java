@@ -53,6 +53,8 @@ public class FXMLFindUserController implements Initializable {
     private TableColumn<User, String> TVRankCol;
     @FXML
     private Button viewBTN; 
+    @FXML
+    private Button createUser;
     
     
     private IUser connect;
@@ -110,7 +112,7 @@ public class FXMLFindUserController implements Initializable {
     private void viewUser(ActionEvent event) throws IOException, ApiException {
         User selectedUser = this.usersTV.getSelectionModel().getSelectedItem();
         
-        this.showUserScreenStage(selectedUser, null);
+        this.showUserScreenStage(selectedUser, this.token);
         
     }
     
@@ -133,10 +135,29 @@ public class FXMLFindUserController implements Initializable {
         return stage;
     }
     
+    private Stage showCreateUserScreenStage(Token t) throws IOException, ApiException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CreateUser.fxml"));
+
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene((Pane) loader.load()));
+
+        FXMLCreateUserController controller = loader.<FXMLCreateUserController>getController();
+        controller.initData(token);
+        stage.show();
+        return stage;
+    }
+    
+    
     public void initData(Token token) {
         this.token = token;
         this.setUserList();
     }
+
+    @FXML
+    private void createUser(ActionEvent event) throws IOException, ApiException {
+        this.showCreateUserScreenStage(token);
+    }
+
     
     
     

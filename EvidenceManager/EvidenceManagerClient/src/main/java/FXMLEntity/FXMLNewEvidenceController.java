@@ -126,6 +126,7 @@ public class FXMLNewEvidenceController implements Initializable {
         this.evidence.setTitle(title);
         this.evidence.setPersonResponsible(resp);
         this.evidence.setCategory(this.evidenceCategoryCB.getValue());
+        
         this.goBack();
         Stage stage = (Stage) this.saveBTN.getScene().getWindow();
         stage.close();

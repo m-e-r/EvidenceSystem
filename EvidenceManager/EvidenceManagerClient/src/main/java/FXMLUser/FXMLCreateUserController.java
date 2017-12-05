@@ -8,6 +8,7 @@ package FXMLUser;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
+import io.swagger.client.model.Token;
 import io.swagger.client.model.User;
 import io.swagger.client.model.UserType;
 import java.net.URL;
@@ -55,7 +56,8 @@ public class FXMLCreateUserController implements Initializable {
     private Label missingLabel;
     @FXML
     private Label userNameTakenLabel;
-
+    
+    private Token token;
     /**
      * Initializes the controller class.
      */
@@ -91,7 +93,7 @@ public class FXMLCreateUserController implements Initializable {
             this.newUser.setPassword(cs.encrypt(this.passwordTF.getText()));
             this.newUser.setUsername(cs.encrypt(this.userNameTF.getText()));
             this.newUser.setRole(this.roleCB.getValue().toString());
-            
+            this.newUser.setToken(token);
             if (!this.connect.createNewUser(this.newUser)) {
                 this.userNameTakenLabel.setVisible(true);
             } else {
@@ -112,7 +114,11 @@ public class FXMLCreateUserController implements Initializable {
      * @param event 
      */
     @FXML
-    private void handleCheckUserNameAction(ActionEvent event) {
+    private void handleCheckUserNameAction(ActionEvent event) { 
+    }
+    
+    public void initData(Token token){
+        this.token = token;
     }
     
     private boolean fieldsAreNotNull() {
