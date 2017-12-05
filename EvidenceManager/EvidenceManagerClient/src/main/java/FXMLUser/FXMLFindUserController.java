@@ -12,6 +12,8 @@ import io.swagger.client.model.User;
 import io.swagger.client.model.UserType;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -71,6 +73,7 @@ public class FXMLFindUserController implements Initializable {
        this.connect = new ServerConnect();
        this.admin = new User();
        this.admin.setAddress("Somewhere far away, maybe Bolbro");
+
     }    
 
 

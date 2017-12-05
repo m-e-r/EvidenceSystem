@@ -122,6 +122,7 @@ public class IdGeneratorSQL implements  IIdGeneratorSQL{
      */
     @Override
     public int getPrevUserId(String valueFromEnum) {
+        System.out.println("THIS IS THE ENUM------->>> " + valueFromEnum);
         int latestId = 0;
         String query = String.format("SELECT %s FROM latestId", valueFromEnum.toLowerCase());
         ResultSet select = db.executeQuery(query);
