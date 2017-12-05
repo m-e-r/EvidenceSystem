@@ -12,6 +12,7 @@ import io.swagger.model.UserType;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.SecretKeyFactory;
@@ -64,10 +65,12 @@ public class Login implements ILogin {
         Token t = new Token();
 
         if (this.userExists(sA[0], sA[1])) {
+            Date d = new Date(); 
             String id = this.getUserId(sA[0], sA[1]);
             System.out.println(id);
             t.setId(id);
             t.setUsertype(this.getRank(id));
+            t.setTimeStamp(Long.toString(d.getTime()));
         }
         //System.out.println(UserType.valueOf(t.getUsertype()) + " -- " + UserType.valueOf(t.getUsertype()).equals(UserType.COMISSIONER));
         return t;

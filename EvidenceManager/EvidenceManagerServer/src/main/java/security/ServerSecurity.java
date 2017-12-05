@@ -8,6 +8,7 @@ package security;
 import io.swagger.model.Token;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -66,10 +67,7 @@ public class ServerSecurity {
         return str.toString();
     }
     
-    public String hash(String message) {
-        return "";
-    }
-    
+/*
     public boolean callValidated(Token token) {
         this.nowTime = new SimpleDateFormat("yyyy:MM:dd:hh:mm:ss");
         
@@ -82,5 +80,13 @@ public class ServerSecurity {
         }
         
         return false;
+    }*/
+    
+    public boolean callValidated(Token token) {
+        Date d = new Date();
+        if (Long.parseLong(token.getTimeStamp()) + 60000 <= d.getTime()) {
+            return false;
+        }
+        return true;
     }
 }
