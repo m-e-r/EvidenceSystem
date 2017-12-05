@@ -56,8 +56,9 @@ public class CaseApiServiceImpl extends CaseApiService {
     @Override
     public Response getCasesFromId(Token token, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
-        if (this.val.callValidated(token))
+        if (this.val.callValidated(token)) 
             return Response.ok().entity(this.handler.getCases(token.getId())).build();
+        
         else
             return null;
     }
