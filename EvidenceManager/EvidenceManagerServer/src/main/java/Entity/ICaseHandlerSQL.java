@@ -17,7 +17,7 @@ public interface ICaseHandlerSQL {
     
     public boolean updateCase(CriminalCase c);
     
-    public CriminalCase getCase(int Id);
+    public CriminalCase getCase(String Id);
     
     //public boolean addEvidence(Evidence e);
     
