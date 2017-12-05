@@ -5,6 +5,7 @@
  */
 package security;
 
+import io.swagger.api.impl.Validator;
 import io.swagger.model.Token;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
@@ -15,7 +16,7 @@ import java.util.Date;
  *
  * @author MER
  */
-public class ServerSecurity {
+public class ServerSecurity implements Validator {
     private SimpleDateFormat nowTime;
     
     private static final String N = "248461095643171896537156319663096694761967"
@@ -84,9 +85,6 @@ public class ServerSecurity {
     
     public boolean callValidated(Token token) {
         Date d = new Date();
-        if (Long.parseLong(token.getTimeStamp()) + 60000 <= d.getTime()) {
-            return false;
-        }
-        return true;
+        return Long.parseLong(token.getTimeStamp()) + 60000 > d.getTime();
     }
 }

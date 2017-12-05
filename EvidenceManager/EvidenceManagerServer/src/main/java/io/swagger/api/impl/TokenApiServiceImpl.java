@@ -22,18 +22,19 @@ import security.UserHandler;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-12-04T13:34:37.260Z")
 public class TokenApiServiceImpl extends TokenApiService {
     private UserHandler userH;
-    private ServerSecurity ss;
+    private Validator val;
 
     public TokenApiServiceImpl() {
     	this.userH = new UserHandler();
-        this.ss = new ServerSecurity();
+        this.val = new ServerSecurity();
     }
 
     @Override
     public Response getListOfUsers(Token token, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
-        System.out.println(token.getTimeStamp());
-        System.out.println(this.ss.callValidated(token));
-        return Response.ok().entity(this.userH.getListOfUsers(token)).build();
+        if (this.val.callValidated(token)) 
+            return Response.ok().entity(this.userH.getListOfUsers(token)).build();
+        else
+            return null;
     }
 }
