@@ -9,6 +9,7 @@ import io.swagger.api.impl.Validator;
 import io.swagger.model.Token;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -67,21 +68,23 @@ public class ServerSecurity implements Validator {
         return str.toString();
     }
     
-    public String hash(String message) {
-        return "";
-    }
+/*
+    public boolean callValidated(Token token) {
+        this.nowTime = new SimpleDateFormat("yyyy:MM:dd:hh:mm:ss");
+        
+        String[] serverTimes = this.nowTime.format(new Date()).split(":");
+        String[] clientTimes = token.getTimeStamp().split(":");
+        
+        
+        if (this.nowTime.format(new Date()).compareTo(token.getTimeStamp()) > 0) {
+            return true;
+        }
+        
+        return false;
+    }*/
     
     public boolean callValidated(Token token) {
-//        this.nowTime = new SimpleDateFormat("yyyy:MM:dd:hh:mm:ss");
-//        
-//        String[] serverTimes = this.nowTime.format(new Date()).split(":");
-//        String[] clientTimes = token.getTimeStamp().split(":");
-//        
-//        
-//        if (this.nowTime.format(new Date()).compareTo(token.getTimeStamp()) > 0) {
-//            return true;
-//        }
-//        
-        return true;
+        Date d = new Date();
+        return Long.parseLong(token.getTimeStamp()) + 60000 > d.getTime();
     }
 }
