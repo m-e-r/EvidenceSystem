@@ -82,6 +82,10 @@ public class UserHandler {
         return this.handler.getListOfUsers(token);
     }
     
+    public List<User> getListOfValidateUser(Token token) {
+        return this.handler.getListOfValidateUser(token);
+    }
+    
     /**
      * Validates a user in the database and assigsn it a new id.
      * @param userName

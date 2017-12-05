@@ -32,8 +32,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
- * FXML Controller class
- * Shows list of users with same location as admin logged in
+ * FXML Controller class Shows list of users with same location as admin logged
+ * in
  *
  * @author jacob
  */
@@ -52,68 +52,67 @@ public class FXMLFindUserController implements Initializable {
     @FXML
     private TableColumn<User, String> TVRankCol;
     @FXML
-    private Button viewBTN; 
-    
-    
+    private Button viewBTN;
+
     private IUser connect;
     private ObservableList<User> userList;
     private User admin;
     private Token token;
-    
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       this.connect = new ServerConnect();
-       this.admin = new User();
-       this.admin.setAddress("Somewhere far away, maybe Bolbro");
-    }    
-
+        this.connect = new ServerConnect();
+        this.admin = new User();
+        this.admin.setAddress("Somewhere far away, maybe Bolbro");
+        Token t = new Token();
+        //t.setUsertype("Comissioner");
+        //t.setId("admin");
+        this.initData(token);
+    }
 
     @FXML
     private void update(ActionEvent event) {
         setUserList();
     }
-    
+
     /**
-     * Method that sets the tableview with all the user, that has the same adress as the logged in admin
+     * Method that sets the tableview with all the user, that has the same
+     * adress as the logged in admin
      */
-    private void setUserList(){
+    private void setUserList() {
         System.out.println("Fra getUserList: " + this.token.getId());
         try {
-            userList = FXCollections.observableArrayList(connect.getListOfUsers(this.token));
-            for(User s : userList) {
+            userList = FXCollections.observableArrayList(connect.getListOfUsers(token));
+            for (User s : userList) {
                 //System.out.println(s.getRole());
                 UserType us = UserType.valueOf(s.getRole());
                 System.out.println("User: " + s.getName() + "\nType: " + us + "\n\n");
                 //System.out.println("GET ID" + s.getEmployeeId());
             }
-            
+
             TVidCol.setCellValueFactory(new PropertyValueFactory<User, String>("employeeId"));
             TVNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
             TVRankCol.setCellValueFactory(new PropertyValueFactory<User, String>("role"));
-            
+
             usersTV.setItems(userList);
-            
-            
+
         } catch (ApiException ex) {
             Logger.getLogger(FXMLFindUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
+
     }
 
     @FXML
     private void viewUser(ActionEvent event) throws IOException, ApiException {
         User selectedUser = this.usersTV.getSelectionModel().getSelectedItem();
-        
+
         this.showUserScreenStage(selectedUser, null);
-        
+
     }
-    
+
     /**
      * Displays the view user screen.
      *
@@ -132,12 +131,10 @@ public class FXMLFindUserController implements Initializable {
         stage.show();
         return stage;
     }
-    
+
     public void initData(Token token) {
         this.token = token;
         this.setUserList();
     }
-    
-    
-    
+
 }

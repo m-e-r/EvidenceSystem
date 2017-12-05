@@ -44,11 +44,10 @@ public class UserHandlerSQL implements IUserHandlerSQL {
 
     @Override
     public boolean addUser(User user) {
-        
-            String query = String.format("INSERT INTO lawenforcer(name, id, positionref, username, passw, validated, address, birthday)\n"
-                    + "VALUES ('%s', '%s', %d, '%s', '%s', FALSE, '%s', '%s')",
-                    user.getName(), user.getEmployeeId(), 2, user.getUsername(), user.getPassword() , user.getAddress(), user.getBirthday());
 
+        String query = String.format("INSERT INTO lawenforcer(name, id, positionref, username, passw, validated, address, birthday)\n"
+                + "VALUES ('%s', '%s', %d, '%s', '%s', FALSE, '%s', '%s')",
+                user.getName(), user.getEmployeeId(), 2, user.getUsername(), user.getPassword(), user.getAddress(), user.getBirthday());
 
         return this.db.updateQuery(query) == 1;
     }
@@ -60,48 +59,51 @@ public class UserHandlerSQL implements IUserHandlerSQL {
      * @param admin The lawenforcer object representing the admin user
      * @return Returns a list of lawenforcers at same location as admin
      */
-//    @Override
-//    public List<User> getListOfUsers(String admin) {
-//        List<User> allUsers = new ArrayList<>();
-//        User nextUser;
-//        String query = String.format("select * from lawenforcer where locationref "
-//                + "= (select _ref from locations where adress = '%s') AND validated = false;", admin);
-//
-//        ResultSet select = db.executeQuery(query);
-//
-//        try {
-//            while (select.next()) {
-//                String name = select.getString("name");
-//                String username = select.getString("username");
-//                String address = select.getString("address");
-//                String birthday = select.getString("birthday");
-//                int role = select.getInt("positionref");
-//
-//                String queryPosition = String.format("SELECT title FROM lawenforcerposition WHERE _ref = %d;", role);
-//                ResultSet pos = db.executeQuery(queryPosition);
-//                pos.next();
-//
-//                nextUser = new User();
-//                nextUser.setName(name);
-//                nextUser.setUsername(username);
-//                nextUser.setAddress(address);
-//                nextUser.setBirthday(birthday);
-//                nextUser.setRole(pos.getString(1));
-//
-//                allUsers.add(nextUser);
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(UserHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//        return allUsers;
-//    }
+    @Override
+    public List<User> getListOfValidateUser(Token token) {
+        List<User> allUsers = new ArrayList<>();
+        User nextUser;
+        String query = String.format("SELECT * FROM lawenforcer WHERE locationref "
+                + "= (SELECT locationref FROM lawenforcer WHERE id = '%s') AND validated=false;", token.getId());
+
+        ResultSet select = db.executeQuery(query);
+
+        try {
+            while (select.next()) {
+                String name = select.getString("name");
+                int role = select.getInt("positionref");
+                String id = select.getString("id");
+                String username = select.getString("username");
+                String address = select.getString("address");
+                String birthday = select.getString("birthday");
+
+                String queryPosition = String.format("SELECT title FROM lawenforcerposition WHERE _ref = %d;", role);
+                ResultSet pos = db.executeQuery(queryPosition);
+                pos.next();
+
+                nextUser = new User();
+                nextUser.setName(name);
+                nextUser.setRole(pos.getString(1));
+                nextUser.setEmployeeId(id);
+                nextUser.setUsername(username);
+                nextUser.setAddress(address);
+                nextUser.setBirthday(birthday);
+
+                allUsers.add(nextUser);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return allUsers;
+    }
+
     @Override
     public List<User> getListOfUsers(Token token) {
         List<User> listOfUsers = new ArrayList<>();
         User nextUser;
         String query = String.format("SELECT * FROM lawenforcer WHERE locationref "
-                + "= (SELECT locationref FROM lawenforcer WHERE id = '%s')", token.getId());
+                + "= (SELECT locationref FROM lawenforcer WHERE id = '%s');", token.getId());
 
         ResultSet select = db.executeQuery(query);
 
