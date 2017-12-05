@@ -5,6 +5,7 @@
  */
 package security;
 
+import io.swagger.api.impl.Validator;
 import io.swagger.model.Token;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
@@ -14,7 +15,7 @@ import java.util.Date;
  *
  * @author MER
  */
-public class ServerSecurity {
+public class ServerSecurity implements Validator {
     private SimpleDateFormat nowTime;
     
     private static final String N = "248461095643171896537156319663096694761967"
@@ -71,16 +72,16 @@ public class ServerSecurity {
     }
     
     public boolean callValidated(Token token) {
-        this.nowTime = new SimpleDateFormat("yyyy:MM:dd:hh:mm:ss");
-        
-        String[] serverTimes = this.nowTime.format(new Date()).split(":");
-        String[] clientTimes = token.getTimeStamp().split(":");
-        
-        
-        if (this.nowTime.format(new Date()).compareTo(token.getTimeStamp()) > 0) {
-            return true;
-        }
-        
-        return false;
+//        this.nowTime = new SimpleDateFormat("yyyy:MM:dd:hh:mm:ss");
+//        
+//        String[] serverTimes = this.nowTime.format(new Date()).split(":");
+//        String[] clientTimes = token.getTimeStamp().split(":");
+//        
+//        
+//        if (this.nowTime.format(new Date()).compareTo(token.getTimeStamp()) > 0) {
+//            return true;
+//        }
+//        
+        return true;
     }
 }
