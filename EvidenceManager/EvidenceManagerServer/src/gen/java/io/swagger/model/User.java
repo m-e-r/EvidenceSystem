@@ -36,7 +36,7 @@ import javax.validation.constraints.*;
  * User
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-12-04T14:13:15.147Z")
-public class User   {
+public class User extends Tokenfy  {
   @JsonProperty("name")
   private String name = null;
 

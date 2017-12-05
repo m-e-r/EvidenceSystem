@@ -41,7 +41,7 @@ import javax.validation.constraints.*;
  * CriminalCase
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-12-04T14:13:15.147Z")
-public class CriminalCase   {
+public class CriminalCase extends Tokenfy  {
   @JsonProperty("caseDescription")
   private String caseDescription = null;
 

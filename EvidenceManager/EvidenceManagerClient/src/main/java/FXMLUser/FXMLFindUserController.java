@@ -12,6 +12,8 @@ import io.swagger.client.model.User;
 import io.swagger.client.model.UserType;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,6 +61,7 @@ public class FXMLFindUserController implements Initializable {
     private ObservableList<User> userList;
     private User admin;
     private Token token;
+    private SimpleDateFormat sdf;
     
     
     /**
@@ -69,6 +72,8 @@ public class FXMLFindUserController implements Initializable {
        this.connect = new ServerConnect();
        this.admin = new User();
        this.admin.setAddress("Somewhere far away, maybe Bolbro");
+       
+       this.sdf = new SimpleDateFormat("yyyy:MM:dd:hh:mm:ss");
     }    
 
 
@@ -135,6 +140,7 @@ public class FXMLFindUserController implements Initializable {
     
     public void initData(Token token) {
         this.token = token;
+        this.token.setTimeStamp(this.sdf.format(new Date()));
         this.setUserList();
     }
     

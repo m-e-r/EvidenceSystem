@@ -57,7 +57,7 @@ public class ServerConnect implements IUser, IEntity {
     @Override
     public Token doSomeLogin(String userName, String password) throws ApiException {
         Token ans = this.sa.doLogin(userName, password);
-        return ans; //Change this to token stuff
+        return ans;
     }
 
     /**

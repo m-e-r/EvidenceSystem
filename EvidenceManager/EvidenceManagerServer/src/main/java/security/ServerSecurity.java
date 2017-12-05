@@ -5,13 +5,17 @@
  */
 package security;
 
+import io.swagger.model.Token;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
  * @author MER
  */
 public class ServerSecurity {
+    private SimpleDateFormat nowTime;
     
     private static final String N = "248461095643171896537156319663096694761967"
             + "72092091992014046668138059735795571392388905898726866170798401393"
@@ -64,5 +68,19 @@ public class ServerSecurity {
     
     public String hash(String message) {
         return "";
+    }
+    
+    public boolean callValidated(Token token) {
+        this.nowTime = new SimpleDateFormat("yyyy:MM:dd:hh:mm:ss");
+        
+        String[] serverTimes = this.nowTime.format(new Date()).split(":");
+        String[] clientTimes = token.getTimeStamp().split(":");
+        
+        
+        if (this.nowTime.format(new Date()).compareTo(token.getTimeStamp()) > 0) {
+            return true;
+        }
+        
+        return false;
     }
 }
