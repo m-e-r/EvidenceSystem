@@ -19,4 +19,6 @@ public interface ILoginSQL {
 
     public String getSalt(String username);
     
+    public boolean usernameExists(String username);
+    
 }

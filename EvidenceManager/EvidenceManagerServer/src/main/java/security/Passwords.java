@@ -36,8 +36,10 @@ public class Passwords {
         byte[] salt;
         
         if (!userExists) {
+            System.out.println("Findes ikke");
           salt = this.getNextSalt();
         } else {
+            System.out.println("Findes godt");
           salt = this.hexStringToByteArray(sql.getSalt(username));
         }
         
@@ -46,9 +48,9 @@ public class Passwords {
         SecretKey key = skf.generateSecret(spec);
         byte[] hash = key.getEncoded();
         
-        System.out.println(toHex(hash));
-        return String.valueOf(ITERATIONS)+":"+toHex(salt)+":"+toHex(hash);
-        
+        String s = String.valueOf(ITERATIONS)+":"+toHex(salt)+":"+toHex(hash);
+        System.out.println("længde: " + s.split(":").length);
+        return s;
     }
 
     public String toHex(byte[] array) {
