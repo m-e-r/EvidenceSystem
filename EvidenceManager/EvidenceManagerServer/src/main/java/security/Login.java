@@ -65,12 +65,35 @@ public class Login implements ILogin {
 
         if (this.userExists(sA[0], sA[1])) {
             String id = this.getUserId(sA[0], sA[1]);
+            
+            if (!this.isUserValidated(id) || !this.isUserSupportedType(id))
+                return t;
+            
             System.out.println(id);
             t.setId(id);
             t.setUsertype(this.getRank(id));
         }
         //System.out.println(UserType.valueOf(t.getUsertype()) + " -- " + UserType.valueOf(t.getUsertype()).equals(UserType.COMISSIONER));
         return t;
+    }
+    
+    /**
+     * Method that checks if the user is not validated using a userId
+     * @param id The id of the user, that should be checked if is validated
+     * @return Returns true if user is validated
+     */
+    private boolean isUserValidated(String id){
+        return !id.contains("NOTValidated");
+    }
+    
+    /**
+     * Method that check if the id of a user, shows that the user is a supported usertype.
+     * @param id User id of the user that should be checked
+     * @return Returns true if the user is of a proper type.
+     */
+    private boolean isUserSupportedType(String id){
+        String userType = id.substring(0, 2);
+        return userType.equals("PO") || userType.equals("CO") || userType.equals("SA") || userType.equals("FS");
     }
 
     public boolean userExists(String username, String password) {
