@@ -96,7 +96,8 @@ public class Login implements ILogin {
      */
     private boolean isUserSupportedType(String id){
         String userType = id.substring(0, 2);
-        return userType.equals("PO") || userType.equals("CO") || userType.equals("SA") || userType.equals("FS");
+        return userType.equals("POLICE_OFFICER") || userType.equals("COMISSIONER") 
+                || userType.equals("SYSTEM_ADMIN") || userType.equals("FORENSIC_SCIENTIST");
     }
 
     public boolean userExists(String username, String password) {
