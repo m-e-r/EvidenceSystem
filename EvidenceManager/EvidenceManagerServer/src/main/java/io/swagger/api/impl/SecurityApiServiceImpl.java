@@ -40,6 +40,13 @@ public class SecurityApiServiceImpl extends SecurityApiService {
     @Override
     public Response validateUser(User user, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
+        try {
+            Token token = user.getToken();
+            token.toString();
+        } catch (NullPointerException ne) {
+            System.out.println("Null token caught!");
+            return Response.ok().entity(false).build();
+        }
         if (this.val.callValidated(user.getToken()))
             return Response.ok().entity(this.userH.validateUser(user)).build();
         else

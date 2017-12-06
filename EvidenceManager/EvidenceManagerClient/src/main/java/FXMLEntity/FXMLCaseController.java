@@ -16,6 +16,7 @@ import io.swagger.client.model.Token;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -56,6 +57,7 @@ public class FXMLCaseController implements Initializable {
     private IEntity connect; //For calling webservice methods in the ServerConnect implementation. 
     private CriminalCase cc; //Gets parsed from FXMLShowCaseScreenController.
     private Token token;
+    private Date date;
     
     
     @FXML
@@ -119,6 +121,7 @@ public class FXMLCaseController implements Initializable {
         this.connect = new ServerConnect();
         this.caseAddedLBL.setVisible(false);
         this.caseNotAddedLBL.setVisible(false);
+        this.date = new Date();
     }    
 
     
@@ -134,7 +137,7 @@ public class FXMLCaseController implements Initializable {
         cc.setCaseName(this.caseTitleTF.getText());
         cc.setId(this.caseNrTF.getText());
         cc.setStatus(CaseStatus.OPEN.toString());
-        cc.setToken(token);
+        cc.setToken(this.token);
         
         //Change all this when YAML is updated so CriminalCase holds a responsible id
         ArrayList<Suspect> temp = new ArrayList();
@@ -146,6 +149,7 @@ public class FXMLCaseController implements Initializable {
         
         if(this.connect.addCase(cc)){
             this.caseAddedLBL.setVisible(true);
+            this.token.setTimeStamp(Long.toString(this.date.getTime()));
         } else {
             this.caseNotAddedLBL.setVisible(true);
         }
@@ -161,11 +165,12 @@ public class FXMLCaseController implements Initializable {
     public void initData(CriminalCase cc, Token token){
        if (cc != null) {
            this.buttonsToRemoveHB.getChildren().remove(this.addNewCaseBTN);
-           this.cc = cc; //testcooment
+           this.cc = cc; 
            this.fillCase(cc);
            this.fillEvidence(cc.getCaseEvidence());
        } else {
            this.cc = new CriminalCase();
+           this.cc.setCaseEvidence(new ArrayList<Evidence>());
            this.buttonsToRemoveHB.getChildren().remove(this.saveChangesBTN);
            this.caseNrTF.setText(this.generateId());
        }
@@ -179,6 +184,7 @@ public class FXMLCaseController implements Initializable {
             System.out.println("Tilføjet!");
             this.cc.addCaseEvidenceItem(evi);
             this.evidenceListLV.getItems().add(evi);
+            this.token.setTimeStamp(Long.toString(this.date.getTime()));
         }
     }
     
@@ -193,10 +199,11 @@ public class FXMLCaseController implements Initializable {
         this.cc.setCaseName(this.caseTitleTF.getText());
         this.cc.setStatus(CaseStatus.OPEN.toString());
      
-        this.connect.updateCase(this.cc);
+        boolean success = this.connect.updateCase(this.cc);
         
-         if(this.connect.updateCase(this.cc)){
+         if(success){
             System.out.println("Succesful");
+            this.token.setTimeStamp(Long.toString(this.date.getTime()));
         } else {
             System.err.println("You're an idiot, try again");
         }
@@ -212,7 +219,7 @@ public class FXMLCaseController implements Initializable {
        this.caseNrTF.setDisable(true);
        this.caseLawenforcerTF.setDisable(true);
        caseInfoTA.setText(this.cc.getCaseDescription());
-       caseTitleTF.setText(this.cc.getCaseName());;;
+       caseTitleTF.setText(this.cc.getCaseName());
        this.caseNrTF.setText(this.cc.getId());
        this.caseLawenforcerTF.setText(this.cc.getCaseSuspect().get(0).getDescription());
        
@@ -222,9 +229,7 @@ public class FXMLCaseController implements Initializable {
 //           statusRBTN.setSelected(false);
 //       }
         caseNrTF.setText(String.valueOf(this.cc.getId()));
-        
-      
-        
+
     }
 //
 //    public void editEvidence(){
@@ -311,7 +316,7 @@ public class FXMLCaseController implements Initializable {
             String id = this.evidenceListLV.getSelectionModel().getSelectedItem().getId();
             
             for (int i = 0; i < this.cc.getCaseEvidence().size(); i++) {
-                if (this.cc.getCaseEvidence().get(i).getId() == id) {
+                if (this.cc.getCaseEvidence().get(i).getId().equals(id)) {
                     this.cc.getCaseEvidence().get(i).setDescription(description);
                     this.cc.getCaseEvidence().get(i).setLocation(location);
                 }
@@ -332,7 +337,7 @@ public class FXMLCaseController implements Initializable {
 
         FXMLNewEvidenceController controller = loader.<FXMLNewEvidenceController>getController();
         controller.initData(this);
-        
+        stage.setTitle("Logged in as " + token.getName());
         stage.show();
     }
     

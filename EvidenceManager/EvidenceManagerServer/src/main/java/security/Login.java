@@ -78,6 +78,7 @@ public class Login implements ILogin {
             System.out.println(id);
             t.setId(id);
             t.setUsertype(this.getRank(id));
+            t.setName(this.sql.getName(id));
             t.setTimeStamp(Long.toString(d.getTime()));
         }
         //System.out.println(UserType.valueOf(t.getUsertype()) + " -- " + UserType.valueOf(t.getUsertype()).equals(UserType.COMISSIONER));

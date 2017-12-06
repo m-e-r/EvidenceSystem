@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,6 +63,7 @@ public class FXMLFindUserController implements Initializable {
     private ObservableList<User> userList;
     private User admin;
     private Token token;
+    private Date date;
 
     /**
      * Initializes the controller class.
@@ -69,10 +71,7 @@ public class FXMLFindUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        this.connect = new ServerConnect();
-       this.connect = new ServerConnect();
-       this.admin = new User();
-       this.admin.setAddress("Somewhere far away, maybe Bolbro");
-
+       this.date = new Date();
     }    
 
 
@@ -87,26 +86,21 @@ public class FXMLFindUserController implements Initializable {
      * adress as the logged in admin
      */
     private void setUserList() {
-        System.out.println("Fra getUserList: " + this.token.getId());
+        List<User> users = null;
         try {
-            userList = FXCollections.observableArrayList(connect.getListOfUsers(token));
-            for (User s : userList) {
-                //System.out.println(s.getRole());
-                UserType us = UserType.valueOf(s.getRole());
-                System.out.println("User: " + s.getName() + "\nType: " + us + "\n\n");
-                //System.out.println("GET ID" + s.getEmployeeId());
-            }
-
+            users = connect.getListOfUsers(this.token);
+        } catch (ApiException ex) {
+            Logger.getLogger(FXMLFindUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (users != null) {
             TVidCol.setCellValueFactory(new PropertyValueFactory<User, String>("employeeId"));
             TVNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
             TVRankCol.setCellValueFactory(new PropertyValueFactory<User, String>("role"));
 
             usersTV.setItems(userList);
-
-        } catch (ApiException ex) {
-            Logger.getLogger(FXMLFindUserController.class.getName()).log(Level.SEVERE, null, ex);
+            this.token.setTimeStamp(Long.toString(this.date.getTime()));
         }
-
     }
 
     @FXML

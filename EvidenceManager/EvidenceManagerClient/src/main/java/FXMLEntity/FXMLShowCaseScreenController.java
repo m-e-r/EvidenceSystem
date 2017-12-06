@@ -17,6 +17,7 @@ import io.swagger.client.model.UserType;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -53,6 +54,7 @@ public class FXMLShowCaseScreenController implements Initializable {
     private ObservableList<String> occ; //Used for holding case name and id for displaying in the ListView
     private Button valiBTN;
     private Token token;
+    private Date date;
 
     @FXML
     private ListView<String> caseEditLV;
@@ -80,6 +82,7 @@ public class FXMLShowCaseScreenController implements Initializable {
         this.caseNotEditedLBL.setVisible(false);
         this.connect = new ServerConnect();
         this.occ = FXCollections.observableArrayList();
+        this.date = new Date();
     }
 
     /**
@@ -95,6 +98,7 @@ public class FXMLShowCaseScreenController implements Initializable {
         if(tempMap == null){
             this.occ.add("No cases connected to the user.");
         } else {
+            this.token.setTimeStamp(Long.toString(this.date.getTime()));
 //        Map<String, String> tempMap = new HashMap();
 //        
 //        tempMap.put("14323", "Malte is the killer");
@@ -144,6 +148,7 @@ public class FXMLShowCaseScreenController implements Initializable {
 
         FXMLValidateUsersController controller = loader.<FXMLValidateUsersController>getController();
         controller.initData(this.token);
+        stage.setTitle("Logged in as " + token.getName());
         stage.show();
         return stage;
     }
@@ -176,7 +181,6 @@ public class FXMLShowCaseScreenController implements Initializable {
 
         cc = this.connect.getCase(id);
 
-        System.err.println(cc.toString());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CaseScreen.fxml"));
 
         Stage stage = new Stage(StageStyle.DECORATED);
@@ -187,7 +191,9 @@ public class FXMLShowCaseScreenController implements Initializable {
         if (cc == null) {
             this.caseNotEditedLBL.setVisible(true);
         } else {
+            this.token.setTimeStamp(Long.toString(this.date.getTime()));
             controller.initData(cc, this.token);
+            stage.setTitle("Logged in as " + token.getName());
             stage.show();
         }
         return stage;
@@ -209,7 +215,7 @@ public class FXMLShowCaseScreenController implements Initializable {
 
         FXMLCaseController controller = loader.<FXMLCaseController>getController();
         controller.initData(null, this.token);
-
+        stage.setTitle("Logged in as " + token.getName());
         stage.show();
         return stage;
 
@@ -250,6 +256,7 @@ public class FXMLShowCaseScreenController implements Initializable {
 
         FXMLViewUserProfileController controller = loader.<FXMLViewUserProfileController>getController();
         controller.initData(null, t);
+        stage.setTitle("Logged in as " + token.getName());
         stage.show();
         return stage;
     }

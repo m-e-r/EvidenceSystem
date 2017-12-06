@@ -12,6 +12,7 @@ import io.swagger.client.ServerConnect;
 import io.swagger.client.model.Evidence;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -41,6 +42,7 @@ public class FXMLNewEvidenceController implements Initializable {
     private Evidence evidence;
     private FXMLCaseController controller;
     private ObservableList<String> categories;
+    private Date date;
 
     @FXML
     private TextField evidenceNumTF;
@@ -66,12 +68,19 @@ public class FXMLNewEvidenceController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.date = new Date();
         this.connect = new ServerConnect();
+        String id = null;
         try {
-            this.evidenceNumTF.setText(this.generateId());
+            id = this.generateId();
         } catch (ApiException ex) {
             Logger.getLogger(FXMLNewEvidenceController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if (id == null) {
+            this.evidenceNumTF.setText("No Id available.");
+            this.saveBTN.setDisable(true);
+        }
+             
         this.evidenceNumTF.setDisable(true);
         this.evidenceTitleTF.requestFocus();
         

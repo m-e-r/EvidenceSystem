@@ -106,9 +106,8 @@ public class FXMLValidateUsersController implements Initializable {
                     break;
                 }
             }    
-            this.usersLV.setItems(this.users);
-            
-                this.validateBTN.setDisable(true);
+            this.usersLV.setItems(this.users);            
+            this.validateBTN.setDisable(true);
             
         } else {
             this.validateLBL.setVisible(true);

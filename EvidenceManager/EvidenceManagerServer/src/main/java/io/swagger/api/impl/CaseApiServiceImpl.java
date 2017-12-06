@@ -31,11 +31,22 @@ public class CaseApiServiceImpl extends CaseApiService {
     
     @Override
     public Response addCase(CriminalCase theCase, SecurityContext securityContext) throws NotFoundException {
-        // do some magic!
-        if (this.val.callValidated(theCase.getToken()))
-            return Response.ok().entity(this.handler.addCase(theCase)).build();
-        else
+        
+        //First check for null
+        try {
+            Token token = theCase.getToken();
+            token.toString();
+        } catch (NullPointerException ne) {
+            System.out.println("Null token on the case caught!");
             return Response.ok().entity(false).build();
+        }
+        
+        //Second check for valid
+        if (this.val.callValidated(theCase.getToken())) 
+            return Response.ok().entity(this.handler.addCase(theCase)).build();
+        
+
+        return Response.ok().entity(false).build();
     }
     @Override
     public Response getCase(String caseId, SecurityContext securityContext) throws NotFoundException {
@@ -48,6 +59,15 @@ public class CaseApiServiceImpl extends CaseApiService {
     @Override
     public Response updateCase(CriminalCase theCase, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
+        
+        try {
+            Token token = theCase.getToken();
+            token.toString();
+        } catch (NullPointerException ne) {
+            System.out.println("Null token on the case caught!");
+            return Response.ok().entity(false).build();
+        }
+        
         if (this.val.callValidated(theCase.getToken()))
             return Response.ok().entity(this.handler.updateCase(theCase)).build();
         else
@@ -56,6 +76,14 @@ public class CaseApiServiceImpl extends CaseApiService {
     @Override
     public Response getCasesFromId(Token token, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
+        
+        try {
+            token.toString();
+        } catch (NullPointerException ne) {
+            System.out.println("Null token on the case caught!");
+            return Response.ok().entity(false).build();
+        }
+        
         if (this.val.callValidated(token)) 
             return Response.ok().entity(this.handler.getCases(token.getId())).build();
         

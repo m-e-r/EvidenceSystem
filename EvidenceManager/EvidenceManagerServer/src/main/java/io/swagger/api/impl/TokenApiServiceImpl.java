@@ -34,6 +34,13 @@ public class TokenApiServiceImpl extends TokenApiService {
     @Override
     public Response getListOfUsers(Token token, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
+        try {
+            token.toString();
+        } catch (NullPointerException ne) {
+            System.out.println("Null token caught!");
+            return Response.ok().entity(false).build();
+        }
+        
         if (this.val.callValidated(token)) {   
                 
             if (token.getUsertype().equals("Comissioner")) {

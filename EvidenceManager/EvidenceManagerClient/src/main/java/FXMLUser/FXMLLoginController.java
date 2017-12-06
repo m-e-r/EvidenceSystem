@@ -129,6 +129,7 @@ public class FXMLLoginController implements Initializable {
 
         FXMLShowCaseScreenController controller = loader.<FXMLShowCaseScreenController>getController();
         controller.initData(token);
+        stage.setTitle("Logged in as " + token.getName());
         stage.show();
         return stage;
     }
@@ -147,7 +148,7 @@ public class FXMLLoginController implements Initializable {
         stage.setScene(new Scene((Pane) loader.load()));
 
         FXMLForensicEvidenceController controller = loader.<FXMLForensicEvidenceController>getController();
-        
+        stage.setTitle("Logged in as " + token.getName());
         stage.show();
         return stage;
     }
@@ -167,6 +168,7 @@ public class FXMLLoginController implements Initializable {
 
         FXMLFindUserController controller = loader.<FXMLFindUserController>getController();
         controller.initData(token);
+        stage.setTitle("Logged in as " + token.getName());
         stage.show();
         return stage;
     }

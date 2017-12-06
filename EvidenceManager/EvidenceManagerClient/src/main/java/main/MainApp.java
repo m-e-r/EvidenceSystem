@@ -17,7 +17,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         
-        stage.setTitle("Oh SHiiiieeettt. I'm on a BOAT. Dayuim!");
+        stage.setTitle("Login for Evidence Management System");
         stage.setScene(scene);
         stage.show();
     }
