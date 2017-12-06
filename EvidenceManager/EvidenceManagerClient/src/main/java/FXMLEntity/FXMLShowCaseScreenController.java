@@ -71,7 +71,7 @@ public class FXMLShowCaseScreenController implements Initializable {
     @FXML
     private Label caseNotEditedLBL;
     
-    
+
 
     /**
      * Initializes the controller class.
@@ -82,6 +82,8 @@ public class FXMLShowCaseScreenController implements Initializable {
         this.caseNotEditedLBL.setVisible(false);
         this.connect = new ServerConnect();
         this.occ = FXCollections.observableArrayList();
+        
+
     }
 
     /**
@@ -93,8 +95,8 @@ public class FXMLShowCaseScreenController implements Initializable {
      */
     private void showsRelevantCases() throws ApiException {
         Map<String, String> tempMap = this.connect.getCases(this.token);
-        
-        if(tempMap == null){
+
+        if (tempMap == null) {
             this.occ.add("No cases connected to the user.");
         } else {
 //        Map<String, String> tempMap = new HashMap();
@@ -102,23 +104,23 @@ public class FXMLShowCaseScreenController implements Initializable {
 //        tempMap.put("14323", "Malte is the killer");
 //        tempMap.put("432454", "Malte is the real killer");
 //        tempMap.put("343242", "Malte did it");
-        for (String s : tempMap.keySet()) {
-            String adder = s + "\n" + tempMap.get(s);
-            this.occ.add(adder);
-        }
+            for (String s : tempMap.keySet()) {
+                String adder = s + "\n" + tempMap.get(s);
+                this.occ.add(adder);
+            }
 
-        //Create validate user button if correct rank
-        //if (this.token.getUsertype().equals(UserType.COMISSIONER.toString().toUpperCase())) {
-        if (UserType.valueOf(this.token.getUsertype()).equals(UserType.COMISSIONER)) {
-            this.valiBTN = new Button();
-            this.valiBTN.setText("Validate\nNew Users");
-            //Remember to do check if new users need validation when available in the API
+            //Create validate user button if correct rank
+            //if (this.token.getUsertype().equals(UserType.COMISSIONER.toString().toUpperCase())) {
+            if (UserType.valueOf(this.token.getUsertype()).equals(UserType.COMISSIONER)) {
+                this.valiBTN = new Button();
+                this.valiBTN.setText("Validate\nNew Users");
+                //Remember to do check if new users need validation when available in the API
 
-            this.buttonsHB.getChildren().add(valiBTN);
-            this.setValidateAction();
-        }
+                this.buttonsHB.getChildren().add(valiBTN);
+                this.setValidateAction();
+            }
 
-        this.caseEditLV.setItems(this.occ);
+            this.caseEditLV.setItems(this.occ);
         }
     }
 
@@ -158,6 +160,14 @@ public class FXMLShowCaseScreenController implements Initializable {
     public void initData(Token employee) throws ApiException {
         this.token = employee;
         this.showsRelevantCases();
+        this.caseEditLV.getSelectionModel().select(0);
+    }
+
+    private CriminalCase getSelectedCase() throws ApiException {
+        String id;
+        String[] ids = caseEditLV.getSelectionModel().getSelectedItem().split("\n");
+        id = ids[0];
+        return this.connect.getCase(id);
     }
 
     /**
@@ -170,15 +180,9 @@ public class FXMLShowCaseScreenController implements Initializable {
      */
     @FXML
     private Stage editCase(ActionEvent event) throws IOException, ApiException {
-        String id;
-        String[] ids = caseEditLV.getSelectionModel().getSelectedItem().split("\n");
 
-        id = ids[0];
-        CriminalCase cc;
+        CriminalCase selectedCase = this.getSelectedCase();
 
-        cc = this.connect.getCase(id);
-
-        System.out.println("CASE PRINT! \n" + cc.toString());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CaseScreen.fxml"));
 
         Stage stage = new Stage(StageStyle.DECORATED);
@@ -186,10 +190,10 @@ public class FXMLShowCaseScreenController implements Initializable {
 
         FXMLCaseController controller = loader.<FXMLCaseController>getController();
 
-        if (cc == null) {
+        if (selectedCase == null) {
             this.caseNotEditedLBL.setVisible(true);
         } else {
-            controller.initData(cc, this.token);
+            controller.initData(selectedCase, this.token);
             stage.show();
         }
         return stage;

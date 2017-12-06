@@ -88,6 +88,7 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
                 ccase.setCaseDescription(description);
                 ccase.setResponsible(responsible);
                 ccase.setStatus(status);
+                ccase.setIsBeingUpdated(isBeingEdited);
                 //ccase.setCaseSuspect(sal);
 
             }
