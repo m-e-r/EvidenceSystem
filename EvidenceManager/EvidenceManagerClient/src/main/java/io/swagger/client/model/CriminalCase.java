@@ -46,6 +46,9 @@ public class CriminalCase extends Tokenfy{
 
   @SerializedName("associates")
   private List<User> associates = null;
+  
+  @SerializedName("isBeingUpdated")
+  private boolean isBeingUpdated = false;
 
   public CriminalCase caseDescription(String caseDescription) {
     this.caseDescription = caseDescription;
@@ -219,6 +222,21 @@ public class CriminalCase extends Tokenfy{
     this.associates.add(associatesItem);
     return this;
   }
+  
+   /**
+   * Get status
+   * @return status
+  **/
+  @ApiModelProperty(value = "")
+  public boolean getIsBeingUpdated() {
+    return isBeingUpdated;
+  }
+
+  public void setIsBeingUpdated(boolean status) {
+    this.isBeingUpdated = status;
+  }
+  
+  
 
    /**
    * Get associates
