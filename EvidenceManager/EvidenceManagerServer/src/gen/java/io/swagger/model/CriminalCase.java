@@ -68,6 +68,7 @@ public class CriminalCase extends Tokenfy  {
 
   @JsonProperty("associates")
   private List<User> associates = null;
+  
 
   public CriminalCase caseDescription(String caseDescription) {
     this.caseDescription = caseDescription;

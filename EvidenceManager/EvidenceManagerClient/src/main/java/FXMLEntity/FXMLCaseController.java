@@ -105,11 +105,13 @@ public class FXMLCaseController implements Initializable {
     @FXML
     private Button addNewEvidenceBTN;
     @FXML
-    private ChoiceBox<?> caseStatusCB;
+    private ChoiceBox<CaseStatus> caseStatusCB;
     @FXML
     private Label caseAddedLBL;
     @FXML
     private Label caseNotAddedLBL;
+    
+    private ObservableList<CaseStatus> status;
    
     /**
      * Initializes the controller class.
@@ -119,6 +121,9 @@ public class FXMLCaseController implements Initializable {
         this.connect = new ServerConnect();
         this.caseAddedLBL.setVisible(false);
         this.caseNotAddedLBL.setVisible(false);
+        this.status = FXCollections.observableArrayList(CaseStatus.values());
+        this.caseStatusCB.setItems(this.status);
+        
     }    
 
     
@@ -214,7 +219,8 @@ public class FXMLCaseController implements Initializable {
        caseInfoTA.setText(this.cc.getCaseDescription());
        caseTitleTF.setText(this.cc.getCaseName());;;
        this.caseNrTF.setText(this.cc.getId());
-       this.caseLawenforcerTF.setText(this.cc.getCaseSuspect().get(0).getDescription());
+       this.caseLawenforcerTF.setText(this.cc.getResponsible());
+       this.caseStatusCB.setValue(CaseStatus.fromValue(this.cc.getStatus()));
        
 //       if(this.cc.getStatus().equals(this.cc.getStatus().OPEN)){
 //          statusRBTN.setSelected(true);

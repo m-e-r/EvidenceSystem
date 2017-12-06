@@ -22,4 +22,6 @@ public interface ICaseHandlerSQL {
     //public boolean addEvidence(Evidence e);
     
     public CriminalCaseMap getCases(String employeeId);
+    
+    public boolean isCaseBeingEdited(String id);
 }

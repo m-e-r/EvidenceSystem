@@ -37,4 +37,8 @@ public class CaseHandler {
     public CriminalCaseMap getCases(String employeeId){
         return this.handler.getCases(employeeId);
     }
+    
+    public boolean isBeingEdited(String id){
+        return this.handler.isCaseBeingEdited(id);
+    }
 }

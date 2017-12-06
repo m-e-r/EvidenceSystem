@@ -70,6 +70,8 @@ public class FXMLShowCaseScreenController implements Initializable {
     private Button viewProfileBTN;
     @FXML
     private Label caseNotEditedLBL;
+    
+    
 
     /**
      * Initializes the controller class.
@@ -176,7 +178,7 @@ public class FXMLShowCaseScreenController implements Initializable {
 
         cc = this.connect.getCase(id);
 
-        System.err.println(cc.toString());
+        System.out.println("CASE PRINT! \n" + cc.toString());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CaseScreen.fxml"));
 
         Stage stage = new Stage(StageStyle.DECORATED);
