@@ -7,6 +7,7 @@ package SQLImplementation;
 
 import Entity.ICaseHandlerSQL;
 import dbConnection.DBConnection;
+import io.swagger.model.CaseStatus;
 import io.swagger.model.CriminalCase;
 import io.swagger.model.CriminalCaseMap;
 import io.swagger.model.Evidence;
@@ -24,13 +25,13 @@ import java.util.logging.Logger;
  */
 public class CaseHandlerSQL implements ICaseHandlerSQL {
 
-   private List<Evidence> tempEvidenceList;
-   private DBConnection db;
-    
-   
-   public CaseHandlerSQL(){
-       this.db = new DBConnection();
-   }
+    private List<Evidence> tempEvidenceList;
+    private DBConnection db;
+
+    public CaseHandlerSQL() {
+        this.db = new DBConnection();
+    }
+
     /**
      * Method for getting map with cases from database.
      *
@@ -55,8 +56,7 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
         return caseMap;
 
     }
-    
-    
+
     /**
      * Mehtod for getting a case from database.
      *
@@ -68,21 +68,28 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
 
         CriminalCase ccase = new CriminalCase();
 
-        try {                                                                       //HARDCODED ID CHANGE THIS
-            String query = "SELECT id, title, description FROM criminalcase WHERE id =' " + id + "'";
+        try {
+            String query = String.format("SELECT criminalcase.title, criminalcase.description, criminalcase.status, criminalcase.id, criminalcase.isbeingedited, lawenforcer.name FROM criminalcase\n"
+                    + "JOIN lawenforcer ON (lawenforcer.id = criminalcase.responsible) WHERE criminalcase.id = '%s'", id);
 
-            ResultSet set = db.executeQuery(query);
-            List<Suspect> sal = new ArrayList<>();
-            Suspect s = new Suspect();
-            s.setDescription("Kasper");
-            sal.add(s);
+            ResultSet select = db.executeQuery(query);
 
-            while (set.next()) {
+            while (select.next()) {
 
-                ccase.setId(set.getString("id"));
-                ccase.setCaseName(set.getString("title"));
-                ccase.setCaseDescription(set.getString("description"));
-                ccase.setCaseSuspect(sal);
+                
+                String title = select.getString("title");
+                String description = select.getString("description");
+                String status = select.getObject("status").toString();
+                boolean isBeingEdited = select.getBoolean("isbeingedited");
+                String responsible = select.getString("name");
+
+                ccase.setId(id);
+                ccase.setCaseName(title);
+                ccase.setCaseDescription(description);
+                ccase.setResponsible(responsible);
+                ccase.setStatus(status);
+                ccase.setIsBeingUpdated(isBeingEdited);
+                //ccase.setCaseSuspect(sal);
 
             }
 
@@ -92,7 +99,7 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
         ccase.setCaseEvidence(this.getEvidenceList(id));
         return ccase;
     }
-    
+
     /**
      * Method for updating case in database.
      *
@@ -109,9 +116,7 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
 
         return db.updateQuery(query) == 1;
     }
-    
-    
-    
+
     /**
      * Method for adding a case in database.
      *
@@ -135,7 +140,7 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
 
         return true;
     }
-    
+
     /**
      * Method for updating Evidence in database from a list.
      *
@@ -161,7 +166,7 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
 
         }
     }
-    
+
     /**
      * Method with SQL for adding new Evidence to Database.
      *
@@ -184,7 +189,7 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
         System.out.println(String.format("Evidence %s added!", e.getId()));
 
     }
-    
+
     /**
      * Method for updating Evidence in database.
      *
@@ -195,7 +200,7 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
                 e.getTitle(), e.getDescription(), e.getId());
         db.updateQuery(query);
     }
-    
+
     /**
      * Method for getting a evidence list from database.
      *
@@ -225,5 +230,20 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
 
         return eviList;
     }
-    
+
+    @Override
+    public boolean isCaseBeingEdited(String id) {
+        String query = String.format("SELECT isbeingedited FROM criminalcase where id = '%s'", id);
+
+        ResultSet select = db.executeQuery(query);
+        boolean isBeingEdited = true;
+        try {
+            select.next();
+            isBeingEdited = select.getBoolean(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(CaseHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return isBeingEdited;
+    }
+
 }

@@ -14,6 +14,7 @@ import io.swagger.client.model.Evidence;
 import io.swagger.client.model.Suspect;
 import io.swagger.client.model.Token;
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,13 +54,13 @@ import javafx.stage.StageStyle;
  * @author Kasper
  */
 public class FXMLCaseController implements Initializable {
+
     //Attributes
     private IEntity connect; //For calling webservice methods in the ServerConnect implementation. 
     private CriminalCase cc; //Gets parsed from FXMLShowCaseScreenController.
     private Token token;
     private Date date;
-    
-    
+
     @FXML
     private TextField caseNrTF;
     @FXML
@@ -107,12 +108,16 @@ public class FXMLCaseController implements Initializable {
     @FXML
     private Button addNewEvidenceBTN;
     @FXML
-    private ChoiceBox<?> caseStatusCB;
+    private ChoiceBox<CaseStatus> caseStatusCB;
     @FXML
     private Label caseAddedLBL;
     @FXML
     private Label caseNotAddedLBL;
-   
+
+    private ObservableList<CaseStatus> status;
+
+    private String caseId = "";
+
     /**
      * Initializes the controller class.
      */
@@ -122,14 +127,20 @@ public class FXMLCaseController implements Initializable {
         this.caseAddedLBL.setVisible(false);
         this.caseNotAddedLBL.setVisible(false);
         this.date = new Date();
-    }    
 
-    
+        this.status = FXCollections.observableArrayList(CaseStatus.values());
+        this.caseStatusCB.setItems(this.status);
+
+    }
+
+
     /**
-     * Instantiates a new CriminalCase object, whose attributes are set to be the attributes which the user wishes. 
-     * The case is then added in the database using the addCase method on the ServerConnect object.
+     * Instantiates a new CriminalCase object, whose attributes are set to be
+     * the attributes which the user wishes. The case is then added in the
+     * database using the addCase method on the ServerConnect object.
+     *
      * @param event - button that is pressed when a case is added.
-     * @throws ApiException 
+     * @throws ApiException
      */
     @FXML
     private void addCase(ActionEvent event) throws ApiException {
@@ -138,47 +149,60 @@ public class FXMLCaseController implements Initializable {
         cc.setId(this.caseNrTF.getText());
         cc.setStatus(CaseStatus.OPEN.toString());
         cc.setToken(this.token);
-        
+
         //Change all this when YAML is updated so CriminalCase holds a responsible id
         ArrayList<Suspect> temp = new ArrayList();
         Suspect temps = new Suspect();
         temps.setDescription(this.token.getId());
         temp.add(temps);
         cc.setCaseSuspect(temp);
-        
-        
-        if(this.connect.addCase(cc)){
+
+        if (this.connect.addCase(cc)) {
             this.caseAddedLBL.setVisible(true);
             this.token.setTimeStamp(Long.toString(this.date.getTime()));
         } else {
             this.caseNotAddedLBL.setVisible(true);
         }
-     
+
+    }
+    
+    private void disableAllFields(){
+        this.caseLawenforcerTF.setEditable(false);
+        this.additionelSuspectTF.setEditable(false);
+        this.caseTitleTF.setEditable(false);
+        this.caseInfoTA.setEditable(false);
+        this.primeSuspectTF.setEditable(false);
+        this.caseStatusCB.setDisable(true);
     }
 
-
-    
     /**
      * Method that is called when loading this stage.
-     * @param cc - CriminalCase object that is parsed across FXMLControllers. 
+     *
+     * @param cc - CriminalCase object that is parsed across FXMLControllers.
      */
-    public void initData(CriminalCase cc, Token token){
-       if (cc != null) {
-           this.buttonsToRemoveHB.getChildren().remove(this.addNewCaseBTN);
-           this.cc = cc; 
-           this.fillCase(cc);
-           this.fillEvidence(cc.getCaseEvidence());
-       } else {
-           this.cc = new CriminalCase();
-           this.cc.setCaseEvidence(new ArrayList<Evidence>());
-           this.buttonsToRemoveHB.getChildren().remove(this.saveChangesBTN);
-           this.caseNrTF.setText(this.generateId());
-       }
-       
-       this.token = token;
-       this.cc.setToken(token);
+
+    public void initData(CriminalCase cc, Token token) {
+        if (cc != null) {
+            this.buttonsToRemoveHB.getChildren().remove(this.addNewCaseBTN);
+            this.cc = cc;
+            this.fillCase(cc);
+            this.fillEvidence(cc.getCaseEvidence());
+            if(this.cc.getIsBeingUpdated()) {
+                this.disableAllFields();
+            }
+        } else {
+            this.cc = new CriminalCase();
+            this.buttonsToRemoveHB.getChildren().remove(this.saveChangesBTN);
+
+            this.generateId();
+
+        }
+
+        this.token = token;
+        this.cc.setToken(token);
+
     }
-    
+
     public void addNewEvidence(Evidence evi) {
         if (evi != null) {
             System.out.println("Tilføjet!");
@@ -187,11 +211,14 @@ public class FXMLCaseController implements Initializable {
             this.token.setTimeStamp(Long.toString(this.date.getTime()));
         }
     }
-    
+
     /**
-     * Instantiates a new CriminalCase object, whose attributes are set to be the attributes which the user wishes. 
-     * @param event - Button that is pressed when the changes to a case is saved.
-     * @throws ApiException 
+     * Instantiates a new CriminalCase object, whose attributes are set to be
+     * the attributes which the user wishes.
+     *
+     * @param event - Button that is pressed when the changes to a case is
+     * saved.
+     * @throws ApiException
      */
     @FXML
     private void saveChangesToCase(ActionEvent event) throws ApiException {
@@ -207,22 +234,26 @@ public class FXMLCaseController implements Initializable {
         } else {
             System.err.println("You're an idiot, try again");
         }
-    
+
     }
-    
+
     /**
-     * Called from initData, when editCase is pressed. 
-     * Updates all textfields and textareas with the information pertaining to the case that is to be edited.
-     * @param cc 
+     * Called from initData, when editCase is pressed. Updates all textfields
+     * and textareas with the information pertaining to the case that is to be
+     * edited.
+     *
+     * @param cc
      */
-    private void fillCase(CriminalCase cc){
-       this.caseNrTF.setDisable(true);
-       this.caseLawenforcerTF.setDisable(true);
-       caseInfoTA.setText(this.cc.getCaseDescription());
-       caseTitleTF.setText(this.cc.getCaseName());
-       this.caseNrTF.setText(this.cc.getId());
-       this.caseLawenforcerTF.setText(this.cc.getCaseSuspect().get(0).getDescription());
-       
+
+    private void fillCase(CriminalCase cc) {
+        this.caseNrTF.setDisable(true);
+        this.caseLawenforcerTF.setDisable(true);
+        caseInfoTA.setText(this.cc.getCaseDescription());
+        caseTitleTF.setText(this.cc.getCaseName());;;
+        this.caseNrTF.setText(this.cc.getId());
+        this.caseLawenforcerTF.setText(this.cc.getResponsible());
+        this.caseStatusCB.setValue(CaseStatus.fromValue(this.cc.getStatus()));
+
 //       if(this.cc.getStatus().equals(this.cc.getStatus().OPEN)){
 //          statusRBTN.setSelected(true);
 //       } else {
@@ -242,33 +273,35 @@ public class FXMLCaseController implements Initializable {
 //        System.out.println(ids.toString());
 //        
 //    }
-    
+
     /**
      * Fills the evidence listview with evidence from a list of evidence.
-     * @param eList 
+     *
+     * @param eList
      */
-    private void fillEvidence (List<Evidence> eList){
-       ObservableList<Evidence> occS = FXCollections.observableArrayList();
- 
-       
-       /*Evidence e1 = new Evidence();
+    private void fillEvidence(List<Evidence> eList) {
+        ObservableList<Evidence> occS = FXCollections.observableArrayList();
+
+        /*Evidence e1 = new Evidence();
        e1.setEvidenceDescription("Herro m8");
        e1.setEvidenceNumber(1);
        e1.setLocation("Somewhere");
-       */
-       
-       for(Evidence e : eList){
+         */
+        for (Evidence e : eList) {
 //           String adder = e.toString();
 //           System.err.println(adder);
-           occS.add(e);
-       }
-        
-       evidenceListLV.setItems(occS);
- 
+            occS.add(e);
+        }
+
+        evidenceListLV.setItems(occS);
+
     }
+
     /**
-     * Whe then 'edit evidence' button is pushed all textfields are set to editable.  
-     * @param event 
+     * Whe then 'edit evidence' button is pushed all textfields are set to
+     * editable.
+     *
+     * @param event
      */
     @FXML
     private void handleEditEvidenceAction(ActionEvent event) {
@@ -281,11 +314,13 @@ public class FXMLCaseController implements Initializable {
             this.editEvidenceBTN.setDisable(true);
         }
     }
-/**
- * When 'save changes' is pressed, the information found the evidence textfields are added to the evidence in the database.
- * @param event 
- */
-    
+
+    /**
+     * When 'save changes' is pressed, the information found the evidence
+     * textfields are added to the evidence in the database.
+     *
+     * @param event
+     */
     @FXML
     private void handleSaveChangesAction(ActionEvent event) {
         if (this.evidenceListLV.getSelectionModel().getSelectedItem() != null) {
@@ -296,8 +331,7 @@ public class FXMLCaseController implements Initializable {
             this.evidenceLawenforcerTF.setEditable(false);
             this.editEvidenceBTN.setDisable(false);
             this.updateEvidenceBTN.setDisable(true);
-            
-            
+
             //Check for empty fields
             String description;
             String location;
@@ -311,10 +345,10 @@ public class FXMLCaseController implements Initializable {
             } else {
                 location = this.evidenceLocationTF.getText();
             }
-            
+
             //Replace the existing Evidence on the case with the new modifed one
             String id = this.evidenceListLV.getSelectionModel().getSelectedItem().getId();
-            
+
             for (int i = 0; i < this.cc.getCaseEvidence().size(); i++) {
                 if (this.cc.getCaseEvidence().get(i).getId().equals(id)) {
                     this.cc.getCaseEvidence().get(i).setDescription(description);
@@ -323,10 +357,12 @@ public class FXMLCaseController implements Initializable {
             }
         }
     }
+
     /**
      * Opens a separate window, where a new piece of evidence can be added.
+     *
      * @param event
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
     private void handleAddNewEvidenceAction(ActionEvent event) throws IOException {
@@ -340,12 +376,13 @@ public class FXMLCaseController implements Initializable {
         stage.setTitle("Logged in as " + token.getName());
         stage.show();
     }
-    
-    /**
-     * If a piece of evidence is chosen from the evidence listview, the information is then stored in the respective textfields. 
-     * @param event 
-     */
 
+    /**
+     * If a piece of evidence is chosen from the evidence listview, the
+     * information is then stored in the respective textfields.
+     *
+     * @param event
+     */
     @FXML
     private void handleChooseEvidenceAction(MouseEvent event) {
         if (this.evidenceListLV.getSelectionModel().getSelectedItem() != null) {
@@ -358,18 +395,24 @@ public class FXMLCaseController implements Initializable {
             this.evidenceLawenforcerTF.setText(chosenEvidence.getPersonResponsible());
         }
     }
+
     /**
      * Calls the generateCaseId from the server.
-     * @return the ID that has been generated. 
+     *
+     * @return the ID that has been generated.
      */
-    
-    private String generateId() {
-        try {
-            return this.connect.generateCaseId();
-        } catch (ApiException ex) {
-            Logger.getLogger(FXMLCaseController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "";
+    private void generateId() {
+
+        new Thread(() -> {
+            try {
+                this.caseId = this.connect.generateCaseId();
+                this.caseNrTF.setText(this.caseId);
+            } catch (ApiException ex) {
+                Logger.getLogger(FXMLCaseController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }).start();
+
     }
-   
+
 }

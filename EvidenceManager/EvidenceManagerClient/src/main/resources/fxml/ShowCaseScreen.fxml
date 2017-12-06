@@ -8,8 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLEntity.FXMLShowCaseScreenController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLEntity.FXMLShowCaseScreenController">
    <children>
       <SplitPane dividerPositions="0.8504065040650407" orientation="VERTICAL" prefHeight="600.0" prefWidth="630.0">
          <items>
@@ -23,13 +24,17 @@
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="105.0" prefWidth="160.0">
                <children>
-                  <HBox fx:id="buttonsHB" alignment="CENTER" prefHeight="85.0" prefWidth="628.0" spacing="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox alignment="CENTER" prefHeight="85.0" prefWidth="628.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button fx:id="addCaseBTN" mnemonicParsing="false" onAction="#addCase" text="Add new case" />
-                        <Button fx:id="editCaseBTN" mnemonicParsing="false" onAction="#editCase" text="Edit case" />
+                        <HBox fx:id="buttonsHB" alignment="CENTER" prefHeight="85.0" prefWidth="628.0" spacing="100.0">
+                           <children>
+                              <Button fx:id="addCaseBTN" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addCase" text="Add new case" />
+                              <Button fx:id="editCaseBTN" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#editCase" text="Edit case" />
+                           </children>
+                        </HBox>
                         <Label fx:id="caseNotEditedLBL" text="Case not able to be edited" textFill="RED" />
                      </children>
-                  </HBox>
+                  </VBox>
                </children>
             </AnchorPane>
          </items>

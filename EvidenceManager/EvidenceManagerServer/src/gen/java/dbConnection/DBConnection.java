@@ -21,27 +21,30 @@ public class DBConnection {
 
     private static Connection con = null;
 
+    private final String URL = "jdbc:postgresql://tek-mmmi-db0a.tek.c.sdu.dk:5432/si3_2017_group_13_db";
+    private final String USERNAME = "si3_2017_group_13";
+    private final String PASSWORD = "grim26:bijou";
+
     /**
      * Method for connecting to database.
      */
     public DBConnection() {
-                
-        //Used to connect to database.
-        String url = "jdbc:postgresql://tek-mmmi-db0a.tek.c.sdu.dk:5432/si3_2017_group_13_db";
-        String username = "si3_2017_group_13";
-        String password = "grim26:bijou";
+        if (con == null) {
+            createConnection();
+        }
 
+    }
+    //Used to connect to database.
+    private void createConnection() {
+        
         try {
-
-            con = DriverManager.getConnection(url, username, password);
-
+            con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException ex) {
 
             Logger lgr = Logger.getLogger(DBConnection.class.getName());
             lgr.log(Level.WARNING, ex.getMessage(), ex);
 
         }
-
     }
 
     /**
@@ -53,8 +56,11 @@ public class DBConnection {
     public ResultSet executeQuery(String query) {
 
         try {
-            Statement st = con.createStatement();
-            return st.executeQuery(query);
+            if (con.isValid(0)) {
+                Statement st = con.createStatement();
+                return st.executeQuery(query);
+            }
+            createConnection();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,8 +78,11 @@ public class DBConnection {
     public int updateQuery(String query) {
 
         try {
-            Statement st = con.createStatement();
-            return st.executeUpdate(query);
+            if (con.isValid(0)) {
+                Statement st = con.createStatement();
+                return st.executeUpdate(query);
+            }
+            createConnection();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -81,31 +90,4 @@ public class DBConnection {
 
         return -1;
     }
-/*
-    private void startConnection() {
-        //Used to connect to database.
-            try {
-                if (this.con.isClosed()) {
-                    this.connectionSetup();
-
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
-            }
-    }
-*/
-    /*
-    private void connectionSetup() {
-        try {
-
-            this.con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
-        } catch (SQLException ex) {
-
-            Logger lgr = Logger.getLogger(DBConnection.class.getName());
-            lgr.log(Level.WARNING, ex.getMessage(), ex);
-
-        }
-    }
-*/
 }
