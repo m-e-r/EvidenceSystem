@@ -28,7 +28,7 @@ public class CaseHandler {
         return this.handler.updateCase(c);
     }
     
-    public CriminalCase getCase(int Id){
+    public CriminalCase getCase(String Id){
         return this.handler.getCase(Id);
     }
     

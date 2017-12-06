@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="395.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLEntity.FXMLCaseController">
+<AnchorPane id="AnchorPane" prefHeight="395.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLEntity.FXMLCaseController">
     <children>
   <AnchorPane fx:id="backPane" minHeight="0.0" minWidth="0.0" prefHeight="617.0" prefWidth="1129.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -96,10 +96,12 @@
                                     <Insets left="6.0" right="6.0" />
                                  </VBox.margin>
                               </TextArea>
-                              <HBox fx:id="buttonsToRemoveHB" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                              <HBox fx:id="buttonsToRemoveHB" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
+                                    <Label fx:id="caseAddedLBL" text="A new case was added." textFill="#1eff00" />
                                     <Button fx:id="addNewCaseBTN" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addCase" prefHeight="33.0" prefWidth="121.0" text="Add new case" textFill="#13d036" />
                                     <Button fx:id="saveChangesBTN" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveChangesToCase" prefHeight="33.0" prefWidth="121.0" text="Save changes" textFill="#13d036" />
+                                    <Label fx:id="caseNotAddedLBL" text="A new case could not be added." textFill="RED" />
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="30.0" />

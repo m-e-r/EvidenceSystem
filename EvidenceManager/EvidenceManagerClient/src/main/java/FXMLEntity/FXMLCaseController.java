@@ -29,6 +29,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.SelectionMode;
@@ -105,6 +106,10 @@ public class FXMLCaseController implements Initializable {
     private Button addNewEvidenceBTN;
     @FXML
     private ChoiceBox<?> caseStatusCB;
+    @FXML
+    private Label caseAddedLBL;
+    @FXML
+    private Label caseNotAddedLBL;
    
     /**
      * Initializes the controller class.
@@ -112,6 +117,8 @@ public class FXMLCaseController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.connect = new ServerConnect();
+        this.caseAddedLBL.setVisible(false);
+        this.caseNotAddedLBL.setVisible(false);
     }    
 
     
@@ -127,6 +134,7 @@ public class FXMLCaseController implements Initializable {
         cc.setCaseName(this.caseTitleTF.getText());
         cc.setId(this.caseNrTF.getText());
         cc.setStatus(CaseStatus.OPEN.toString());
+        cc.setToken(token);
         
         //Change all this when YAML is updated so CriminalCase holds a responsible id
         ArrayList<Suspect> temp = new ArrayList();
@@ -137,10 +145,9 @@ public class FXMLCaseController implements Initializable {
         
         
         if(this.connect.addCase(cc)){
-            System.out.println("Succesful");
-            
+            this.caseAddedLBL.setVisible(true);
         } else {
-            System.err.println("You're an idiot, try again");
+            this.caseNotAddedLBL.setVisible(true);
         }
      
     }
@@ -162,7 +169,9 @@ public class FXMLCaseController implements Initializable {
            this.buttonsToRemoveHB.getChildren().remove(this.saveChangesBTN);
            this.caseNrTF.setText(this.generateId());
        }
+       
        this.token = token;
+       this.cc.setToken(token);
     }
     
     public void addNewEvidence(Evidence evi) {
@@ -183,7 +192,7 @@ public class FXMLCaseController implements Initializable {
         this.cc.setCaseDescription(this.caseInfoTA.getText());
         this.cc.setCaseName(this.caseTitleTF.getText());
         this.cc.setStatus(CaseStatus.OPEN.toString());
-        
+     
         this.connect.updateCase(this.cc);
         
          if(this.connect.updateCase(this.cc)){

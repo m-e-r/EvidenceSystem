@@ -32,6 +32,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -46,12 +47,13 @@ import javafx.stage.StageStyle;
  * @author march
  */
 public class FXMLShowCaseScreenController implements Initializable {
+
     //Attributes
     private IEntity connect; //Used for calling methods on the server
     private ObservableList<String> occ; //Used for holding case name and id for displaying in the ListView
     private Button valiBTN;
     private Token token;
-    
+
     @FXML
     private ListView<String> caseEditLV;
     @FXML
@@ -66,6 +68,8 @@ public class FXMLShowCaseScreenController implements Initializable {
     private HBox buttonsHB;
     @FXML
     private Button viewProfileBTN;
+    @FXML
+    private Label caseNotEditedLBL;
 
     /**
      * Initializes the controller class.
@@ -73,19 +77,24 @@ public class FXMLShowCaseScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
+        this.caseNotEditedLBL.setVisible(false);
         this.connect = new ServerConnect();
         this.occ = FXCollections.observableArrayList();
     }
-    
+
     /**
-     * Loads into the ListView all the case names/ids relevant to the logged in user.
-     * Should be called from the initData method, NOT initialize.
+     * Loads into the ListView all the case names/ids relevant to the logged in
+     * user. Should be called from the initData method, NOT initialize.
+     *
      * @param employeeId the user who logs in
-     * @throws ApiException 
+     * @throws ApiException
      */
     private void showsRelevantCases() throws ApiException {
-        Map<String, String>tempMap = this.connect.getCases(this.token);
+        Map<String, String> tempMap = this.connect.getCases(this.token);
+        
+        if(tempMap == null){
+            this.occ.add("No cases connected to the user.");
+        } else {
 //        Map<String, String> tempMap = new HashMap();
 //        
 //        tempMap.put("14323", "Malte is the killer");
@@ -95,21 +104,22 @@ public class FXMLShowCaseScreenController implements Initializable {
             String adder = s + "\n" + tempMap.get(s);
             this.occ.add(adder);
         }
-        
+
         //Create validate user button if correct rank
         //if (this.token.getUsertype().equals(UserType.COMISSIONER.toString().toUpperCase())) {
         if (UserType.valueOf(this.token.getUsertype()).equals(UserType.COMISSIONER)) {
             this.valiBTN = new Button();
             this.valiBTN.setText("Validate\nNew Users");
             //Remember to do check if new users need validation when available in the API
-            
+
             this.buttonsHB.getChildren().add(valiBTN);
             this.setValidateAction();
         }
 
         this.caseEditLV.setItems(this.occ);
+        }
     }
-    
+
     private void setValidateAction() {
         this.valiBTN.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -125,6 +135,7 @@ public class FXMLShowCaseScreenController implements Initializable {
             }
         });
     }
+
     private Stage showValidationStage() throws IOException, ApiException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ValidateUsers.fxml"));
 
@@ -136,32 +147,35 @@ public class FXMLShowCaseScreenController implements Initializable {
         stage.show();
         return stage;
     }
-    
+
     /**
      * Method to be called when this stage is loaded.
+     *
      * @param employee
      */
     public void initData(Token employee) throws ApiException {
         this.token = employee;
         this.showsRelevantCases();
     }
-    
+
     /**
      * Displays the selected CriminalCase from the ListView.
+     *
      * @param event the editCase button.
      * @return Shows the new Stage
      * @throws IOException
-     * @throws ApiException 
+     * @throws ApiException
      */
     @FXML
     private Stage editCase(ActionEvent event) throws IOException, ApiException {
         String id;
-        String [] ids = caseEditLV.getSelectionModel().getSelectedItem().split("\n");
-        
+        String[] ids = caseEditLV.getSelectionModel().getSelectedItem().split("\n");
+
         id = ids[0];
         CriminalCase cc;
-        
+
         cc = this.connect.getCase(id);
+
         System.err.println(cc.toString());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CaseScreen.fxml"));
 
@@ -169,17 +183,22 @@ public class FXMLShowCaseScreenController implements Initializable {
         stage.setScene(new Scene((Pane) loader.load()));
 
         FXMLCaseController controller = loader.<FXMLCaseController>getController();
-        controller.initData(cc, this.token);
-        
-        stage.show();
-        return stage;  
-}
-    
+
+        if (cc == null) {
+            this.caseNotEditedLBL.setVisible(true);
+        } else {
+            controller.initData(cc, this.token);
+            stage.show();
+        }
+        return stage;
+    }
+
     /**
      * Displays the screen where a user can add a new CriminalCase.
+     *
      * @param event the addCase button
      * @return Shows the new Stage
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
     private Stage addCase(ActionEvent event) throws IOException {
@@ -190,7 +209,7 @@ public class FXMLShowCaseScreenController implements Initializable {
 
         FXMLCaseController controller = loader.<FXMLCaseController>getController();
         controller.initData(null, this.token);
-        
+
         stage.show();
         return stage;
 
@@ -210,13 +229,12 @@ public class FXMLShowCaseScreenController implements Initializable {
 //        return stage;
 //        
 //    }
-
     @FXML
     private void viewProfile(ActionEvent event) throws IOException, ApiException {
         showUserScreenStage(this.token);
-        
+
     }
-    
+
     /**
      * Displays the view user screen.
      *
@@ -235,8 +253,5 @@ public class FXMLShowCaseScreenController implements Initializable {
         stage.show();
         return stage;
     }
-
-
-
 
 }

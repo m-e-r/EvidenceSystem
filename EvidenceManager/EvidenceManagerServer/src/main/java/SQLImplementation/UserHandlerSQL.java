@@ -145,9 +145,10 @@ public class UserHandlerSQL implements IUserHandlerSQL {
      */
     @Override
     public boolean validateUser(User user) {
-
+        System.out.println("ID: " + user.getEmployeeId());
+        System.out.println("Username: " + user.getUsername());
         String query = String.format("UPDATE public.lawenforcer\n"
-                + "	SET validated=true, id = $s\n"
+                + "	SET validated=true, id = '%s'\n"
                 + "	WHERE username = '%s';", user.getEmployeeId(), user.getUsername());
 
         return this.db.updateQuery(query) == 1;

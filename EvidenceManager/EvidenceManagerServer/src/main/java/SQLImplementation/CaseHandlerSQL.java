@@ -64,7 +64,7 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
      * @return CriminalCase
      */
     @Override
-    public CriminalCase getCase(int id) {
+    public CriminalCase getCase(String id) {
 
         CriminalCase ccase = new CriminalCase();
 
@@ -202,7 +202,7 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
      * @param CriminalCase
      * @return Evidence
      */
-    private List<Evidence> getEvidenceList(int caseId) {
+    private List<Evidence> getEvidenceList(String caseId) {
 
         List<Evidence> eviList = new ArrayList();
         Evidence evi;

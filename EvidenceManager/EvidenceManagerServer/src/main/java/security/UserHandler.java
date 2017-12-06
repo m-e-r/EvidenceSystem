@@ -51,12 +51,15 @@ public class UserHandler {
      * @return true if the sql statement was successfull
      */
     public boolean addUser(User user) {
+        String hashPassword = "";
         this.user = user;
         this.user.setEmployeeId(this.gen.generateTempUserId());
         
         String password = this.ss.decrypt(user.getPassword());
         String username = this.ss.decrypt(user.getUsername());
-        String hashPassword = "";
+        
+        
+        
         
         try {
             hashPassword = this.pass.passwordHashGenerator(password, username, false);
@@ -92,7 +95,7 @@ public class UserHandler {
      * @return false if either sql statement fails.
      */
     public boolean validateUser(User user) {
-        String newId = this.gen.generateUserId(user.getRole()); //Replace 'PO' when you get User object as param
+        String newId = this.gen.generateUserId(user.getRole().toUpperCase()); //Replace 'PO' when you get User object as param
         user.setEmployeeId(newId);
         return this.handler.validateUser(user);
    

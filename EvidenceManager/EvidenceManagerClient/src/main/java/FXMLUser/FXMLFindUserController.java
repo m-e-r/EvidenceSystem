@@ -12,6 +12,8 @@ import io.swagger.client.model.User;
 import io.swagger.client.model.UserType;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,7 +54,9 @@ public class FXMLFindUserController implements Initializable {
     @FXML
     private TableColumn<User, String> TVRankCol;
     @FXML
-    private Button viewBTN;
+    private Button viewBTN; 
+    @FXML
+    private Button createUser;
 
     private IUser connect;
     private ObservableList<User> userList;
@@ -64,14 +68,14 @@ public class FXMLFindUserController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.connect = new ServerConnect();
-        this.admin = new User();
-        this.admin.setAddress("Somewhere far away, maybe Bolbro");
-        Token t = new Token();
-        //t.setUsertype("Comissioner");
-        //t.setId("admin");
-        this.initData(token);
-    }
+       this.connect = new ServerConnect();
+       this.connect = new ServerConnect();
+       this.admin = new User();
+       this.admin.setAddress("Somewhere far away, maybe Bolbro");
+
+    }    
+
+
 
     @FXML
     private void update(ActionEvent event) {
@@ -107,10 +111,8 @@ public class FXMLFindUserController implements Initializable {
 
     @FXML
     private void viewUser(ActionEvent event) throws IOException, ApiException {
-        User selectedUser = this.usersTV.getSelectionModel().getSelectedItem();
-
-        this.showUserScreenStage(selectedUser, null);
-
+        User selectedUser = this.usersTV.getSelectionModel().getSelectedItem();       
+        this.showUserScreenStage(selectedUser, this.token);
     }
 
     /**
@@ -132,9 +134,29 @@ public class FXMLFindUserController implements Initializable {
         return stage;
     }
 
+    private Stage showCreateUserScreenStage(Token t) throws IOException, ApiException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CreateUser.fxml"));
+
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene((Pane) loader.load()));
+
+        FXMLCreateUserController controller = loader.<FXMLCreateUserController>getController();
+        controller.initData(token);
+        stage.show();
+        return stage;
+    }
+    
+    
+
     public void initData(Token token) {
         this.token = token;
         this.setUserList();
+    }
+
+
+    @FXML
+    private void createUser(ActionEvent event) throws IOException, ApiException {
+        this.showCreateUserScreenStage(token);
     }
 
 }

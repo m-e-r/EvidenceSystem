@@ -52,6 +52,8 @@ public class FXMLValidateUsersController implements Initializable {
     private TextArea nameTA;
     @FXML
     private TextArea birthdayTA;
+    @FXML
+    private Label validateLBL;
 
     /**
      * Initializes the controller class.
@@ -62,6 +64,7 @@ public class FXMLValidateUsersController implements Initializable {
         this.roles = FXCollections.observableArrayList(UserType.values());
         this.rankCB.setItems(this.roles);
         this.validateBTN.setDisable(true);
+       
     }    
 
     /**
@@ -91,9 +94,10 @@ public class FXMLValidateUsersController implements Initializable {
     @FXML
     private void handleValidationAction(ActionEvent event) throws ApiException {
         System.out.println("UserNAme: " + this.user.getUsername());
+        this.user.setRole(this.rankCB.getValue().toString());
         
         if(this.connect.validateUser(this.user)) {
-            System.out.println("hejyasa");
+            this.validateLBL.setVisible(false);
             
             for (int i = 0; i < this.users.size(); i++) {
                 
@@ -106,6 +110,8 @@ public class FXMLValidateUsersController implements Initializable {
             
                 this.validateBTN.setDisable(true);
             
+        } else {
+            this.validateLBL.setVisible(true);
         }
         
     }
@@ -117,7 +123,7 @@ public class FXMLValidateUsersController implements Initializable {
         } catch (ApiException ex) {
            Logger.getLogger(FXMLValidateUsersController.class.getName()).log(Level.SEVERE, null, ex);
        }
-        
+         this.user.setToken(token);
         this.usersLV.setItems(this.users);
     }
     
