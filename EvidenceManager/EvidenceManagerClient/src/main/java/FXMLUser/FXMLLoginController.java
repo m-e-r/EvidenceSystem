@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -79,7 +80,7 @@ public class FXMLLoginController implements Initializable {
         
         //Send the information the the server
         Token token = this.connect.doSomeLogin(userName, password);
-        if (token.getId() != null || token.getUsertype() != null) {
+        if (token != null) {
             UserType rank = UserType.valueOf(token.getUsertype());
             switch (rank) {
                 case COMISSIONER: this.showCaseScreenStage(token);
@@ -172,4 +173,5 @@ public class FXMLLoginController implements Initializable {
         stage.show();
         return stage;
     }
+
 }

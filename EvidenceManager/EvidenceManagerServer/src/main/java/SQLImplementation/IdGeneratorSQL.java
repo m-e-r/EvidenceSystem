@@ -6,6 +6,7 @@
 package SQLImplementation;
 
 import dbConnection.DBConnection;
+import io.swagger.model.UserType;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -124,7 +125,7 @@ public class IdGeneratorSQL implements  IIdGeneratorSQL{
     public int getPrevUserId(String valueFromEnum) {
         System.out.println("THIS IS THE ENUM------->>> " + valueFromEnum);
         int latestId = 0;
-        String query = String.format("SELECT %s FROM latestId", valueFromEnum.toLowerCase());
+        String query = String.format("SELECT %s FROM latestId", valueFromEnum);
         ResultSet select = db.executeQuery(query);
         try {
             while (select.next()) {

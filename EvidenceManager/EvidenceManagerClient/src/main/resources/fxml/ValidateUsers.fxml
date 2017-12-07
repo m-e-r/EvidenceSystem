@@ -22,16 +22,22 @@
                <children>
                   <VBox alignment="TOP_CENTER" prefHeight="398.0" prefWidth="174.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ListView fx:id="usersLV" onMouseClicked="#handleUserChoiceAction" prefHeight="136.0" prefWidth="223.0">
+                        <ListView fx:id="usersLV" maxHeight="-Infinity" minHeight="-Infinity" onMouseClicked="#handleUserChoiceAction" prefHeight="280.0" prefWidth="223.0">
                            <VBox.margin>
                               <Insets left="6.0" right="6.0" top="6.0" />
                            </VBox.margin>
                            <cursor>
                               <Cursor fx:constant="DEFAULT" />
                            </cursor>
+                           <opaqueInsets>
+                              <Insets bottom="100.0" />
+                           </opaqueInsets>
                         </ListView>
                         <Label fx:id="validateLBL" prefHeight="54.0" prefWidth="192.0" text="User not able to be validated. " textFill="#ff1f1f" />
-                        <Button fx:id="validateBTN" mnemonicParsing="false" onAction="#handleValidationAction" text="Validate" />
+                        <Button fx:id="validateBTN" mnemonicParsing="false" onAction="#handleValidationAction" text="Validate">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin></Button>
                      </children>
                   </VBox>
                </children>

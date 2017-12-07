@@ -34,6 +34,7 @@ public class TokenApiServiceImpl extends TokenApiService {
     @Override
     public Response getListOfUsers(Token token, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
+        
         try {
             token.toString();
         } catch (NullPointerException ne) {

@@ -97,8 +97,8 @@ public class FXMLFindUserController implements Initializable {
             TVidCol.setCellValueFactory(new PropertyValueFactory<User, String>("employeeId"));
             TVNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
             TVRankCol.setCellValueFactory(new PropertyValueFactory<User, String>("role"));
-
-            usersTV.setItems(userList);
+            this.userList = FXCollections.observableArrayList(users);
+            usersTV.setItems(this.userList);
             this.token.setTimeStamp(Long.toString(this.date.getTime()));
         }
     }

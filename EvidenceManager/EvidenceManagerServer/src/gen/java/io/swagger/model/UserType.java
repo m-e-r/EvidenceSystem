@@ -38,11 +38,11 @@ public enum UserType {
   
   COMISSIONER("Comissioner"),
   
-  SYSTEM_ADMIN("System admin"),
+  SYSTEM_ADMIN("System_admin"),
   
-  FORENSIC_SCIENTIST("Forensic Scientist"),
+  FORENSIC_SCIENTIST("Forensic_Scientist"),
   
-  POLICE_OFFICER("Police officer");
+  POLICE_OFFICER("Police_officer");
 
   private String value;
 
