@@ -150,6 +150,23 @@ public class LoginSQL implements ILoginSQL {
         }
         return false;
     }
+
+    @Override
+    public String getName(String id) {
+        String query = String.format("SELECT name FROM lawenforcer WHERE id = '%s'", id);
+        String returnString = "";
+        
+        ResultSet select = db.executeQuery(query);
+        
+        try {
+            if (select.next())
+                returnString = select.getString("name");
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return returnString;
+    }
     
     
     

@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -58,6 +59,7 @@ public class FXMLCaseController implements Initializable {
     private IEntity connect; //For calling webservice methods in the ServerConnect implementation. 
     private CriminalCase cc; //Gets parsed from FXMLShowCaseScreenController.
     private Token token;
+    private Date date;
 
     @FXML
     private TextField caseNrTF;
@@ -124,10 +126,13 @@ public class FXMLCaseController implements Initializable {
         this.connect = new ServerConnect();
         this.caseAddedLBL.setVisible(false);
         this.caseNotAddedLBL.setVisible(false);
+        this.date = new Date();
+
         this.status = FXCollections.observableArrayList(CaseStatus.values());
         this.caseStatusCB.setItems(this.status);
 
     }
+
 
     /**
      * Instantiates a new CriminalCase object, whose attributes are set to be
@@ -143,7 +148,7 @@ public class FXMLCaseController implements Initializable {
         cc.setCaseName(this.caseTitleTF.getText());
         cc.setId(this.caseNrTF.getText());
         cc.setStatus(CaseStatus.OPEN.toString());
-        cc.setToken(token);
+        cc.setToken(this.token);
 
         //Change all this when YAML is updated so CriminalCase holds a responsible id
         ArrayList<Suspect> temp = new ArrayList();
@@ -154,6 +159,7 @@ public class FXMLCaseController implements Initializable {
 
         if (this.connect.addCase(cc)) {
             this.caseAddedLBL.setVisible(true);
+            this.token.setTimeStamp(Long.toString(this.date.getTime()));
         } else {
             this.caseNotAddedLBL.setVisible(true);
         }
@@ -174,6 +180,7 @@ public class FXMLCaseController implements Initializable {
      *
      * @param cc - CriminalCase object that is parsed across FXMLControllers.
      */
+
     public void initData(CriminalCase cc, Token token) {
         if (cc != null) {
             this.buttonsToRemoveHB.getChildren().remove(this.addNewCaseBTN);
@@ -193,6 +200,7 @@ public class FXMLCaseController implements Initializable {
 
         this.token = token;
         this.cc.setToken(token);
+
     }
 
     public void addNewEvidence(Evidence evi) {
@@ -200,6 +208,7 @@ public class FXMLCaseController implements Initializable {
             System.out.println("Tilføjet!");
             this.cc.addCaseEvidenceItem(evi);
             this.evidenceListLV.getItems().add(evi);
+            this.token.setTimeStamp(Long.toString(this.date.getTime()));
         }
     }
 
@@ -216,8 +225,15 @@ public class FXMLCaseController implements Initializable {
         this.cc.setCaseDescription(this.caseInfoTA.getText());
         this.cc.setCaseName(this.caseTitleTF.getText());
         this.cc.setStatus(CaseStatus.OPEN.toString());
-
-        this.connect.updateCase(this.cc);
+     
+        boolean success = this.connect.updateCase(this.cc);
+        
+         if(success){
+            System.out.println("Succesful");
+            this.token.setTimeStamp(Long.toString(this.date.getTime()));
+        } else {
+            System.err.println("You're an idiot, try again");
+        }
 
     }
 
@@ -228,6 +244,7 @@ public class FXMLCaseController implements Initializable {
      *
      * @param cc
      */
+
     private void fillCase(CriminalCase cc) {
         this.caseNrTF.setDisable(true);
         this.caseLawenforcerTF.setDisable(true);
@@ -333,7 +350,7 @@ public class FXMLCaseController implements Initializable {
             String id = this.evidenceListLV.getSelectionModel().getSelectedItem().getId();
 
             for (int i = 0; i < this.cc.getCaseEvidence().size(); i++) {
-                if (this.cc.getCaseEvidence().get(i).getId() == id) {
+                if (this.cc.getCaseEvidence().get(i).getId().equals(id)) {
                     this.cc.getCaseEvidence().get(i).setDescription(description);
                     this.cc.getCaseEvidence().get(i).setLocation(location);
                 }
@@ -356,7 +373,7 @@ public class FXMLCaseController implements Initializable {
 
         FXMLNewEvidenceController controller = loader.<FXMLNewEvidenceController>getController();
         controller.initData(this);
-
+        stage.setTitle("Logged in as " + token.getName());
         stage.show();
     }
 

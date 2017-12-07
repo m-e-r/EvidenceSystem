@@ -18,6 +18,7 @@ public interface IUserHandlerSQL {
     public boolean updateUser(User user);
     public boolean addUser(User user);
     public List<User> getListOfUsers(Token token);
+    public List<User> getListOfValidateUser(Token token);
     public boolean validateUser(User user);
     public User getUser(String id);
     

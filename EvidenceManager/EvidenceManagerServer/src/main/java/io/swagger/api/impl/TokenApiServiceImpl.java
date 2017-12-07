@@ -19,8 +19,10 @@ import javax.ws.rs.core.SecurityContext;
 import javax.validation.constraints.*;
 import security.ServerSecurity;
 import security.UserHandler;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-12-04T13:34:37.260Z")
 public class TokenApiServiceImpl extends TokenApiService {
+
     private UserHandler userH;
     private Validator val;
 
@@ -32,9 +34,24 @@ public class TokenApiServiceImpl extends TokenApiService {
     @Override
     public Response getListOfUsers(Token token, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
-        if (this.val.callValidated(token)) 
-            return Response.ok().entity(this.userH.getListOfUsers(token)).build();
-        else
+        try {
+            token.toString();
+        } catch (NullPointerException ne) {
+            System.out.println("Null token caught!");
+            return Response.ok().entity(false).build();
+        }
+        
+        if (this.val.callValidated(token)) {   
+                
+            if (token.getUsertype().equals("Comissioner")) {
+                return Response.ok().entity(this.userH.getListOfValidateUser(token)).build();
+            } else {
+                return Response.ok().entity(this.userH.getListOfUsers(token)).build();
+            }
+        } else {
             return null;
+        }
+       
+
     }
 }

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,8 +35,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
- * FXML Controller class
- * Shows list of users with same location as admin logged in
+ * FXML Controller class Shows list of users with same location as admin logged
+ * in
  *
  * @author jacob
  */
@@ -57,68 +58,57 @@ public class FXMLFindUserController implements Initializable {
     private Button viewBTN; 
     @FXML
     private Button createUser;
-    
-    
+
     private IUser connect;
     private ObservableList<User> userList;
     private User admin;
     private Token token;
-    
-    
+    private Date date;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        this.connect = new ServerConnect();
-       this.admin = new User();
-       this.admin.setAddress("Somewhere far away, maybe Bolbro");
-
+       this.date = new Date();
     }    
+
 
 
     @FXML
     private void update(ActionEvent event) {
         setUserList();
     }
-    
+
     /**
-     * Method that sets the tableview with all the user, that has the same adress as the logged in admin
+     * Method that sets the tableview with all the user, that has the same
+     * adress as the logged in admin
      */
-    private void setUserList(){
-        System.out.println("Fra getUserList: " + this.token.getId());
+    private void setUserList() {
+        List<User> users = null;
         try {
-            userList = FXCollections.observableArrayList(connect.getListOfUsers(this.token));
-            for(User s : userList) {
-                //System.out.println(s.getRole());
-                UserType us = UserType.valueOf(s.getRole());
-                System.out.println("User: " + s.getName() + "\nType: " + us + "\n\n");
-                //System.out.println("GET ID" + s.getEmployeeId());
-            }
-            
-            TVidCol.setCellValueFactory(new PropertyValueFactory<User, String>("employeeId"));
-            TVNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
-            TVRankCol.setCellValueFactory(new PropertyValueFactory<User, String>("role"));
-            
-            usersTV.setItems(userList);
-            
-            
+            users = connect.getListOfUsers(this.token);
         } catch (ApiException ex) {
             Logger.getLogger(FXMLFindUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
-        
+        if (users != null) {
+            TVidCol.setCellValueFactory(new PropertyValueFactory<User, String>("employeeId"));
+            TVNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
+            TVRankCol.setCellValueFactory(new PropertyValueFactory<User, String>("role"));
+
+            usersTV.setItems(userList);
+            this.token.setTimeStamp(Long.toString(this.date.getTime()));
+        }
     }
 
     @FXML
     private void viewUser(ActionEvent event) throws IOException, ApiException {
-        User selectedUser = this.usersTV.getSelectionModel().getSelectedItem();
-        
+        User selectedUser = this.usersTV.getSelectionModel().getSelectedItem();       
         this.showUserScreenStage(selectedUser, this.token);
-        
     }
-    
+
     /**
      * Displays the view user screen.
      *
@@ -137,7 +127,7 @@ public class FXMLFindUserController implements Initializable {
         stage.show();
         return stage;
     }
-    
+
     private Stage showCreateUserScreenStage(Token t) throws IOException, ApiException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CreateUser.fxml"));
 
@@ -151,17 +141,16 @@ public class FXMLFindUserController implements Initializable {
     }
     
     
+
     public void initData(Token token) {
         this.token = token;
         this.setUserList();
     }
+
 
     @FXML
     private void createUser(ActionEvent event) throws IOException, ApiException {
         this.showCreateUserScreenStage(token);
     }
 
-    
-    
-    
 }

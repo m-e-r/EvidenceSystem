@@ -31,6 +31,13 @@ public class EvidenceApiServiceImpl extends EvidenceApiService {
     @Override
     public Response getEvidenceList(Token token, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
+        try {
+            token.toString();
+        } catch (NullPointerException ne) {
+            System.out.println("Null token caught!");
+            return Response.ok().entity(false).build();
+        }
+        
         if (this.val.callValidated(token))
             return Response.ok().entity(this.handler.getEvidenceList(token.getId())).build();
         else
@@ -40,6 +47,14 @@ public class EvidenceApiServiceImpl extends EvidenceApiService {
     @Override
     public Response pickUpEvidence(Evidence evidence, String userId, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
+        try {
+            Token token = evidence.getToken();
+            token.toString();
+        } catch (NullPointerException ne) {
+            System.out.println("Null token caught!");
+            return Response.ok().entity(false).build();
+        }
+        
         if (this.val.callValidated(evidence.getToken()))
             return Response.ok().entity(this.handler.pickupEvidence(evidence, userId)).build();
         else

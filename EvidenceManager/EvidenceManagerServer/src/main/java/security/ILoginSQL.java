@@ -21,4 +21,6 @@ public interface ILoginSQL {
     
     public boolean usernameExists(String username);
     
+    public String getName(String id);
+    
 }

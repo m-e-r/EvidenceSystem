@@ -30,6 +30,13 @@ public class UserApiServiceImpl extends UserApiService {
     @Override
     public Response addUser(User user, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
+        try {
+            Token token = user.getToken();
+            token.toString();
+        } catch (NullPointerException ne) {
+            System.out.println("Null token caught!");
+            return Response.ok().entity(false).build();
+        }
         if (this.val.callValidated(user.getToken()))
             return Response.ok().entity(this.userH.addUser(user)).build();
         else
@@ -49,6 +56,14 @@ public class UserApiServiceImpl extends UserApiService {
     @Override
     public Response updateUser(User user, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
+        try {
+            Token token = user.getToken();
+            token.toString();
+        } catch (NullPointerException ne) {
+            System.out.println("Null token caught!");
+            return Response.ok().entity(false).build();
+        }
+        
         if (this.val.callValidated(user.getToken()))
             return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
         else
