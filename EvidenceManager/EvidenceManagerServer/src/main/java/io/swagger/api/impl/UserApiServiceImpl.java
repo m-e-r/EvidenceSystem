@@ -30,6 +30,8 @@ public class UserApiServiceImpl extends UserApiService {
     @Override
     public Response addUser(User user, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
+        
+        System.out.println("API USERNAME : " + user.getUsername());
         try {
             Token token = user.getToken();
             token.toString();
