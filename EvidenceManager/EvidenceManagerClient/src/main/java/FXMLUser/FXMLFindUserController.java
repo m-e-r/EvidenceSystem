@@ -15,9 +15,11 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Observable;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -55,7 +57,7 @@ public class FXMLFindUserController implements Initializable {
     @FXML
     private TableColumn<User, String> TVRankCol;
     @FXML
-    private Button viewBTN; 
+    private Button viewBTN;
     @FXML
     private Button createUser;
 
@@ -70,11 +72,10 @@ public class FXMLFindUserController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       this.connect = new ServerConnect();
-       this.date = new Date();
-    }    
-
-
+        this.connect = new ServerConnect();
+        this.date = new Date();
+       searchMethod();
+    }
 
     @FXML
     private void update(ActionEvent event) {
@@ -92,7 +93,7 @@ public class FXMLFindUserController implements Initializable {
         } catch (ApiException ex) {
             Logger.getLogger(FXMLFindUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         if (users != null) {
             TVidCol.setCellValueFactory(new PropertyValueFactory<User, String>("employeeId"));
             TVNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
@@ -105,7 +106,7 @@ public class FXMLFindUserController implements Initializable {
 
     @FXML
     private void viewUser(ActionEvent event) throws IOException, ApiException {
-        User selectedUser = this.usersTV.getSelectionModel().getSelectedItem();       
+        User selectedUser = this.usersTV.getSelectionModel().getSelectedItem();
         this.showUserScreenStage(selectedUser, this.token);
     }
 
@@ -139,18 +140,45 @@ public class FXMLFindUserController implements Initializable {
         stage.show();
         return stage;
     }
-    
-    
 
     public void initData(Token token) {
         this.token = token;
         this.setUserList();
     }
 
-
     @FXML
     private void createUser(ActionEvent event) throws IOException, ApiException {
         this.showCreateUserScreenStage(token);
+    }
+
+    private void searchMethod() {
+
+        searchTF.textProperty().addListener(new InvalidationListener() {
+
+            @Override
+            public void invalidated(javafx.beans.Observable observable) {
+                if (searchTF.textProperty().get().isEmpty()) {
+                    usersTV.setItems(userList);
+                }
+
+                ObservableList<User> tableItems = FXCollections.observableArrayList();
+                ObservableList<TableColumn<User, ?>> cols = usersTV.getColumns();
+
+                for (int i = 0; i < userList.size(); i++) {
+                    for (int j = 0; j < cols.size(); j++) {
+                        TableColumn col = cols.get(j);
+                        String cellValue = (String) col.getCellData(userList.get(i)).toString();
+                        cellValue = cellValue.toLowerCase();
+                        if (cellValue.contains(searchTF.textProperty().get().toLowerCase())) {
+                            tableItems.add((User) userList.get(i));
+                            break;
+                        }
+                    }
+                    usersTV.setItems(tableItems);
+
+                }
+            }
+        });
     }
 
 }
