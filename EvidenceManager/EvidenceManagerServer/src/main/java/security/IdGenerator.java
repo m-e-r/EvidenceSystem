@@ -83,6 +83,7 @@ public class IdGenerator {
      * @return Returns a string containing the generated userid
      */
     public synchronized String generateUserId(String enumValue) {
+        System.out.println("This is the enum value: " + enumValue);
         this.x = this.sec.getPrevUserId(enumValue);
         this.a = 3;
         this.m = 570926;

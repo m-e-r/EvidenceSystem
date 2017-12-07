@@ -1,5 +1,6 @@
 package main;
 
+import io.swagger.client.ServerConnect;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,9 @@ public class MainApp extends Application {
         stage.setTitle("Login for Evidence Management System");
         stage.setScene(scene);
         stage.show();
+        
+        //ServerConnect connect = new ServerConnect();
+        //connect.generateCaseId();
     }
 
     /**

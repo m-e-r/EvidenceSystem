@@ -134,10 +134,17 @@ public class LoginSQL implements ILoginSQL {
             Logger.getLogger(LoginSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
         saltArray = temp.split(":");
+        String salt = "";
         
-        String salt = saltArray[1];
+        if (saltArray.length == 3) {
+            salt = saltArray[1];
+        } else {
+            for (int i = 0; i < 160; i++) {
+                salt += "0";
+            }
+        }
         
-        return salt;
+        return salt;        
     }
 
     @Override

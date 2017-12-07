@@ -122,7 +122,7 @@ public class FXMLValidateUsersController implements Initializable {
         } catch (ApiException ex) {
            Logger.getLogger(FXMLValidateUsersController.class.getName()).log(Level.SEVERE, null, ex);
        }
-         this.user.setToken(token);
+
         this.usersLV.setItems(this.users);
     }
     

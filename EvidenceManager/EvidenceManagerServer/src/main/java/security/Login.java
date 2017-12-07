@@ -28,6 +28,7 @@ public class Login implements ILogin {
     private static final int KEY_LENGTH = 160;
     ILoginSQL sql;
     private Passwords pass;
+    private ServerSecurity ss;
 
     /**
      * Class constructor. Instantiates a sqlStatement object.
@@ -35,6 +36,7 @@ public class Login implements ILogin {
     public Login() {
         sql = new LoginSQL();
         this.pass = new Passwords();
+        this.ss = new ServerSecurity();
     }
 
     /**
@@ -50,15 +52,18 @@ public class Login implements ILogin {
     public Token doLogin(String message) {
         String[] sA = message.split(";");
         if (sA[0].trim().isEmpty() || sA[1].trim().isEmpty()) {
-            return new Token();
+            return null;
         }
-        ServerSecurity ss = new ServerSecurity();
+        
         sA[0] = ss.decrypt(sA[0]);
         sA[1] = ss.decrypt(sA[1]);
+        
+        if (!this.sql.usernameExists(sA[0]))
+            return null;
 
         
         try {
-            sA[1] = this.pass.passwordHashGenerator(sA[1], sA[0], this.sql.usernameExists(sA[0]));
+            sA[1] = this.pass.passwordHashGenerator(sA[1], sA[0], true);
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidKeySpecException ex) {
@@ -73,16 +78,17 @@ public class Login implements ILogin {
             
             if (!this.isUserValidated(id) || !this.isUserSupportedType(id)){
                 System.out.println("Ikke særlig godt validated");
-                return t;
-    }
+                return null;
+            }
             System.out.println(id);
             t.setId(id);
             t.setUsertype(this.getRank(id));
             t.setName(this.sql.getName(id));
             t.setTimeStamp(Long.toString(d.getTime()));
+            return t;
         }
         //System.out.println(UserType.valueOf(t.getUsertype()) + " -- " + UserType.valueOf(t.getUsertype()).equals(UserType.COMISSIONER));
-        return t;
+        return null;
     }
     
     /**
