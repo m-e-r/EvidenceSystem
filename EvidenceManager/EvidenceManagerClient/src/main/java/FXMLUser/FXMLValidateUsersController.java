@@ -69,7 +69,7 @@ public class FXMLValidateUsersController implements Initializable {
 
     /**
      * Display information about the user when choosing a user from the list.
-     * @param event 
+     * @param event
      */
     @FXML
     private void handleUserChoiceAction(MouseEvent event) {
