@@ -55,6 +55,8 @@ public class UserHandler {
         this.user = user;
         this.user.setEmployeeId(this.gen.generateTempUserId());
         
+        
+        
         String password = this.ss.decrypt(user.getPassword());
         String username = this.ss.decrypt(user.getUsername());
         

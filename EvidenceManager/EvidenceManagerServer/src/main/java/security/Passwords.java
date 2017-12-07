@@ -27,7 +27,8 @@ public class Passwords {
 
     public byte[] getNextSalt() throws NoSuchAlgorithmException {
         byte[] salt = new byte[160];
-        SecureRandom.getInstanceStrong().nextBytes(salt);
+        //Could use getInstanceStrong() instead, but doesn't work with linux systems
+        SecureRandom.getInstance("SHA1PRNG").nextBytes(salt);
         return salt;
     }
 
@@ -37,10 +38,10 @@ public class Passwords {
         
         if (!userExists) {
             System.out.println("Findes ikke");
-          salt = this.getNextSalt();
+            salt = this.getNextSalt();
         } else {
             System.out.println("Findes godt");
-          salt = this.hexStringToByteArray(sql.getSalt(username));
+            salt = this.hexStringToByteArray(sql.getSalt(username));
         }
         
         SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
