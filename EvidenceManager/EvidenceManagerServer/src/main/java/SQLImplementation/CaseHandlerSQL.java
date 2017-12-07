@@ -108,9 +108,9 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
      */
     @Override
     public boolean updateCase(CriminalCase c) {
-        System.err.println(c.getCaseDescription() + c.getCaseName() + c.getId() + "<------LOOOOOOOOOK HERE");
+  
         String query = "UPDATE criminalcase SET title = '" + c.getCaseName()
-                + "', description = '" + c.getCaseDescription() + "' WHERE id =" + c.getId() + ";";
+                + "', description = '" + c.getCaseDescription() + "' WHERE id = '" + c.getId() + "';";
 
         db.updateQuery(query);
 

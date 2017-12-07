@@ -22,9 +22,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -41,12 +44,14 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 /**
  * FXML Controller class
@@ -118,6 +123,8 @@ public class FXMLCaseController implements Initializable {
 
     private String caseId = "";
 
+    private boolean hasBeenChanged;
+
     /**
      * Initializes the controller class.
      */
@@ -130,9 +137,9 @@ public class FXMLCaseController implements Initializable {
 
         this.status = FXCollections.observableArrayList(CaseStatus.values());
         this.caseStatusCB.setItems(this.status);
+        this.hasBeenChanged = false;
 
     }
-
 
     /**
      * Instantiates a new CriminalCase object, whose attributes are set to be
@@ -165,8 +172,8 @@ public class FXMLCaseController implements Initializable {
         }
 
     }
-    
-    private void disableAllFields(){
+
+    private void disableAllFields() {
         this.caseLawenforcerTF.setEditable(false);
         this.additionelSuspectTF.setEditable(false);
         this.caseTitleTF.setEditable(false);
@@ -180,14 +187,13 @@ public class FXMLCaseController implements Initializable {
      *
      * @param cc - CriminalCase object that is parsed across FXMLControllers.
      */
-
     public void initData(CriminalCase cc, Token token) {
         if (cc != null) {
             this.buttonsToRemoveHB.getChildren().remove(this.addNewCaseBTN);
             this.cc = cc;
             this.fillCase(cc);
             this.fillEvidence(cc.getCaseEvidence());
-            if(this.cc.getIsBeingUpdated()) {
+            if (this.cc.getIsBeingUpdated()) {
                 this.disableAllFields();
             }
         } else {
@@ -212,6 +218,21 @@ public class FXMLCaseController implements Initializable {
         }
     }
 
+    public void updateCase() throws ApiException {
+        this.cc.setCaseDescription(this.caseInfoTA.getText());
+        this.cc.setCaseName(this.caseTitleTF.getText());
+        this.cc.setStatus(CaseStatus.OPEN.toString());
+
+        boolean success = this.connect.updateCase(this.cc);
+
+        if (success) {
+            System.out.println("Succesful");
+            this.token.setTimeStamp(Long.toString(this.date.getTime()));
+        } else {
+            System.err.println("You're an idiot, try again");
+        }
+    }
+
     /**
      * Instantiates a new CriminalCase object, whose attributes are set to be
      * the attributes which the user wishes.
@@ -222,19 +243,8 @@ public class FXMLCaseController implements Initializable {
      */
     @FXML
     private void saveChangesToCase(ActionEvent event) throws ApiException {
-        this.cc.setCaseDescription(this.caseInfoTA.getText());
-        this.cc.setCaseName(this.caseTitleTF.getText());
-        this.cc.setStatus(CaseStatus.OPEN.toString());
-     
-        boolean success = this.connect.updateCase(this.cc);
-        
-         if(success){
-            System.out.println("Succesful");
-            this.token.setTimeStamp(Long.toString(this.date.getTime()));
-        } else {
-            System.err.println("You're an idiot, try again");
-        }
-
+        this.hasBeenChanged = false;
+        this.updateCase();
     }
 
     /**
@@ -244,8 +254,8 @@ public class FXMLCaseController implements Initializable {
      *
      * @param cc
      */
-
     private void fillCase(CriminalCase cc) {
+        System.out.println("test fill case");
         this.caseNrTF.setDisable(true);
         this.caseLawenforcerTF.setDisable(true);
         caseInfoTA.setText(this.cc.getCaseDescription());
@@ -260,8 +270,37 @@ public class FXMLCaseController implements Initializable {
 //           statusRBTN.setSelected(false);
 //       }
         caseNrTF.setText(String.valueOf(this.cc.getId()));
+        
+        this.addTextListeners();
 
     }
+
+    /**
+     * Helper method that creates listeners to the case text fields and areas
+     * Sets a boolean to true, that something has been changes, which prompts the
+     * user to save. 
+     */
+    private void addTextListeners() {
+        caseTitleTF.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!oldValue.equals(newValue)) {
+                hasBeenChanged = true;
+            }
+        });
+
+        caseInfoTA.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!oldValue.equals(newValue)) {
+                hasBeenChanged = true;
+            }
+        });
+
+        caseLawenforcerTF.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!oldValue.equals(newValue)) {
+                hasBeenChanged = true;
+            }
+        });
+
+    }
+
 //
 //    public void editEvidence(){
 //        String id;
@@ -273,7 +312,6 @@ public class FXMLCaseController implements Initializable {
 //        System.out.println(ids.toString());
 //        
 //    }
-
     /**
      * Fills the evidence listview with evidence from a list of evidence.
      *
@@ -413,6 +451,10 @@ public class FXMLCaseController implements Initializable {
 
         }).start();
 
+    }
+
+    public boolean hasBeenChanged() {
+        return this.hasBeenChanged;
     }
 
 }

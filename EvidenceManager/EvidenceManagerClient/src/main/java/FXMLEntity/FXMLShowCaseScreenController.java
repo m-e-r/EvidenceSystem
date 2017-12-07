@@ -41,6 +41,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 /**
  * FXML Controller class
@@ -72,8 +73,6 @@ public class FXMLShowCaseScreenController implements Initializable {
     private Button viewProfileBTN;
     @FXML
     private Label caseNotEditedLBL;
-    
-
 
     /**
      * Initializes the controller class.
@@ -191,7 +190,7 @@ public class FXMLShowCaseScreenController implements Initializable {
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene((Pane) loader.load()));
 
-        FXMLCaseController controller = loader.<FXMLCaseController>getController();
+        FXMLCaseController caseScreenController = loader.<FXMLCaseController>getController();
 
         if (selectedCase == null) {
             this.caseNotEditedLBL.setVisible(true);
@@ -200,7 +199,34 @@ public class FXMLShowCaseScreenController implements Initializable {
 
             stage.setTitle("Logged in as " + token.getName());
 
-            controller.initData(selectedCase, this.token);
+            caseScreenController.initData(selectedCase, this.token);
+
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                public void handle(WindowEvent we) {
+                    System.out.println(caseScreenController.hasBeenChanged());
+                    if (caseScreenController.hasBeenChanged()) {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CloseCaseConfirmScreen.fxml"));
+                            Stage confirmStage = new Stage(StageStyle.DECORATED);
+
+                            confirmStage.setScene(new Scene((Pane) loader.load()));
+
+                            FXMLCloseCaseConfirmScreenController confirmScreenController = loader.<FXMLCloseCaseConfirmScreenController>getController();
+                            confirmScreenController.initData(caseScreenController);
+                            confirmStage.setTitle("Save changes?");
+                            confirmStage.showAndWait();
+
+                            if (!confirmScreenController.shouldCloseCase()) {
+                                we.consume();
+                            }
+
+                        } catch (IOException ex) {
+                            Logger.getLogger(FXMLCloseCaseConfirmScreenController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+
+                }
+            });
 
             stage.show();
         }
@@ -265,6 +291,7 @@ public class FXMLShowCaseScreenController implements Initializable {
         FXMLViewUserProfileController controller = loader.<FXMLViewUserProfileController>getController();
         controller.initData(null, t);
         stage.setTitle("Logged in as " + token.getName());
+
         stage.show();
         return stage;
     }
