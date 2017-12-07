@@ -24,6 +24,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -49,8 +50,6 @@ public class FXMLViewUserProfileController implements Initializable {
     @FXML
     private Button editProfilBTN;
     @FXML
-    private TextField roleTF;
-    @FXML
     private TextField isValidatedTF;    
     
     
@@ -59,6 +58,8 @@ public class FXMLViewUserProfileController implements Initializable {
     private ObservableList<String> cbList;
     private List<String> userList;
     private Token token;
+    @FXML
+    private TextField rankTF;
 
     /**
      * Initializes the controller class.
@@ -66,7 +67,6 @@ public class FXMLViewUserProfileController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.connect = new ServerConnect();
-        this.userList = new ArrayList<>();
     }
 
     /**
@@ -76,17 +76,37 @@ public class FXMLViewUserProfileController implements Initializable {
      */
     @FXML
     private void saveEditProfle(ActionEvent event) {
-        String name = this.nameTF.getText();
-        String username = this.usernameTF.getText();
-        String adress = this.adressTF.getText();
-        String position = this.roleTF.getText();
+        if (!this.fieldsAreMissing()) {
+            String name = this.nameTF.getText();
+            String adress = this.adressTF.getText();
+            String password = this.passwordTF.getText();
 
-        User updatedUser = new User();
-        updatedUser.setAddress(adress);
-        updatedUser.setName(name);
-        updatedUser.setUsername(username);
-        updatedUser.setRole(position);
-
+            this.user.setAddress(adress);
+            this.user.setName(name);
+            
+//            if (password.equals("********")) Do this when we make sure to hash the password
+//                this.user.setPassword(password);
+            
+//            if (this.connect.updateUser(this.user)) { Do this when updateUser is available
+//                Stage stage = (Stage) this.editProfilBTN.getScene().getWindow();
+//                stage.close();
+//            }
+        }
+        
+    }
+    
+    private boolean fieldsAreMissing() {
+        
+        if (this.nameTF.getText().trim().isEmpty())
+            return false;
+        
+        if (this.passwordTF.getText().trim().isEmpty())
+            return false;
+        
+        if (this.adressTF.getText().trim().isEmpty())
+            return false;
+                    
+        return true;
     }
 
     /**
@@ -103,9 +123,9 @@ public class FXMLViewUserProfileController implements Initializable {
         this.idTF.setText(this.user.getEmployeeId());
         this.birthdayTF.setText(this.user.getBirthday());
         this.usernameTF.setText(this.user.getUsername());
-        this.passwordTF.setText("********");
+        this.passwordTF.setPromptText("********");
         this.adressTF.setText(this.user.getAddress());
-        this.roleTF.setText(this.user.getRole());
+        this.rankTF.setText(this.user.getRole());
         this.stationTF.setText(this.user.getLocation());
         
         //Use this try if different fields should be open based on ADMIN login
@@ -125,21 +145,21 @@ public class FXMLViewUserProfileController implements Initializable {
         this.idTF.setDisable(true);
         this.birthdayTF.setDisable(true);
         this.usernameTF.setDisable(true);
-        this.roleTF.setDisable(true);
+        this.rankTF.setDisable(true);
         this.isValidatedTF.setDisable(true);
 
     }
 
     @FXML
     private void handleClearPassTF(MouseEvent event) {
-        if (this.passwordTF.getText().equals("********"))
+        if (this.passwordTF.getPromptText().equals("********"))
             this.passwordTF.clear();
     }
 
     @FXML
     private void handleFillPassTF(MouseEvent event) {
         if (this.passwordTF.getText().trim().isEmpty()) {
-            this.passwordTF.setText("********");
+            this.passwordTF.setPromptText("********");
         }
     }
 

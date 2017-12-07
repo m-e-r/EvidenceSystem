@@ -91,7 +91,7 @@
                   <VBox alignment="TOP_CENTER" prefWidth="200.0">
                      <children>
                         <Label text="Rank" />
-                        <TextField fx:id="roleTF" maxWidth="-Infinity" minHeight="-Infinity" prefWidth="200.0">
+                        <TextField fx:id="rankTF" prefWidth="200.0">
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" />
                            </VBox.margin>
