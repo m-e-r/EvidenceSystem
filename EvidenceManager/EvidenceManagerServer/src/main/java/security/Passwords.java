@@ -25,7 +25,7 @@ public class Passwords {
         this.sql = new LoginSQL();
     }
 
-    public byte[] getNextSalt() throws NoSuchAlgorithmException {
+    private byte[] getNextSalt() throws NoSuchAlgorithmException {
         byte[] salt = new byte[160];
         //Could use getInstanceStrong() instead, but doesn't work with linux systems
         SecureRandom.getInstance("SHA1PRNG").nextBytes(salt);
@@ -54,7 +54,7 @@ public class Passwords {
         return s;
     }
 
-    public String toHex(byte[] array) {
+    private String toHex(byte[] array) {
         BigInteger big = new BigInteger(1, array);
         String hex = big.toString(16);
         
