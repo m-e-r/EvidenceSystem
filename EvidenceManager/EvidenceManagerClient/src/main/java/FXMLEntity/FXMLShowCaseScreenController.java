@@ -219,18 +219,35 @@ public class FXMLShowCaseScreenController implements Initializable {
                             if (!confirmScreenController.shouldCloseCase()) {
                                 we.consume();
                             }
+                            
+                            updateCaseOnClose(caseScreenController);
 
                         } catch (IOException ex) {
                             Logger.getLogger(FXMLCloseCaseConfirmScreenController.class.getName()).log(Level.SEVERE, null, ex);
+
                         }
                     }
+                    if(!caseScreenController.wasBeingEditedBeforeOpen())
+                        updateCaseOnClose(caseScreenController);
 
                 }
-            });
+            }
+            );
 
             stage.show();
         }
         return stage;
+    }
+
+    private void updateCaseOnClose(FXMLCaseController caseScreenController) {
+        try {
+            System.out.println("UPDATE ON CLOSE");
+            System.out.println(caseScreenController.getCase());
+            caseScreenController.getCase().setIsBeingUpdated(false);
+            caseScreenController.updateCase();
+        } catch (ApiException ex) {
+            Logger.getLogger(FXMLShowCaseScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
