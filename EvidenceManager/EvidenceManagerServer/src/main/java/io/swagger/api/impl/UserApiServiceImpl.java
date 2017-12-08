@@ -47,7 +47,7 @@ public class UserApiServiceImpl extends UserApiService {
 
     
     @Override
-    public Response getUser(String id, SecurityContext securityContext) throws NotFoundException {
+    public Response getUser(String id, Token token , SecurityContext securityContext) throws NotFoundException {
         // do some magic!
         //if (this.val.callValidated(token))
             return Response.ok().entity(this.userH.getUser(id)).build();
@@ -67,7 +67,7 @@ public class UserApiServiceImpl extends UserApiService {
         }
         
         if (this.val.callValidated(user.getToken()))
-            return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
+            return Response.ok().entity((this.userH.updateUser(user))).build();
         else
             return Response.ok().entity(false).build();
     }

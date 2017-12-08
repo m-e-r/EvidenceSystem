@@ -193,7 +193,7 @@ public class FXMLCaseController implements Initializable {
             this.cc = cc;
             this.fillCase(cc);
             this.fillEvidence(cc.getCaseEvidence());
-            if (this.cc.getIsBeingUpdated()) {
+            if (this.cc.isBeingUpdated()) {
                 this.disableAllFields();
             }
         } else {
@@ -410,7 +410,7 @@ public class FXMLCaseController implements Initializable {
         stage.setScene(new Scene((Pane) loader.load()));
 
         FXMLNewEvidenceController controller = loader.<FXMLNewEvidenceController>getController();
-        controller.initData(this);
+        controller.initData(this, this.token);
         stage.setTitle("Logged in as " + token.getName());
         stage.show();
     }
@@ -443,7 +443,7 @@ public class FXMLCaseController implements Initializable {
 
         new Thread(() -> {
             try {
-                this.caseId = this.connect.generateCaseId();
+                this.caseId = this.connect.generateCaseId(this.token);
                 this.caseNrTF.setText(this.caseId);
             } catch (ApiException ex) {
                 Logger.getLogger(FXMLCaseController.class.getName()).log(Level.SEVERE, null, ex);

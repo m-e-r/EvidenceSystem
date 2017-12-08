@@ -7,6 +7,7 @@ import io.swagger.api.factories.EvidenceGeneratorApiServiceFactory;
 import io.swagger.annotations.ApiParam;
 import io.swagger.jaxrs.*;
 
+import io.swagger.model.Token;
 
 import java.util.Map;
 import java.util.List;
@@ -28,7 +29,7 @@ import javax.validation.constraints.*;
 
 
 @io.swagger.annotations.Api(description = "the evidenceGenerator API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-12-04T14:13:15.147Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-12-08T08:55:07.282Z")
 public class EvidenceGeneratorApi  {
    private final EvidenceGeneratorApiService delegate;
 
@@ -60,8 +61,9 @@ public class EvidenceGeneratorApi  {
     @io.swagger.annotations.ApiOperation(value = "gets a evidence Id using generator", notes = "Returns evidence Id using generator", response = String.class, tags={ "Security", })
     @io.swagger.annotations.ApiResponses(value = { 
         @io.swagger.annotations.ApiResponse(code = 200, message = "succesfully returned evidenceId from generator", response = String.class) })
-    public Response genEvidenceId(@Context SecurityContext securityContext)
+    public Response genEvidenceId(@ApiParam(value = "" ,required=true) Token token
+,@Context SecurityContext securityContext)
     throws NotFoundException {
-        return delegate.genEvidenceId(securityContext);
+        return delegate.genEvidenceId(token,securityContext);
     }
 }

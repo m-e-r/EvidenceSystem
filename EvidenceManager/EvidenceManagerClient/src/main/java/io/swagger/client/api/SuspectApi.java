@@ -17,6 +17,7 @@ import java.io.IOException;
 
 
 import io.swagger.client.model.Suspect;
+import io.swagger.client.model.Token;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -45,13 +46,14 @@ public class SuspectApi {
 
     /**
      * Build call for getSuspectList
+     * @param token  (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getSuspectListCall(final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = null;
+    public com.squareup.okhttp.Call getSuspectListCall(Token token, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = token;
 
         // create path and map variables
         String localVarPath = "/suspect";
@@ -92,10 +94,15 @@ public class SuspectApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getSuspectListValidateBeforeCall(final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getSuspectListValidateBeforeCall(Token token, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'token' is set
+        if (token == null) {
+            throw new ApiException("Missing the required parameter 'token' when calling getSuspectList(Async)");
+        }
         
 
-        com.squareup.okhttp.Call call = getSuspectListCall(progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getSuspectListCall(token, progressListener, progressRequestListener);
         return call;
 
     }
@@ -103,22 +110,24 @@ public class SuspectApi {
     /**
      * Gets a list of suspects
      * Returns a list of suspects
+     * @param token  (required)
      * @return List&lt;Suspect&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public List<Suspect> getSuspectList() throws ApiException {
-        ApiResponse<List<Suspect>> resp = getSuspectListWithHttpInfo();
+    public List<Suspect> getSuspectList(Token token) throws ApiException {
+        ApiResponse<List<Suspect>> resp = getSuspectListWithHttpInfo(token);
         return resp.getData();
     }
 
     /**
      * Gets a list of suspects
      * Returns a list of suspects
+     * @param token  (required)
      * @return ApiResponse&lt;List&lt;Suspect&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<List<Suspect>> getSuspectListWithHttpInfo() throws ApiException {
-        com.squareup.okhttp.Call call = getSuspectListValidateBeforeCall(null, null);
+    public ApiResponse<List<Suspect>> getSuspectListWithHttpInfo(Token token) throws ApiException {
+        com.squareup.okhttp.Call call = getSuspectListValidateBeforeCall(token, null, null);
         Type localVarReturnType = new TypeToken<List<Suspect>>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -126,11 +135,12 @@ public class SuspectApi {
     /**
      * Gets a list of suspects (asynchronously)
      * Returns a list of suspects
+     * @param token  (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getSuspectListAsync(final ApiCallback<List<Suspect>> callback) throws ApiException {
+    public com.squareup.okhttp.Call getSuspectListAsync(Token token, final ApiCallback<List<Suspect>> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -151,7 +161,7 @@ public class SuspectApi {
             };
         }
 
-        com.squareup.okhttp.Call call = getSuspectListValidateBeforeCall(progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getSuspectListValidateBeforeCall(token, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<List<Suspect>>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

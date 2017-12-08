@@ -48,7 +48,8 @@ public class CriminalCaseApiTest {
     @Test
     public void getCaseTest() throws ApiException {
         String caseId = null;
-        CriminalCase response = api.getCase(caseId);
+        Token token = null;
+        CriminalCase response = api.getCase(caseId, token);
 
         // TODO: test validations
     }

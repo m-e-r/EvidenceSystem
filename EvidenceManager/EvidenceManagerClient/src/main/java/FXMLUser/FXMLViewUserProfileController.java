@@ -5,6 +5,7 @@ package FXMLUser;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
 import io.swagger.client.model.Token;
 import io.swagger.client.model.User;
@@ -75,7 +76,7 @@ public class FXMLViewUserProfileController implements Initializable {
      * @param event
      */
     @FXML
-    private void saveEditProfle(ActionEvent event) {
+    private void saveEditProfle(ActionEvent event) throws ApiException {
         if (!this.fieldsAreMissing()) {
             String name = this.nameTF.getText();
             String adress = this.adressTF.getText();
@@ -83,14 +84,15 @@ public class FXMLViewUserProfileController implements Initializable {
 
             this.user.setAddress(adress);
             this.user.setName(name);
+            this.user.setToken(this.token);
             
 //            if (password.equals("********")) Do this when we make sure to hash the password
 //                this.user.setPassword(password);
             
-//            if (this.connect.updateUser(this.user)) { Do this when updateUser is available
-//                Stage stage = (Stage) this.editProfilBTN.getScene().getWindow();
-//                stage.close();
-//            }
+            if (this.connect.updateUser(this.user)) {
+                Stage stage = (Stage) this.editProfilBTN.getScene().getWindow();
+                stage.close();
+            }
         }
         
     }

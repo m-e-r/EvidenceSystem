@@ -63,7 +63,8 @@ public class UserApiTest {
     @Test
     public void getUserTest() throws ApiException {
         String id = null;
-        User response = api.getUser(id);
+        Token token = null;
+        User response = api.getUser(id, token);
 
         // TODO: test validations
     }

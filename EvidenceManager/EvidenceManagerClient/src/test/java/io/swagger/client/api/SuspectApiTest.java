@@ -2,6 +2,7 @@ package io.swagger.client.api;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.model.Suspect;
+import io.swagger.client.model.Token;
 import org.junit.Test;
 import org.junit.Ignore;
 
@@ -29,7 +30,8 @@ public class SuspectApiTest {
      */
     @Test
     public void getSuspectListTest() throws ApiException {
-        List<Suspect> response = api.getSuspectList();
+        Token token = null;
+        List<Suspect> response = api.getSuspectList(token);
 
         // TODO: test validations
     }

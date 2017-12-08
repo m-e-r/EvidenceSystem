@@ -291,13 +291,14 @@ public class UserApi {
     /**
      * Build call for getUser
      * @param id  (required)
+     * @param token  (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getUserCall(String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = null;
+    public com.squareup.okhttp.Call getUserCall(String id, Token token, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = token;
 
         // create path and map variables
         String localVarPath = "/user/{Id}"
@@ -339,15 +340,20 @@ public class UserApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getUserValidateBeforeCall(String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getUserValidateBeforeCall(String id, Token token, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'id' is set
         if (id == null) {
             throw new ApiException("Missing the required parameter 'id' when calling getUser(Async)");
         }
         
+        // verify the required parameter 'token' is set
+        if (token == null) {
+            throw new ApiException("Missing the required parameter 'token' when calling getUser(Async)");
+        }
+        
 
-        com.squareup.okhttp.Call call = getUserCall(id, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getUserCall(id, token, progressListener, progressRequestListener);
         return call;
 
     }
@@ -356,11 +362,12 @@ public class UserApi {
      * Gets a user based on Id
      * Retuns a user
      * @param id  (required)
+     * @param token  (required)
      * @return User
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public User getUser(String id) throws ApiException {
-        ApiResponse<User> resp = getUserWithHttpInfo(id);
+    public User getUser(String id, Token token) throws ApiException {
+        ApiResponse<User> resp = getUserWithHttpInfo(id, token);
         return resp.getData();
     }
 
@@ -368,11 +375,12 @@ public class UserApi {
      * Gets a user based on Id
      * Retuns a user
      * @param id  (required)
+     * @param token  (required)
      * @return ApiResponse&lt;User&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<User> getUserWithHttpInfo(String id) throws ApiException {
-        com.squareup.okhttp.Call call = getUserValidateBeforeCall(id, null, null);
+    public ApiResponse<User> getUserWithHttpInfo(String id, Token token) throws ApiException {
+        com.squareup.okhttp.Call call = getUserValidateBeforeCall(id, token, null, null);
         Type localVarReturnType = new TypeToken<User>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -381,11 +389,12 @@ public class UserApi {
      * Gets a user based on Id (asynchronously)
      * Retuns a user
      * @param id  (required)
+     * @param token  (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getUserAsync(String id, final ApiCallback<User> callback) throws ApiException {
+    public com.squareup.okhttp.Call getUserAsync(String id, Token token, final ApiCallback<User> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -406,7 +415,7 @@ public class UserApi {
             };
         }
 
-        com.squareup.okhttp.Call call = getUserValidateBeforeCall(id, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getUserValidateBeforeCall(id, token, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<User>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

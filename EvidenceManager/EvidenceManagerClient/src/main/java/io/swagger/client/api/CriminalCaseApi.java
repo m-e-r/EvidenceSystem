@@ -170,13 +170,14 @@ public class CriminalCaseApi {
     /**
      * Build call for getCase
      * @param caseId  (required)
+     * @param token  (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getCaseCall(String caseId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = null;
+    public com.squareup.okhttp.Call getCaseCall(String caseId, Token token, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = token;
 
         // create path and map variables
         String localVarPath = "/case/{caseId}"
@@ -218,15 +219,20 @@ public class CriminalCaseApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getCaseValidateBeforeCall(String caseId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getCaseValidateBeforeCall(String caseId, Token token, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'caseId' is set
         if (caseId == null) {
             throw new ApiException("Missing the required parameter 'caseId' when calling getCase(Async)");
         }
         
+        // verify the required parameter 'token' is set
+        if (token == null) {
+            throw new ApiException("Missing the required parameter 'token' when calling getCase(Async)");
+        }
+        
 
-        com.squareup.okhttp.Call call = getCaseCall(caseId, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getCaseCall(caseId, token, progressListener, progressRequestListener);
         return call;
 
     }
@@ -235,11 +241,12 @@ public class CriminalCaseApi {
      * 
      * Gets a case
      * @param caseId  (required)
+     * @param token  (required)
      * @return CriminalCase
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public CriminalCase getCase(String caseId) throws ApiException {
-        ApiResponse<CriminalCase> resp = getCaseWithHttpInfo(caseId);
+    public CriminalCase getCase(String caseId, Token token) throws ApiException {
+        ApiResponse<CriminalCase> resp = getCaseWithHttpInfo(caseId, token);
         return resp.getData();
     }
 
@@ -247,11 +254,12 @@ public class CriminalCaseApi {
      * 
      * Gets a case
      * @param caseId  (required)
+     * @param token  (required)
      * @return ApiResponse&lt;CriminalCase&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CriminalCase> getCaseWithHttpInfo(String caseId) throws ApiException {
-        com.squareup.okhttp.Call call = getCaseValidateBeforeCall(caseId, null, null);
+    public ApiResponse<CriminalCase> getCaseWithHttpInfo(String caseId, Token token) throws ApiException {
+        com.squareup.okhttp.Call call = getCaseValidateBeforeCall(caseId, token, null, null);
         Type localVarReturnType = new TypeToken<CriminalCase>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -260,11 +268,12 @@ public class CriminalCaseApi {
      *  (asynchronously)
      * Gets a case
      * @param caseId  (required)
+     * @param token  (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getCaseAsync(String caseId, final ApiCallback<CriminalCase> callback) throws ApiException {
+    public com.squareup.okhttp.Call getCaseAsync(String caseId, Token token, final ApiCallback<CriminalCase> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -285,7 +294,7 @@ public class CriminalCaseApi {
             };
         }
 
-        com.squareup.okhttp.Call call = getCaseValidateBeforeCall(caseId, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getCaseValidateBeforeCall(caseId, token, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<CriminalCase>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

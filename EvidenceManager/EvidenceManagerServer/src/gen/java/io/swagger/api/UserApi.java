@@ -7,6 +7,7 @@ import io.swagger.api.factories.UserApiServiceFactory;
 import io.swagger.annotations.ApiParam;
 import io.swagger.jaxrs.*;
 
+import io.swagger.model.Token;
 import io.swagger.model.User;
 
 import java.util.Map;
@@ -29,7 +30,7 @@ import javax.validation.constraints.*;
 
 
 @io.swagger.annotations.Api(description = "the user API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-12-04T14:13:15.147Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-12-08T08:55:07.282Z")
 public class UserApi  {
    private final UserApiService delegate;
 
@@ -74,9 +75,10 @@ public class UserApi  {
     @io.swagger.annotations.ApiResponses(value = { 
         @io.swagger.annotations.ApiResponse(code = 200, message = "succesfully returned", response = User.class) })
     public Response getUser(@ApiParam(value = "",required=true) @PathParam("Id") String id
+,@ApiParam(value = "" ,required=true) Token token
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
-        return delegate.getUser(id,securityContext);
+        return delegate.getUser(id,token,securityContext);
     }
     @PUT
     

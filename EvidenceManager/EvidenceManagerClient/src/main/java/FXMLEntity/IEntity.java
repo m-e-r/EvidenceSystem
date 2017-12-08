@@ -19,10 +19,10 @@ import java.util.List;
 public interface IEntity {
     public boolean addCase(CriminalCase theCase) throws ApiException;
     public boolean updateCase(CriminalCase theCase) throws ApiException;
-    public CriminalCase getCase(String caseId) throws ApiException;
+    public CriminalCase getCase(String caseId, Token token) throws ApiException;
     
-    public String generateEvidenceId() throws ApiException;
-    public String generateCaseId() throws ApiException;
+    public String generateEvidenceId(Token token) throws ApiException;
+    public String generateCaseId(Token token) throws ApiException;
     
     public CriminalCaseMap getCases(Token token) throws ApiException;
     

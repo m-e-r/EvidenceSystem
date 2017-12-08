@@ -169,7 +169,7 @@ public class FXMLShowCaseScreenController implements Initializable {
         String id;
         String[] ids = caseEditLV.getSelectionModel().getSelectedItem().split("\n");
         id = ids[0];
-        return this.connect.getCase(id);
+        return this.connect.getCase(id, this.token);
     }
 
     /**

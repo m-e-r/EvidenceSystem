@@ -18,8 +18,8 @@ import java.util.List;
 /**
  * CriminalCase
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-12-04T14:11:26.502Z")
-public class CriminalCase extends Tokenfy{
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-12-08T08:55:02.785Z")
+public class CriminalCase extends Tokenfy {
   @SerializedName("caseDescription")
   private String caseDescription = null;
 
@@ -46,9 +46,9 @@ public class CriminalCase extends Tokenfy{
 
   @SerializedName("associates")
   private List<User> associates = null;
-  
+
   @SerializedName("isBeingUpdated")
-  private boolean isBeingUpdated = false;
+  private Boolean isBeingUpdated = null;
 
   public CriminalCase caseDescription(String caseDescription) {
     this.caseDescription = caseDescription;
@@ -222,21 +222,6 @@ public class CriminalCase extends Tokenfy{
     this.associates.add(associatesItem);
     return this;
   }
-  
-   /**
-   * Get status
-   * @return status
-  **/
-  @ApiModelProperty(value = "")
-  public boolean getIsBeingUpdated() {
-    return isBeingUpdated;
-  }
-
-  public void setIsBeingUpdated(boolean status) {
-    this.isBeingUpdated = status;
-  }
-  
-  
 
    /**
    * Get associates
@@ -249,6 +234,24 @@ public class CriminalCase extends Tokenfy{
 
   public void setAssociates(List<User> associates) {
     this.associates = associates;
+  }
+
+  public CriminalCase isBeingUpdated(Boolean isBeingUpdated) {
+    this.isBeingUpdated = isBeingUpdated;
+    return this;
+  }
+
+   /**
+   * Get isBeingUpdated
+   * @return isBeingUpdated
+  **/
+  @ApiModelProperty(value = "")
+  public Boolean isBeingUpdated() {
+    return isBeingUpdated;
+  }
+
+  public void setIsBeingUpdated(Boolean isBeingUpdated) {
+    this.isBeingUpdated = isBeingUpdated;
   }
 
 
@@ -269,12 +272,13 @@ public class CriminalCase extends Tokenfy{
         Objects.equals(this.id, criminalCase.id) &&
         Objects.equals(this.responsible, criminalCase.responsible) &&
         Objects.equals(this.status, criminalCase.status) &&
-        Objects.equals(this.associates, criminalCase.associates);
+        Objects.equals(this.associates, criminalCase.associates) &&
+        Objects.equals(this.isBeingUpdated, criminalCase.isBeingUpdated);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(caseDescription, caseEvidence, caseName, caseSuspect, date, id, responsible, status, associates);
+    return Objects.hash(caseDescription, caseEvidence, caseName, caseSuspect, date, id, responsible, status, associates, isBeingUpdated);
   }
 
 
@@ -292,6 +296,7 @@ public class CriminalCase extends Tokenfy{
     sb.append("    responsible: ").append(toIndentedString(responsible)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    associates: ").append(toIndentedString(associates)).append("\n");
+    sb.append("    isBeingUpdated: ").append(toIndentedString(isBeingUpdated)).append("\n");
     sb.append("}");
     return sb.toString();
   }
