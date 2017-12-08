@@ -181,15 +181,6 @@ public class FXMLCaseController implements Initializable {
 
     }
 
-    private void disableAllFields() {
-        this.caseLawenforcerTF.setEditable(false);
-        this.additionelSuspectTF.setEditable(false);
-        this.caseTitleTF.setEditable(false);
-        this.caseInfoTA.setEditable(false);
-        this.primeSuspectTF.setEditable(false);
-        this.caseStatusCB.setDisable(true);
-    }
-
     /**
      * Method that is called when loading this stage.
      *
@@ -201,9 +192,7 @@ public class FXMLCaseController implements Initializable {
             this.cc = cc;
             this.fillCase(cc);
             this.fillEvidence(cc.getCaseEvidence());
-            if (this.cc.isBeingUpdated()) {
-                this.disableAllFields();
-            }
+         
         } else {
             this.cc = new CriminalCase();
             this.buttonsToRemoveHB.getChildren().remove(this.saveChangesBTN);
