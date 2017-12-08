@@ -159,7 +159,7 @@ public class ServerConnect implements IUser, IEntity {
     }
 
     @Override
-    public User getUser(String id) {
+    public User getUser(String id, Token token) {
         
         //Should return a user after next yaml update
         //return this.sa.getUser(id);
