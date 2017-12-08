@@ -22,7 +22,6 @@ import java.util.logging.Logger;
  */
 public class UserHandler {
     private IUserHandlerSQL handler;
-    private ILoginSQL login; //Noget rod. Få det ændret når vi merger!!
     private User user;
     private IdGenerator gen;
     private Passwords pass;
@@ -30,7 +29,6 @@ public class UserHandler {
     
     public UserHandler() {
         this.handler = new UserHandlerSQL();
-        this.login = new LoginSQL();
         this.gen = new IdGenerator();
         this.pass = new Passwords();
         this.ss = new ServerSecurity();
@@ -54,14 +52,11 @@ public class UserHandler {
         String hashPassword = "";
         this.user = user;
         this.user.setEmployeeId(this.gen.generateTempUserId());
-        
-        
+               
         
         String password = this.ss.decrypt(user.getPassword());
         String username = this.ss.decrypt(user.getUsername());
-        
-        
-        
+
         
         try {
             hashPassword = this.pass.passwordHashGenerator(password, username, false);
@@ -97,7 +92,7 @@ public class UserHandler {
      * @return false if either sql statement fails.
      */
     public boolean validateUser(User user) {
-        String newId = this.gen.generateUserId(user.getRole().toUpperCase()); //Replace 'PO' when you get User object as param
+        String newId = this.gen.generateUserId(user.getRole().toUpperCase());
         user.setEmployeeId(newId);
         return this.handler.validateUser(user);
    

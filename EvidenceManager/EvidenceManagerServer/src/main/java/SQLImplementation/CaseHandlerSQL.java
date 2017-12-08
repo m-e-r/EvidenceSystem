@@ -12,6 +12,7 @@ import io.swagger.model.CriminalCase;
 import io.swagger.model.CriminalCaseMap;
 import io.swagger.model.Evidence;
 import io.swagger.model.Suspect;
+import io.swagger.model.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -69,19 +70,18 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
         CriminalCase ccase = new CriminalCase();
 
         try {
-            String query = String.format("SELECT criminalcase.title, criminalcase.description, criminalcase.status, criminalcase.id, criminalcase.isbeingedited, lawenforcer.name FROM criminalcase\n"
+            String query = String.format("SELECT criminalcase.title, criminalcase.description, criminalcase.status, criminalcase.id, criminalcase.isbeingedited, criminalcase.responsible, lawenforcer.name FROM criminalcase\n"
                     + "JOIN lawenforcer ON (lawenforcer.id = criminalcase.responsible) WHERE criminalcase.id = '%s'", id);
 
             ResultSet select = db.executeQuery(query);
 
             while (select.next()) {
 
-                
                 String title = select.getString("title");
                 String description = select.getString("description");
                 String status = select.getObject("status").toString();
                 boolean isBeingEdited = select.getBoolean("isbeingedited");
-                String responsible = select.getString("name");
+                String responsible = select.getString("responsible");
 
                 ccase.setId(id);
                 ccase.setCaseName(title);
@@ -109,11 +109,19 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
      */
     @Override
     public boolean updateCase(CriminalCase c) {
-  
-        String query = "UPDATE criminalcase SET title = '" + c.getCaseName()
-                + "', description = '" + c.getCaseDescription() + "', isbeingedited = " + c.isBeingUpdated() + " WHERE id = '" + c.getId() + "';";
-
-        db.updateQuery(query);
+        String query = String.format("UPDATE criminalcase SET title = '%s', "
+                + "description = '%s', date = '%s', status = '%s', responsible = '%s', "
+                + "isbeingedited = %b "
+                + "WHERE id = '%s'", c.getCaseName(), c.getCaseDescription(), 
+                c.getDate(), c.getStatus(), c.getResponsible(), c.isBeingUpdated(), c.getId());
+        
+        if (c.getAssociates() != null) {
+            
+            for (User u : c.getAssociates()) {
+                String query2 = String.format("INSERT INTO lawenforcercaseref VALUES ('%s','%s')", c.getId(), u.getEmployeeId());
+                db.updateQuery(query2);
+            }
+        }
 
         return db.updateQuery(query) == 1;
     }
