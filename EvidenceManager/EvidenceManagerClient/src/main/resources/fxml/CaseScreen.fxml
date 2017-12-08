@@ -26,7 +26,7 @@
                      <children>
                         <VBox alignment="CENTER" layoutX="-14.0" layoutY="-14.0" prefHeight="615.0" prefWidth="561.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Label text="Information about the case:">
+                              <Label fx:id="caseInfoLB" text="Information about the case:">
                                  <VBox.margin>
                                     <Insets bottom="3.0" top="12.0" />
                                  </VBox.margin>
