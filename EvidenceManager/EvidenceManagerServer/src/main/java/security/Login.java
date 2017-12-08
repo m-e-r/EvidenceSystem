@@ -29,6 +29,7 @@ public class Login implements ILogin {
     ILoginSQL sql;
     private Passwords pass;
     private ServerSecurity ss;
+    private String plainUsername, plainPassword;
 
     /**
      * Class constructor. Instantiates a sqlStatement object.
@@ -55,40 +56,55 @@ public class Login implements ILogin {
             return null;
         }
         
-        sA[0] = ss.decrypt(sA[0]);
-        sA[1] = ss.decrypt(sA[1]);
-        
-        if (!this.sql.usernameExists(sA[0]))
+        this.plainUsername = ss.decrypt(sA[0]);
+        this.plainPassword = ss.decrypt(sA[1]);
+       
+        if (!this.hashPassword())
             return null;
 
         
+        if (this.userExists(this.plainUsername, this.plainPassword)) {
+            String id = this.getUserId(this.plainUsername, this.plainPassword);
+            
+            if (!this.isUserValidated(id) || !this.isUserSupportedType(id))
+                return null;
+
+            return this.setToken(id);
+        }
+        
+        return null;
+    }
+    
+    private boolean hashPassword() {
+        boolean worked;
         try {
-            sA[1] = this.pass.passwordHashGenerator(sA[1], sA[0], true);
+            this.plainPassword = this.pass.passwordHashGenerator(this.plainPassword, this.plainUsername, true);
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            worked = false;
         } catch (InvalidKeySpecException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            worked = false;
         }
+        
+        if (!this.sql.usernameExists(this.plainUsername))
+            worked = false;
+        else
+            worked = true;
+        
+        return worked;
+    }
+    
+    private Token setToken(String id) {
+        Date d = new Date();
         Token t = new Token();
-
-        if (this.userExists(sA[0], sA[1])) {
-            System.out.println("User exists så det her sker");
-            Date d = new Date(); 
-            String id = this.getUserId(sA[0], sA[1]);
-            
-            if (!this.isUserValidated(id) || !this.isUserSupportedType(id)){
-                System.out.println("Ikke særlig godt validated");
-                return null;
-            }
-            System.out.println(id);
-            t.setId(id);
-            t.setUsertype(this.getRank(id));
-            t.setName(this.sql.getName(id));
-            t.setTimeStamp(Long.toString(d.getTime()));
-            return t;
-        }
-        //System.out.println(UserType.valueOf(t.getUsertype()) + " -- " + UserType.valueOf(t.getUsertype()).equals(UserType.COMISSIONER));
-        return null;
+        
+        t.setId(id);
+        t.setUsertype(this.getRank(id));
+        t.setName(this.sql.getName(id));
+        t.setTimeStamp(Long.toString(d.getTime())); 
+        
+        return t;
     }
     
     /**

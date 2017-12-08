@@ -50,7 +50,6 @@ public class Passwords {
         byte[] hash = key.getEncoded();
         
         String s = String.valueOf(ITERATIONS)+":"+toHex(salt)+":"+toHex(hash);
-        System.out.println("længde: " + s.split(":").length);
         return s;
     }
 
