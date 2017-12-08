@@ -89,6 +89,7 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
                 ccase.setResponsible(responsible);
                 ccase.setStatus(status);
                 ccase.setIsBeingUpdated(isBeingEdited);
+                System.out.println("Is being edited");
                 //ccase.setCaseSuspect(sal);
 
             }
@@ -110,7 +111,7 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
     public boolean updateCase(CriminalCase c) {
   
         String query = "UPDATE criminalcase SET title = '" + c.getCaseName()
-                + "', description = '" + c.getCaseDescription() + "' WHERE id = '" + c.getId() + "';";
+                + "', description = '" + c.getCaseDescription() + "', isbeingedited = " + c.isBeingUpdated() + " WHERE id = '" + c.getId() + "';";
 
         db.updateQuery(query);
 

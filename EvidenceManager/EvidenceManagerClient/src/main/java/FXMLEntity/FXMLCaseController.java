@@ -49,6 +49,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -65,7 +66,6 @@ public class FXMLCaseController implements Initializable {
     private CriminalCase cc; //Gets parsed from FXMLShowCaseScreenController.
     private Token token;
     private Date date;
-
     @FXML
     private TextField caseNrTF;
     @FXML
@@ -124,6 +124,10 @@ public class FXMLCaseController implements Initializable {
     private String caseId = "";
 
     private boolean hasBeenChanged;
+    @FXML
+    private Label caseInfoLB;
+    
+    private boolean wasBeingEditededBeforeOpen;
 
     /**
      * Initializes the controller class.
@@ -134,10 +138,12 @@ public class FXMLCaseController implements Initializable {
         this.caseAddedLBL.setVisible(false);
         this.caseNotAddedLBL.setVisible(false);
         this.date = new Date();
-
         this.status = FXCollections.observableArrayList(CaseStatus.values());
         this.caseStatusCB.setItems(this.status);
         this.hasBeenChanged = false;
+        
+       
+        
 
     }
 
@@ -206,7 +212,27 @@ public class FXMLCaseController implements Initializable {
 
         this.token = token;
         this.cc.setToken(token);
+        
+         if(this.cc.isBeingUpdated()){
+            this.caseInfoLB.setText("This case is currently being edited by another user."
+                    + "\n Please wait until the case is saved and closed by the other user");
+            this.caseInfoLB.setTextFill(Color.web("#ff0000"));
+            this.lockAllFields();
+            this.wasBeingEditededBeforeOpen = true;
+        } else {
+            this.cc.setIsBeingUpdated(true);
+            try {
+                this.updateCase();
+            } catch (ApiException ex) {
+                Logger.getLogger(FXMLCaseController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
+    }
+    
+    private void lockAllFields(){
+        this.backPane.setDisable(true);
+        
     }
 
     public void addNewEvidence(Evidence evi) {
@@ -255,11 +281,10 @@ public class FXMLCaseController implements Initializable {
      * @param cc
      */
     private void fillCase(CriminalCase cc) {
-        System.out.println("test fill case");
         this.caseNrTF.setDisable(true);
         this.caseLawenforcerTF.setDisable(true);
         caseInfoTA.setText(this.cc.getCaseDescription());
-        caseTitleTF.setText(this.cc.getCaseName());;;
+        caseTitleTF.setText(this.cc.getCaseName());
         this.caseNrTF.setText(this.cc.getId());
         this.caseLawenforcerTF.setText(this.cc.getResponsible());
         this.caseStatusCB.setValue(CaseStatus.fromValue(this.cc.getStatus()));
@@ -452,9 +477,17 @@ public class FXMLCaseController implements Initializable {
         }).start();
 
     }
+    
+    public CriminalCase getCase(){
+        return this.cc;
+    }
 
     public boolean hasBeenChanged() {
         return this.hasBeenChanged;
+    }
+    
+    public boolean wasBeingEditedBeforeOpen(){
+        return this.wasBeingEditededBeforeOpen;
     }
 
 }
