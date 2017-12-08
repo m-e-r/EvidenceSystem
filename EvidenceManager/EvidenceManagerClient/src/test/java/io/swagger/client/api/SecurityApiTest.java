@@ -48,7 +48,8 @@ public class SecurityApiTest {
      */
     @Test
     public void genCaseIdTest() throws ApiException {
-        String response = api.genCaseId();
+        Token token = null;
+        String response = api.genCaseId(token);
 
         // TODO: test validations
     }
@@ -63,7 +64,8 @@ public class SecurityApiTest {
      */
     @Test
     public void genEvidenceIdTest() throws ApiException {
-        String response = api.genEvidenceId();
+        Token token = null;
+        String response = api.genEvidenceId(token);
 
         // TODO: test validations
     }

@@ -88,8 +88,8 @@ public class ServerConnect implements IUser, IEntity {
      * @throws ApiException 
      */
     @Override
-    public CriminalCase getCase(String caseId) throws ApiException {
-        return cca.getCase(caseId);
+    public CriminalCase getCase(String caseId, Token token) throws ApiException {
+        return cca.getCase(caseId, token);
     }
 
     /**
@@ -116,13 +116,13 @@ public class ServerConnect implements IUser, IEntity {
     }
 
     @Override
-    public String generateEvidenceId() throws ApiException {
-        return this.sa.genEvidenceId();
+    public String generateEvidenceId(Token token) throws ApiException {
+        return this.sa.genEvidenceId(token);
     }
 
     @Override
-    public String generateCaseId() throws ApiException {
-        return this.sa.genCaseId();
+    public String generateCaseId(Token token) throws ApiException {
+        return this.sa.genCaseId(token);
     }
 
     /**
@@ -167,6 +167,11 @@ public class ServerConnect implements IUser, IEntity {
         u.setAddress("sdlf");
         u.setName("test");
         return u;
+    }
+
+    @Override
+    public boolean updateUser(User user) throws ApiException {
+        return this.ua.updateUser(user);
     }
 
     

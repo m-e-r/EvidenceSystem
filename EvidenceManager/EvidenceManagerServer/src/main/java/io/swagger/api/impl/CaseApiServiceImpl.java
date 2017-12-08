@@ -49,7 +49,7 @@ public class CaseApiServiceImpl extends CaseApiService {
         return Response.ok().entity(false).build();
     }
     @Override
-    public Response getCase(String caseId, SecurityContext securityContext) throws NotFoundException {
+    public Response getCase(String caseId, Token token, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
         //if (this.val.callValidated(token))
         System.out.println("CASE ID : \n" + caseId);

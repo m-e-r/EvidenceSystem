@@ -180,13 +180,14 @@ public class SecurityApi {
     }
     /**
      * Build call for genCaseId
+     * @param token  (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call genCaseIdCall(final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = null;
+    public com.squareup.okhttp.Call genCaseIdCall(Token token, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = token;
 
         // create path and map variables
         String localVarPath = "/caseGenerator";
@@ -227,10 +228,15 @@ public class SecurityApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call genCaseIdValidateBeforeCall(final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call genCaseIdValidateBeforeCall(Token token, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'token' is set
+        if (token == null) {
+            throw new ApiException("Missing the required parameter 'token' when calling genCaseId(Async)");
+        }
         
 
-        com.squareup.okhttp.Call call = genCaseIdCall(progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = genCaseIdCall(token, progressListener, progressRequestListener);
         return call;
 
     }
@@ -238,22 +244,24 @@ public class SecurityApi {
     /**
      * gets a case Id using generator
      * Returns case Id using generator
+     * @param token  (required)
      * @return String
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public String genCaseId() throws ApiException {
-        ApiResponse<String> resp = genCaseIdWithHttpInfo();
+    public String genCaseId(Token token) throws ApiException {
+        ApiResponse<String> resp = genCaseIdWithHttpInfo(token);
         return resp.getData();
     }
 
     /**
      * gets a case Id using generator
      * Returns case Id using generator
+     * @param token  (required)
      * @return ApiResponse&lt;String&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<String> genCaseIdWithHttpInfo() throws ApiException {
-        com.squareup.okhttp.Call call = genCaseIdValidateBeforeCall(null, null);
+    public ApiResponse<String> genCaseIdWithHttpInfo(Token token) throws ApiException {
+        com.squareup.okhttp.Call call = genCaseIdValidateBeforeCall(token, null, null);
         Type localVarReturnType = new TypeToken<String>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -261,11 +269,12 @@ public class SecurityApi {
     /**
      * gets a case Id using generator (asynchronously)
      * Returns case Id using generator
+     * @param token  (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call genCaseIdAsync(final ApiCallback<String> callback) throws ApiException {
+    public com.squareup.okhttp.Call genCaseIdAsync(Token token, final ApiCallback<String> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -286,20 +295,21 @@ public class SecurityApi {
             };
         }
 
-        com.squareup.okhttp.Call call = genCaseIdValidateBeforeCall(progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = genCaseIdValidateBeforeCall(token, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<String>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
     /**
      * Build call for genEvidenceId
+     * @param token  (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call genEvidenceIdCall(final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = null;
+    public com.squareup.okhttp.Call genEvidenceIdCall(Token token, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = token;
 
         // create path and map variables
         String localVarPath = "/evidenceGenerator";
@@ -340,10 +350,15 @@ public class SecurityApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call genEvidenceIdValidateBeforeCall(final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call genEvidenceIdValidateBeforeCall(Token token, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'token' is set
+        if (token == null) {
+            throw new ApiException("Missing the required parameter 'token' when calling genEvidenceId(Async)");
+        }
         
 
-        com.squareup.okhttp.Call call = genEvidenceIdCall(progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = genEvidenceIdCall(token, progressListener, progressRequestListener);
         return call;
 
     }
@@ -351,22 +366,24 @@ public class SecurityApi {
     /**
      * gets a evidence Id using generator
      * Returns evidence Id using generator
+     * @param token  (required)
      * @return String
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public String genEvidenceId() throws ApiException {
-        ApiResponse<String> resp = genEvidenceIdWithHttpInfo();
+    public String genEvidenceId(Token token) throws ApiException {
+        ApiResponse<String> resp = genEvidenceIdWithHttpInfo(token);
         return resp.getData();
     }
 
     /**
      * gets a evidence Id using generator
      * Returns evidence Id using generator
+     * @param token  (required)
      * @return ApiResponse&lt;String&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<String> genEvidenceIdWithHttpInfo() throws ApiException {
-        com.squareup.okhttp.Call call = genEvidenceIdValidateBeforeCall(null, null);
+    public ApiResponse<String> genEvidenceIdWithHttpInfo(Token token) throws ApiException {
+        com.squareup.okhttp.Call call = genEvidenceIdValidateBeforeCall(token, null, null);
         Type localVarReturnType = new TypeToken<String>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -374,11 +391,12 @@ public class SecurityApi {
     /**
      * gets a evidence Id using generator (asynchronously)
      * Returns evidence Id using generator
+     * @param token  (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call genEvidenceIdAsync(final ApiCallback<String> callback) throws ApiException {
+    public com.squareup.okhttp.Call genEvidenceIdAsync(Token token, final ApiCallback<String> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -399,7 +417,7 @@ public class SecurityApi {
             };
         }
 
-        com.squareup.okhttp.Call call = genEvidenceIdValidateBeforeCall(progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = genEvidenceIdValidateBeforeCall(token, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<String>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

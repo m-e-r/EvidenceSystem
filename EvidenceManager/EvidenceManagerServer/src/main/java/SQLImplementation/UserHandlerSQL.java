@@ -35,9 +35,9 @@ public class UserHandlerSQL implements IUserHandlerSQL {
     @Override
     public boolean updateUser(User user) {
         String query = String.format("UPDATE lawenforcer\n"
-                + "   SET name='%s', positionref= (SELECT _ref FROM lawenforcerposition WHERE title='%s', username='%s',\n"
+                + "   SET name='%s', positionref= (SELECT _ref FROM lawenforcerposition WHERE title='%s'), username='%s',\n"
                 + "       address='%s'\n"
-                + "   WHERE id = '%d';", user.getName(), user.getRole(), user.getUsername(), user.getAddress());
+                + "   WHERE id = '%s';", user.getName(), user.getRole(), user.getUsername(), user.getAddress(), user.getEmployeeId());
 
         return this.db.updateQuery(query) == 1;
     }

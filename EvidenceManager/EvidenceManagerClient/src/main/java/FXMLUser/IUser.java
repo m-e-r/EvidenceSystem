@@ -23,4 +23,5 @@ public interface IUser {
     public User getUser(String id);
     
     public Token doSomeLogin(String userName, String password) throws ApiException;
+    public boolean updateUser(User user) throws ApiException;
 }

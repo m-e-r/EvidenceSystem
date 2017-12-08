@@ -10,6 +10,7 @@ import FXMLEntity.FXMLCaseController;
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
 import io.swagger.client.model.Evidence;
+import io.swagger.client.model.Token;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
@@ -43,6 +44,7 @@ public class FXMLNewEvidenceController implements Initializable {
     private FXMLCaseController controller;
     private ObservableList<String> categories;
     private Date date;
+    private Token token;
 
     @FXML
     private TextField evidenceNumTF;
@@ -92,8 +94,9 @@ public class FXMLNewEvidenceController implements Initializable {
      * Parses a FXMLCaseController
      * @param controller 
      */
-    public void initData(FXMLCaseController controller) {
+    public void initData(FXMLCaseController controller, Token token) {
         this.controller = controller;
+        this.token = token;
     } 
     /**
      * Saves the information about the new piece of evidence in a new evidence object.
@@ -161,7 +164,7 @@ public class FXMLNewEvidenceController implements Initializable {
      * @throws ApiException 
      */
     private String generateId() throws ApiException {
-        return this.connect.generateEvidenceId();
+        return this.connect.generateEvidenceId(this.token);
     }
     
 //    private String generateId() {

@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.jaxrs.*;
 
 import io.swagger.model.Suspect;
+import io.swagger.model.Token;
 
 import java.util.Map;
 import java.util.List;
@@ -29,7 +30,7 @@ import javax.validation.constraints.*;
 
 
 @io.swagger.annotations.Api(description = "the suspect API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-12-04T14:13:15.147Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-12-08T08:55:07.282Z")
 public class SuspectApi  {
    private final SuspectApiService delegate;
 
@@ -61,8 +62,9 @@ public class SuspectApi  {
     @io.swagger.annotations.ApiOperation(value = "Gets a list of suspects", notes = "Returns a list of suspects", response = Suspect.class, responseContainer = "List", tags={ "Suspect", })
     @io.swagger.annotations.ApiResponses(value = { 
         @io.swagger.annotations.ApiResponse(code = 200, message = "list of suspects", response = Suspect.class, responseContainer = "List") })
-    public Response getSuspectList(@Context SecurityContext securityContext)
+    public Response getSuspectList(@ApiParam(value = "" ,required=true) Token token
+,@Context SecurityContext securityContext)
     throws NotFoundException {
-        return delegate.getSuspectList(securityContext);
+        return delegate.getSuspectList(token,securityContext);
     }
 }

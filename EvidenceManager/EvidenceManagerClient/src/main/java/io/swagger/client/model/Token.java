@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * Token
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-12-04T14:11:26.502Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-12-08T08:55:02.785Z")
 public class Token {
   @SerializedName("id")
   private String id = null;

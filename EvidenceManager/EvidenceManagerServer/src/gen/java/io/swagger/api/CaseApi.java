@@ -31,7 +31,7 @@ import javax.validation.constraints.*;
 
 
 @io.swagger.annotations.Api(description = "the case API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-12-04T14:13:15.147Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-12-08T08:55:07.282Z")
 public class CaseApi  {
    private final CaseApiService delegate;
 
@@ -80,9 +80,10 @@ public class CaseApi  {
         
         @io.swagger.annotations.ApiResponse(code = 400, message = "None match", response = Void.class) })
     public Response getCase(@ApiParam(value = "",required=true) @PathParam("caseId") String caseId
+,@ApiParam(value = "" ,required=true) Token token
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
-        return delegate.getCase(caseId,securityContext);
+        return delegate.getCase(caseId,token,securityContext);
     }
     @POST
     

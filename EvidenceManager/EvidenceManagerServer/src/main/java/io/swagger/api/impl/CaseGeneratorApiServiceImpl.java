@@ -27,7 +27,7 @@ public class CaseGeneratorApiServiceImpl extends CaseGeneratorApiService {
     }
     
     @Override
-    public Response genCaseId(SecurityContext securityContext) throws NotFoundException {
+    public Response genCaseId(Token token, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
         //if (this.val.callValidated(token))
             return Response.ok().entity(this.gen.generateCaseId()).build();

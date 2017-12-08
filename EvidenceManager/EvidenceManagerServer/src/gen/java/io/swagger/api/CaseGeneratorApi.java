@@ -7,6 +7,7 @@ import io.swagger.api.factories.CaseGeneratorApiServiceFactory;
 import io.swagger.annotations.ApiParam;
 import io.swagger.jaxrs.*;
 
+import io.swagger.model.Token;
 
 import java.util.Map;
 import java.util.List;
@@ -28,7 +29,7 @@ import javax.validation.constraints.*;
 
 
 @io.swagger.annotations.Api(description = "the caseGenerator API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-12-04T14:13:15.147Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-12-08T08:55:07.282Z")
 public class CaseGeneratorApi  {
    private final CaseGeneratorApiService delegate;
 
@@ -60,8 +61,9 @@ public class CaseGeneratorApi  {
     @io.swagger.annotations.ApiOperation(value = "gets a case Id using generator", notes = "Returns case Id using generator", response = String.class, tags={ "Security", })
     @io.swagger.annotations.ApiResponses(value = { 
         @io.swagger.annotations.ApiResponse(code = 200, message = "succesfully returned caseId from generator", response = String.class) })
-    public Response genCaseId(@Context SecurityContext securityContext)
+    public Response genCaseId(@ApiParam(value = "" ,required=true) Token token
+,@Context SecurityContext securityContext)
     throws NotFoundException {
-        return delegate.genCaseId(securityContext);
+        return delegate.genCaseId(token,securityContext);
     }
 }
