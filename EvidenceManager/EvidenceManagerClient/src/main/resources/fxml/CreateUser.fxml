@@ -77,11 +77,10 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="87.0" prefWidth="598.0" spacing="60.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="87.0" prefWidth="598.0" spacing="60.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button fx:id="checkUserNameBTN" mnemonicParsing="false" onAction="#handleCheckUserNameAction" text="Check Username" />
-                        <Label fx:id="missingLabel" text="Fields are missing" textFill="RED" />
                         <Button fx:id="createUserBTN" mnemonicParsing="false" onAction="#handleCreateUserAction" text="Create User" />
+                        <Label fx:id="missingLabel" text="Fields are missing" textFill="RED" />
                      </children>
                   </HBox>
                </children>

@@ -109,13 +109,6 @@ public class FXMLCreateUserController implements Initializable {
         
     }
 
-    /**
-     * Check if an input field is empty. 
-     * @param event 
-     */
-    @FXML
-    private void handleCheckUserNameAction(ActionEvent event) { 
-    }
     
     public void initData(Token token){
         this.token = token;
