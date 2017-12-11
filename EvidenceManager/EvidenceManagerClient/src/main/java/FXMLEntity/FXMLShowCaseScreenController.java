@@ -53,7 +53,7 @@ public class FXMLShowCaseScreenController implements Initializable {
     //Attributes
     private IEntity connect; //Used for calling methods on the server
     private ObservableList<String> occ; //Used for holding case name and id for displaying in the ListView
-    private ObservableList<String> tempCaseList; 
+    private ObservableList<String> tempCaseList;
     private Button valiBTN;
     private Token token;
     private Date date;
@@ -84,7 +84,7 @@ public class FXMLShowCaseScreenController implements Initializable {
         this.caseNotEditedLBL.setVisible(false);
         this.connect = new ServerConnect();
         this.occ = FXCollections.observableArrayList();
-        
+
         this.date = new Date();
     }
 
@@ -196,7 +196,7 @@ public class FXMLShowCaseScreenController implements Initializable {
         FXMLCaseController caseScreenController = loader.<FXMLCaseController>getController();
 
         System.out.println("TOKEN EDIT CASE SCREEN: " + this.token);
-        
+
         if (selectedCase == null) {
             this.caseNotEditedLBL.setVisible(true);
         } else {
@@ -208,7 +208,7 @@ public class FXMLShowCaseScreenController implements Initializable {
 
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 public void handle(WindowEvent we) {
-            
+
                     if (caseScreenController.hasBeenChanged()) {
                         try {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CloseCaseConfirmScreen.fxml"));
@@ -224,34 +224,29 @@ public class FXMLShowCaseScreenController implements Initializable {
                             if (!confirmScreenController.shouldCloseCase()) {
                                 we.consume();
                             }
-                            
+
                             updateCaseOnClose(caseScreenController);
-                            
 
                         } catch (IOException ex) {
                             Logger.getLogger(FXMLCloseCaseConfirmScreenController.class.getName()).log(Level.SEVERE, null, ex);
 
                         }
                     }
-                    if(!caseScreenController.wasBeingEditedBeforeOpen())
+                    if (!caseScreenController.wasBeingEditedBeforeOpen()) {
                         updateCaseOnClose(caseScreenController);
-                    
-                    System.out.println("INTERUPT");
+                    }
                     caseScreenController.interuptUpdateThread();
-
                 }
-            }
-            );
+            });
 
             stage.show();
         }
-        
+
         return stage;
     }
 
     private void updateCaseOnClose(FXMLCaseController caseScreenController) {
         try {
-            System.out.println("UPDATE ON CLOSE");
             System.out.println(caseScreenController.getCase());
             caseScreenController.getCase().setIsBeingUpdated(false);
             caseScreenController.updateCase();
@@ -277,6 +272,13 @@ public class FXMLShowCaseScreenController implements Initializable {
         FXMLCaseController controller = loader.<FXMLCaseController>getController();
         controller.initData(null, this.token);
         stage.setTitle("Logged in as " + token.getName());
+
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                controller.interuptUpdateThread();
+            }
+        });
+
         stage.show();
         return stage;
 
@@ -322,14 +324,13 @@ public class FXMLShowCaseScreenController implements Initializable {
         stage.show();
         return stage;
     }
-    
-    
+
     @FXML
     private void searchAction(ActionEvent event) {
         String searchInput = this.caseSearchTF.getText();
         this.tempCaseList = FXCollections.observableArrayList();
-        
-        for(String s : this.occ) {
+
+        for (String s : this.occ) {
 
             if (s.toLowerCase().contains(searchInput.toLowerCase())) {
                 this.tempCaseList.add(s);
