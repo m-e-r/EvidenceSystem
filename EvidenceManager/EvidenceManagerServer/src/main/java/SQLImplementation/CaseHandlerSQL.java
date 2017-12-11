@@ -90,6 +90,7 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
                 ccase.setStatus(status);
                 ccase.setIsBeingUpdated(isBeingEdited);
                 System.out.println("Is being edited");
+                ccase.setAssociates(getAssociates(id));
                 //ccase.setCaseSuspect(sal);
 
             }
@@ -99,6 +100,28 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
         }
         ccase.setCaseEvidence(this.getEvidenceList(id));
         return ccase;
+    }
+
+    private List<User> getAssociates(String caseId) {
+        List<User> associates = new ArrayList<>();
+        String query = String.format("SELECT * FROM lawenforcer\n"
+                + "JOIN lawenforcercaseref ON (lawenforcer.id = lawenforcercaseref.lawenforcerid) "
+                + "WHERE lawenforcercaseref.caseid = '%s'", caseId);
+        
+        ResultSet select = db.executeQuery(query);
+        
+        try {
+            while (select.next()){
+                User nextUser = new User();
+                nextUser.setName(select.getString("name"));
+                nextUser.setEmployeeId(select.getString("id"));
+                associates.add(nextUser);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CaseHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return associates;
     }
 
     /**
@@ -112,11 +135,11 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
         String query = String.format("UPDATE criminalcase SET title = '%s', "
                 + "description = '%s', date = '%s', status = '%s', responsible = '%s', "
                 + "isbeingedited = %b "
-                + "WHERE id = '%s'", c.getCaseName(), c.getCaseDescription(), 
+                + "WHERE id = '%s'", c.getCaseName(), c.getCaseDescription(),
                 c.getDate(), c.getStatus(), c.getResponsible(), c.isBeingUpdated(), c.getId());
-        
+
         if (c.getAssociates() != null) {
-            
+
             for (User u : c.getAssociates()) {
                 String query2 = String.format("INSERT INTO lawenforcercaseref VALUES ('%s','%s')", c.getId(), u.getEmployeeId());
                 db.updateQuery(query2);
