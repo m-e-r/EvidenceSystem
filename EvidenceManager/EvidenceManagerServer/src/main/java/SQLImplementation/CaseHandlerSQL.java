@@ -125,13 +125,15 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
     }
 
     private void addAssociatesToDb(CriminalCase c) {
-        for (User u : c.getAssociates()) {
-            String query = String.format("INSERT INTO lawenforcercaseref (caseid, lawenforcerid)\n"
-                    + "SELECT '%s', '%s'\n"
-                    + "WHERE NOT EXISTS (SELECT * FROM lawenforcercaseref "
-                    + "WHERE lawenforcerid = '%s' AND caseid = '%s')", 
-                    c.getId(), u.getEmployeeId(), c.getId(), u.getEmployeeId());
-            this.db.executeQuery(query);
+        if (c.getAssociates() != null) {
+            for (User u : c.getAssociates()) {
+                String query = String.format("INSERT INTO lawenforcercaseref (caseid, lawenforcerid)\n"
+                        + "SELECT '%s', '%s'\n"
+                        + "WHERE NOT EXISTS (SELECT * FROM lawenforcercaseref "
+                        + "WHERE lawenforcerid = '%s' AND caseid = '%s')",
+                        c.getId(), u.getEmployeeId(), c.getId(), u.getEmployeeId());
+                this.db.updateQuery(query);
+            }
         }
     }
 
@@ -196,7 +198,7 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
      */
     private void handleEvidence(List<Evidence> evidence, String caseRef) {
 
-        if (!evidence.isEmpty()) {
+        if (evidence != null && !evidence.isEmpty()) {
             for (Evidence e : evidence) {
                 String query = String.format("SELECT * FROM evidence WHERE id = '%s'", e.getId());
                 ResultSet select = db.executeQuery(query);

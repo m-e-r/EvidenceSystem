@@ -128,12 +128,13 @@ public class FXMLCaseController implements Initializable {
     private boolean hasBeenChanged;
     @FXML
     private Label caseInfoLB;
-    
+
     private boolean wasBeingEditededBeforeOpen;
     @FXML
-    private Button assignPersonleBTN;
-    
+    private Button assignPersonelBTN;
+
     private Thread t; //Thread used to autosave case every 2 minutes
+    private boolean hasBeenSaved;
 
     /**
      * Initializes the controller class.
@@ -147,9 +148,6 @@ public class FXMLCaseController implements Initializable {
         this.date = new Date();
         this.status = FXCollections.observableArrayList(CaseStatus.values());
         this.caseStatusCB.setItems(this.status);
-        this.hasBeenChanged = false;
-        
-
     }
 
     /**
@@ -181,6 +179,8 @@ public class FXMLCaseController implements Initializable {
             this.caseNotAddedLBL.setVisible(true);
         }
 
+        this.hasBeenSaved = true;
+
     }
 
     /**
@@ -195,22 +195,26 @@ public class FXMLCaseController implements Initializable {
             this.cc = cc;
             this.fillCase(cc);
             this.fillEvidence(cc.getCaseEvidence());
+            this.hasBeenSaved = true;
             this.checkBeingUpdated();
-         
+
         } else {
             this.cc = new CriminalCase();
             this.cc.setToken(token);
+            this.cc.setResponsible(token.getId());
+            this.caseLawenforcerTF.setText(this.token.getName());
             this.buttonsToRemoveHB.getChildren().remove(this.saveChangesBTN);
-
+            this.hasBeenSaved = false;
             this.generateId();
+
         }
-         
+
         this.initUpdateThread();
         this.t.start();
     }
-    
+
     private void checkBeingUpdated() {
-        if(this.cc.isBeingUpdated()){
+        if (this.cc.isBeingUpdated()) {
             this.caseInfoLB.setText("This case is currently being edited by another user."
                     + "\n Please wait until the case is saved and closed by the other user");
             this.caseInfoLB.setTextFill(Color.web("#ff0000"));
@@ -225,10 +229,10 @@ public class FXMLCaseController implements Initializable {
             }
         }
     }
-    
-    private void lockAllFields(){
+
+    private void lockAllFields() {
         this.backPane.setDisable(true);
-        
+
     }
 
     public void addNewEvidence(Evidence evi) {
@@ -245,8 +249,13 @@ public class FXMLCaseController implements Initializable {
         this.cc.setCaseName(this.caseTitleTF.getText());
         this.cc.setStatus(CaseStatus.OPEN.toString());
 
-        boolean success = this.connect.updateCase(this.cc);
+        boolean success = false;
+        System.out.println("has been saved! " + this.hasBeenSaved);
+        if (this.hasBeenSaved) {
+            success = this.connect.updateCase(this.cc);
+        }
 
+        
         if (success) {
             System.out.println("Succesful");
             this.token.setTimeStamp(Long.toString(this.date.getTime()));
@@ -268,20 +277,20 @@ public class FXMLCaseController implements Initializable {
         this.hasBeenChanged = false;
         this.updateCase();
     }
-    
+
     //Helper method to initialize thread t. This set a thread that saves changes
     //and sleeps for 2 minutes. 
-    private void initUpdateThread(){
+    private void initUpdateThread() {
         this.t = new Thread(() -> {
-            while(true){
-            this.saveChangesBTN.fire();
-            this.token.setTimeStamp(Long.toString(this.date.getTime()));
-            try {
-                Thread.sleep(120);
-            } catch (InterruptedException ex) {
-                return;
-                
-            }
+            while (true) {
+                this.saveChangesBTN.fire();
+                this.token.setTimeStamp(Long.toString(this.date.getTime()));
+                try {
+                    Thread.sleep(120000);
+                } catch (InterruptedException ex) {
+                    return;
+
+                }
             }
         });
     }
@@ -309,15 +318,15 @@ public class FXMLCaseController implements Initializable {
 //           statusRBTN.setSelected(false);
 //       }
         caseNrTF.setText(String.valueOf(this.cc.getId()));
-        
+
         this.addTextListeners();
 
     }
 
     /**
      * Helper method that creates listeners to the case text fields and areas
-     * Sets a boolean to true, that something has been changes, which prompts the
-     * user to save. 
+     * Sets a boolean to true, that something has been changes, which prompts
+     * the user to save.
      */
     private void addTextListeners() {
         caseTitleTF.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
@@ -484,6 +493,7 @@ public class FXMLCaseController implements Initializable {
             try {
                 this.caseId = this.connect.generateCaseId(this.token);
                 this.caseNrTF.setText(this.caseId);
+                this.cc.setId(this.caseId);
             } catch (ApiException ex) {
                 Logger.getLogger(FXMLCaseController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -491,20 +501,20 @@ public class FXMLCaseController implements Initializable {
         }).start();
 
     }
-    
-    public CriminalCase getCase(){
+
+    public CriminalCase getCase() {
         return this.cc;
     }
 
     public boolean hasBeenChanged() {
         return this.hasBeenChanged;
     }
-    
-    public boolean wasBeingEditedBeforeOpen(){
+
+    public boolean wasBeingEditedBeforeOpen() {
         return this.wasBeingEditededBeforeOpen;
     }
-    
-    public void interuptUpdateThread(){
+
+    public void interuptUpdateThread() {
         this.t.interrupt();
     }
 

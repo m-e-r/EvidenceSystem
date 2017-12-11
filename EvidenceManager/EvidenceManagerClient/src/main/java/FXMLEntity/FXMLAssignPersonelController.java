@@ -61,7 +61,7 @@ public class FXMLAssignPersonelController implements Initializable {
     private Button saveBTN;
     @FXML
     private ListView<User> selectedLV;
-    
+
     private Token token;
     private ObservableList<User> availableUsers, selectedUsers;
     private List<User> incomingUsers;
@@ -69,7 +69,6 @@ public class FXMLAssignPersonelController implements Initializable {
     private Date date;
     private FXMLCaseController caseController;
 
-    
     /**
      * Initializes the controller class.
      */
@@ -86,7 +85,7 @@ public class FXMLAssignPersonelController implements Initializable {
         this.token = token;
         this.setUserList();
     }
-    
+
     private void setUserList() {
         try {
             this.incomingUsers = connect.getListOfUsers(this.token);
@@ -96,7 +95,7 @@ public class FXMLAssignPersonelController implements Initializable {
 
         if (this.incomingUsers != null) {
             this.movePeopleBetweenOptions();
-            
+
             TVidCol.setCellValueFactory(new PropertyValueFactory<User, String>("employeeId"));
             TVNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
             TVRankCol.setCellValueFactory(new PropertyValueFactory<User, String>("role"));
@@ -105,8 +104,8 @@ public class FXMLAssignPersonelController implements Initializable {
             this.token.setTimeStamp(Long.toString(this.date.getTime()));
         }
     }
-    
-    private void movePeopleBetweenOptions() {           
+
+    private void movePeopleBetweenOptions() {
         //Remove the person who is logged in from the options
         for (int i = 0; i < this.incomingUsers.size(); i++) {
             if (this.incomingUsers.get(i).getEmployeeId().equals(this.token.getId())) {
@@ -116,16 +115,20 @@ public class FXMLAssignPersonelController implements Initializable {
         }
 
         //Move people already associated with the case to the listView
-        for (int i = 0; i < this.caseController.getCase().getAssociates().size(); i++) {
-            for (int j = 0; j < this.incomingUsers.size(); j++) {
-                if (this.caseController.getCase().getAssociates().get(i).getEmployeeId().equals(this.incomingUsers.get(j).getEmployeeId()))
-                    this.selectedUsers.add(this.incomingUsers.get(j));
+        if (this.caseController.getCase().getAssociates() != null) {
+            for (int i = 0; i < this.caseController.getCase().getAssociates().size(); i++) {
+                for (int j = 0; j < this.incomingUsers.size(); j++) {
+                    if (this.caseController.getCase().getAssociates().get(i).getEmployeeId().equals(this.incomingUsers.get(j).getEmployeeId())) {
+                        this.selectedUsers.add(this.incomingUsers.get(j));
+                    }
                     this.incomingUsers.remove(j);
+                }
             }
+
+            this.selectedLV.setItems(this.selectedUsers);
         }
-        this.selectedLV.setItems(this.selectedUsers);
     }
-    
+
     private void searchMethod() {
 
         searchTF.textProperty().addListener(new InvalidationListener() {
@@ -159,18 +162,18 @@ public class FXMLAssignPersonelController implements Initializable {
     @FXML
     private void handleAddAction(ActionEvent event) {
         User selectedUser = this.usersTV.getSelectionModel().getSelectedItem();
-        
+
         if (selectedUser != null) {
             //Add to listView
             this.selectedUsers.add(selectedUser);
             this.selectedLV.setItems(this.selectedUsers);
-            
+
             //Remove from tableView
             for (int i = 0; i < this.availableUsers.size(); i++) {
                 if (this.availableUsers.get(i).getEmployeeId().equals(selectedUser.getEmployeeId())) {
                     this.availableUsers.remove(i);
                     this.usersTV.setItems(this.availableUsers);
-                }                    
+                }
             }
         }
     }
@@ -178,12 +181,12 @@ public class FXMLAssignPersonelController implements Initializable {
     @FXML
     private void handleRemoveAction(ActionEvent event) {
         User selectedUser = this.selectedLV.getSelectionModel().getSelectedItem();
-        
-        if (selectedUser!= null) {
+
+        if (selectedUser != null) {
             //Add to tableView
             this.availableUsers.add(selectedUser);
             this.usersTV.setItems(this.availableUsers);
-            
+
             //Remove from listView
             for (int i = 0; i < this.selectedUsers.size(); i++) {
                 if (this.selectedUsers.get(i).getEmployeeId().equals(selectedUser.getEmployeeId())) {
@@ -200,7 +203,7 @@ public class FXMLAssignPersonelController implements Initializable {
             //Add to listView
             this.selectedUsers.addAll(this.availableUsers);
             this.selectedLV.setItems(this.selectedUsers);
-            
+
             //Remove from tableView
             this.availableUsers.clear();
             this.usersTV.setItems(this.availableUsers);
@@ -213,7 +216,7 @@ public class FXMLAssignPersonelController implements Initializable {
             //Add to tableView
             this.availableUsers.addAll(this.selectedUsers);
             this.usersTV.setItems(this.availableUsers);
-            
+
             //Remove from listView
             this.selectedUsers.clear();
             this.selectedLV.setItems(this.selectedUsers);
@@ -225,9 +228,9 @@ public class FXMLAssignPersonelController implements Initializable {
         for (User user : this.selectedUsers) {
             this.caseController.getCase().addAssociatesItem(user);
         }
-        
+
         Stage thisStage = (Stage) this.saveBTN.getScene().getWindow();
         thisStage.close();
     }
-    
+
 }
