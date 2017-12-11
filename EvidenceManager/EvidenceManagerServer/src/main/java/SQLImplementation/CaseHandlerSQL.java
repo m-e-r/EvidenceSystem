@@ -43,7 +43,9 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
     public CriminalCaseMap getCases(String employeeId) {
         CriminalCaseMap caseMap = new CriminalCaseMap();
 
-        String query = String.format("SELECT id, title FROM criminalcase where responsible = '%s'", employeeId);
+        String query = String.format("SELECT id, title FROM criminalcase\n"
+                + "JOIN lawenforcercaseref ON (lawenforcercaseref.caseid = criminalcase.id) \n"
+                + "WHERE responsible = '%s' OR lawenforcerid = '%s'", employeeId, employeeId);
 
         ResultSet select = db.executeQuery(query);
         try {
