@@ -118,7 +118,8 @@ public class FXMLViewUserProfileController implements Initializable {
      */
     public void initData(User user, Token t) throws ApiException{
         this.token = t;
-        this.user = connect.getUser(this.token.getId(), this.token);
+        System.out.println("TOKEN: " + this.token);
+        this.user = connect.getUser(user.getEmployeeId(), this.token);
         //this.user = user;
         
         
