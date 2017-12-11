@@ -43,18 +43,32 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
     public CriminalCaseMap getCases(String employeeId) {
         CriminalCaseMap caseMap = new CriminalCaseMap();
 
-        String query = String.format("SELECT id, title FROM criminalcase\n"
-                + "JOIN lawenforcercaseref ON (lawenforcercaseref.caseid = criminalcase.id) \n"
-                + "WHERE responsible = '%s' OR lawenforcerid = '%s'", employeeId, employeeId);
-
-        ResultSet select = db.executeQuery(query);
+        String queryResponsible = String.format("SELECT id, title FROM criminalcase\n"
+                + " WHERE responsible = '%s'", employeeId, employeeId);
+        
+        ResultSet selectResponsible = db.executeQuery(queryResponsible);
         try {
-            while (select.next()) {
-                caseMap.put(select.getString("id"), select.getString("title"));
+            while (selectResponsible.next()) {
+                caseMap.put(selectResponsible.getString("id"), selectResponsible.getString("title"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(CaseHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        String queryAssociates = String.format("SELECT id, title FROM criminalcase\n"
+                + "JOIN lawenforcercaseref ON (lawenforcercaseref.caseid = criminalcase.id) "
+                + "WHERE lawenforcercaseref.lawenforcerid = '%s'", employeeId);
+        
+        ResultSet selectAssociates = db.executeQuery(queryAssociates);
+        try {
+            while (selectAssociates.next()) {
+                caseMap.put(selectAssociates.getString("id"), selectAssociates.getString("title"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CaseHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
 
         return caseMap;
 
