@@ -166,7 +166,6 @@ public class FXMLCaseController implements Initializable {
         cc.setCaseName(this.caseTitleTF.getText());
         cc.setId(this.caseNrTF.getText());
         cc.setStatus(CaseStatus.OPEN.toString());
-        cc.setToken(this.token);
 
         //Change all this when YAML is updated so CriminalCase holds a responsible id
         ArrayList<Suspect> temp = new ArrayList();
@@ -200,6 +199,7 @@ public class FXMLCaseController implements Initializable {
          
         } else {
             this.cc = new CriminalCase();
+            this.cc.setToken(token);
             this.buttonsToRemoveHB.getChildren().remove(this.saveChangesBTN);
 
             this.generateId();
@@ -211,8 +211,6 @@ public class FXMLCaseController implements Initializable {
     }
     
     private void checkBeingUpdated() {
-        this.cc.setToken(this.token);
-        
         if(this.cc.isBeingUpdated()){
             this.caseInfoLB.setText("This case is currently being edited by another user."
                     + "\n Please wait until the case is saved and closed by the other user");
