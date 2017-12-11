@@ -203,7 +203,6 @@ public class FXMLCaseController implements Initializable {
             this.buttonsToRemoveHB.getChildren().remove(this.saveChangesBTN);
 
             this.generateId();
-
         }
          
         this.initUpdateThread();
@@ -519,7 +518,7 @@ public class FXMLCaseController implements Initializable {
         stage.setScene(new Scene((Pane) loader.load()));
 
         FXMLAssignPersonelController controller = loader.<FXMLAssignPersonelController>getController();
-        controller.initData(this.token);
+        controller.initData(this, this.token);
         stage.setTitle("Logged in as " + token.getName());
         stage.show();
     }
