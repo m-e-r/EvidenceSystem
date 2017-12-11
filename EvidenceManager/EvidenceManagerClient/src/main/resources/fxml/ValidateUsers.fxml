@@ -70,7 +70,7 @@
                         <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0" GridPane.rowIndex="1">
                            <children>
                               <Label text="Birthday" />
-                              <TextArea fx:id="birthdayTA" prefHeight="200.0" prefWidth="200.0" />
+                              <TextArea fx:id="birthdayTA" editable="false" prefHeight="200.0" prefWidth="200.0" />
                            </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0" GridPane.columnIndex="1" GridPane.rowIndex="1">

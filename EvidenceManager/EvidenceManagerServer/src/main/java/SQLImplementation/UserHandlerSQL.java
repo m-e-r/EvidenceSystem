@@ -113,6 +113,7 @@ public class UserHandlerSQL implements IUserHandlerSQL {
 
         try {
             while (select.next()) {
+                
                 String name = select.getString("name");
                 int role = select.getInt("positionref");
                 String id = select.getString("id");

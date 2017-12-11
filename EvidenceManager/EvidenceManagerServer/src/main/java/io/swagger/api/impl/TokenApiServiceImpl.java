@@ -43,16 +43,8 @@ public class TokenApiServiceImpl extends TokenApiService {
         }
         
         if (this.val.callValidated(token)) {   
-                
-            if (token.getUsertype().equalsIgnoreCase("Comissioner")) {
-                return Response.ok().entity(this.userH.getListOfValidateUser(token)).build();
-            } else {
-                return Response.ok().entity(this.userH.getListOfUsers(token)).build();
-            }
-        } else {
-            return null;
+            return Response.ok().entity(this.userH.getListOfUsers(token)).build();
         }
-       
-
+        return null;
     }
 }

@@ -12,6 +12,8 @@ import io.swagger.client.model.Token;
 import io.swagger.client.model.User;
 import io.swagger.client.model.UserType;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,6 +66,8 @@ public class FXMLValidateUsersController implements Initializable {
         this.roles = FXCollections.observableArrayList(UserType.values());
         this.rankCB.setItems(this.roles);
         this.validateBTN.setDisable(true);
+        this.validateLBL.setVisible(false);
+        this.users = FXCollections.observableArrayList();
        
     }    
 
@@ -100,13 +104,16 @@ public class FXMLValidateUsersController implements Initializable {
         if(this.connect.validateUser(this.user)) {
             this.validateLBL.setVisible(false);
             
-            for (int i = 0; i < this.users.size(); i++) {
-                
+            for (int i = 0; i < this.users.size(); i++) {  
                 if(this.users.get(i).getUsername().equals(this.user.getUsername())) {                  
                     this.users.remove(i);     
                     break;
                 }
-            }    
+            }
+            this.addressTA.clear();
+            this.birthdayTA.clear();
+            this.nameTA.clear();
+            this.rankCB.setValue(null);
             this.usersLV.setItems(this.users);            
             this.validateBTN.setDisable(true);
             
@@ -118,11 +125,17 @@ public class FXMLValidateUsersController implements Initializable {
     
     public void initData(Token token) {
         this.token = token;
+        List<User> usersIn = new ArrayList();
         try {
-           this.users = FXCollections.observableArrayList(this.connect.getListOfUsers(this.token));
+           usersIn = this.connect.getListOfUsers(this.token);
         } catch (ApiException ex) {
            Logger.getLogger(FXMLValidateUsersController.class.getName()).log(Level.SEVERE, null, ex);
-       }
+        }
+        
+        for (int i = 0; i < usersIn.size(); i++) {
+            if (usersIn.get(i).getEmployeeId().startsWith("NOTValidated"))
+                this.users.add(usersIn.get(i));
+        }
 
         this.usersLV.setItems(this.users);
     }

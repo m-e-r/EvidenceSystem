@@ -77,6 +77,7 @@ public class FXMLAssignPersonelController implements Initializable {
         this.connect = new ServerConnect();
         this.date = new Date();
         this.selectedUsers = FXCollections.observableArrayList();
+        this.availableUsers = FXCollections.observableArrayList();
         this.searchMethod();
     }
 
@@ -92,6 +93,7 @@ public class FXMLAssignPersonelController implements Initializable {
         } catch (ApiException ex) {
             Logger.getLogger(FXMLFindUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println("Liste størrelse: " + this.incomingUsers.size());
 
         if (this.incomingUsers != null) {
             this.movePeopleBetweenOptions();
@@ -99,18 +101,19 @@ public class FXMLAssignPersonelController implements Initializable {
             TVidCol.setCellValueFactory(new PropertyValueFactory<User, String>("employeeId"));
             TVNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
             TVRankCol.setCellValueFactory(new PropertyValueFactory<User, String>("role"));
-            this.availableUsers = FXCollections.observableArrayList(this.incomingUsers);
+            //this.availableUsers = FXCollections.observableArrayList(this.incomingUsers);
             usersTV.setItems(this.availableUsers);
             this.token.setTimeStamp(Long.toString(this.date.getTime()));
         }
     }
 
     private void movePeopleBetweenOptions() {
-        //Remove the person who is logged in from the options
-        for (int i = 0; i < this.incomingUsers.size(); i++) {
-            if (this.incomingUsers.get(i).getEmployeeId().equals(this.token.getId())) {
-                this.incomingUsers.remove(i);
-                break;
+        //Remove the person who is logged and in the not validated users from the options
+        int s = this.incomingUsers.size();
+        for (int i = 0; i < s; i++) {
+            String id = this.incomingUsers.get(i).getEmployeeId();
+            if (!id.equals(this.token.getId()) && !id.startsWith("NOTValidated") && !id.startsWith("SYSTEM_ADMIN") && !id.startsWith("FORENSIC_SCIENTIST")) {
+                this.availableUsers.add(this.incomingUsers.get(i));
             }
         }
 
@@ -120,7 +123,6 @@ public class FXMLAssignPersonelController implements Initializable {
                 for (int j = 0; j < this.incomingUsers.size(); j++) {
                     if (this.caseController.getCase().getAssociates().get(i).getEmployeeId().equals(this.incomingUsers.get(j).getEmployeeId())) {
                         this.selectedUsers.add(this.incomingUsers.get(j));
-                        this.incomingUsers.remove(j);
                     }
                     
                 }

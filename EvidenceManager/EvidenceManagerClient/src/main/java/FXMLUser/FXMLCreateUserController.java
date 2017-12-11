@@ -47,8 +47,6 @@ public class FXMLCreateUserController implements Initializable {
     @FXML
     private ChoiceBox<UserType> roleCB;
     @FXML
-    private Button checkUserNameBTN;
-    @FXML
     private Button createUserBTN;
     @FXML
     private DatePicker birthdayDP;
@@ -58,6 +56,8 @@ public class FXMLCreateUserController implements Initializable {
     private Label userNameTakenLabel;
     
     private Token token;
+    @FXML
+    private Label successLabel;
     /**
      * Initializes the controller class.
      */
@@ -98,6 +98,7 @@ public class FXMLCreateUserController implements Initializable {
                 this.userNameTakenLabel.setVisible(true);
             } else {
                 this.userNameTakenLabel.setVisible(false);
+                this.successLabel.setVisible(true);
                 Stage stageToClose = (Stage) this.createUserBTN.getScene().getWindow();
                 //stageToClose.close();
             }
@@ -105,6 +106,7 @@ public class FXMLCreateUserController implements Initializable {
             
         } else {
             this.missingLabel.setVisible(true);
+            this.successLabel.setVisible(false);
         }
         
     }
