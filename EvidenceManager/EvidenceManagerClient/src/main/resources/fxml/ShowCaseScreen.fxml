@@ -4,40 +4,61 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLEntity.FXMLShowCaseScreenController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLEntity.FXMLShowCaseScreenController">
    <children>
-      <SplitPane dividerPositions="0.8504065040650407" orientation="VERTICAL" prefHeight="600.0" prefWidth="630.0">
-         <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="519.0" prefWidth="753.0">
-               <children>
-                  <ListView fx:id="caseEditLV" layoutX="14.0" layoutY="100.0" prefHeight="415.0" prefWidth="598.0" />
-                  <TextField fx:id="caseSearchTF" layoutX="14.0" layoutY="73.0" prefHeight="25.0" prefWidth="598.0" promptText="Search cases" />
-                  <Button fx:id="searchBTN" layoutX="295.0" layoutY="38.0" mnemonicParsing="false" onAction="#searchAction" text="Search" />
-                  <Button fx:id="viewProfileBTN" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onAction="#viewProfile" text="View profile" />
-               </children>
-            </AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="105.0" prefWidth="160.0">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="85.0" prefWidth="628.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <SplitPane dividerPositions="0.8504065040650407" orientation="VERTICAL" prefHeight="600.0" prefWidth="630.0">
+               <items>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="519.0" prefWidth="753.0">
                      <children>
-                        <HBox fx:id="buttonsHB" alignment="CENTER" prefHeight="85.0" prefWidth="628.0" spacing="100.0">
-                           <children>
-                              <Button fx:id="addCaseBTN" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addCase" text="Add new case" />
-                              <Button fx:id="editCaseBTN" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#editCase" text="Edit case" />
-                           </children>
-                        </HBox>
-                        <Label fx:id="caseNotEditedLBL" text="Case not able to be edited" textFill="RED" />
+                        <ListView fx:id="caseEditLV" layoutX="14.0" layoutY="100.0" prefHeight="415.0" prefWidth="598.0" />
+                        <TextField fx:id="caseSearchTF" layoutX="14.0" layoutY="73.0" prefHeight="25.0" prefWidth="598.0" promptText="Search cases" />
+                        <Button fx:id="searchBTN" layoutX="295.0" layoutY="38.0" mnemonicParsing="false" onAction="#searchAction" text="Search" />
+                        <Button fx:id="viewProfileBTN" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onAction="#viewProfile" text="View profile" />
                      </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
-         </items>
-      </SplitPane>
+                  </AnchorPane>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="105.0" prefWidth="160.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="85.0" prefWidth="628.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <HBox fx:id="buttonsHB" alignment="CENTER" prefHeight="85.0" prefWidth="628.0" spacing="100.0">
+                                 <children>
+                                    <Button fx:id="addCaseBTN" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addCase" text="Add new case" />
+                                    <Button fx:id="editCaseBTN" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#editCase" text="Edit case" />
+                                 </children>
+                              </HBox>
+                              <Label fx:id="caseNotEditedLBL" text="Case not able to be edited" textFill="RED" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </items>
+            </SplitPane>
+         </children>
+      </AnchorPane>
+      <VBox alignment="CENTER" layoutX="638.0" layoutY="8.0" prefHeight="583.0" prefWidth="255.0" spacing="8.0">
+         <children>
+            <Label text="Relevant news">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Label>
+            <ListView fx:id="newsLV" onMouseClicked="#handleChosenNewsAction" prefHeight="268.0" prefWidth="260.0" />
+            <TextArea fx:id="selectedNewsTA" editable="false" prefHeight="256.0" prefWidth="260.0" wrapText="true">
+               <font>
+                  <Font name="Palatino" size="13.0" />
+               </font>
+            </TextArea>
+         </children>
+      </VBox>
    </children>
 </Pane>

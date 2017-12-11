@@ -37,6 +37,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -57,6 +58,8 @@ public class FXMLShowCaseScreenController implements Initializable {
     private Button valiBTN;
     private Token token;
     private Date date;
+    private NewsHandler newsHandler;
+    private ObservableList<News> newsToShow;
 
     @FXML
     private ListView<String> caseEditLV;
@@ -74,6 +77,10 @@ public class FXMLShowCaseScreenController implements Initializable {
     private Label caseNotEditedLBL;
     @FXML
     private Button searchBTN;
+    @FXML
+    private ListView<News> newsLV;
+    @FXML
+    private TextArea selectedNewsTA;
 
     /**
      * Initializes the controller class.
@@ -86,6 +93,9 @@ public class FXMLShowCaseScreenController implements Initializable {
         this.occ = FXCollections.observableArrayList();
 
         this.date = new Date();
+        this.newsHandler = new NewsHandler();
+        this.newsToShow = FXCollections.observableArrayList(this.newsHandler.getNews());
+        this.newsLV.setItems(this.newsToShow);
     }
 
     /**
@@ -337,6 +347,13 @@ public class FXMLShowCaseScreenController implements Initializable {
             }
         }
         this.caseEditLV.setItems(this.tempCaseList);
+    }
+
+    @FXML
+    private void handleChosenNewsAction(MouseEvent event) {
+        if (this.newsLV.getSelectionModel().getSelectedItem() != null) {
+            this.selectedNewsTA.setText(this.newsLV.getSelectionModel().getSelectedItem().getBody());
+        }
     }
 
 }
