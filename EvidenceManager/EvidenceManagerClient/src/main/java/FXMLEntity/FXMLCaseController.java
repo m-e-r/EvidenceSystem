@@ -196,6 +196,7 @@ public class FXMLCaseController implements Initializable {
             this.cc = cc;
             this.fillCase(cc);
             this.fillEvidence(cc.getCaseEvidence());
+            this.checkBeingUpdated();
          
         } else {
             this.cc = new CriminalCase();
@@ -204,11 +205,15 @@ public class FXMLCaseController implements Initializable {
             this.generateId();
 
         }
-
+         
+        this.initUpdateThread();
+        this.t.start();
+    }
+    
+    private void checkBeingUpdated() {
+        this.cc.setToken(this.token);
         
-        this.cc.setToken(token);
-        
-         if(this.cc.isBeingUpdated()){
+        if(this.cc.isBeingUpdated()){
             this.caseInfoLB.setText("This case is currently being edited by another user."
                     + "\n Please wait until the case is saved and closed by the other user");
             this.caseInfoLB.setTextFill(Color.web("#ff0000"));
@@ -222,12 +227,6 @@ public class FXMLCaseController implements Initializable {
                 Logger.getLogger(FXMLCaseController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-         
-         this.initUpdateThread();
-         this.t.start();
-         
-         
-
     }
     
     private void lockAllFields(){
@@ -281,7 +280,7 @@ public class FXMLCaseController implements Initializable {
             this.saveChangesBTN.fire();
             this.token.setTimeStamp(Long.toString(this.date.getTime()));
             try {
-                Thread.sleep(120000);
+                Thread.sleep(120);
             } catch (InterruptedException ex) {
                 return;
                 
