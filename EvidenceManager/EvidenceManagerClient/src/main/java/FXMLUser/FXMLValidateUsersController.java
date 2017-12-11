@@ -95,6 +95,7 @@ public class FXMLValidateUsersController implements Initializable {
     private void handleValidationAction(ActionEvent event) throws ApiException {
         System.out.println("UserNAme: " + this.user.getUsername());
         this.user.setRole(this.rankCB.getValue().toString());
+        this.user.setToken(this.token);
         
         if(this.connect.validateUser(this.user)) {
             this.validateLBL.setVisible(false);
@@ -118,7 +119,7 @@ public class FXMLValidateUsersController implements Initializable {
     public void initData(Token token) {
         this.token = token;
         try {
-           this.users = FXCollections.observableArrayList(this.connect.getListOfUsers(this.token)); //Make initData method to get id from token
+           this.users = FXCollections.observableArrayList(this.connect.getListOfUsers(this.token));
         } catch (ApiException ex) {
            Logger.getLogger(FXMLValidateUsersController.class.getName()).log(Level.SEVERE, null, ex);
        }

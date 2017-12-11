@@ -131,7 +131,7 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
                         + "SELECT '%s', '%s'\n"
                         + "WHERE NOT EXISTS (SELECT * FROM lawenforcercaseref "
                         + "WHERE lawenforcerid = '%s' AND caseid = '%s')",
-                        c.getId(), u.getEmployeeId(), c.getId(), u.getEmployeeId());
+                        c.getId(), u.getEmployeeId(), u.getEmployeeId(), c.getId());
                 this.db.updateQuery(query);
             }
         }

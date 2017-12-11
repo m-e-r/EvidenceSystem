@@ -274,24 +274,25 @@ public class FXMLShowCaseScreenController implements Initializable {
      */
     @FXML
     private Stage addCase(ActionEvent event) throws IOException, ApiException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CaseScreen.fxml"));
+   
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CaseScreen.fxml"));
 
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(new Scene((Pane) loader.load()));
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setScene(new Scene((Pane) loader.load()));
 
-        FXMLCaseController controller = loader.<FXMLCaseController>getController();
-        controller.initData(null, this.token);
-        stage.setTitle("Logged in as " + token.getName());
+            FXMLCaseController controller = loader.<FXMLCaseController>getController();
+            controller.initData(null, this.token);
+            stage.setTitle("Logged in as " + token.getName());
 
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we) {
-                controller.interuptUpdateThread();
-            }
-        });
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                public void handle(WindowEvent we) {
+                    controller.interuptUpdateThread();
+                }
+            });
 
-        stage.show();
-        return stage;
-
+            stage.show();
+            return stage;
+        
     }
 
 //    @FXML

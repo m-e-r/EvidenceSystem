@@ -49,10 +49,16 @@ public class UserApiServiceImpl extends UserApiService {
     @Override
     public Response getUser(String id, Token token , SecurityContext securityContext) throws NotFoundException {
         // do some magic!
-        //if (this.val.callValidated(token))
+        try {
+            token.toString();
+        } catch (NullPointerException ne) {
+            System.out.println("Null token caught!");
+            return null;
+        }
+        if (this.val.callValidated(token))
             return Response.ok().entity(this.userH.getUser(id)).build();
-        //else
-        //    return null;
+        else
+            return null;
     }
 
     @Override

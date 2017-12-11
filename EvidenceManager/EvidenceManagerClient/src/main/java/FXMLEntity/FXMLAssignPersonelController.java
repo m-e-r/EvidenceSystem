@@ -120,8 +120,9 @@ public class FXMLAssignPersonelController implements Initializable {
                 for (int j = 0; j < this.incomingUsers.size(); j++) {
                     if (this.caseController.getCase().getAssociates().get(i).getEmployeeId().equals(this.incomingUsers.get(j).getEmployeeId())) {
                         this.selectedUsers.add(this.incomingUsers.get(j));
+                        this.incomingUsers.remove(j);
                     }
-                    this.incomingUsers.remove(j);
+                    
                 }
             }
 

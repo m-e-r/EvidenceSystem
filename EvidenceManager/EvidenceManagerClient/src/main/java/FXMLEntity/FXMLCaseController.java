@@ -193,6 +193,7 @@ public class FXMLCaseController implements Initializable {
         if (cc != null) {
             this.buttonsToRemoveHB.getChildren().remove(this.addNewCaseBTN);
             this.cc = cc;
+            this.cc.setToken(this.token);
             this.fillCase(cc);
             this.fillEvidence(cc.getCaseEvidence());
             this.hasBeenSaved = true;
@@ -200,7 +201,7 @@ public class FXMLCaseController implements Initializable {
 
         } else {
             this.cc = new CriminalCase();
-            this.cc.setToken(token);
+            this.cc.setToken(this.token);
             this.cc.setResponsible(token.getId());
             this.caseLawenforcerTF.setText(this.token.getName());
             this.buttonsToRemoveHB.getChildren().remove(this.saveChangesBTN);
