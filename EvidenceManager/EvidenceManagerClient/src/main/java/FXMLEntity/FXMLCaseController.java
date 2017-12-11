@@ -17,6 +17,7 @@ import io.swagger.client.model.Token;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -68,6 +69,8 @@ public class FXMLCaseController implements Initializable {
     private CriminalCase cc; //Gets parsed from FXMLShowCaseScreenController.
     private Token token;
     private Date date;
+    private SimpleDateFormat sdf;
+    
     @FXML
     private TextField caseNrTF;
     @FXML
@@ -160,11 +163,13 @@ public class FXMLCaseController implements Initializable {
      */
     @FXML
     private void addCase(ActionEvent event) throws ApiException {
+        this.sdf = new SimpleDateFormat("dd/MM-yyyy");
+        this.cc.setDate(this.sdf.format(this.date));
         cc.setCaseDescription(this.caseInfoTA.getText());
         cc.setCaseName(this.caseTitleTF.getText());
         cc.setId(this.caseNrTF.getText());
         cc.setStatus(CaseStatus.OPEN.toString());
-
+        
         //Change all this when YAML is updated so CriminalCase holds a responsible id
         ArrayList<Suspect> temp = new ArrayList();
         Suspect temps = new Suspect();

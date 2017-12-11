@@ -175,9 +175,9 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
     @Override
     public boolean addCase(CriminalCase c) {
 
-        String query = String.format("INSERT INTO criminalcase (title, description, status, id, responsible) VALUES "
-                + "('%s', '%s', '%s', '%s', '%s');", c.getCaseName(), c.getCaseDescription(),
-                c.getStatus().toString(), c.getId(), c.getCaseSuspect().get(0).getDescription());
+        String query = String.format("INSERT INTO criminalcase (title, description, status, id, responsible, date) VALUES "
+                + "('%s', '%s', '%s', '%s', '%s', '%s');", c.getCaseName(), c.getCaseDescription(),
+                c.getStatus().toString(), c.getId(), c.getCaseSuspect().get(0).getDescription(), c.getDate());
 
         db.updateQuery(query);
 

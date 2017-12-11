@@ -30,7 +30,7 @@ import javax.validation.constraints.*;
 
 
 @io.swagger.annotations.Api(description = "the user API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-12-08T08:55:07.282Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-12-11T15:21:50.003Z")
 public class UserApi  {
    private final UserApiService delegate;
 
@@ -67,7 +67,7 @@ public class UserApi  {
     throws NotFoundException {
         return delegate.addUser(user,securityContext);
     }
-    @GET
+    @POST
     @Path("/{Id}")
     
     
