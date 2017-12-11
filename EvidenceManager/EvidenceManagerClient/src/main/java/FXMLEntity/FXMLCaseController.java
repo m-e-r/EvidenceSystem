@@ -132,6 +132,8 @@ public class FXMLCaseController implements Initializable {
     private boolean wasBeingEditededBeforeOpen;
     @FXML
     private Button assignPersonleBTN;
+    
+    private Thread t; //Thread used to autosave case every 2 minutes
 
     /**
      * Initializes the controller class.
@@ -146,6 +148,7 @@ public class FXMLCaseController implements Initializable {
         this.status = FXCollections.observableArrayList(CaseStatus.values());
         this.caseStatusCB.setItems(this.status);
         this.hasBeenChanged = false;
+        
 
     }
 
@@ -181,29 +184,19 @@ public class FXMLCaseController implements Initializable {
 
     }
 
-    private void disableAllFields() {
-        this.caseLawenforcerTF.setEditable(false);
-        this.additionelSuspectTF.setEditable(false);
-        this.caseTitleTF.setEditable(false);
-        this.caseInfoTA.setEditable(false);
-        this.primeSuspectTF.setEditable(false);
-        this.caseStatusCB.setDisable(true);
-    }
-
     /**
      * Method that is called when loading this stage.
      *
      * @param cc - CriminalCase object that is parsed across FXMLControllers.
      */
-    public void initData(CriminalCase cc, Token token) {
+    public void initData(CriminalCase cc, Token token) throws ApiException {
+        this.token = token;
         if (cc != null) {
             this.buttonsToRemoveHB.getChildren().remove(this.addNewCaseBTN);
             this.cc = cc;
             this.fillCase(cc);
             this.fillEvidence(cc.getCaseEvidence());
-            if (this.cc.isBeingUpdated()) {
-                this.disableAllFields();
-            }
+         
         } else {
             this.cc = new CriminalCase();
             this.buttonsToRemoveHB.getChildren().remove(this.saveChangesBTN);
@@ -212,7 +205,7 @@ public class FXMLCaseController implements Initializable {
 
         }
 
-        this.token = token;
+        
         this.cc.setToken(token);
         
          if(this.cc.isBeingUpdated()){
@@ -229,6 +222,11 @@ public class FXMLCaseController implements Initializable {
                 Logger.getLogger(FXMLCaseController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+         
+         this.initUpdateThread();
+         this.t.start();
+         
+         
 
     }
     
@@ -274,6 +272,23 @@ public class FXMLCaseController implements Initializable {
         this.hasBeenChanged = false;
         this.updateCase();
     }
+    
+    //Helper method to initialize thread t. This set a thread that saves changes
+    //and sleeps for 2 minutes. 
+    private void initUpdateThread(){
+        this.t = new Thread(() -> {
+            while(true){
+            this.saveChangesBTN.fire();
+            this.token.setTimeStamp(Long.toString(this.date.getTime()));
+            try {
+                Thread.sleep(120000);
+            } catch (InterruptedException ex) {
+                return;
+                
+            }
+            }
+        });
+    }
 
     /**
      * Called from initData, when editCase is pressed. Updates all textfields
@@ -282,12 +297,13 @@ public class FXMLCaseController implements Initializable {
      *
      * @param cc
      */
-    private void fillCase(CriminalCase cc) {
+    private void fillCase(CriminalCase cc) throws ApiException {
         this.caseNrTF.setDisable(true);
         this.caseLawenforcerTF.setDisable(true);
         caseInfoTA.setText(this.cc.getCaseDescription());
         caseTitleTF.setText(this.cc.getCaseName());
         this.caseNrTF.setText(this.cc.getId());
+        System.out.println("TOKEN:  " + this.token);
         this.caseLawenforcerTF.setText(this.userConnect.getUser(this.cc.getResponsible(), this.token).getName());
         this.caseStatusCB.setValue(CaseStatus.fromValue(this.cc.getStatus()));
 
@@ -490,6 +506,10 @@ public class FXMLCaseController implements Initializable {
     
     public boolean wasBeingEditedBeforeOpen(){
         return this.wasBeingEditededBeforeOpen;
+    }
+    
+    public void interuptUpdateThread(){
+        this.t.interrupt();
     }
 
     @FXML

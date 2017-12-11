@@ -53,6 +53,7 @@ public class FXMLShowCaseScreenController implements Initializable {
     //Attributes
     private IEntity connect; //Used for calling methods on the server
     private ObservableList<String> occ; //Used for holding case name and id for displaying in the ListView
+    private ObservableList<String> tempCaseList; 
     private Button valiBTN;
     private Token token;
     private Date date;
@@ -66,13 +67,13 @@ public class FXMLShowCaseScreenController implements Initializable {
     @FXML
     private Button addCaseBTN;
     @FXML
-    private Button malplacedSearchBTN;
-    @FXML
     private HBox buttonsHB;
     @FXML
     private Button viewProfileBTN;
     @FXML
     private Label caseNotEditedLBL;
+    @FXML
+    private Button searchBTN;
 
     /**
      * Initializes the controller class.
@@ -83,6 +84,7 @@ public class FXMLShowCaseScreenController implements Initializable {
         this.caseNotEditedLBL.setVisible(false);
         this.connect = new ServerConnect();
         this.occ = FXCollections.observableArrayList();
+        
         this.date = new Date();
     }
 
@@ -161,6 +163,7 @@ public class FXMLShowCaseScreenController implements Initializable {
      */
     public void initData(Token employee) throws ApiException {
         this.token = employee;
+        System.out.println("TOKEN init" + this.token);
         this.showsRelevantCases();
         this.caseEditLV.getSelectionModel().select(0);
     }
@@ -192,6 +195,8 @@ public class FXMLShowCaseScreenController implements Initializable {
 
         FXMLCaseController caseScreenController = loader.<FXMLCaseController>getController();
 
+        System.out.println("TOKEN EDIT CASE SCREEN: " + this.token);
+        
         if (selectedCase == null) {
             this.caseNotEditedLBL.setVisible(true);
         } else {
@@ -203,7 +208,7 @@ public class FXMLShowCaseScreenController implements Initializable {
 
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 public void handle(WindowEvent we) {
-                    System.out.println(caseScreenController.hasBeenChanged());
+            
                     if (caseScreenController.hasBeenChanged()) {
                         try {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CloseCaseConfirmScreen.fxml"));
@@ -221,6 +226,7 @@ public class FXMLShowCaseScreenController implements Initializable {
                             }
                             
                             updateCaseOnClose(caseScreenController);
+                            
 
                         } catch (IOException ex) {
                             Logger.getLogger(FXMLCloseCaseConfirmScreenController.class.getName()).log(Level.SEVERE, null, ex);
@@ -229,6 +235,9 @@ public class FXMLShowCaseScreenController implements Initializable {
                     }
                     if(!caseScreenController.wasBeingEditedBeforeOpen())
                         updateCaseOnClose(caseScreenController);
+                    
+                    System.out.println("INTERUPT");
+                    caseScreenController.interuptUpdateThread();
 
                 }
             }
@@ -236,6 +245,7 @@ public class FXMLShowCaseScreenController implements Initializable {
 
             stage.show();
         }
+        
         return stage;
     }
 
@@ -258,7 +268,7 @@ public class FXMLShowCaseScreenController implements Initializable {
      * @throws IOException
      */
     @FXML
-    private Stage addCase(ActionEvent event) throws IOException {
+    private Stage addCase(ActionEvent event) throws IOException, ApiException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CaseScreen.fxml"));
 
         Stage stage = new Stage(StageStyle.DECORATED);
@@ -311,6 +321,21 @@ public class FXMLShowCaseScreenController implements Initializable {
 
         stage.show();
         return stage;
+    }
+    
+    
+    @FXML
+    private void searchAction(ActionEvent event) {
+        String searchInput = this.caseSearchTF.getText();
+        this.tempCaseList = FXCollections.observableArrayList();
+        
+        for(String s : this.occ) {
+
+            if (s.toLowerCase().contains(searchInput.toLowerCase())) {
+                this.tempCaseList.add(s);
+            }
+        }
+        this.caseEditLV.setItems(this.tempCaseList);
     }
 
 }

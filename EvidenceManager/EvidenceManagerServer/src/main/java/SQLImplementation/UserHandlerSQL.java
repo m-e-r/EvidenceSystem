@@ -166,7 +166,7 @@ public class UserHandlerSQL implements IUserHandlerSQL {
     @Override
     public User getUser(String id) {
         User user = null;
-        String query = String.format("Select * from lawenforcer where id = '%s", id);
+        String query = String.format("Select * from lawenforcer where id = '%s'", id);
 
         ResultSet select = db.executeQuery(query);
 
@@ -197,6 +197,7 @@ public class UserHandlerSQL implements IUserHandlerSQL {
         } catch (SQLException ex) {
             Logger.getLogger(UserHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println("USER : " + user);
         return user;
     }
 

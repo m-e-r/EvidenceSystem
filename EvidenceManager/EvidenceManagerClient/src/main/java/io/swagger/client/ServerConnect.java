@@ -159,13 +159,9 @@ public class ServerConnect implements IUser, IEntity {
     }
 
     @Override
-    public User getUser(String id, Token token) {
-        
-        //Should return a user after next yaml update
-        //return this.sa.getUser(id);
-        User u = new User();
-        u.setAddress("sdlf");
-        u.setName("test");
+    public User getUser(String id, Token token) throws ApiException {
+        System.out.println("TOKEN : " + token);
+        User u = this.ua.getUser(id, token);
         return u;
     }
 

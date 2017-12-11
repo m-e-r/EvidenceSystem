@@ -20,7 +20,7 @@ public interface IUser {
    // public List<User> getUsersList(String location) throws ApiException;
     public boolean validateUser(User user) throws ApiException;
     
-    public User getUser(String id, Token token);
+    public User getUser(String id, Token token) throws ApiException;
     
     public Token doSomeLogin(String userName, String password) throws ApiException;
     public boolean updateUser(User user) throws ApiException;

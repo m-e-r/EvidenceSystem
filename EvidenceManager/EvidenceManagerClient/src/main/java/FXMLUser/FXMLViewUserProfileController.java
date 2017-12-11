@@ -116,11 +116,14 @@ public class FXMLViewUserProfileController implements Initializable {
      *
      * @param user The user that should be shown.
      */
-    public void initData(User user, Token t) {
+    public void initData(User user, Token t) throws ApiException{
         this.token = t;
-        this.user = user;
+        this.user = connect.getUser(this.token.getId(), this.token);
+        //this.user = user;
         
-
+        
+        System.out.println("USER: " + this.user);
+        
         this.nameTF.setText(this.user.getName());
         this.idTF.setText(this.user.getEmployeeId());
         this.birthdayTF.setText(this.user.getBirthday());
