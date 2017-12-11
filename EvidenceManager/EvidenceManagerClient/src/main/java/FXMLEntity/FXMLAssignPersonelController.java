@@ -30,6 +30,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -57,12 +58,17 @@ public class FXMLAssignPersonelController implements Initializable {
     @FXML
     private Button clearAllBTN;
     @FXML
+    private Button saveBTN;
+    @FXML
     private ListView<User> selectedLV;
     
     private Token token;
     private ObservableList<User> availableUsers, selectedUsers;
+    private List<User> incomingUsers;
     private IUser connect;
     private Date date;
+    private FXMLCaseController caseController;
+
     
     /**
      * Initializes the controller class.
@@ -72,11 +78,82 @@ public class FXMLAssignPersonelController implements Initializable {
         this.connect = new ServerConnect();
         this.date = new Date();
         this.selectedUsers = FXCollections.observableArrayList();
+        this.searchMethod();
     }
 
-    public void initData(Token token) {
+    public void initData(FXMLCaseController caseController, Token token) {
+        this.caseController = caseController;
         this.token = token;
         this.setUserList();
+    }
+    
+    private void setUserList() {
+        try {
+            this.incomingUsers = connect.getListOfUsers(this.token);
+        } catch (ApiException ex) {
+            Logger.getLogger(FXMLFindUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (this.incomingUsers != null) {
+            this.movePeopleBetweenOptions();
+            
+            TVidCol.setCellValueFactory(new PropertyValueFactory<User, String>("employeeId"));
+            TVNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
+            TVRankCol.setCellValueFactory(new PropertyValueFactory<User, String>("role"));
+            this.availableUsers = FXCollections.observableArrayList(this.incomingUsers);
+            usersTV.setItems(this.availableUsers);
+            this.token.setTimeStamp(Long.toString(this.date.getTime()));
+        }
+    }
+    
+    private void movePeopleBetweenOptions() {           
+        //Remove the person who is logged in from the options
+        for (int i = 0; i < this.incomingUsers.size(); i++) {
+            if (this.incomingUsers.get(i).getEmployeeId().equals(this.token.getId())) {
+                this.incomingUsers.remove(i);
+                break;
+            }
+        }
+
+        //Move people already associated with the case to the listView
+        for (int i = 0; i < this.caseController.getCase().getAssociates().size(); i++) {
+            for (int j = 0; j < this.incomingUsers.size(); j++) {
+                if (this.caseController.getCase().getAssociates().get(i).getEmployeeId().equals(this.incomingUsers.get(j).getEmployeeId()))
+                    this.selectedUsers.add(this.incomingUsers.get(j));
+                    this.incomingUsers.remove(j);
+            }
+        }
+        this.selectedLV.setItems(this.selectedUsers);
+    }
+    
+    private void searchMethod() {
+
+        searchTF.textProperty().addListener(new InvalidationListener() {
+
+            @Override
+            public void invalidated(javafx.beans.Observable observable) {
+                if (searchTF.textProperty().get().isEmpty()) {
+                    usersTV.setItems(availableUsers);
+                }
+
+                ObservableList<User> tableItems = FXCollections.observableArrayList();
+                ObservableList<TableColumn<User, ?>> cols = usersTV.getColumns();
+
+                for (int i = 0; i < availableUsers.size(); i++) {
+                    for (int j = 0; j < cols.size(); j++) {
+                        TableColumn col = cols.get(j);
+                        String cellValue = (String) col.getCellData(availableUsers.get(i)).toString();
+                        cellValue = cellValue.toLowerCase();
+                        if (cellValue.contains(searchTF.textProperty().get().toLowerCase())) {
+                            tableItems.add((User) availableUsers.get(i));
+                            break;
+                        }
+                    }
+                    usersTV.setItems(tableItems);
+
+                }
+            }
+        });
     }
 
     @FXML
@@ -142,53 +219,15 @@ public class FXMLAssignPersonelController implements Initializable {
             this.selectedLV.setItems(this.selectedUsers);
         }
     }
-    
-    private void setUserList() {
-        List<User> users = null;
-        try {
-            users = connect.getListOfUsers(this.token);
-        } catch (ApiException ex) {
-            Logger.getLogger(FXMLFindUserController.class.getName()).log(Level.SEVERE, null, ex);
+
+    @FXML
+    private void handleSaveAction(ActionEvent event) {
+        for (User user : this.selectedUsers) {
+            this.caseController.getCase().addAssociatesItem(user);
         }
-
-        if (users != null) {
-            TVidCol.setCellValueFactory(new PropertyValueFactory<User, String>("employeeId"));
-            TVNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
-            TVRankCol.setCellValueFactory(new PropertyValueFactory<User, String>("role"));
-            this.availableUsers = FXCollections.observableArrayList(users);
-            usersTV.setItems(this.availableUsers);
-            this.token.setTimeStamp(Long.toString(this.date.getTime()));
-        }
-    }
-    
-    private void searchMethod() {
-
-        searchTF.textProperty().addListener(new InvalidationListener() {
-
-            @Override
-            public void invalidated(javafx.beans.Observable observable) {
-                if (searchTF.textProperty().get().isEmpty()) {
-                    usersTV.setItems(availableUsers);
-                }
-
-                ObservableList<User> tableItems = FXCollections.observableArrayList();
-                ObservableList<TableColumn<User, ?>> cols = usersTV.getColumns();
-
-                for (int i = 0; i < availableUsers.size(); i++) {
-                    for (int j = 0; j < cols.size(); j++) {
-                        TableColumn col = cols.get(j);
-                        String cellValue = (String) col.getCellData(availableUsers.get(i)).toString();
-                        cellValue = cellValue.toLowerCase();
-                        if (cellValue.contains(searchTF.textProperty().get().toLowerCase())) {
-                            tableItems.add((User) availableUsers.get(i));
-                            break;
-                        }
-                    }
-                    usersTV.setItems(tableItems);
-
-                }
-            }
-        });
+        
+        Stage thisStage = (Stage) this.saveBTN.getScene().getWindow();
+        thisStage.close();
     }
     
 }
