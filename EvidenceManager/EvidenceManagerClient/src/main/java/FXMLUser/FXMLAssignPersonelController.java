@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package FXMLEntity;
+package FXMLUser;
 
+import FXMLEntity.FXMLCaseController;
 import FXMLUser.FXMLFindUserController;
 import FXMLUser.IUser;
 import io.swagger.client.ApiException;
