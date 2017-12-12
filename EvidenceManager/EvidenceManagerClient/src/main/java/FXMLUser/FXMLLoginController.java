@@ -5,7 +5,6 @@ import FXMLEntity.FXMLForensicEvidenceController;
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
 import io.swagger.client.model.Token;
-import io.swagger.client.model.Tokenfy;
 import io.swagger.client.model.UserType;
 import java.io.IOException;
 import java.net.URL;
@@ -27,7 +26,6 @@ import javafx.stage.StageStyle;
 import security.ClientSecurity;
 
 public class FXMLLoginController implements Initializable {
-    private Tokenfy tokenfy;
     //Attributes
     private IUser connect; //For calling methods on the server
     private ISecurity security;
