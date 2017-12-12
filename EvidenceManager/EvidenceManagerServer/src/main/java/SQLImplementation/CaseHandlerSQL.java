@@ -105,7 +105,7 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
                 ccase.setResponsible(responsible);
                 ccase.setStatus(status);
                 ccase.setIsBeingUpdated(isBeingEdited);
-                System.out.println("Is being edited");
+                 
                 ccase.setAssociates(getAssociates(id));
                 //ccase.setCaseSuspect(sal);
 
@@ -251,7 +251,7 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
         db.updateQuery(query);
         db.updateQuery(refQuery);
 
-        System.out.println(String.format("Evidence %s added!", e.getId()));
+         
 
     }
 

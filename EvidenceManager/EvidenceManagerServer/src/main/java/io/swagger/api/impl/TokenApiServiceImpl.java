@@ -38,7 +38,7 @@ public class TokenApiServiceImpl extends TokenApiService {
         try {
             token.toString();
         } catch (NullPointerException ne) {
-            System.out.println("Null token caught!");
+             
             return Response.ok().entity(false).build();
         }
         

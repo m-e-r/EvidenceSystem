@@ -141,7 +141,7 @@ public class FXMLShowCaseScreenController implements Initializable {
         this.valiBTN.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("heyyo");
+                 
                 try {
                     showValidationStage();
                 } catch (IOException ex) {
@@ -173,7 +173,7 @@ public class FXMLShowCaseScreenController implements Initializable {
      */
     public void initData(Token employee) throws ApiException {
         this.token = employee;
-        System.out.println("TOKEN init" + this.token);
+         
         this.showsRelevantCases();
         this.caseEditLV.getSelectionModel().select(0);
     }
@@ -205,7 +205,7 @@ public class FXMLShowCaseScreenController implements Initializable {
 
         FXMLCaseController caseScreenController = loader.<FXMLCaseController>getController();
 
-        System.out.println("TOKEN EDIT CASE SCREEN: " + this.token);
+         
 
         if (selectedCase == null) {
             this.caseNotEditedLBL.setVisible(true);
@@ -257,7 +257,7 @@ public class FXMLShowCaseScreenController implements Initializable {
 
     private void updateCaseOnClose(FXMLCaseController caseScreenController) {
         try {
-            System.out.println(caseScreenController.getCase());
+             
             caseScreenController.getCase().setIsBeingUpdated(false);
             caseScreenController.updateCase();
         } catch (ApiException ex) {

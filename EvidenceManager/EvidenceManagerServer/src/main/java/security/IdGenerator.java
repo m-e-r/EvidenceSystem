@@ -9,6 +9,10 @@ import SQLImplementation.IdGeneratorSQL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.omg.CORBA.TIMEOUT;
 
 /**
  * Class used to generate pseudorandom id's for evidence and cases.
@@ -35,9 +39,15 @@ public class IdGenerator {
      */
     public synchronized String generateCaseId() {
         this.x = Integer.parseInt(this.sec.getPrevCaseId());
-        System.out.println("x: " + this.x);
+        System.out.println("Latest id: " + this.x);
         this.a = 3;
         this.m = 729511;
+        
+        try {
+            TimeUnit.SECONDS.sleep(15);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(IdGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         String prefix, body, toCheckOn, checkDigit, fullId;
         
@@ -47,7 +57,7 @@ public class IdGenerator {
         checkDigit = this.generateCheckDigit(toCheckOn);
 
         fullId = prefix + "-" + body + "-" + checkDigit;
-        System.out.println(fullId);
+        System.out.println("New Id: " + fullId);
         this.sec.updateCaseId(this.x + "");
         return fullId;
     }
@@ -83,7 +93,7 @@ public class IdGenerator {
      * @return Returns a string containing the generated userid
      */
     public synchronized String generateUserId(String enumValue) {
-        System.out.println("This is the enum value: " + enumValue);
+         
         this.x = this.sec.getPrevUserId(enumValue);
         this.a = 3;
         this.m = 570926;

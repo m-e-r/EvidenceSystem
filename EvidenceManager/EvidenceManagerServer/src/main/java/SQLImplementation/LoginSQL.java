@@ -70,15 +70,15 @@ public class LoginSQL implements ILoginSQL {
      */
     @Override
     public boolean userExists(String username, String password) {
-        System.out.println(username);
-        System.out.println(password);
+         
+         
         String query = String.format("select username, passw from lawenforcer where username = '%s' and passw = '%s'", username, password);
         ResultSet select = db.executeQuery(query);
         String[] test = password.split(":");
-        System.out.println("test længde: " + test.length);
-        System.out.println(test[0].equals("1000"));
-        System.out.println(test[1].equals(""));
-        System.out.println(test[2].equals("b2a1ae045134e4240b875fed0c80738b9f244d00181fbe4340263269c1a8710c4029e07fe1827c3e"));
+         
+         
+         
+         
 
         try {         
            return select.next();
@@ -118,7 +118,7 @@ public class LoginSQL implements ILoginSQL {
 
     @Override
     public String getSalt(String username) {
-        System.out.println("Username: " + username);
+         
         String query = "Select passw from lawenforcer where username = '" + username + "'";
 
         ResultSet select = db.executeQuery(query);

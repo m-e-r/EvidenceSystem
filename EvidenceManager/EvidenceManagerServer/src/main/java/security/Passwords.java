@@ -37,10 +37,10 @@ public class Passwords {
         byte[] salt;
         
         if (!userExists) {
-            System.out.println("Findes ikke");
+             
             salt = this.getNextSalt();
         } else {
-            System.out.println("Findes godt");
+             
             salt = this.hexStringToByteArray(sql.getSalt(username));
         }
         

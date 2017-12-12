@@ -108,7 +108,7 @@ public class IdGeneratorSQL implements  IIdGeneratorSQL{
      */
     @Override
     public void updateUserId(String id, String role) {
-        System.out.println(role);
+         
         String query = String.format("UPDATE latestid set %s = '%s';", role, id);
         db.updateQuery(query);
     }
@@ -123,7 +123,7 @@ public class IdGeneratorSQL implements  IIdGeneratorSQL{
      */
     @Override
     public int getPrevUserId(String valueFromEnum) {
-        System.out.println("THIS IS THE ENUM------->>> " + valueFromEnum);
+         
         int latestId = 0;
         String query = String.format("SELECT %s FROM latestId", valueFromEnum);
         ResultSet select = db.executeQuery(query);

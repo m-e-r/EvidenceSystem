@@ -37,7 +37,7 @@ public class CaseApiServiceImpl extends CaseApiService {
             Token token = theCase.getToken();
             token.toString();
         } catch (NullPointerException ne) {
-            System.out.println("Null token on the case caught!");
+             
             return Response.ok().entity(false).build();
         }
         
@@ -52,8 +52,8 @@ public class CaseApiServiceImpl extends CaseApiService {
     public Response getCase(String caseId, Token token, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
         //if (this.val.callValidated(token))
-        System.out.println("CASE ID : \n" + caseId);
-        System.out.println("Case print: \n " + this.handler.getCase(caseId));
+         
+         
             return Response.ok().entity(this.handler.getCase(caseId)).build();
         //else
         //    return null;
@@ -66,7 +66,7 @@ public class CaseApiServiceImpl extends CaseApiService {
             Token token = theCase.getToken();
             token.toString();
         } catch (NullPointerException ne) {
-            System.out.println("Null token on the case caught!");
+             
             return Response.ok().entity(false).build();
         }
         
@@ -82,7 +82,7 @@ public class CaseApiServiceImpl extends CaseApiService {
         try {
             token.toString();
         } catch (NullPointerException ne) {
-            System.out.println("Null token on the case caught!");
+             
             return Response.ok().entity(false).build();
         }
         

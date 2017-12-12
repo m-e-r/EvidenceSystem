@@ -97,7 +97,7 @@ public class FXMLValidateUsersController implements Initializable {
      */
     @FXML
     private void handleValidationAction(ActionEvent event) throws ApiException {
-        System.out.println("UserNAme: " + this.user.getUsername());
+         
         this.user.setRole(this.rankCB.getValue().toString());
         this.user.setToken(this.token);
         

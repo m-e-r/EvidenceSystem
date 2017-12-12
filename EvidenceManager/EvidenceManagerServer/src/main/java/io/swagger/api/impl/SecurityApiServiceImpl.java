@@ -44,7 +44,7 @@ public class SecurityApiServiceImpl extends SecurityApiService {
             Token token = user.getToken();
             token.toString();
         } catch (NullPointerException ne) {
-            System.out.println("Null token caught!");
+             
             return Response.ok().entity(false).build();
         }
         if (this.val.callValidated(user.getToken()))

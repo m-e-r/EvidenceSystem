@@ -244,7 +244,7 @@ public class FXMLCaseController implements Initializable {
 
     public void addNewEvidence(Evidence evi) {
         if (evi != null) {
-            System.out.println("Tilføjet!");
+             
             this.cc.addCaseEvidenceItem(evi);
             this.evidenceListLV.getItems().add(evi);
             this.token.setTimeStamp(Long.toString(this.date.getTime()));
@@ -257,17 +257,17 @@ public class FXMLCaseController implements Initializable {
         this.cc.setStatus(CaseStatus.OPEN.toString());
 
         boolean success = false;
-        System.out.println("has been saved! " + this.hasBeenSaved);
+         
         if (this.hasBeenSaved) {
             success = this.connect.updateCase(this.cc);
         }
 
         
         if (success) {
-            System.out.println("Succesful");
+             
             this.token.setTimeStamp(Long.toString(this.date.getTime()));
         } else {
-            System.err.println("You're an idiot, try again");
+             
         }
     }
 
@@ -315,7 +315,7 @@ public class FXMLCaseController implements Initializable {
         caseInfoTA.setText(this.cc.getCaseDescription());
         caseTitleTF.setText(this.cc.getCaseName());
         this.caseNrTF.setText(this.cc.getId());
-        System.out.println("TOKEN:  " + this.token);
+         
         this.caseLawenforcerTF.setText(this.userConnect.getUser(this.cc.getResponsible(), this.token).getName());
         this.caseStatusCB.setValue(CaseStatus.fromValue(this.cc.getStatus()));
 
@@ -364,7 +364,7 @@ public class FXMLCaseController implements Initializable {
 //        id = ids[0];
 //        Evidence e = new Evidence();
 //        
-//        System.out.println(ids.toString());
+//         
 //        
 //    }
     /**
@@ -382,7 +382,7 @@ public class FXMLCaseController implements Initializable {
          */
         for (Evidence e : eList) {
 //           String adder = e.toString();
-//           System.err.println(adder);
+//            
             occS.add(e);
         }
 
@@ -498,6 +498,7 @@ public class FXMLCaseController implements Initializable {
 
         new Thread(() -> {
             try {
+                System.out.println("A call to generate an id was made!");
                 this.caseId = this.connect.generateCaseId(this.token);
                 this.caseNrTF.setText(this.caseId);
                 this.cc.setId(this.caseId);

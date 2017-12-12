@@ -44,7 +44,7 @@ public class UserHandlerSQL implements IUserHandlerSQL {
 
     @Override
     public boolean addUser(User user) {
-        System.out.println(user.getName() + user.getEmployeeId() + "     " + user.getRole()+ "     " + "\nUsername" + user.getUsername() + "\nPassword" + user.getPassword() + user.getAddress() + user.getBirthday() + user.getToken().getId());
+         
         String query = String.format("INSERT INTO lawenforcer(name, id, positionref,\n"
                 + "username, passw, validated, address, birthday, locationref)\n"
                 + "VALUES ('%s', '%s', (SELECT _ref FROM lawenforcerposition WHERE title = '%s'),\n"
@@ -52,7 +52,7 @@ public class UserHandlerSQL implements IUserHandlerSQL {
                 + "(SELECT locationref FROM lawenforcer WHERE id = '%s'))",
                 user.getName(), user.getEmployeeId(), user.getRole().toUpperCase(),
                 user.getUsername(), user.getPassword(), false, user.getAddress(), user.getBirthday(), user.getToken().getId());
-        System.out.println("TEST EFTER");
+         
         return this.db.updateQuery(query) == 1;
     }
 
@@ -150,15 +150,15 @@ public class UserHandlerSQL implements IUserHandlerSQL {
      */
     @Override
     public boolean validateUser(User user) {
-        System.out.println("ID: " + user.getEmployeeId());
-        System.out.println("Username: " + user.getUsername());
+         
+         
         String query = String.format("UPDATE public.lawenforcer\n"
                 + "	SET validated=true, id = '%s', positionref = (SELECT _ref FROM lawenforcerposition WHERE title = '%s')\n"
                 + "	WHERE username = '%s';", user.getEmployeeId(), user.getRole().toUpperCase(), user.getUsername());
 
-        System.out.println("ID        " + user.getEmployeeId());
-        System.out.println("RANK:     " + user.getRole().toUpperCase());
-        System.out.println("USERNAME: " + user.getUsername());
+         
+         
+         
 
         return this.db.updateQuery(query) == 1;
 
@@ -198,7 +198,7 @@ public class UserHandlerSQL implements IUserHandlerSQL {
         } catch (SQLException ex) {
             Logger.getLogger(UserHandlerSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("USER : " + user);
+         
         return user;
     }
 

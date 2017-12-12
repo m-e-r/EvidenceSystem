@@ -94,7 +94,7 @@ public class FXMLAssignPersonelController implements Initializable {
         } catch (ApiException ex) {
             Logger.getLogger(FXMLFindUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("Liste størrelse: " + this.incomingUsers.size());
+         
 
         if (this.incomingUsers != null) {
             this.movePeopleBetweenOptions();

@@ -31,12 +31,12 @@ public class UserApiServiceImpl extends UserApiService {
     public Response addUser(User user, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
         
-        System.out.println("API USERNAME : " + user.getUsername());
+         
         try {
             Token token = user.getToken();
             token.toString();
         } catch (NullPointerException ne) {
-            System.out.println("Null token caught!");
+             
             return Response.ok().entity(false).build();
         }
         if (this.val.callValidated(user.getToken()))
@@ -52,7 +52,7 @@ public class UserApiServiceImpl extends UserApiService {
         try {
             token.toString();
         } catch (NullPointerException ne) {
-            System.out.println("Null token caught!");
+             
             return null;
         }
         if (this.val.callValidated(token))
@@ -68,7 +68,7 @@ public class UserApiServiceImpl extends UserApiService {
             Token token = user.getToken();
             token.toString();
         } catch (NullPointerException ne) {
-            System.out.println("Null token caught!");
+             
             return Response.ok().entity(false).build();
         }
         

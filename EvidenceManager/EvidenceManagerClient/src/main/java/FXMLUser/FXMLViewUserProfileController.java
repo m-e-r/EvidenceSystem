@@ -118,12 +118,12 @@ public class FXMLViewUserProfileController implements Initializable {
      */
     public void initData(User user, Token t) throws ApiException{
         this.token = t;
-        System.out.println("TOKEN: " + this.token);
+         
         this.user = connect.getUser(user.getEmployeeId(), this.token);
         //this.user = user;
         
         
-        System.out.println("USER: " + this.user);
+         
         
         this.nameTF.setText(this.user.getName());
         this.idTF.setText(this.user.getEmployeeId());
@@ -138,14 +138,14 @@ public class FXMLViewUserProfileController implements Initializable {
 //        try {
 //            switch (UserType.valueOf("police_officer".toUpperCase())) {
 //                case SYSTEM_ADMIN:
-//                    System.out.println("yeah");
+//                     
 //                    break;
 //
 //                default:
-//                    System.out.println("Oh no");
+//                     
 //            }
 //        } catch (IllegalArgumentException ie) {
-//            System.out.println("Oh no x2");
+//             
 //        }
         
         this.idTF.setDisable(true);

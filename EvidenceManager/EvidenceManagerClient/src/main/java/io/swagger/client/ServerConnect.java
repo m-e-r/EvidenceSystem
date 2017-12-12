@@ -160,7 +160,7 @@ public class ServerConnect implements IUser, IEntity {
 
     @Override
     public User getUser(String id, Token token) throws ApiException {
-        System.out.println("TOKEN : " + token);
+         
         User u = this.ua.getUser(id, token);
         return u;
     }

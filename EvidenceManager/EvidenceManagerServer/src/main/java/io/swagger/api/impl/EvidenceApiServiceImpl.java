@@ -34,7 +34,7 @@ public class EvidenceApiServiceImpl extends EvidenceApiService {
         try {
             token.toString();
         } catch (NullPointerException ne) {
-            System.out.println("Null token caught!");
+             
             return Response.ok().entity(false).build();
         }
         
@@ -51,7 +51,7 @@ public class EvidenceApiServiceImpl extends EvidenceApiService {
             Token token = evidence.getToken();
             token.toString();
         } catch (NullPointerException ne) {
-            System.out.println("Null token caught!");
+             
             return Response.ok().entity(false).build();
         }
         
