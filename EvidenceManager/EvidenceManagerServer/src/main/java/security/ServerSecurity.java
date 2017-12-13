@@ -51,9 +51,11 @@ public class ServerSecurity implements Validator {
     }
     
     public String decrypt(String message) {
+        System.out.println("Message before decrypt: " + message);
         BigInteger m = new BigInteger(message);
         m = m.modPow(this.dBI, this.nBI);
         String s = this.numbersToMessage(m.toString());
+        System.out.println("Message after decrypt: " + s);
         return s;
     }
     
