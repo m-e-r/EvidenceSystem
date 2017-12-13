@@ -46,7 +46,7 @@ public class IdGenerator {
         String prefix, body, toCheckOn, checkDigit, fullId;
         
         prefix = this.generatePrefix("yyMM");
-        body = this.generateBody(10000);
+        body = this.generateBody(100000);
         toCheckOn = prefix + body;
         checkDigit = this.generateCheckDigit(toCheckOn);
 
