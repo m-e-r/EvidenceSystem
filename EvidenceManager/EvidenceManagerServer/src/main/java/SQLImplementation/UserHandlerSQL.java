@@ -31,7 +31,14 @@ public class UserHandlerSQL implements IUserHandlerSQL {
     public UserHandlerSQL() {
         this.db = new DBConnection();
     }
+    
+    /**
+     * Updates the user in the database.
+     * @param user
+     * @return boolean 
+     */
 
+    
     @Override
     public boolean updateUser(User user) {
         String query = String.format("UPDATE lawenforcer\n"
@@ -41,7 +48,14 @@ public class UserHandlerSQL implements IUserHandlerSQL {
 
         return this.db.updateQuery(query) == 1;
     }
+    
+    /**
+     * Adds a user to the 
+     * @param user
+     * @return 
+     */
 
+    
     @Override
     public boolean addUser(User user) {
          
@@ -101,7 +115,13 @@ public class UserHandlerSQL implements IUserHandlerSQL {
 
         return allUsers;
     }
-
+    
+    /**
+     * Returns a list of users based on their token. 
+     * @param token
+     * @return List<User>
+    */
+    
     @Override
     public List<User> getListOfUsers(Token token) {
         List<User> listOfUsers = new ArrayList<>();
@@ -163,7 +183,14 @@ public class UserHandlerSQL implements IUserHandlerSQL {
         return this.db.updateQuery(query) == 1;
 
     }
-
+    
+    /**
+     * Returns a user based on his id.
+     * @param id
+     * @return User
+     */
+    
+    
     @Override
     public User getUser(String id) {
         User user = null;
