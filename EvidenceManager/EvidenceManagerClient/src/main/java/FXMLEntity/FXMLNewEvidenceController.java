@@ -64,6 +64,8 @@ public class FXMLNewEvidenceController implements Initializable {
     private Button discardBTN;
     @FXML
     private ChoiceBox<String> evidenceCategoryCB;
+    
+    private String id;
 
     /**
      * Initializes the controller class.
@@ -72,16 +74,8 @@ public class FXMLNewEvidenceController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.date = new Date();
         this.connect = new ServerConnect();
-        String id = null;
-        try {
-            id = this.generateId();
-        } catch (ApiException ex) {
-            Logger.getLogger(FXMLNewEvidenceController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (id == null) {
-            this.evidenceNumTF.setText("No Id available.");
-            this.saveBTN.setDisable(true);
-        }
+        
+        
              
         this.evidenceNumTF.setDisable(true);
         this.evidenceTitleTF.requestFocus();
@@ -97,6 +91,16 @@ public class FXMLNewEvidenceController implements Initializable {
     public void initData(FXMLCaseController controller, Token token) {
         this.controller = controller;
         this.token = token;
+        try {
+            this.id = this.generateId();
+        } catch (ApiException ex) {
+            Logger.getLogger(FXMLNewEvidenceController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (this.id == null) {
+            this.evidenceNumTF.setText("No Id available.");
+            this.saveBTN.setDisable(true);
+        }
     } 
     /**
      * Saves the information about the new piece of evidence in a new evidence object.
