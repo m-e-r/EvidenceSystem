@@ -296,6 +296,13 @@ public class CaseHandlerSQL implements ICaseHandlerSQL {
         return eviList;
     }
 
+    /**
+     * Returns true, if the case selected from the database is being edited.
+     * @param id
+     * @return 1 
+     */
+
+    
     @Override
     public boolean isCaseBeingEdited(String id) {
         String query = String.format("SELECT isbeingedited FROM criminalcase where id = '%s'", id);

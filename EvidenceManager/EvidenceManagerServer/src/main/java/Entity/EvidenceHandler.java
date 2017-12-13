@@ -21,21 +21,56 @@ public class EvidenceHandler {
         this.handler = new EvidenceHandlerSQL();
     }
     
+    /**
+     * Returns the method of EvidenceHandlerSQL class of the same name.
+     * @param c
+     * @return 
+     */
+    
+    
     public List<Evidence> getEvidenceList(String keyword){
         return this.handler.getEvidenceList(keyword);
     }
+    
+    
+    /**
+     * Returns the method of EvidenceHandlerSQL class of the same name.
+     * @param c
+     * @return 
+     */
     
     public Evidence pickupEvidence(Evidence evidence, String userId){
         return this.handler.pickupEvidence(evidence, userId);
     }
     
+    
+    /**
+     * Returns the method of EvidenceHandlerSQL class of the same name.
+     * @param c
+     * @return 
+     */
+    
     public Evidence getEvidence(int id){
         return this.handler.getEvidence(id);
     }
     
+    
+    /**
+     * Returns the method of EvidenceHandlerSQL class of the same name.
+     * @param c
+     * @return 
+     */
+    
     public void editEvidence(Evidence evidence){
         //TODO
     }
+    
+    
+    /**
+     * Returns the method of EvidenceHandlerSQL class of the same name.
+     * @param c
+     * @return 
+     */
     
     public List<Evidence> getAllEvidence(User forensic) {
         return this.handler.getAllEvidence(forensic);

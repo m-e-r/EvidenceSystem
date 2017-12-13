@@ -137,13 +137,25 @@ public class IdGeneratorSQL implements  IIdGeneratorSQL{
         }
         return latestId;
     }
+    
+    /**
+     * Updates the id of the temp user 
+     * @param id 
+     */
 
+    
     @Override
     public void updateTempUserId(String id) {
         String query = "UPDATE latestid\n SET temp= " + "'" + id + "'";
         db.updateQuery(query);
     }
-
+    
+    
+  /**
+     * Gets the id of the previous temp user.
+     * @return 
+     */
+    
     @Override
     public String getPrevTempUserId() {
         String latestId = null;
