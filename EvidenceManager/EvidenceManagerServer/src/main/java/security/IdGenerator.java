@@ -32,6 +32,7 @@ public class IdGenerator {
 
     }
 
+    
     /**
      * Method used to generate a new case id.
      *
@@ -39,15 +40,8 @@ public class IdGenerator {
      */
     public synchronized String generateCaseId() {
         this.x = Integer.parseInt(this.sec.getPrevCaseId());
-        System.out.println("Latest id: " + this.x);
         this.a = 3;
         this.m = 729511;
-        
-        try {
-            TimeUnit.SECONDS.sleep(15);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(IdGenerator.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
         String prefix, body, toCheckOn, checkDigit, fullId;
         
@@ -57,7 +51,6 @@ public class IdGenerator {
         checkDigit = this.generateCheckDigit(toCheckOn);
 
         fullId = prefix + "-" + body + "-" + checkDigit;
-        System.out.println("New Id: " + fullId);
         this.sec.updateCaseId(this.x + "");
         return fullId;
     }
@@ -68,7 +61,7 @@ public class IdGenerator {
      * @return Returns the new evidence id as a string
      */
     public synchronized String generateEvidenceId() {
-
+        
             this.x = Integer.parseInt(this.sec.getPrevEvidenceId());
             this.a = 3;
             this.m = 7810294;
