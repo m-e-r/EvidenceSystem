@@ -31,7 +31,18 @@ public class Passwords {
         SecureRandom.getInstance("SHA1PRNG").nextBytes(salt);
         return salt;
     }
-
+    
+    /**
+     * Generates hash for the password. If the username exists in the database, the salt is returned from the database and used to hash the password.  
+     * Otherwise a new salt is generated.
+     * @param password
+     * @param username
+     * @param userExists
+     * @return String iterations, hashed password and 
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException 
+     */
+    
     public String passwordHashGenerator(String password, String username, boolean userExists) throws NoSuchAlgorithmException, InvalidKeySpecException {
         char[] charPassword = password.toCharArray();
         byte[] salt;

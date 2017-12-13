@@ -82,6 +82,12 @@ public class UserHandler {
         return this.handler.getListOfUsers(token);
     }
     
+    /**
+     * Returns a list of validated users from based on their token. 
+     * @param token
+     * @return 
+     */
+    
     public List<User> getListOfValidateUser(Token token) {
         return this.handler.getListOfValidateUser(token);
     }
