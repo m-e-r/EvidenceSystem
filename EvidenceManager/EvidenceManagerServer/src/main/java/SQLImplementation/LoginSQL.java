@@ -115,7 +115,13 @@ public class LoginSQL implements ILoginSQL {
         return id;
 
     }
-
+    
+    /**
+     * Returns the salt from the database.
+     * @param username
+     * @return string salt
+     */
+    
     @Override
     public String getSalt(String username) {
          
@@ -146,7 +152,14 @@ public class LoginSQL implements ILoginSQL {
         
         return salt;        
     }
+    
+    /**
+     * Checks if the username exists in the database.
+     * @param username
+     * @return boolean
+     */
 
+    
     @Override
     public boolean usernameExists(String username) {
         String query = String.format("SELECT * FROM lawenforcer WHERE username = '%s'", username);
@@ -157,7 +170,14 @@ public class LoginSQL implements ILoginSQL {
         }
         return false;
     }
+    
+    /**
+     * Gets the name of the lawenforcer on the basis of his ID.
+     * @param id
+     * @return String name
+     */
 
+    
     @Override
     public String getName(String id) {
         String query = String.format("SELECT name FROM lawenforcer WHERE id = '%s'", id);

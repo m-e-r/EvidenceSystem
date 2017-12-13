@@ -20,7 +20,7 @@ import org.omg.CORBA.TIMEOUT;
  * @author Kasper
  */
 public class IdGenerator {
-
+    
     private int a, x, m; //Integers used is the math used to generate ids
     private IIdGeneratorSQL sec; //SecureSql interfaces. Is implemented i the SQLstatement class
 
@@ -106,7 +106,10 @@ public class IdGenerator {
         this.sec.updateUserId(body, enumValue);
         return s;
     }
-
+    /**
+     * Generates an id for the temp user in the database.
+     * @return String id
+     */
     public synchronized String generateTempUserId() {
         this.x = Integer.parseInt(this.sec.getPrevTempUserId());
         this.a = 3;

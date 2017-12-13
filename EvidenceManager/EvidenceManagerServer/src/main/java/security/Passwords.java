@@ -38,7 +38,7 @@ public class Passwords {
      * @param password
      * @param username
      * @param userExists
-     * @return String iterations, hashed password and 
+     * @return String hashed password 
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException 
      */
