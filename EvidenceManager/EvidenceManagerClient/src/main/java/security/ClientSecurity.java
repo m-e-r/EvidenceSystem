@@ -52,13 +52,13 @@ public class ClientSecurity implements ISecurity {
             + "72165759629160744721474377168318662472572177028484481128552176780"
             + "258165133027801789915866451832227987862112469984557693";
 
-    private BigInteger nBI;
+    private BigInteger nBI = new BigInteger(N);
     
-    private BigInteger eBI;
+    private BigInteger eBI = new BigInteger(this.E);
     
     public ClientSecurity() {
-        nBI = new BigInteger(this.N);
-        eBI = new BigInteger(this.E);
+        //nBI = new BigInteger(this.N);
+        //eBI = new BigInteger(this.E);
     }
 
     
