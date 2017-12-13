@@ -31,7 +31,9 @@ public class EvidenceGeneratorApiServiceImpl extends EvidenceGeneratorApiService
     public Response genEvidenceId(Token token, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
         //if (this.val.callValidated(token))
-            return Response.ok().entity(this.gen.generateEvidenceId()).build();
+        String s = this.gen.generateEvidenceId();
+        System.out.println(s);
+            return Response.ok().entity(s).build();
         //else
         //    return null;
     }

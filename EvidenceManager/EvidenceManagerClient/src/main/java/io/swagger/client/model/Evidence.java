@@ -168,15 +168,12 @@ public class Evidence extends Tokenfy{
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Evidence {\n");
-    
-    sb.append("    category: ").append(toIndentedString(category)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    category: ").append(toIndentedString(category)).append("\n");
     sb.append("    location: ").append(toIndentedString(location)).append("\n");
     sb.append("    personResponsible: ").append(toIndentedString(personResponsible)).append("\n");
-    sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("}");
+    
     return sb.toString();
   }
 

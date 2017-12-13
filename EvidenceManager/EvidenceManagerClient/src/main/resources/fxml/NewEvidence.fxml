@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="460.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLEntity.FXMLNewEvidenceController">
+<AnchorPane id="AnchorPane" prefHeight="460.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLEntity.FXMLNewEvidenceController">
    <children>
       <VBox alignment="BOTTOM_CENTER" prefHeight="640.0" prefWidth="500.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -26,7 +26,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <GridPane hgap="6.0" vgap="8.0">
+            <GridPane hgap="6.0" vgap="22.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -37,15 +37,46 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="evidenceNumTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="120.0" promptText="ab-cdefg-h" />
-                  <TextField fx:id="evidenceLocTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="120.0" promptText="Location" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="evidenceRespTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Personel Responsible" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="evidenceTitleTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Title" GridPane.rowIndex="2" />
-                  <ChoiceBox fx:id="evidenceCategoryCB" prefWidth="150.0" GridPane.rowIndex="1" />
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Evidence ID" />
+                        <TextField fx:id="evidenceNumTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="120.0" promptText="ab-cdefg-h" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Evidence category" />
+                        <ChoiceBox fx:id="evidenceCategoryCB" prefWidth="150.0" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Location" />
+                        <TextField fx:id="evidenceLocTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="120.0" promptText="Location" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <children>
+                        <Label text="Personel responsible" />
+                        <TextField fx:id="evidenceRespTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Personel Responsible" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+                     <children>
+                        <Label text="Title" />
+                        <TextField fx:id="evidenceTitleTF" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Title" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </VBox>
                </children>
                <VBox.margin>
                   <Insets left="8.0" right="8.0" />
                </VBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </GridPane>
             <TextArea fx:id="evidenceDescTA" prefHeight="200.0" prefWidth="200.0" promptText="Describe the evidence" wrapText="true">
                <VBox.margin>
@@ -60,5 +91,6 @@
             </HBox>
          </children>
       </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" />
    </children>
 </AnchorPane>
