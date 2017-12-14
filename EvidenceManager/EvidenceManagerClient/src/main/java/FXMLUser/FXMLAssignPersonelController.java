@@ -82,12 +82,20 @@ public class FXMLAssignPersonelController implements Initializable {
         this.searchMethod();
     }
 
+    /**
+     * constructor for caseController
+     * @param caseController
+     * @param token 
+     */
     public void initData(FXMLCaseController caseController, Token token) {
         this.caseController = caseController;
         this.token = token;
         this.setUserList();
     }
 
+    /**
+     * sets the user list based on token
+     */
     private void setUserList() {
         try {
             this.incomingUsers = connect.getListOfUsers(this.token);

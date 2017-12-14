@@ -137,6 +137,9 @@ public class FXMLShowCaseScreenController implements Initializable {
         }
     }
 
+    /**
+     * handles the action showValidationStage()
+     */
     private void setValidateAction() {
         this.valiBTN.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -152,7 +155,12 @@ public class FXMLShowCaseScreenController implements Initializable {
             }
         });
     }
-
+    /**
+     * Shows the ValiedateUser.fxml stage
+     * @return stage(ValidateUsers.fxml)
+     * @throws IOException
+     * @throws ApiException 
+     */
     private Stage showValidationStage() throws IOException, ApiException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ValidateUsers.fxml"));
 
@@ -177,7 +185,11 @@ public class FXMLShowCaseScreenController implements Initializable {
         this.showsRelevantCases();
         this.caseEditLV.getSelectionModel().select(0);
     }
-
+    /**
+     *  method for selecting a case
+     * @return selected case
+     * @throws ApiException 
+     */
     private CriminalCase getSelectedCase() throws ApiException {
         String id;
         String[] ids = caseEditLV.getSelectionModel().getSelectedItem().split("\n");
@@ -255,9 +267,12 @@ public class FXMLShowCaseScreenController implements Initializable {
         return stage;
     }
 
+    /**
+     * update case when window is closed
+     * @param caseScreenController 
+     */
     private void updateCaseOnClose(FXMLCaseController caseScreenController) {
-        try {
-             
+        try {      
             caseScreenController.getCase().setIsBeingUpdated(false);
             caseScreenController.updateCase();
         } catch (ApiException ex) {
@@ -309,6 +324,13 @@ public class FXMLShowCaseScreenController implements Initializable {
 //        return stage;
 //        
 //    }
+    /**
+     * view profile
+     * @param event
+     * @return showUserScreenStage
+     * @throws IOException
+     * @throws ApiException 
+     */
     @FXML
     private void viewProfile(ActionEvent event) throws IOException, ApiException {
         showUserScreenStage(this.token);
@@ -317,7 +339,6 @@ public class FXMLShowCaseScreenController implements Initializable {
 
     /**
      * Displays the view user screen.
-     *
      * @param connector not relevant
      * @return stage.
      * @throws IOException
@@ -336,6 +357,10 @@ public class FXMLShowCaseScreenController implements Initializable {
         return stage;
     }
 
+    /**
+     *  search button for ShowCasesScreenController
+     * @param event 
+     */
     @FXML
     private void searchAction(ActionEvent event) {
         String searchInput = this.caseSearchTF.getText();
@@ -350,6 +375,10 @@ public class FXMLShowCaseScreenController implements Initializable {
         this.caseEditLV.setItems(this.tempCaseList);
     }
 
+    /**
+     * selected news mouse event
+     * @param event 
+     */
     @FXML
     private void handleChosenNewsAction(MouseEvent event) {
         if (this.newsLV.getSelectionModel().getSelectedItem() != null) {

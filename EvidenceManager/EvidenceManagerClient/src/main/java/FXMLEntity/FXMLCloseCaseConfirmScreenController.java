@@ -39,17 +39,21 @@ public class FXMLCloseCaseConfirmScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-
+  
+    /**
+     *  Boolean for closeing a case 
+     * @return close
+     */
     public boolean shouldCloseCase() {
         return this.close;
     }
-
+    
     @FXML
     private void dontSaveAction(ActionEvent event) {
         this.close = true;
         this.closeStage(this.noSaveBTN);
     }
-
+    
     @FXML
     private void cancelAction(ActionEvent event) {
         this.close = false;

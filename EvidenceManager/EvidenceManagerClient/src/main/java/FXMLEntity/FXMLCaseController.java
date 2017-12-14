@@ -510,18 +510,33 @@ public class FXMLCaseController implements Initializable {
 
     }
 
+    /**
+     *  getter for CriminalCase
+     * @return CriminalCase
+     */
     public CriminalCase getCase() {
         return this.cc;
     }
 
+    /**
+     *  check if a case has been changed
+     * @return boolean
+     */
     public boolean hasBeenChanged() {
         return this.hasBeenChanged;
     }
 
+    /**
+     *  check if a case had been edited before open 
+     * @return boolean
+     */
     public boolean wasBeingEditedBeforeOpen() {
         return this.wasBeingEditededBeforeOpen;
     }
 
+    /**
+     *  thread interupter
+     */
     public void interuptUpdateThread() {
         this.t.interrupt();
     }
