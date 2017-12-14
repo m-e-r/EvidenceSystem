@@ -22,13 +22,13 @@ import org.omg.CORBA.TIMEOUT;
 public class IdGenerator {
     
     private int a, x, m; //Integers used is the math used to generate ids
-    private IIdGeneratorSQL sec; //SecureSql interfaces. Is implemented i the SQLstatement class
+    private IIdGeneratorSQL sql; //SecureSql interfaces. Is implemented i the SQLstatement class
 
     /**
-     * Class constructor. Instantiates SQLStatement (sec)
+     * Class constructor. Instantiates SQLStatement (sql)
      */
     public IdGenerator() {
-        this.sec = new IdGeneratorSQL();
+        this.sql = new IdGeneratorSQL();
 
     }
 
@@ -39,19 +39,18 @@ public class IdGenerator {
      * @return Returns the new case id as a string
      */
     public synchronized String generateCaseId() {
-        this.x = Integer.parseInt(this.sec.getPrevCaseId());
+        this.x = Integer.parseInt(this.sql.getPrevCaseId()); //sql call
         this.a = 3;
         this.m = 729511;
-
         String prefix, body, toCheckOn, checkDigit, fullId;
         
-        prefix = this.generatePrefix("yyMM");
-        body = this.generateBody(100000);
+        prefix = this.generatePrefix("yyMM"); //with the date format
+        body = this.generateBody(100000); //with
         toCheckOn = prefix + body;
         checkDigit = this.generateCheckDigit(toCheckOn);
 
         fullId = prefix + "-" + body + "-" + checkDigit;
-        this.sec.updateCaseId(this.x + "");
+        this.sql.updateCaseId(this.x + "");
         return fullId;
     }
 
@@ -62,7 +61,7 @@ public class IdGenerator {
      */
     public synchronized String generateEvidenceId() {
         
-            this.x = Integer.parseInt(this.sec.getPrevEvidenceId());
+            this.x = Integer.parseInt(this.sql.getPrevEvidenceId());
             this.a = 3;
             this.m = 7810294;
 
@@ -73,7 +72,7 @@ public class IdGenerator {
             checkDigit = this.generateCheckDigit(toCheckOn);
 
             fullId = prefix + "-" + body + "-" + checkDigit;
-            this.sec.updateEvidenceId(this.x + "");
+            this.sql.updateEvidenceId(this.x + "");
        
         
         return fullId;
@@ -87,7 +86,7 @@ public class IdGenerator {
      */
     public synchronized String generateUserId(String enumValue) {
          
-        this.x = this.sec.getPrevUserId(enumValue);
+        this.x = this.sql.getPrevUserId(enumValue);
         this.a = 3;
         this.m = 570926;
 
@@ -96,7 +95,7 @@ public class IdGenerator {
         body = this.generateBody(100000);
 
         String s = enumValue + "-" + prefix + "-" + body;
-        this.sec.updateUserId(body, enumValue);
+        this.sql.updateUserId(body, enumValue);
         return s;
     }
     /**
@@ -104,7 +103,7 @@ public class IdGenerator {
      * @return String id
      */
     public synchronized String generateTempUserId() {
-        this.x = Integer.parseInt(this.sec.getPrevTempUserId());
+        this.x = Integer.parseInt(this.sql.getPrevTempUserId());
         this.a = 3;
         this.m = 7321;
         String prefix, date, body, fullId;
@@ -113,7 +112,7 @@ public class IdGenerator {
         body = this.generateBody(1000);
 
         fullId = prefix + "-" + date + body;
-        this.sec.updateTempUserId(body);
+        this.sql.updateTempUserId(body);
         return fullId;
     }
 
