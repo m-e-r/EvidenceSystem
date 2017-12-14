@@ -153,7 +153,10 @@ public class FXMLNewEvidenceController implements Initializable {
         this.controller.addNewEvidence(this.evidence);
     }
     
-    
+    /**
+     * 
+     * @throws IOException 
+     */
     private void goBack() throws IOException {
         this.controller.addNewEvidence(this.evidence);
     }

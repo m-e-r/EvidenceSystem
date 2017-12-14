@@ -123,6 +123,10 @@ public class FXMLValidateUsersController implements Initializable {
         
     }
     
+    /**
+     *  sets items in listview
+     * @param token 
+     */
     public void initData(Token token) {
         this.token = token;
         List<User> usersIn = new ArrayList();

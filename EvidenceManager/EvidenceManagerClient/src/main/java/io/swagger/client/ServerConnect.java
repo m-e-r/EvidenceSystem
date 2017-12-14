@@ -158,6 +158,13 @@ public class ServerConnect implements IUser, IEntity {
         return this.sa.validateUser(user);
     }
 
+    /**
+     * Returns a User
+     * @param id
+     * @param token
+     * @return user
+     * @throws ApiException 
+     */
     @Override
     public User getUser(String id, Token token) throws ApiException {
          
@@ -165,6 +172,12 @@ public class ServerConnect implements IUser, IEntity {
         return u;
     }
 
+    /**
+     * Updates a user
+     * @param user
+     * @return boolean
+     * @throws ApiException 
+     */
     @Override
     public boolean updateUser(User user) throws ApiException {
         return this.ua.updateUser(user);

@@ -38,6 +38,7 @@ public enum UserType {
     return String.valueOf(value);
   }
 
+ 
   public static UserType fromValue(String text) {
     for (UserType b : UserType.values()) {
       if (String.valueOf(b.value).equals(text)) {
