@@ -51,13 +51,18 @@ public class Login implements ILogin {
      */
     @Override
     public Token doLogin(String message) {
+        
+        
         String[] sA = message.split(";");
         if (sA[0].trim().isEmpty() || sA[1].trim().isEmpty()) {
             return null;
         }
         
-        this.plainUsername = ss.decrypt(sA[0]);
-        this.plainPassword = ss.decrypt(sA[1]);
+        //this.plainUsername = ss.decrypt(sA[0]);
+        //this.plainPassword = ss.decrypt(sA[1]);
+        
+        this.plainUsername = sA[0];
+        this.plainPassword = sA[1];
        
         if (!this.hashPassword())
             return null;

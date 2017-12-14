@@ -73,8 +73,8 @@ public class FXMLLoginController implements Initializable {
         }
         
         //Encrypt username and password
-        userName = this.security.encrypt(userName);
-        password = this.security.encrypt(password);
+        //userName = this.security.encrypt(userName);
+        //password = this.security.encrypt(password);
         
         //Send the information the the server
         Token token = this.connect.doSomeLogin(userName, password);

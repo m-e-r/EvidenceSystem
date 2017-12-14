@@ -5,7 +5,6 @@ package FXMLEntity;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import FXMLEntity.FXMLCaseController;
 import io.swagger.client.ApiException;
 import io.swagger.client.ServerConnect;
@@ -39,12 +38,15 @@ import javafx.stage.StageStyle;
  * @author Kasper
  */
 public class FXMLNewEvidenceController implements Initializable {
+
     private IEntity connect;
     private Evidence evidence;
     private FXMLCaseController controller;
     private ObservableList<String> categories;
     private Date date;
     private Token token;
+
+    private String id;
 
     @FXML
     private TextField evidenceNumTF;
@@ -72,104 +74,123 @@ public class FXMLNewEvidenceController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.date = new Date();
         this.connect = new ServerConnect();
-        String id = null;
-        try {
-            id = this.generateId();
-        } catch (ApiException ex) {
-            Logger.getLogger(FXMLNewEvidenceController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (id == null) {
-            this.evidenceNumTF.setText("No Id available.");
-            this.saveBTN.setDisable(true);
-        }
-             
+
         this.evidenceNumTF.setDisable(true);
         this.evidenceTitleTF.requestFocus();
-        
+
         this.categories = FXCollections.observableArrayList("Drugs", "Not Drugs");
         this.evidenceCategoryCB.setItems(this.categories);
         this.evidenceCategoryCB.setValue("Drugs");
-    }    
+    }
+
     /**
      * Parses a FXMLCaseController
-     * @param controller 
+     *
+     * @param controller
      */
     public void initData(FXMLCaseController controller, Token token) {
         this.controller = controller;
         this.token = token;
-    } 
+
+        try {
+            id = this.generateId();
+            System.out.println(id);
+        } catch (ApiException ex) {
+            Logger.getLogger(FXMLNewEvidenceController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (id == null) {
+            this.evidenceNumTF.setText("No Id available.");
+            this.saveBTN.setDisable(true);
+        } else {
+
+            this.evidenceNumTF.setText(id);
+        }
+    }
+
     /**
-     * Saves the information about the new piece of evidence in a new evidence object.
+     * Saves the information about the new piece of evidence in a new evidence
+     * object.
+     *
      * @param event
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
     private void handleSaveAction(ActionEvent event) throws IOException {
         this.evidence = new Evidence();
         String description, location, title, resp;
-        
+
         if (this.evidenceDescTA.getText().trim().isEmpty()) {
             description = "Default Description";
         } else {
             description = this.evidenceDescTA.getText();
         }
-        
+
         if (this.evidenceLocTF.getText().trim().isEmpty()) {
             location = "Default Location";
         } else {
             location = this.evidenceLocTF.getText();
         }
-        
+
         if (this.evidenceTitleTF.getText().trim().isEmpty()) {
             title = "Default Title";
         } else {
             title = this.evidenceTitleTF.getText();
         }
-        
+
         if (this.evidenceRespTF.getText().trim().isEmpty()) {
             resp = "Default Personel Responsible";
         } else {
             resp = this.evidenceRespTF.getText();
         }
-        
+
         this.evidence.setDescription(description);
         this.evidence.setId(this.evidenceNumTF.getText());
         this.evidence.setLocation(location);
         this.evidence.setTitle(title);
         this.evidence.setPersonResponsible(resp);
         this.evidence.setCategory(this.evidenceCategoryCB.getValue());
-        
+
         this.goBack();
         Stage stage = (Stage) this.saveBTN.getScene().getWindow();
         stage.close();
     }
 
     /**
-     * Adds the piece of evidence from the handleSaveAction method using the addnewEvidence method on another controller.
-     * @param event 
+     * Adds the piece of evidence from the handleSaveAction method using the
+     * addnewEvidence method on another controller.
+     *
+     * @param event
      */
     @FXML
     private void handleDiscardAction(ActionEvent event) {
-        this.controller.addNewEvidence(this.evidence);
+        Stage stage = (Stage) this.discardBTN.getScene().getWindow();
+        stage.close();
     }
+<<<<<<< HEAD
     
     /**
      * 
      * @throws IOException 
      */
+=======
+
+>>>>>>> 2192da0bee02438f2414b1bdd01bd6f1252dac4a
     private void goBack() throws IOException {
         this.controller.addNewEvidence(this.evidence);
     }
-    
+
     /**
-     * Returns a string ID from the generateEvidenceId method on the ServerConnect object. 
+     * Returns a string ID from the generateEvidenceId method on the
+     * ServerConnect object.
+     *
      * @return ID generated using the generateEvidenceId method.
-     * @throws ApiException 
+     * @throws ApiException
      */
     private String generateId() throws ApiException {
         return this.connect.generateEvidenceId(this.token);
     }
-    
+
 //    private String generateId() {
 //        StringBuilder str = new StringBuilder();
 //        int year = 17, month = 11, mod = 4096*16, body, check, adder = 0;
@@ -206,6 +227,4 @@ public class FXMLNewEvidenceController implements Initializable {
 //        return new String(fullBody);
 //    }
 //    
-    
-
 }
