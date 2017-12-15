@@ -57,7 +57,7 @@ public class FXMLLoginController implements Initializable {
      */
     @FXML
     private void handleLoginAction(ActionEvent event) throws ApiException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-   
+        Stage thisStage = (Stage) this.loginBTN.getScene().getWindow(); //for closing this window
         
         String userName = "";
         String password = "";
@@ -82,15 +82,19 @@ public class FXMLLoginController implements Initializable {
             UserType rank = UserType.valueOf(token.getUsertype());
             switch (rank) {
                 case COMISSIONER: this.showCaseScreenStage(token);
+                                  thisStage.close();
                 break;
                 
                 case POLICE_OFFICER: this.showCaseScreenStage(token);
+                                     thisStage.close();
                 break;
                 
                 case FORENSIC_SCIENTIST: this.showForensicEvidenceStage(token);
+                                         thisStage.close();
                 break;
                 
                 case SYSTEM_ADMIN: this.showAdminStage(token);
+                                   thisStage.close();
                 break;
                 
                 default: this.loginLabel.setText("Somthing wrong");

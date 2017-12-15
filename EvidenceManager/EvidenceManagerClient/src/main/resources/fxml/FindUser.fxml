@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLUser.FXMLFindUserController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLUser.FXMLFindUserController">
    <children>
       <VBox layoutX="262.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -30,6 +30,7 @@
             </TableView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="45.0">
                <children>
+                  <Button fx:id="logoutBTN" mnemonicParsing="false" onAction="#handleLogoutAction" text="Log out" />
                   <Button fx:id="viewBTN" mnemonicParsing="false" onAction="#viewUser" text="View user">
                      <HBox.margin>
                         <Insets />

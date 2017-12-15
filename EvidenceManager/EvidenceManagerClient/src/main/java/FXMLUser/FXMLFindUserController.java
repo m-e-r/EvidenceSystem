@@ -66,6 +66,8 @@ public class FXMLFindUserController implements Initializable {
     private User admin;
     private Token token;
     private Date date;
+    @FXML
+    private Button logoutBTN;
 
     /**
      * Initializes the controller class.
@@ -180,5 +182,19 @@ public class FXMLFindUserController implements Initializable {
             }
         });
     }
+
+    @FXML
+    private void handleLogoutAction(ActionEvent event) throws IOException {
+        this.token.setTimeStamp("0");
+        Stage thisStage = (Stage) this.logoutBTN.getScene().getWindow();
+        thisStage.close();
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LoginScreen.fxml"));
+
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene((Pane) loader.load()));
+
+        stage.setTitle("Login for Evidence Management System");
+        stage.show();    }
 
 }

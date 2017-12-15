@@ -167,15 +167,7 @@ public class FXMLNewEvidenceController implements Initializable {
         Stage stage = (Stage) this.discardBTN.getScene().getWindow();
         stage.close();
     }
-<<<<<<< HEAD
-    
-    /**
-     * 
-     * @throws IOException 
-     */
-=======
 
->>>>>>> 2192da0bee02438f2414b1bdd01bd6f1252dac4a
     private void goBack() throws IOException {
         this.controller.addNewEvidence(this.evidence);
     }

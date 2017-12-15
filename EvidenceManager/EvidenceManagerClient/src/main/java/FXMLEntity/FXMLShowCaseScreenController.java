@@ -81,6 +81,8 @@ public class FXMLShowCaseScreenController implements Initializable {
     private ListView<News> newsLV;
     @FXML
     private TextArea selectedNewsTA;
+    @FXML
+    private Button logoutBTN;
 
     /**
      * Initializes the controller class.
@@ -384,6 +386,21 @@ public class FXMLShowCaseScreenController implements Initializable {
         if (this.newsLV.getSelectionModel().getSelectedItem() != null) {
             this.selectedNewsTA.setText(this.newsLV.getSelectionModel().getSelectedItem().getBody());
         }
+    }
+
+    @FXML
+    private void handleLogoutAction(ActionEvent event) throws IOException {
+        this.token.setTimeStamp("0");
+        Stage thisStage = (Stage) this.logoutBTN.getScene().getWindow();
+        thisStage.close();
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LoginScreen.fxml"));
+
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene((Pane) loader.load()));
+
+        stage.setTitle("Login for Evidence Management System");
+        stage.show();
     }
 
 }
