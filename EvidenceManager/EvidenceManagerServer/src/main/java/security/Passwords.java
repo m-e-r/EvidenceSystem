@@ -28,7 +28,7 @@ public class Passwords {
     private byte[] getNextSalt() throws NoSuchAlgorithmException {
         byte[] salt = new byte[160];
         //Could use getInstanceStrong() instead, but doesn't work with linux systems
-        SecureRandom.getInstance("SHA1PRNG").nextBytes(salt);
+        SecureRandom.getInstance("NativePRNG").nextBytes(salt);
         return salt;
     }
     
