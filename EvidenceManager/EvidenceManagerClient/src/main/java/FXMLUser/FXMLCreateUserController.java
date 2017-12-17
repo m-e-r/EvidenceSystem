@@ -67,6 +67,7 @@ public class FXMLCreateUserController implements Initializable {
         this.newUser = new User();
         this.cs= new ClientSecurity();
         
+        this.successLabel.setVisible(false);
         this.missingLabel.setVisible(false);
         this.userNameTakenLabel.setVisible(false);
         
