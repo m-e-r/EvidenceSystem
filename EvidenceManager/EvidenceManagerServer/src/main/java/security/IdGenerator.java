@@ -45,12 +45,12 @@ public class IdGenerator {
         String prefix, body, toCheckOn, checkDigit, fullId;
         
         prefix = this.generatePrefix("yyMM"); //with the date format
-        body = this.generateBody(100000); //with
+        body = this.generateBody(100000); //with the min length
         toCheckOn = prefix + body;
         checkDigit = this.generateCheckDigit(toCheckOn);
 
         fullId = prefix + "-" + body + "-" + checkDigit;
-        this.sql.updateCaseId(this.x + "");
+        this.sql.updateCaseId(this.x + ""); //sql call
         return fullId;
     }
 

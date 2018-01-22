@@ -39,8 +39,10 @@ public class UserApiServiceImpl extends UserApiService {
              
             return Response.ok().entity(false).build();
         }
-        if (this.val.callValidated(user.getToken()))
+        if (this.val.callValidated(user.getToken())) {
+            System.out.println("User with ID: " + user.getEmployeeId());
             return Response.ok().entity(this.userH.addUser(user)).build();
+        }
         else
             return Response.ok().entity(false).build();
     }

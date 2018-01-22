@@ -43,6 +43,7 @@ public class TokenApiServiceImpl extends TokenApiService {
         }
         
         if (this.val.callValidated(token)) {   
+            System.out.println("Getting all users relevant for the admin with ID: " + token.getId());
             return Response.ok().entity(this.userH.getListOfUsers(token)).build();
         }
         return null;

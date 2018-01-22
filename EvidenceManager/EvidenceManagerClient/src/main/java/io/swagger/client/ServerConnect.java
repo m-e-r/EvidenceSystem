@@ -39,7 +39,7 @@ public class ServerConnect implements IUser, IEntity {
         this.ac = new ApiClient();
         this.ac.setBasePath("http://localhost:8080/m-e-r/Evidence/5");
         //this.ac.setBasePath("http://10.126.118.185:8080/m-e-r/Evidence/5");
-        //this.ac.setBasePath("http://10.126.93.21:8080/m-e-r/Evidence/5");
+        //this.ac.setBasePath("http://10.126.126.98:8080/m-e-r/Evidence/5");
         this.cca = new CriminalCaseApi(this.ac);
         this.ea = new EvidenceApi(this.ac);
         this.sa = new SecurityApi(this.ac);
@@ -56,7 +56,9 @@ public class ServerConnect implements IUser, IEntity {
      */
     @Override
     public Token doSomeLogin(String userName, String password) throws ApiException {
+        System.out.println(userName + password);
         Token ans = this.sa.doLogin(userName, password);
+        
         return ans;
     }
 

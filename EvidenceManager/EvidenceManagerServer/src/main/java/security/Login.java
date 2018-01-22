@@ -57,12 +57,14 @@ public class Login implements ILogin {
         if (sA[0].trim().isEmpty() || sA[1].trim().isEmpty()) {
             return null;
         }
+        System.out.println("Received login attempt with encrypted username:\n" + sA[0] + "\nAnd encrypted password:\n" + sA[1]);
         
-        //this.plainUsername = ss.decrypt(sA[0]);
-        //this.plainPassword = ss.decrypt(sA[1]);
+        this.plainUsername = ss.decrypt(sA[0]);
+        this.plainPassword = ss.decrypt(sA[1]);
+        System.out.println("\nDecrypted username: " + this.plainUsername + "\nDecrypted password: " + this.plainPassword);
         
-        this.plainUsername = sA[0];
-        this.plainPassword = sA[1];
+        //this.plainUsername = sA[0];
+        //this.plainPassword = sA[1];
        
         if (!this.hashPassword())
             return null;
@@ -73,7 +75,8 @@ public class Login implements ILogin {
             
             if (!this.isUserValidated(id) || !this.isUserSupportedType(id))
                 return null;
-
+            
+            System.out.println("Succesfull login");
             return this.setToken(id);
         }
         

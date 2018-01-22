@@ -31,29 +31,29 @@ public class CaseApiServiceImpl extends CaseApiService {
     
     @Override
     public Response addCase(CriminalCase theCase, SecurityContext securityContext) throws NotFoundException {
+        Token token = theCase.getToken();
         
-        //First check for null
-        try {
-            Token token = theCase.getToken();
-            token.toString();
-        } catch (NullPointerException ne) {
-             
+        //First, check for null
+        try {    
+            token.toString(); 
+        } catch (NullPointerException ne) {             
             return Response.ok().entity(false).build();
         }
         
-        //Second check for valid
-        if (this.val.callValidated(theCase.getToken())) 
+        //Second, check for valid token
+        if (this.val.callValidated(token)) {
+            System.out.println("Case: " + theCase.getCaseName() + " - with ID: " + theCase.getId() + " was added.");
             return Response.ok().entity(this.handler.addCase(theCase)).build();
+        }
         
-
         return Response.ok().entity(false).build();
     }
     @Override
     public Response getCase(String caseId, Token token, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
         //if (this.val.callValidated(token))
-         
-         
+            CriminalCase theCase = this.handler.getCase(caseId);
+            System.out.println("Fetching case: " + theCase.getCaseName() + " - with ID: " + theCase.getId());
             return Response.ok().entity(this.handler.getCase(caseId)).build();
         //else
         //    return null;
@@ -70,8 +70,10 @@ public class CaseApiServiceImpl extends CaseApiService {
             return Response.ok().entity(false).build();
         }
         
-        if (this.val.callValidated(theCase.getToken()))
+        if (this.val.callValidated(theCase.getToken())) {
+            System.out.println("Updated case with ID: " + theCase.getId());
             return Response.ok().entity(this.handler.updateCase(theCase)).build();
+        }
         else
             return Response.ok().entity(false).build();
     }
@@ -86,8 +88,10 @@ public class CaseApiServiceImpl extends CaseApiService {
             return Response.ok().entity(false).build();
         }
         
-        if (this.val.callValidated(token)) 
+        if (this.val.callValidated(token)) {
+            System.out.println("Fetching cases relevant for employeeID: " + token.getId());
             return Response.ok().entity(this.handler.getCases(token.getId())).build();
+        }
         
         else
             return null;

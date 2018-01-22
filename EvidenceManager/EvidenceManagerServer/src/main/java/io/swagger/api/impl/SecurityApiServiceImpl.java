@@ -34,7 +34,9 @@ public class SecurityApiServiceImpl extends SecurityApiService {
     @Override
     public Response doLogin(String userName, String password, SecurityContext securityContext) throws NotFoundException {
         String s = userName + ";" + password;
-        return Response.ok().entity(this.i.doLogin(s)).build();
+        Token result = this.i.doLogin(s);
+
+        return Response.ok().entity(result).build();
     }
 
     @Override
@@ -47,8 +49,10 @@ public class SecurityApiServiceImpl extends SecurityApiService {
              
             return Response.ok().entity(false).build();
         }
-        if (this.val.callValidated(user.getToken()))
+        if (this.val.callValidated(user.getToken())) {
+            System.out.println("Successfully validated user with ID: " + user.getEmployeeId());
             return Response.ok().entity(this.userH.validateUser(user)).build();
+        }
         else
             return Response.ok().entity(false).build();
     }
